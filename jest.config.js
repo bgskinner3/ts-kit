@@ -1,4 +1,4 @@
-const { createDefaultPreset } = require("ts-jest");
+const { createDefaultPreset } = require('ts-jest');
 
 const tsJestTransformCfg = createDefaultPreset().transform;
 
@@ -8,7 +8,7 @@ module.exports = {
   testEnvironment: 'node',
   testMatch: ['**/tests/**/*.test.ts'],
   collectCoverage: true,
-  coverageDirectory: 'coverage'
+  coverageDirectory: 'coverage',
 };
 // module.exports = {
 //   testEnvironment: "node",

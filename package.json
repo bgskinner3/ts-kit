@@ -4,14 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-       "build": "tsc",
+    "build": "tsc",
     "test": "jest",
     "cov:test": "jest --coverage",
     "lint": "eslint '**/*.{ts,tsx}' --max-warnings=0",
     "lint:fix": "eslint '**/*.{ts,tsx}' --fix",
     "format": "prettier --write '**/*.{ts,tsx,js,json,md}'",
     "format:check": "prettier --check '**/*.{ts,tsx,js,json,md}'"
-    
   },
   "keywords": [],
   "author": "",

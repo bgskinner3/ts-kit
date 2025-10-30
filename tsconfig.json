@@ -1,15 +1,21 @@
 {
   "compilerOptions": {
     "target": "ES2020",
-    "module": "CommonJS",
+    "module": "ES2020", // For tree-shaking-friendly modules
     "declaration": true,
+    "declarationMap": true, // Helps VS Code resolve docs links
     "outDir": "dist",
     "rootDir": "src",
     "strict": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
+  "include": ["src", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", "tests", "dist"]
 }
