@@ -1,0 +1,23 @@
+/node_modules
+node_modules/
+.DS_Store
+
+# local env files
+.env.local
+.env.*.local
+.env
+
+
+package-lock.json
+
+# notes
+notes.md
+save.md
+
+# Build files
+/dist
+
+/notes.md
+
+
+
