@@ -1,21 +1,43 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "ES2020", // For tree-shaking-friendly modules
-    "declaration": true,
-    "declarationMap": true, // Helps VS Code resolve docs links
+    /* === Output === */
+    "target": "ES2020", // Good modern baseline
+    "module": "ES2020", // For ESM + tree-shaking
+    "moduleResolution": "bundler", // ⚡ Recommended for TS 5.3+ + ESM projects
     "outDir": "dist",
     "rootDir": "src",
-    "strict": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true, // Helpful when debugging distributed code
+    /* === Interop & Imports === */
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true, // For smoother import of CJS deps
+    "resolveJsonModule": true,
+    /* === Strictness === */
+    "strict": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-    "resolveJsonModule": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    /* === Build Quality === */
+    "newLine": "lf",
+    "stripInternal": true, // Hide @internal exports from .d.ts
+    "isolatedModules": true, // Ensures safe transpilation
+    "noEmitOnError": true, // Avoid emitting on compile errors
+    /* === Output Format === */
+    "removeComments": false, // Keep comments for better docs
+    "lib": ["ES2020", "DOM"], // Include DOM if utils may run in browsers
+    "types": ["node"] // Include Node globals (if you target Node)
   },
-  "include": ["src", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules", "tests", "dist"]
+  "include": ["src/**/*"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "coverage",
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    "global"
+  ]
 }

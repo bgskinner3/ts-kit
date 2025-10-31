@@ -1,0 +1,59 @@
+{
+  // 🔹 Language-specific formatter settings
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "editor.formatOnType": false
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "editor.formatOnType": false
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "editor.formatOnType": false
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "editor.formatOnType": false
+  },
+
+  // 🔹 Prettier
+  "prettier.requireConfig": true,
+  "editor.formatOnSaveMode": "file",   // format the entire file
+  "prettier.useEditorConfig": false,   // ignore .editorconfig to avoid conflicts
+
+  // 🔹 ESLint
+  "eslint.enable": true,
+  "eslint.run": "onType",
+  "eslint.experimental.useFlatConfig": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": false   // disable ESLint auto-fixes to avoid overwriting Prettier
+  },
+
+  // 🔹 TypeScript preferences
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+
+  // 🔹 Editor settings
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+
+  // 🔹 Files to ignore in VS Code
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/coverage": true
+  }
+}

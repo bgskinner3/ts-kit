@@ -1,0 +1,151 @@
+import { exportAndRenameStaticMethods } from '../../managers';
+
+/**
+ * ## 🧩 Available Methods
+ *
+ * - `keys` — Returns the keys of an object with full type inference.
+ * - `entries` — Returns typed key-value pairs of an object.
+ * - `fromEntries` — Builds a typed object from key-value entry tuples.
+ * - `values` — Returns the values of an object with inferred types.
+ * - `has` — Checks if a nested property exists via dot notation.
+ * - `get` — Safely retrieves a nested property using a dot path.
+ * - `set` — Safely sets a nested property using a dot path.
+ *
+ * ---
+ * @see {@link CommonUtilsDocs.ObjectUtils}
+ */
+class ObjectUtils {
+  /**
+   * Returns the keys of an object while protecting key inference.
+   *
+   * @template Obj - The object type
+   * @param {Obj} obj - The object to extract keys from
+   */
+  static keys<Obj extends object>(obj: Obj) {
+    return Object.keys(obj) as (keyof Obj)[];
+  }
+  /**
+   * Returns the key-value pairs of an object while protecting type inference.
+   *
+   * @template T - The object type
+   * @param {T} obj - The object to extract key-value pairs from
+   */
+  static entries<T extends Record<string, unknown>>(
+    obj: T,
+  ): [keyof T, T[keyof T]][] {
+    return obj ? (Object.entries(obj) as [keyof T, T[keyof T]][]) : [];
+  }
+  /**
+   * Constructs an object from an array of entries with type safety.
+   */
+
+  // static fromEntries<K extends string, V>(entries: [K, V][]): Record<K, V> {
+  //   return Object.fromEntries(entries) as Record<K, V>;
+  // }
+  static fromEntries<
+    K extends string | number | symbol = string, // default key type
+    V = any,
+  >(entries: [K, V][]): Record<K, V> {
+    return Object.fromEntries(entries) as Record<K, V>;
+  }
+  /**
+   * Returns the values of an object while protecting type inference.
+   *
+   * @template Obj - The object type
+   * @param {Obj} obj - The object to extract values from
+   */
+  static values<Obj extends object>(obj: Obj) {
+    return Object.values(obj) as Obj[keyof Obj][];
+  }
+
+  /**
+   * Checks if a nested property exists in an object using dot notation.
+   * @param obj - The object to check.
+   * @param path - Dot-separated path like 'user.profile.name'
+   */
+  static has<Obj extends object>(obj: Obj, path: string): boolean {
+    if (!path) return false;
+    const keys = path.split('.');
+    let current: any = obj;
+    for (const key of keys) {
+      if (current == null || !(key in current)) return false;
+      current = current[key];
+    }
+    return true;
+  }
+
+  /**
+   * Safely gets a nested property from an object using dot notation.
+   * @param obj - The object to access.
+   * @param path - Dot-separated path like 'user.profile.name'
+   */
+  static get<Obj extends object, Path extends string>(
+    obj: Obj,
+    path: Path,
+  ): any {
+    if (!path) return undefined;
+    const keys = path.split('.');
+    let current: any = obj;
+    for (const key of keys) {
+      if (current == null || !(key in current)) return undefined;
+      current = current[key];
+    }
+    return current as any;
+  }
+
+  /**
+   * Safely sets a nested property on an object using dot notation.
+   * Creates intermediate objects if necessary.
+   */
+  static set<Obj extends object, Path extends string>(
+    obj: Obj,
+    path: Path,
+    value: any,
+  ): void {
+    if (!path) return;
+    const keys = path.split('.');
+    let current: any = obj;
+    for (let i = 0; i < keys.length - 1; i++) {
+      const key = keys[i];
+      if (!(key in current) || typeof current[key] !== 'object') {
+        current[key] = {};
+      }
+      current = current[key];
+    }
+    current[keys[keys.length - 1]] = value;
+  }
+}
+//
+// 🔄 HYBRID EXPORT PATTERN
+// -----------------------------------------------------------------------------
+// We export both:
+// 1. The full `ObjectUtils` class (for grouped, named usage)
+// 2. Individually renamed functions for tree-shakable, direct imports
+// -----------------------------------------------------------------------------
+export const RenamedObjectMethods = exportAndRenameStaticMethods(ObjectUtils, {
+  objectKeys: 'keys',
+  objectEntries: 'entries',
+  objectFromEntries: 'fromEntries',
+  objectValues: 'values',
+  objectHas: 'has',
+  objectGet: 'get',
+  objectSet: 'set',
+});
+
+// -----------------------------------------------------------------------------
+// 🧩 Tree-shakable direct exports
+// -----------------------------------------------------------------------------
+export const {
+  objectKeys,
+  objectEntries,
+  objectFromEntries,
+  objectValues,
+  objectHas,
+  objectGet,
+  objectSet,
+} = RenamedObjectMethods;
+
+// -----------------------------------------------------------------------------
+// 🧱 Export full utility class (optional grouped import)
+// -----------------------------------------------------------------------------
+export { ObjectUtils };

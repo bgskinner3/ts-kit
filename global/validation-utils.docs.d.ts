@@ -1,4 +1,4 @@
-// global/common-utils.docs.d.ts
+// global/validation-utils.docs.d.ts
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 declare global {
   /**
@@ -18,7 +18,7 @@ declare global {
    * const score = LiquidityConfigurator.computeFinalPoolScore(pool);
    * ```
    */
-  class CommonUtilsDocs {
+  class ValidationUtilsDocs {
     /**
      * Title / Summary of the method
      *
@@ -73,80 +73,38 @@ declare global {
     // ─────────────────────────────────────────────────────────────
     // ─────────────────────────────────────────────────────────────
     /**
-     * # 🧰 ArrayUtils
+     * Assertions
      *
-     * **Role / Purpose:**
-     * Provides a set of **type-safe**, **pure**, and **reusable** array manipulation helpers.
-     * Designed to improve inference, maintain immutability, and ensure consistency across the codebase.
+     * A utility class for runtime assertion functions in TypeScript.
      *
-     * ---
+     * Assertions are functions that **verify a condition at runtime** and throw an error if the condition is not met.
+     * They differ from traditional type guards in two key ways:
      *
-     * ## 🧩 Available Methods
-     * | Method | Description |
-     * |--------|-------------|
-     * | `includes` | Type-safe `Array.includes` helper for union narrowing. |
-     * | `createFixedLengthArray` | Ensures arrays have a fixed compile-time length. |
-     * | `readAllItems` | Returns a shallow copy of an array. |
-     * | `map` | Type-safe wrapper around `Array.map`. |
-     * | `forEachUnion` | Handles arrays with union element types safely. |
-     * | `forEach` | Standard, type-safe `forEach` wrapper. |
-     * | `reduce` | Strictly typed reduction helper. |
-     * | `flat` | One-level flattening helper. |
-     * | `flatMap` | Safe flatMap alternative with strong typing. |
-     * | `filter` | Generic and narrowed type-safe filter. |
-     * | `filterNonNullable` | Removes nullish values safely. |
+     * 1. **Type Guards (e.g., `isDefined`)**
+     *    - Return a boolean indicating whether a value matches a type.
+     *    - Example: `if (ValidationUtils.isDefined(x)) { ... }`
+     *    - TypeScript can narrow types **only within conditional branches**.
      *
-     * ---
+     * 2. **Assertions (e.g., `Assertions.isDefined`)**
+     *    - Use the TypeScript `asserts` keyword: `asserts value is T`.
+     *    - Throw an error if the value does not meet the condition.
+     *    - Guarantee to TypeScript that after the assertion runs, the value has the specified type.
+     *    - Example:
+     *      ```ts
+     *      let x: string | undefined;
+     *      Assertions.isDefined(x, 'x must exist');
+     *      // After this line, TypeScript knows `x` is a string
+     *      console.log(x.length);
+     *      ```
      *
-     * ## 🔍 Notes
-     * - All methods are **static** and **pure**.
-     * - Designed for **tree-shaking compatibility** — use alongside `exportStaticMethods`.
-     * - Follows the **Hybrid Export Pattern** (both class and destructured methods).
+     * Benefits of using assertion functions:
+     * - Provides **runtime safety** by validating values immediately.
+     * - Ensures **type safety** for subsequent code without repeated null/undefined checks.
+     * - Centralizes all runtime invariants in a **single utility class**.
      *
-     * ## 🧠 Example
-     * ```ts
-     * import { ArrayUtils, map, filterNonNullable } from '@/utils';
-     *
-     * const clean = filterNonNullable([1, null, 2]); // [1, 2]
-     * const doubled = map(clean, n => n * 2);       // [2, 4]
-     * ```
+     * Use this class for validating primitives, objects, arrays, or domain-specific structures.
      */
-    static ArrayUtils(): void;
-
-    /**
-     * ## 🧩 ObjectUtils — Type-Safe Object Utilities
-     * Utility class providing **type-safe, strongly inferred** helpers for working with objects.
-     *
-     * These methods wrap core `Object.*` APIs and add:
-     * - 🔒 Safer key/value inference
-     * - 🧠 Stronger TypeScript typing
-     * - 💪 Optional dot-path helpers for nested access
-     *
-     * ---
-     * ## 📘 Available Methods
-     * | Method | Description |
-     * |--------|-------------|
-     * | `keys` | Returns the keys of an object with proper key inference. |
-     * | `entries` | Returns key-value pairs with full type support. |
-     * | `fromEntries` | Constructs an object from typed key-value entries. |
-     * | `values` | Returns the values of an object with inferred value types. |
-     * | `has` | Checks if a nested property exists using dot notation. |
-     * | `get` | Safely retrieves a nested property by dot path. |
-     * | `set` | Safely sets a nested property by dot path (creates intermediate objects). |
-     *
-     * ---
-     * ### 🧱 Example Usage
-     * ```ts
-     * import { objectKeys, objectHas, objectGet } from '@/utils';
-     *
-     * const user = { profile: { name: 'Alice' } };
-     *
-     * const keys = objectKeys(user); // ['profile']
-     * const hasName = objectHas(user, 'profile.name'); // true
-     * const name = objectGet(user, 'profile.name'); // 'Alice'
-     * ```
-     */
-    static ObjectUtils(): void;
+    static AssertionUtils(): void;
   }
 }
 
