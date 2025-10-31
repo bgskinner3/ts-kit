@@ -1,0 +1,23 @@
+import { HTML_TAGS } from '../constants';
+type TBufferLikeObject = {
+  type: 'Buffer';
+  data: number[];
+};
+type TTypeGuard<T> = (value: unknown) => value is T;
+
+type TAnyFunction = (...args: unknown[]) => unknown;
+
+type TElementLike = {
+  type: string;
+  props: { children?: unknown; [key: string]: unknown };
+};
+
+type THTMLTags = (typeof HTML_TAGS)[number];
+
+export type {
+  TBufferLikeObject,
+  TTypeGuard,
+  TAnyFunction,
+  THTMLTags,
+  TElementLike,
+};

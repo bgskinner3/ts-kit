@@ -25,4 +25,26 @@ function exportAndRenameStaticMethods<
   return result;
 }
 
-export { exportAndRenameStaticMethods };
+function exportStaticMethods<T extends new (...args: unknown[]) => unknown>(
+  cls: T,
+): TStaticMethods<T> {
+  const result = {} as TStaticMethods<T>;
+
+  for (const key of Object.getOwnPropertyNames(cls)) {
+    if (key === 'prototype' || key === 'name' || key === 'length') continue;
+
+    const typedKey = key as keyof T;
+    const prop = cls[typedKey];
+
+    if (typeof prop === 'function') {
+      // Cast via unknown first to satisfy TypeScript
+      (result as unknown as Record<keyof TStaticMethods<T>, unknown>)[
+        typedKey as keyof TStaticMethods<T>
+      ] = prop.bind(cls);
+    }
+  }
+
+  return result;
+}
+
+export { exportAndRenameStaticMethods, exportStaticMethods };

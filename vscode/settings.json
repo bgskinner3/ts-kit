@@ -1,53 +1,40 @@
+// {
+//   "[typescript]": {
+//     "editor.defaultFormatter": "esbenp.prettier-vscode",
+//     "editor.formatOnSave": true
+//   },
+//   "[javascript]": {
+//     "editor.defaultFormatter": "esbenp.prettier-vscode",
+//     "editor.formatOnSave": true
+//   },
+//   "typescript.format.enable": false,
+//   "javascript.format.enable": false,
+//   "prettier.requireConfig": true,
+//   "prettier.useEditorConfig": false,
+//   "eslint.run": "onType",
+//   "editor.defaultFormatter": "esbenp.prettier-vscode",
+//   "editor.formatOnSave": true,
+//   "eslint.enable": true
+// }
 {
-  // 🔹 Language-specific formatter settings
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true,
-    "editor.formatOnPaste": true,
-    "editor.formatOnType": false
-  },
+  "typescript.format.enable": false,
+  "javascript.format.enable": false,
+  "prettier.requireConfig": true,
+  "prettier.useEditorConfig": false,
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true,
-    "editor.formatOnPaste": true,
-    "editor.formatOnType": false
-  },
-  "[javascriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true,
-    "editor.formatOnPaste": true,
-    "editor.formatOnType": false
+    "editor.formatOnSave": true
   },
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true,
-    "editor.formatOnPaste": true,
-    "editor.formatOnType": false
+    "editor.formatOnSave": true
   },
-  // 🔹 Prettier
-  "prettier.requireConfig": true,
-  "editor.formatOnSaveMode": "file", // format the entire file
-  "prettier.useEditorConfig": false, // ignore .editorconfig to avoid conflicts
-  // 🔹 ESLint
-  "eslint.enable": true,
-  "eslint.run": "onType",
-  "eslint.experimental.useFlatConfig": true,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": false // disable ESLint auto-fixes to avoid overwriting Prettier
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
   },
-  // 🔹 TypeScript preferences
-  "typescript.preferences.importModuleSpecifier": "non-relative",
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "typescript.enablePromptUseWorkspaceTsdk": true,
-  // 🔹 Editor settings
-  "editor.tabSize": 2,
-  "editor.detectIndentation": false,
-  "files.trimTrailingWhitespace": true,
-  "files.insertFinalNewline": true,
-  // 🔹 Files to ignore in VS Code
-  "files.exclude": {
-    "**/node_modules": true,
-    "**/dist": true,
-    "**/coverage": true
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
   }
 }

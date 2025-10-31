@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable @typescript-eslint/no-require-imports */
 const js = require('@eslint/js');
 const tseslint = require('@typescript-eslint/eslint-plugin');
 const tsParser = require('@typescript-eslint/parser');
@@ -19,6 +21,11 @@ module.exports = [
         ecmaVersion: 'latest',
         sourceType: 'module',
       },
+      env: {
+        browser: true, // ✅ this adds URL, window, document, etc.
+        es2021: true,
+        node: true, // still include Node globals
+      },
     },
     plugins: {
       '@typescript-eslint': tseslint,
@@ -28,9 +35,6 @@ module.exports = [
       // Spread recommended rules instead of using `extends`
       ...js.configs.recommended.rules,
       ...tseslint.configs.recommended.rules,
-
-      // Prettier integration
-      'prettier/prettier': 'error',
 
       // Custom tweaks
       '@typescript-eslint/no-explicit-any': 'warn',

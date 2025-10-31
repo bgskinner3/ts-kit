@@ -12,7 +12,9 @@ type TArrayItems<T extends Array<unknown>> =
 type TFixedLengthArray<T extends unknown[]> = Pick<
   T,
   Exclude<keyof T, TArrayLengthMutationKeys>
-> & { [Symbol.iterator]: () => IterableIterator<TArrayItems<T>> } & {
+> & {
+  [Symbol.iterator]: () => IterableIterator<TArrayItems<T>>;
+} & {
   length: number;
 };
 
