@@ -1,5 +1,4 @@
 // global/validation-utils.docs.d.ts
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 declare global {
   /**
    * TuningDocs: global JSDoc-only reference for all scoring methods

@@ -77,7 +77,7 @@ class AssertionUtils {
   }
   static isInstanceOf<T>(
     value: unknown,
-    ctor: new (...args: any[]) => T,
+    ctor: new (...args: unknown[]) => T,
     message?: string,
   ): asserts value is T {
     if (!(value instanceof ctor)) {

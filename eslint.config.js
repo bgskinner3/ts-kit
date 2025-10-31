@@ -56,6 +56,7 @@ module.exports = [
     },
     rules: {
       '@typescript-eslint/no-explicit-any': 'off',
+      'object-curly-spacing': ['error', 'always', { objectsInObjects: true }],
     },
   },
 ];

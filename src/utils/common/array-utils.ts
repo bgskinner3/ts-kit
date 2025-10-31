@@ -20,9 +20,40 @@ import { exportAndRenameStaticMethods } from '../../managers';
  * @see {@link CommonUtilsDocs.ArrayUtils}
  */
 class ArrayUtils {
+  /**
+   * Checks if a given element exists in the array.
+   * Type guard ensures TypeScript narrows the element type.
+   *
+   * @typeParam T - The element type in the array.
+   * @typeParam U - The type of the element being checked.
+   *
+   * @param arr - The array to search.
+   * @param el - The element to look for.
+   * @returns `true` if element exists, otherwise `false`.
+   *
+   * @example
+   * const nums = [1, 2, 3] as const;
+   * if (ArrayUtils.includes(nums, 2)) {
+   *   // TypeScript now knows `2` is one of the array elements
+   * }
+   */
   static includes<T extends U, U>(arr: ReadonlyArray<T>, el: U): el is T {
     return arr.includes(el as T);
   }
+  /**
+   * Creates a fixed-length array and ensures it has exactly the given length.
+   *
+   * @typeParam T - Type of array elements.
+   * @param items - Array of items.
+   * @param length - Required length of the array.
+   * @returns Array with exactly `length` elements.
+   *
+   * @throws Error if array length does not match.
+   *
+   * @example
+   * const arr = ArrayUtils.createFixedLengthArray([1, 2, 3], 3); // ✅ works
+   * const arr2 = ArrayUtils.createFixedLengthArray([1, 2], 3);  // ❌ throws error
+   */
   static createFixedLengthArray<T>(
     items: T[],
     length: number,
@@ -32,6 +63,19 @@ class ArrayUtils {
     }
     return items satisfies TFixedLengthArray<T[]>;
   }
+
+  /**
+   * Returns a shallow copy of an array.
+   *
+   * @typeParam T - Type of array elements.
+   * @param arr - Array to copy.
+   * @returns A new array containing all items.
+   *
+   * @example
+   * const original = [1, 2, 3];
+   * const copy = ArrayUtils.readAllItems(original);
+   * copy.push(4); // Does not affect `original`
+   */
   static readAllItems<T>(arr: ReadonlyArray<T>): T[] {
     return [...arr]; // Simply returns a shallow copy of the array
   }
@@ -43,24 +87,40 @@ class ArrayUtils {
     return arr.map(fn);
   }
   /**
-   * 🧠 Type-safe forEach for arrays that might be union types
-   * Helps TypeScript narrow union members.
+   * 🧠 Type-safe forEach for arrays that might be union types.
+   * Helps TypeScript narrow union members while iterating.
+   *
+   * Supports both:
+   * - Single arrays: `T[]`
+   * - Union of arrays: `T[][]`
+   *
+   * @typeParam T - The type of array elements.
+   *
+   * @param arr - The array or array of arrays to iterate over.
+   * @param fn - Callback executed for each element.
    *
    * @example
-   * const arr: (A[] | B[] | C[]) = getArray();
-   * ArrayUtils.forEachUnion(arr, (item) => {
-   *   if (isA(item)) { ... }
+   * // Single array
+   * const numbers = [1, 2, 3];
+   * ArrayUtils.forEachUnion(numbers, (num, idx) => {
+   *   console.log(num * 2, idx);
+   * });
+   *
+   * @example
+   * // Union of arrays
+   * const arrays: number[][] = [[1, 2], [3, 4]];
+   * ArrayUtils.forEachUnion(arrays, (num, idx) => {
+   *   console.log(num * 2, idx);
    * });
    */
-  static forEachUnion<T extends ReadonlyArray<any> | ReadonlyArray<any>[]>(
-    arr: T,
-    fn: (
-      item: T extends ReadonlyArray<infer U> ? U : never,
-      index: number,
-    ) => void,
+  static forEachUnion<T>(
+    arr: T[] | T[][],
+    fn: (item: T, index: number) => void,
   ): void {
-    // Flatten union arrays if needed
-    const flatArr = ([] as any[]).concat(...(arr as any));
+    // Flatten the array if it’s an array of arrays
+    const flatArr: T[] = Array.isArray(arr[0])
+      ? ([] as T[]).concat(...(arr as T[][]))
+      : (arr as T[]);
     flatArr.forEach(fn);
   }
   /** 🧠 Safe forEach wrapper with correct inference */

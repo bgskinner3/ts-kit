@@ -44,7 +44,7 @@ class ObjectUtils {
   // }
   static fromEntries<
     K extends string | number | symbol = string, // default key type
-    V = any,
+    V = unknown,
   >(entries: [K, V][]): Record<K, V> {
     return Object.fromEntries(entries) as Record<K, V>;
   }
@@ -65,12 +65,19 @@ class ObjectUtils {
    */
   static has<Obj extends object>(obj: Obj, path: string): boolean {
     if (!path) return false;
+
     const keys = path.split('.');
-    let current: any = obj;
+    let current: unknown = obj;
+
     for (const key of keys) {
-      if (current == null || !(key in current)) return false;
-      current = current[key];
+      // Only check 'in' if current is an object
+      if (current == null || typeof current !== 'object' || !(key in current)) {
+        return false;
+      }
+      // TypeScript knows current is object here, so we can index with key
+      current = (current as Record<string, unknown>)[key];
     }
+
     return true;
   }
 
@@ -82,37 +89,56 @@ class ObjectUtils {
   static get<Obj extends object, Path extends string>(
     obj: Obj,
     path: Path,
-  ): any {
+  ): unknown {
     if (!path) return undefined;
     const keys = path.split('.');
-    let current: any = obj;
+    let current: unknown = obj;
     for (const key of keys) {
-      if (current == null || !(key in current)) return undefined;
-      current = current[key];
+      if (current == null || typeof current !== 'object' || !(key in current)) {
+        return undefined;
+      }
+      current = (current as Record<string, unknown>)[key];
     }
-    return current as any;
+    return current;
   }
 
   /**
    * Safely sets a nested property on an object using dot notation.
-   * Creates intermediate objects if necessary.
+   * Creates intermediate objects as needed.
+   * @param obj - The object to modify.
+   * @param path - Dot-separated path like 'user.profile.name'
+   * @param value - The value to set
    */
-  static set<Obj extends object, Path extends string>(
-    obj: Obj,
-    path: Path,
-    value: any,
-  ): void {
+  static set<Obj extends object>(obj: Obj, path: string, value: unknown): void {
     if (!path) return;
+
     const keys = path.split('.');
-    let current: any = obj;
+    let current: unknown = obj;
+
     for (let i = 0; i < keys.length - 1; i++) {
       const key = keys[i];
-      if (!(key in current) || typeof current[key] !== 'object') {
-        current[key] = {};
+
+      if (typeof current !== 'object' || current === null) {
+        // Should never happen if obj is valid, but safeguard
+        return;
       }
-      current = current[key];
+
+      const record = current as Record<string, unknown>;
+
+      if (
+        !(key in record) ||
+        typeof record[key] !== 'object' ||
+        record[key] === null
+      ) {
+        record[key] = {};
+      }
+
+      current = record[key];
     }
-    current[keys[keys.length - 1]] = value;
+
+    if (typeof current === 'object' && current !== null) {
+      (current as Record<string, unknown>)[keys[keys.length - 1]] = value;
+    }
   }
 }
 //
