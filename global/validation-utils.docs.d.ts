@@ -52,25 +52,7 @@ declare global {
      * @see ActualClass.actualMethod
      */
     static exampleDoc(): void;
-    // ─────────────────────────────────────────────────────────────
-    // ─────────────────────────────────────────────────────────────
-    // ─────────────────────────────────────────────────────────────
-    // ─────────────────────────────────────────────────────────────
-    // 🧩 METHOD SUMMARIES
-    // ─────────────────────────────────────────────────────────────
-    // ─────────────────────────────────────────────────────────────
-    // ─────────────────────────────────────────────────────────────
-    // ─────────────────────────────────────────────────────────────
 
-    // ─────────────────────────────────────────────────────────────
-    // ─────────────────────────────────────────────────────────────
-    // ─────────────────────────────────────────────────────────────
-    // ─────────────────────────────────────────────────────────────
-    // 🧩 CLASS SUMMARIES
-    // ─────────────────────────────────────────────────────────────
-    // ─────────────────────────────────────────────────────────────
-    // ─────────────────────────────────────────────────────────────
-    // ─────────────────────────────────────────────────────────────
 
     /**
      * ## 🧠 ReferenceTypeGuards — Safe Type Checks for Reference & Built-In Objects
@@ -137,122 +119,177 @@ declare global {
      * @see {@link ValidationUtilsDocs.ReferenceTypeGuards}
      */
     static ReferenceTypeGuards(): void;
+
     /**
- * ## 🧩 CompositeTypeGuards — Type-Safe Validators for Structured & Reference-Like Values
- *
- * This file provides **type-safe, strongly inferred** guards for **composite values**, 
- * which are objects, arrays, or other reference-based types, including specialized 
- * structures like buffers or React-like elements.
- *
- * ### Composite / reference-like types included:
- * - Plain objects (`isObject`)
- * - Arrays (`isArray`, `isArrayOf`, `isTupleOfArrays`)
- * - Maps and Sets (`isMap`, `isSet`, `isWeakMap`, `isWeakSet`)
- * - Buffer-like objects (`isBufferLikeObject`)
- * - Virtual DOM / React-like elements (`isElementLike`, `isElementOfType`)
- * - Keys and array membership (`isKeyOfArray`, `isInArray`)
- * - URLs and internal path validation (`isValidUrl`, `isUrlOrRelativePath`, `isValidInternalUrl`)
- *
- * ---
- * ## Role / Purpose
- *
- * **Role:**  
- * Provide runtime-validated, type-safe checks for **structured or reference-based values**.
- * - Responsible for ensuring objects, arrays, and complex structures conform to expected shapes.
- * - Exists to improve **type safety**, **runtime reliability**, and **developer confidence** when handling non-primitive data.
- *
- * ---
- * ## Guidelines
- *
- * **✅ What goes here:**
- * - Type guards for reference-based types (`isObject`, `isArray`, `isMap`, etc.).
- * - Type guards for structured or “composite” values (`isBufferLikeObject`, `isElementLike`, `isElementOfType`).
- * - Type guards for membership / key validation (`isKeyOfArray`, `isInArray`).
- * - Guards that combine primitive checks with object structure validation.
- *
- * **🚫 What does NOT go here:**
- * - Guards for primitive types (`string`, `number`, `boolean`, etc.) — see `PrimitiveValueGuards`.
- * - Runtime assertion functions that throw errors.
- * - Validators that depend on external state beyond the input object.
- *
- * ---
- * ## 📘 Example Usage
- * ```ts
- * import {
- *   isObject,
- *   isArrayOf,
- *   isBufferLikeObject,
- *   isElementLike,
- *   isElementOfType,
- *   isKeyOfArray,
- *   isInArray,
- *   isValidUrl,
- *   isUrlOrRelativePath
- * } from '@/utils/guards/composite';
- *
- * const value: unknown = { type: 'Buffer', data: [1, 2, 3] };
- * if (isBufferLikeObject(value)) {
- *   // ✅ value is now typed as TBufferLikeObject
- *   console.log(value.data);
- * }
- *
- * const element: unknown = { type: 'div', props: { className: 'container' } };
- * if (isElementOfType(element, ['div', 'span'])) {
- *   console.log(element.type); // 'div'
- * }
- *
- * const arr = [1, 2, 3];
- * if (isArrayOf(isNumber, arr)) {
- *   console.log('All numbers!', arr);
- * }
- *
- * const allowedKeys = ['id', 'name'] as const;
- * const key: unknown = 'name';
- * if (isKeyOfArray(allowedKeys)(key)) {
- *   console.log('Valid key:', key);
- * }
- * ```
- *
- * ---
- * #### ✅ Notes
- * - All methods are **pure functions**; no instantiation is required.
- * - Guards here focus on **reference, structured, or composite types**, often combining multiple checks.
- * - Use these as **building blocks** for complex validations, filtering, or type-safe runtime logic.
- 
- */
+     * ## 🧩 CompositeTypeGuards — Type-Safe Validators for Structured & Reference-Like Values
+     *
+     * This file provides **type-safe, strongly inferred guards** for **composite values**,
+     * which are non-primitive, structured, or reference-based types. These guards validate
+     * objects, arrays, key membership, URLs, and specialized structures like buffers or
+     * React-like elements.
+     *
+     * ### Types of Guards Included:
+     * 1. **Object & Record Guards**
+     *    - `isObject`, `isRecordOf`  
+     *    - Validates that a value is an object or a record with values passing a type guard.
+     *
+     * 2. **Array & Membership Guards**
+     *    - `isArrayOf`, `isInArray`, `isKeyOfArray`, `isKeyOfObject`  
+     *    - Validate array contents, membership, or allowed keys.
+     *
+     * 3. **Specialized Structured Guards**
+     *    - `isBufferLikeObject`, `isElementLike`, `isElementOfType`  
+     *    - Validate specific structured objects like buffer-like objects or virtual DOM elements.
+     *
+     * 4. **URL & Environment Guards**
+     *    - `isValidUrl`, `isUrlOrRelativePath`, `isInternalUrl`, `isClientSide`  
+     *    - Validate strings representing URLs, relative paths, or runtime environment context.
+     *
+     * ---
+     * ## Role / Purpose
+     *
+     * **Role:**
+     * - Provide runtime-validated, type-safe checks for structured or reference-based values.
+     * - Ensure objects, arrays, and complex structures conform to expected shapes.
+     * - Improve **type safety**, **runtime reliability**, and **developer confidence** when working
+     *   with non-primitive values.
+     *
+     * ---
+     * ## Guidelines
+     *
+     * **✅ What goes here:**
+     * - Type guards for reference-based types (`isObject`, `isArray`, `isMap`, `isSet`, etc.).
+     * - Type guards for structured/composite values (`isBufferLikeObject`, `isElementLike`, `isElementOfType`).
+     * - Guards for key validation or membership (`isKeyOfArray`, `isKeyOfObject`, `isInArray`).
+     * - Guards that combine primitive checks with object structure validation.
+     *
+     * **🚫 What does NOT go here:**
+     * - Guards for primitive types (`string`, `number`, `boolean`, etc.) — see `PrimitiveValueGuards`.
+     * - Runtime assertion functions that throw errors.
+     * - Validators that depend on external state beyond the input object.
+     *
+     * ---
+     * ## 📘 Example Usage
+     * ```ts
+     * import {
+     *   isBufferLikeObject,
+     *   isInArray,
+     *   isValidUrl,
+     *   isUrlOrRelativePath,
+     *   isInternalUrl,
+     *   isClientSide,
+     *   isElementLike,
+     *   isElementOfType,
+     *   isKeyOfObject,
+     *   isKeyOfArray,
+     *   isArrayOf,
+     *   isRecordOf
+     * } from '@/utils/guards/composite';
+     *
+     * const buffer: unknown = { type: 'Buffer', data: [1, 2, 3] };
+     * if (isBufferLikeObject(buffer)) {
+     *   console.log(buffer.data); // ✅ typed as TBufferLikeObject
+     * }
+     *
+     * const element: unknown = { type: 'div', props: { className: 'container' } };
+     * if (isElementOfType(element, ['div', 'span'])) {
+     *   console.log(element.type); // 'div'
+     * }
+     *
+     * const arr = [1, 2, 3];
+     * if (isArrayOf(isNumber, arr)) {
+     *   console.log('All numbers!', arr);
+     * }
+     *
+     * const allowedKeys = ['id', 'name'] as const;
+     * const key: unknown = 'name';
+     * if (isKeyOfArray(allowedKeys)(key)) {
+     *   console.log('Valid key:', key);
+     * }
+     *
+     * const url = '/home';
+     * if (isUrlOrRelativePath(url)) {
+     *   console.log('Valid URL or relative path');
+     * }
+     * ```
+     *
+     * ---
+     * #### ✅ Notes
+     * - All methods are **pure functions**; no instantiation is required.
+     * - Guards here focus on **reference, structured, or composite types**, often combining multiple checks.
+     * - Use these as **building blocks** for complex validations, filtering, or type-safe runtime logic.
+     */
+
     static CompositeTypeGuards(): void;
 
     /**
-     * Assertions
+     * ## 🧩 Assertion Utilities — Runtime Type & Value Validators
      *
-     * A utility class for runtime assertion functions in TypeScript.
+     * This file provides **assertion functions** for runtime validation of values.
+     * Unlike type guards, assertion functions **throw an error** if a value does not
+     * meet the expected type or condition. These are useful for enforcing invariants
+     * and ensuring that data conforms to expected types at runtime.
      *
-     * Assertions are functions that **verify a condition at runtime** and throw an error if the condition is not met.
-     * They differ from traditional type guards in two key ways:
+     * ### Types of Assertions Included:
+     * 1. **Primitive Assertions**
+     *    - e.g., `assertNumber(value)`, `assertString(value)`  
+     *    - Throws if the value is not the expected primitive type.
      *
-     * 1. **Type Guards (e.g., `isDefined`)**
-     *    - Return a boolean indicating whether a value matches a type.
-     *    - Example: `if (ValidationUtils.isDefined(x)) { ... }`
-     *    - TypeScript can narrow types **only within conditional branches**.
+     * 2. **Reference & Structured Assertions**
+     *    - e.g., `assertObject(value)`, `assertArrayOf(value, isNumber)`  
+     *    - Throws if the value is not an object, array, or does not pass the supplied guard.
      *
-     * 2. **Assertions (e.g., `Assertions.isDefined`)**
-     *    - Use the TypeScript `asserts` keyword: `asserts value is T`.
-     *    - Throw an error if the value does not meet the condition.
-     *    - Guarantee to TypeScript that after the assertion runs, the value has the specified type.
-     *    - Example:
-     *      ```ts
-     *      let x: string | undefined;
-     *      Assertions.isDefined(x, 'x must exist');
-     *      // After this line, TypeScript knows `x` is a string
-     *      console.log(x.length);
-     *      ```
+     * 3. **Specialized / Composite Assertions**
+     *    - e.g., `assertBufferLikeObject(value)`, `assertElementOfType(value, ['div'])`  
+     *    - Throws if the value does not match a specific structured type.
      *
-     * Benefits of using assertion functions:
-     * - Provides **runtime safety** by validating values immediately.
-     * - Ensures **type safety** for subsequent code without repeated null/undefined checks.
-     * - Centralizes all runtime invariants in a **single utility class**.
+     * 4. **URL / Environment Assertions**
+     *    - e.g., `assertValidUrl(value)`, `assertInternalUrl(value)`  
+     *    - Throws if the string is not a valid URL, relative path, or internal URL.
      *
-     * Use this class for validating primitives, objects, arrays, or domain-specific structures.
+     * ---
+     * ## Role / Purpose
+     *
+     * **Role:**
+     * - Enforce **runtime invariants** for both primitive and composite values.
+     * - Provide **type narrowing** via TypeScript’s `asserts` keyword.
+     * - Complement type guards by throwing errors when data violates expectations.
+     *
+     * ---
+     * ## Guidelines
+     *
+     * **✅ What goes here:**
+     * - Assertion functions using TypeScript’s `asserts` keyword.
+     * - Functions that combine primitive checks and/or structural validation.
+     * - Specialized assertions for objects with expected shapes or structured types.
+     *
+     * **🚫 What does NOT go here:**
+     * - Functions that merely return `true`/`false` without asserting (use type guards instead).
+     * - Runtime validators that depend on external state beyond the value passed.
+     *
+     * ---
+     * ## 📘 Example Usage
+     * ```ts
+     * import { assertNumber, assertNonEmptyString, assertBufferLikeObject } from '@/utils/asserts';
+     *
+     * const value: unknown = 42;
+     * assertNumber(value); // ✅ passes, value is narrowed to number
+     *
+     * const name: unknown = 'Alice';
+     * assertNonEmptyString(name); // ✅ passes, name is narrowed to string
+     *
+     * const buffer: unknown = { type: 'Buffer', data: [1, 2, 3] };
+     * assertBufferLikeObject(buffer); // ✅ passes, buffer typed as TBufferLikeObject
+     *
+     * // Throws if invalid
+     * assertNumber('not a number'); // ❌ throws error
+     * ```
+     *
+     * ---
+     * #### ✅ Notes
+     * - All methods are **pure functions**.
+     * - Use assertions when you want **strict enforcement** of type/value invariants at runtime.
+     * - Can be used **together with type guards** for flexible type validation strategies.
      */
     static AssertionUtils(): void;
     /**
@@ -342,6 +379,36 @@ declare global {
      */
     static PrimitiveTypeGuards(): void;
   }
+
+
+class AssertionUtilsDocs {
+  /**
+ * ## 🎨 assertRGB — Ensures a Value is a Valid RGB Tuple
+ *
+ * Asserts that the provided input is a valid RGB array containing exactly three
+ * finite numeric values (0–255). Throws a descriptive error if validation fails.
+ *
+ * @example
+ * ```ts
+ * const color: unknown = [255, 128, 64];
+ * assertRGB(color); // ✅ passes — color is now typed as TRGB
+ *
+ * const invalid = [255, -5, 'oops'];
+ * assertRGB(invalid); // ❌ throws "Invalid RGB array: [255,-5,"oops"]"
+ * ```
+ */
+ static assertRGB(): void;
+}
+
+  // ─────────────────────────────────────────────────────────────
+  // ─────────────────────────────────────────────────────────────
+  // ─────────────────────────────────────────────────────────────
+  // ─────────────────────────────────────────────────────────────
+  // CompositeTypeGuardsDocs
+  // ─────────────────────────────────────────────────────────────
+  // ─────────────────────────────────────────────────────────────
+  // ─────────────────────────────────────────────────────────────
+  // ─────────────────────────────────────────────────────────────
   class CompositeTypeGuardsDocs {
     /**
      * Checks if a value is a **Buffer-like object**.
@@ -1018,4 +1085,4 @@ declare global {
 }
 
 // This ensures TypeScript treats the file as a module
-export {};
+export { };

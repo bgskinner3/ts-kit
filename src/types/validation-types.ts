@@ -4,7 +4,7 @@ type TBufferLikeObject = {
   data: number[];
 };
 type TTypeGuard<T> = (value: unknown) => value is T;
-
+type TAssert<T> = (value: unknown) => asserts value is T;
 type TAnyFunction = (...args: unknown[]) => unknown;
 
 type TElementLike = {
@@ -20,4 +20,5 @@ export type {
   TAnyFunction,
   THTMLTags,
   TElementLike,
+  TAssert
 };

@@ -21,10 +21,15 @@ module.exports = [
         ecmaVersion: 'latest',
         sourceType: 'module',
       },
-      env: {
-        browser: true, // ✅ this adds URL, window, document, etc.
-        es2021: true,
-        node: true, // still include Node globals
+      globals: {
+        // ✅ replaces "env"
+        window: 'readonly',
+        document: 'readonly',
+        console: 'readonly',
+        module: 'writable',
+        require: 'readonly',
+        process: 'readonly',
+        URL: 'readonly',
       },
     },
     plugins: {

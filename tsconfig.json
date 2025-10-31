@@ -2,8 +2,8 @@
   "compilerOptions": {
     /* === Output === */
     "target": "ES2020", // Good modern baseline
-    "module": "ES2020", // For ESM + tree-shaking
-    "moduleResolution": "bundler", // ⚡ Recommended for TS 5.3+ + ESM projects
+    "module": "Node16", // For ESM + tree-shaking
+    "moduleResolution": "Node16", // ⚡ Recommended for TS 5.3+ + ESM projects
     "outDir": "dist",
     "rootDir": "src",
     "declaration": true,
@@ -28,10 +28,19 @@
     "noEmitOnError": true, // Avoid emitting on compile errors
     /* === Output Format === */
     "removeComments": false, // Keep comments for better docs
-    "lib": ["ES2020", "DOM"], // Include DOM if utils may run in browsers
-    "types": ["node"] // Include Node globals (if you target Node)
+    "lib": [
+      "ES2020",
+      "DOM"
+    ], // Include DOM if utils may run in browsers
+    "types": [
+      "jest",
+      "node"
+    ]
   },
-  "include": ["src/**/*", "global"],
+  "include": [
+    "src/**/*",
+    "global"
+  ],
   "exclude": [
     "node_modules",
     "dist",

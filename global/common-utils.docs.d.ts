@@ -52,25 +52,6 @@ declare global {
      * @see ActualClass.actualMethod
      */
     static exampleDoc(): void;
-    // ─────────────────────────────────────────────────────────────
-    // ─────────────────────────────────────────────────────────────
-    // ─────────────────────────────────────────────────────────────
-    // ─────────────────────────────────────────────────────────────
-    // 🧩 METHOD SUMMARIES
-    // ─────────────────────────────────────────────────────────────
-    // ─────────────────────────────────────────────────────────────
-    // ─────────────────────────────────────────────────────────────
-    // ─────────────────────────────────────────────────────────────
-
-    // ─────────────────────────────────────────────────────────────
-    // ─────────────────────────────────────────────────────────────
-    // ─────────────────────────────────────────────────────────────
-    // ─────────────────────────────────────────────────────────────
-    // 🧩 CLASS SUMMARIES
-    // ─────────────────────────────────────────────────────────────
-    // ─────────────────────────────────────────────────────────────
-    // ─────────────────────────────────────────────────────────────
-    // ─────────────────────────────────────────────────────────────
     /**
      * # 🧰 ArrayUtils
      *
@@ -146,8 +127,49 @@ declare global {
      * ```
      */
     static ObjectUtils(): void;
+
+
+
+  }
+
+  class ArrayUtilsDocs {
+    /**
+     * Checks if a given element exists in the array.
+     * Type guard ensures TypeScript narrows the element type.
+     *
+     * @typeParam T - The element type in the array.
+     * @typeParam U - The type of the element being checked.
+     *
+     * @param arr - The array to search.
+     * @param el - The element to look for.
+     * @returns `true` if element exists, otherwise `false`.
+     *
+     * @example
+     * const nums = [1, 2, 3] as const;
+     * if (ArrayUtils.includes(nums, 2)) {
+     *   // TypeScript now knows `2` is one of the array elements
+     * }
+     */
+    static includes(): void
+
+    /**
+ * Creates a fixed-length array and ensures it has exactly the given length.
+ *
+ * @typeParam T - Type of array elements.
+ * @param items - Array of items.
+ * @param length - Required length of the array.
+ * @returns Array with exactly `length` elements.
+ *
+ * @throws Error if array length does not match.
+ *
+ * @example
+ * const arr = ArrayUtils.createFixedLengthArray([1, 2, 3], 3); // ✅ works
+ * const arr2 = ArrayUtils.createFixedLengthArray([1, 2], 3);  // ❌ throws error
+ * 
+ */
+    static createFixedLengthArray(): void
   }
 }
 
 // This ensures TypeScript treats the file as a module
-export {};
+export { };
