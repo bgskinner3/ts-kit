@@ -10,7 +10,7 @@ import type {
   THexByteString,
   TInternalUrl,
   TSnakeCase,
-  TKebabCase
+  TKebabCase,
 } from '../../types';
 import { isNumber, isNonEmptyString } from './primitives';
 import { REGEX_CONSTANTS } from '../../constants';
@@ -23,14 +23,11 @@ export const isCamelCase: TTypeGuard<TCamelCase<string>> = (
 ): value is TCamelCase<string> =>
   typeof value === 'string' && REGEX_CONSTANTS.camelCase.test(value);
 
-
-
 /** @see {@link PrimitiveTypeGuardsDocs.isCamelCase} */
 export const isSnakeCase: TTypeGuard<TSnakeCase<string>> = (
   value,
 ): value is TSnakeCase<string> =>
   typeof value === 'string' && REGEX_CONSTANTS.snakeCase.test(value);
-
 
 /** @see {@link PrimitiveTypeGuardsDocs.isCamelCase} */
 export const isKebabCase: TTypeGuard<TKebabCase<string>> = (
@@ -38,9 +35,10 @@ export const isKebabCase: TTypeGuard<TKebabCase<string>> = (
 ): value is TKebabCase<string> =>
   typeof value === 'string' && REGEX_CONSTANTS.kebabCase.test(value);
 
-
 /** @see {@link PrimitiveTypeGuardsDocs.isHexString} */
-export const isHexByteString = (expectedLength?: number): TTypeGuard<THexByteString> => {
+export const isHexByteString = (
+  expectedLength?: number,
+): TTypeGuard<THexByteString> => {
   return (value: unknown): value is THexByteString => {
     if (!isNonEmptyString(value)) return false;
     if (value.length % 2 !== 0) return false;
@@ -138,5 +136,5 @@ export const RefinedTypeGuards = {
   isInternalUrl,
   isRGBTuple,
   isSnakeCase,
-  isKebabCase
+  isKebabCase,
 } as const;

@@ -27,8 +27,6 @@ import {
   assertIsRGBTuple,
 } from '../../src/utils';
 
-
-
 describe('Primitive Assertion Functions', () => {
   test('assertIsNumber passes for valid numbers', () => {
     expect(() => assertIsNumber(0)).not.toThrow();
@@ -109,16 +107,23 @@ describe('Primitive Assertion Functions', () => {
 });
 
 describe('Reference Assertion Functions', () => {
-  test('assertIsNull passes for null', () => expect(() => assertIsNull(null)).not.toThrow());
-  test('assertIsNull throws for non-null', () => expect(() => assertIsNull(undefined as any)).toThrow());
+  test('assertIsNull passes for null', () =>
+    expect(() => assertIsNull(null)).not.toThrow());
+  test('assertIsNull throws for non-null', () =>
+    expect(() => assertIsNull(undefined as any)).toThrow());
 
-  test('assertIsUndefined passes for undefined', () => expect(() => assertIsUndefined(undefined)).not.toThrow());
-  test('assertIsUndefined throws for other values', () => expect(() => assertIsUndefined(null as any)).toThrow());
+  test('assertIsUndefined passes for undefined', () =>
+    expect(() => assertIsUndefined(undefined)).not.toThrow());
+  test('assertIsUndefined throws for other values', () =>
+    expect(() => assertIsUndefined(null as any)).toThrow());
 
-  test('assertIsDefined passes for non-null/non-undefined', () => expect(() => assertIsDefined(123)).not.toThrow());
-  test('assertIsDefined throws for null/undefined', () => expect(() => assertIsDefined(null as any)).toThrow());
+  test('assertIsDefined passes for non-null/non-undefined', () =>
+    expect(() => assertIsDefined(123)).not.toThrow());
+  test('assertIsDefined throws for null/undefined', () =>
+    expect(() => assertIsDefined(null as any)).toThrow());
 
-  test('assertObject passes for objects', () => expect(() => assertObject({})).not.toThrow());
+  test('assertObject passes for objects', () =>
+    expect(() => assertObject({})).not.toThrow());
   test('assertObject throws for null/array/non-object', () => {
     expect(() => assertObject(null as any)).toThrow();
     expect(() => assertObject([] as any)).toThrow();
@@ -143,11 +148,9 @@ describe('Reference Assertion Functions', () => {
     expect(() => assertIsNil({} as any)).toThrow();
   });
   test('assertIsFunction does not throw for functions', () => {
-    expect(() => assertIsFunction(() => { })).not.toThrow();
-    expect(() => assertIsFunction(async () => { })).not.toThrow();
-    expect(() => assertIsFunction(function test() { })).not.toThrow();
-
-
+    expect(() => assertIsFunction(() => {})).not.toThrow();
+    expect(() => assertIsFunction(async () => {})).not.toThrow();
+    expect(() => assertIsFunction(function test() {})).not.toThrow();
   });
   test('assertIsFunction throws for non-functions', () => {
     expect(() => assertIsFunction(123 as any)).toThrow();
@@ -227,11 +230,9 @@ describe('Reference Assertion Functions', () => {
       expect(() => assertIsWeakSet(null as any)).toThrow();
     });
   });
-
 });
 
 describe('Refined / Composite Assertion Functions', () => {
-
   describe('assertIsCamelCase', () => {
     test('assertIsCamelCase passes for valid camelCase', () => {
       expect(() => assertIsCamelCase('fooBar')).not.toThrow();
@@ -241,7 +242,6 @@ describe('Refined / Composite Assertion Functions', () => {
     });
   });
   describe('assertIsRGBTuple', () => {
-
     test('assertIsRGBTuple passes for valid RGB', () => {
       expect(() => assertIsRGBTuple([0, 128, 255])).not.toThrow();
     });
@@ -251,7 +251,6 @@ describe('Refined / Composite Assertion Functions', () => {
     });
   });
 
-
   describe('assertIsBufferLikeObject', () => {
     test('does not throw for valid buffer-like objects', () => {
       const valid = { type: 'Buffer', data: [1, 2, 3] };
@@ -259,10 +258,18 @@ describe('Refined / Composite Assertion Functions', () => {
     });
 
     test('throws for invalid buffer-like objects', () => {
-      expect(() => assertIsBufferLikeObject({ type: 'Buffer' } as any)).toThrow();
-      expect(() => assertIsBufferLikeObject({ data: [1, 2, 3] } as any)).toThrow();
-      expect(() => assertIsBufferLikeObject({ type: 'NotBuffer', data: [1, 2, 3] } as any)).toThrow();
-      expect(() => assertIsBufferLikeObject({ type: 'Buffer', data: ['a', 'b'] } as any)).toThrow();
+      expect(() =>
+        assertIsBufferLikeObject({ type: 'Buffer' } as any),
+      ).toThrow();
+      expect(() =>
+        assertIsBufferLikeObject({ data: [1, 2, 3] } as any),
+      ).toThrow();
+      expect(() =>
+        assertIsBufferLikeObject({ type: 'NotBuffer', data: [1, 2, 3] } as any),
+      ).toThrow();
+      expect(() =>
+        assertIsBufferLikeObject({ type: 'Buffer', data: ['a', 'b'] } as any),
+      ).toThrow();
       expect(() => assertIsBufferLikeObject(null as any)).toThrow();
       expect(() => assertIsBufferLikeObject('string' as any)).toThrow();
     });

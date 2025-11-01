@@ -20,7 +20,8 @@ export const isFunction: TTypeGuard<TAnyFunction> = <T extends TAnyFunction, U>(
 
 export const isObject: TTypeGuard<object> = <T extends object, U>(
   term: T | U,
-): term is NonNullable<T> => !isNull(term) && !isArray(term) && typeof term === 'object';
+): term is NonNullable<T> =>
+  !isNull(term) && !isArray(term) && typeof term === 'object';
 
 export const isArray: TTypeGuard<unknown[]> = <T, U>(
   term: Array<T> | U,

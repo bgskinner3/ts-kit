@@ -9,7 +9,6 @@ import {
   objectSet,
 } from '../../src/utils';
 
-
 describe('ObjectUtils', () => {
   describe('keys', () => {
     it('returns the keys of an object', () => {

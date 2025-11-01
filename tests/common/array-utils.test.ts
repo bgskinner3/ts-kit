@@ -10,7 +10,6 @@ import {
   arrayFilterNonNullable,
 } from '../../src/utils';
 
-
 describe('ArrayUtils', () => {
   describe('includes', () => {
     it('returns true if element is in array', () => {
