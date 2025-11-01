@@ -61,6 +61,7 @@ module.exports = [
         expect: true,
         beforeEach: true,
         afterEach: true,
+        test:true
       },
     },
     rules: {

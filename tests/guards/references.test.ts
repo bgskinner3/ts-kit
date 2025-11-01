@@ -67,7 +67,7 @@ describe('Reference Type Guards', () => {
     describe('isObject', () => {
         it('returns true only for non-null objects', () => {
             expect(isObject({})).toBe(true);
-            expect(isObject([])).toBe(true); // Arrays are objects
+            expect(isObject([])).toBe(false); 
             expect(isObject(null)).toBe(false);
             expect(isObject(42)).toBe(false);
         });

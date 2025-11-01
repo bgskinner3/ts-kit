@@ -40,16 +40,15 @@ export const isKebabCase: TTypeGuard<TKebabCase<string>> = (
 
 
 /** @see {@link PrimitiveTypeGuardsDocs.isHexString} */
-export const isHexByteString: TTypeGuard<THexByteString> = (
-  value: unknown,
-  expectedLength?: number,
-): value is THexByteString => {
-  if (!isNonEmptyString(value)) return false;
-  if (value.length % 2 !== 0) return false;
-  if (!REGEX_CONSTANTS.hexString.test(value)) return false;
-  if (!isUndefined(expectedLength) && value.length !== expectedLength)
-    return false;
-  return true;
+export const isHexByteString = (expectedLength?: number): TTypeGuard<THexByteString> => {
+  return (value: unknown): value is THexByteString => {
+    if (!isNonEmptyString(value)) return false;
+    if (value.length % 2 !== 0) return false;
+    if (!REGEX_CONSTANTS.hexString.test(value)) return false;
+    if (!isUndefined(expectedLength) && value.length !== expectedLength)
+      return false;
+    return true;
+  };
 };
 
 /**  @see {@link CompositeTypeGuardsDocs.isBufferLikeObject} */
