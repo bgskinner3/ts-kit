@@ -1,11 +1,9 @@
 import { HTML_TAGS } from '../constants';
-type TBufferLikeObject = {
-  type: 'Buffer';
-  data: number[];
-};
+import { TJSONObjectString, TJSONArrayString } from './branded';
 type TTypeGuard<T> = (value: unknown) => value is T;
 type TAssert<T> = (value: unknown) => asserts value is T;
 type TAnyFunction = (...args: unknown[]) => unknown;
+type TJSONDataString = TJSONObjectString | TJSONArrayString;
 
 type TElementLike = {
   type: string;
@@ -15,10 +13,10 @@ type TElementLike = {
 type THTMLTags = (typeof HTML_TAGS)[number];
 
 export type {
-  TBufferLikeObject,
   TTypeGuard,
   TAnyFunction,
   THTMLTags,
   TElementLike,
-  TAssert
+  TAssert,
+  TJSONDataString,
 };

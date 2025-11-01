@@ -1,12 +1,12 @@
 import {
-    isNumber,
-    isInteger,
-    isString,
-    isNonEmptyString,
-    isBoolean,
-    isBigInt,
-    isSymbol,
-} from '../../src/utils'
+  isNumber,
+  isInteger,
+  isString,
+  isNonEmptyString,
+  isBoolean,
+  isBigInt,
+  isSymbol,
+} from '../../src/utils';
 
 describe('Primitive Type Guards', () => {
   describe('isNumber', () => {

@@ -1,39 +1,38 @@
-import { REGEX_CONSTANTS } from '../../constants'
-import { TRGB, TCssRGB } from '../../types'
+import { REGEX_CONSTANTS } from '../../constants';
+import { TRGB, TCssRGB } from '../../types';
 import { isString } from '../guards';
 import { assertRGB } from '../assertions';
 // import CSSProperties
 
 export const hexToRGB = (hex: string): TRGB => {
-    const normalized = hex.startsWith('#') ? hex.slice(1) : hex;
+  const normalized = hex.startsWith('#') ? hex.slice(1) : hex;
 
-    if (!REGEX_CONSTANTS.hexColor.test(normalized)) {
-        throw new Error(`Invalid hex color: "${hex}"`);
-    }
+  if (!REGEX_CONSTANTS.hexColor.test(normalized)) {
+    throw new Error(`Invalid hex color: "${hex}"`);
+  }
 
-    const r = parseInt(normalized.slice(0, 2), 16);
-    const g = parseInt(normalized.slice(2, 4), 16);
-    const b = parseInt(normalized.slice(4, 6), 16);
+  const r = parseInt(normalized.slice(0, 2), 16);
+  const g = parseInt(normalized.slice(2, 4), 16);
+  const b = parseInt(normalized.slice(4, 6), 16);
 
-    return [r, g, b];
+  return [r, g, b];
 };
 
 export const validateRGB = (input: TRGB | string): TRGB => {
-    if (isString(input)) return hexToRGB(input);
-    assertRGB(input)
-    return input satisfies TRGB;
+  if (isString(input)) return hexToRGB(input);
+  assertRGB(input);
+  return input satisfies TRGB;
 };
 
-
 export const getLuminance = (rgb: TRGB | string): number => {
-    const [r, g, b] = validateRGB(rgb);
+  const [r, g, b] = validateRGB(rgb);
 
-    const transform = (channel: number) => {
-        const c = channel / 255;
-        return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
-    };
+  const transform = (channel: number) => {
+    const c = channel / 255;
+    return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+  };
 
-    return 0.2126 * transform(r) + 0.7152 * transform(g) + 0.0722 * transform(b);
+  return 0.2126 * transform(r) + 0.7152 * transform(g) + 0.0722 * transform(b);
 };
 /**
  * ## 🌗 isLumLessThan — Check if a Color’s Luminance is Below a Threshold
@@ -51,9 +50,10 @@ export const getLuminance = (rgb: TRGB | string): number => {
  * isLumLessThan([255,255,255], 0.2); // false
  * ```
  */
-export const isLumLessThan = (color: TRGB | string, threshold: number): boolean =>
-  getLuminance(validateRGB(color)) < threshold;
-
+export const isLumLessThan = (
+  color: TRGB | string,
+  threshold: number,
+): boolean => getLuminance(validateRGB(color)) < threshold;
 
 /**
  * ## 🌑 isDarkColor — Check if a Color is Perceptually Dark
@@ -88,8 +88,10 @@ export const isDarkColor = (color: TRGB | string): boolean =>
  * isLumGreaterThan('#222222', 0.2); // false
  * ```
  */
-export const isLumGreaterThan = (color: TRGB | string, threshold: number): boolean =>
-  getLuminance(validateRGB(color)) > threshold;
+export const isLumGreaterThan = (
+  color: TRGB | string,
+  threshold: number,
+): boolean => getLuminance(validateRGB(color)) > threshold;
 
 /**
  * ## 🎨 contrastTextColor — Returns an Accessible Text Color Based on Background
@@ -112,11 +114,11 @@ export const isLumGreaterThan = (color: TRGB | string, threshold: number): boole
  * @example
  * ```ts
  * // Tailwind mode (default)
- * contrastTextColor('#000000'); 
+ * contrastTextColor('#000000');
  * // → 'text-white'
  *
  * // CSS mode
- * contrastTextColor('#ffffff', { mode: 'css' }); 
+ * contrastTextColor('#ffffff', { mode: 'css' });
  * // → '#000000'
  *
  * // Custom threshold
@@ -188,7 +190,6 @@ export const hexToRGBShorthand = (
   ];
 };
 
-
 /**
  * ## 🎨 interpolateColor — Linear Interpolation Between Two RGB Colors
  *
@@ -210,7 +211,7 @@ export const hexToRGBShorthand = (
  *   { r: 255, g: 0, b: 0 },
  *   { r: 0, g: 0, b: 255 },
  *   0.5
- * ); 
+ * );
  * // → "rgb(128, 0, 128)"
  *
  * interpolateColor(

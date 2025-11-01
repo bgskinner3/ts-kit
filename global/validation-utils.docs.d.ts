@@ -53,7 +53,6 @@ declare global {
      */
     static exampleDoc(): void;
 
-
     /**
      * ## 🧠 ReferenceTypeGuards — Safe Type Checks for Reference & Built-In Objects
      *
@@ -130,19 +129,19 @@ declare global {
      *
      * ### Types of Guards Included:
      * 1. **Object & Record Guards**
-     *    - `isObject`, `isRecordOf`  
+     *    - `isObject`, `isRecordOf`
      *    - Validates that a value is an object or a record with values passing a type guard.
      *
      * 2. **Array & Membership Guards**
-     *    - `isArrayOf`, `isInArray`, `isKeyOfArray`, `isKeyOfObject`  
+     *    - `isArrayOf`, `isInArray`, `isKeyOfArray`, `isKeyOfObject`
      *    - Validate array contents, membership, or allowed keys.
      *
      * 3. **Specialized Structured Guards**
-     *    - `isBufferLikeObject`, `isElementLike`, `isElementOfType`  
+     *    - `isBufferLikeObject`, `isElementLike`, `isElementOfType`
      *    - Validate specific structured objects like buffer-like objects or virtual DOM elements.
      *
      * 4. **URL & Environment Guards**
-     *    - `isValidUrl`, `isUrlOrRelativePath`, `isInternalUrl`, `isClientSide`  
+     *    - `isValidUrl`, `isUrlOrRelativePath`, `isInternalUrl`, `isClientSide`
      *    - Validate strings representing URLs, relative paths, or runtime environment context.
      *
      * ---
@@ -232,19 +231,19 @@ declare global {
      *
      * ### Types of Assertions Included:
      * 1. **Primitive Assertions**
-     *    - e.g., `assertNumber(value)`, `assertString(value)`  
+     *    - e.g., `assertNumber(value)`, `assertString(value)`
      *    - Throws if the value is not the expected primitive type.
      *
      * 2. **Reference & Structured Assertions**
-     *    - e.g., `assertObject(value)`, `assertArrayOf(value, isNumber)`  
+     *    - e.g., `assertObject(value)`, `assertArrayOf(value, isNumber)`
      *    - Throws if the value is not an object, array, or does not pass the supplied guard.
      *
      * 3. **Specialized / Composite Assertions**
-     *    - e.g., `assertBufferLikeObject(value)`, `assertElementOfType(value, ['div'])`  
+     *    - e.g., `assertBufferLikeObject(value)`, `assertElementOfType(value, ['div'])`
      *    - Throws if the value does not match a specific structured type.
      *
      * 4. **URL / Environment Assertions**
-     *    - e.g., `assertValidUrl(value)`, `assertInternalUrl(value)`  
+     *    - e.g., `assertValidUrl(value)`, `assertInternalUrl(value)`
      *    - Throws if the string is not a valid URL, relative path, or internal URL.
      *
      * ---
@@ -380,25 +379,24 @@ declare global {
     static PrimitiveTypeGuards(): void;
   }
 
-
-class AssertionUtilsDocs {
-  /**
- * ## 🎨 assertRGB — Ensures a Value is a Valid RGB Tuple
- *
- * Asserts that the provided input is a valid RGB array containing exactly three
- * finite numeric values (0–255). Throws a descriptive error if validation fails.
- *
- * @example
- * ```ts
- * const color: unknown = [255, 128, 64];
- * assertRGB(color); // ✅ passes — color is now typed as TRGB
- *
- * const invalid = [255, -5, 'oops'];
- * assertRGB(invalid); // ❌ throws "Invalid RGB array: [255,-5,"oops"]"
- * ```
- */
- static assertRGB(): void;
-}
+  class AssertionUtilsDocs {
+    /**
+     * ## 🎨 assertRGB — Ensures a Value is a Valid RGB Tuple
+     *
+     * Asserts that the provided input is a valid RGB array containing exactly three
+     * finite numeric values (0–255). Throws a descriptive error if validation fails.
+     *
+     * @example
+     * ```ts
+     * const color: unknown = [255, 128, 64];
+     * assertRGB(color); // ✅ passes — color is now typed as TRGB
+     *
+     * const invalid = [255, -5, 'oops'];
+     * assertRGB(invalid); // ❌ throws "Invalid RGB array: [255,-5,"oops"]"
+     * ```
+     */
+    static assertRGB(): void;
+  }
 
   // ─────────────────────────────────────────────────────────────
   // ─────────────────────────────────────────────────────────────
@@ -1085,4 +1083,4 @@ class AssertionUtilsDocs {
 }
 
 // This ensures TypeScript treats the file as a module
-export { };
+export {};

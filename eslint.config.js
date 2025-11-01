@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 /* eslint-disable @typescript-eslint/no-require-imports */
 const js = require('@eslint/js');
 const tseslint = require('@typescript-eslint/eslint-plugin');
@@ -30,6 +29,7 @@ module.exports = [
         require: 'readonly',
         process: 'readonly',
         URL: 'readonly',
+        location: 'readonly',
       },
     },
     plugins: {

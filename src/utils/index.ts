@@ -1,3 +1,3 @@
 export * from './common';
-export * from './guards'
-export * from './assertions'
+export * from './guards';
+export * from './validations';

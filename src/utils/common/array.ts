@@ -20,7 +20,6 @@ import { exportAndRenameStaticMethods } from '../../managers';
  * @see {@link CommonUtilsDocs.ArrayUtils}
  */
 class ArrayUtils {
-
   /**  @see {@link ArrayUtilsDocs.includes} */
   static includes<T extends U, U>(arr: ReadonlyArray<T>, el: U): el is T {
     return arr.includes(el as T);

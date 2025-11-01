@@ -20,4 +20,10 @@ type TFixedLengthArray<T extends unknown[]> = Pick<
 type TRGB = readonly [r: number, g: number, b: number];
 type TCssRGB = `rgb(${number}, ${number}, ${number})`;
 
-export type { TFixedLengthArray, TArrayItems, TArrayLengthMutationKeys, TRGB, TCssRGB };
+export type {
+  TFixedLengthArray,
+  TArrayItems,
+  TArrayLengthMutationKeys,
+  TRGB,
+  TCssRGB,
+};
