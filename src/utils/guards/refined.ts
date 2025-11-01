@@ -9,13 +9,12 @@ import type {
   TRGB,
   THexByteString,
   TInternalUrl,
+  TSnakeCase,
+  TKebabCase
 } from '../../types';
-import { isObject, isArray } from '../guards/reference';
-import { isNumber } from '../guards/primitives';
-import { isNonEmptyString } from '../guards/primitives';
+import { isNumber, isNonEmptyString } from './primitives';
 import { REGEX_CONSTANTS } from '../../constants';
-import { isUndefined } from './reference';
-import { isClientSide } from '../validations';
+import { isUndefined, isObject, isArray } from './reference';
 import { isArrayOf } from './composite';
 
 /** @see {@link PrimitiveTypeGuardsDocs.isCamelCase} */
@@ -23,6 +22,22 @@ export const isCamelCase: TTypeGuard<TCamelCase<string>> = (
   value,
 ): value is TCamelCase<string> =>
   typeof value === 'string' && REGEX_CONSTANTS.camelCase.test(value);
+
+
+
+/** @see {@link PrimitiveTypeGuardsDocs.isCamelCase} */
+export const isSnakeCase: TTypeGuard<TSnakeCase<string>> = (
+  value,
+): value is TSnakeCase<string> =>
+  typeof value === 'string' && REGEX_CONSTANTS.snakeCase.test(value);
+
+
+/** @see {@link PrimitiveTypeGuardsDocs.isCamelCase} */
+export const isKebabCase: TTypeGuard<TKebabCase<string>> = (
+  value,
+): value is TKebabCase<string> =>
+  typeof value === 'string' && REGEX_CONSTANTS.kebabCase.test(value);
+
 
 /** @see {@link PrimitiveTypeGuardsDocs.isHexString} */
 export const isHexByteString: TTypeGuard<THexByteString> = (
@@ -96,7 +111,7 @@ export const isAbsoluteUrl: TTypeGuard<TAbsoluteURL> = (
 export const isInternalUrl: TTypeGuard<TInternalUrl> = (
   url: unknown,
 ): url is TInternalUrl => {
-  if (!isClientSide() || !isNonEmptyString(url)) return false;
+  if (typeof window === 'undefined' || !isNonEmptyString(url)) return false;
   if (url.startsWith('/')) return true;
   try {
     const parsed = new URL(url, location.origin);
@@ -123,4 +138,6 @@ export const RefinedTypeGuards = {
   isAbsoluteUrl,
   isInternalUrl,
   isRGBTuple,
+  isSnakeCase,
+  isKebabCase
 } as const;

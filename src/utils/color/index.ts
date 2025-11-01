@@ -1,7 +1,7 @@
 import { REGEX_CONSTANTS } from '../../constants';
 import { TRGB, TCssRGB } from '../../types';
 import { isString } from '../guards';
-import { assertRGB } from '../assertions';
+import { assertIsRGBTuple } from '../validations';
 // import CSSProperties
 
 export const hexToRGB = (hex: string): TRGB => {
@@ -20,7 +20,7 @@ export const hexToRGB = (hex: string): TRGB => {
 
 export const validateRGB = (input: TRGB | string): TRGB => {
   if (isString(input)) return hexToRGB(input);
-  assertRGB(input);
+  assertIsRGBTuple(input);
   return input satisfies TRGB;
 };
 

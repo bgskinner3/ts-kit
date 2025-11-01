@@ -5,6 +5,11 @@ export const isNull: TTypeGuard<null> = <T>(term: T | null): term is null =>
 
 export const isUndefined: TTypeGuard<undefined> = (value): value is undefined =>
   typeof value === 'undefined';
+
+export const isDefined: TTypeGuard<unknown> = (
+  value,
+): value is NonNullable<unknown> => value !== null && value !== undefined;
+
 export const isNil: TTypeGuard<null | undefined> = (
   value,
 ): value is null | undefined => value == null;
@@ -57,4 +62,6 @@ export const ReferenceTypeGuards = {
   isWeakMap,
   isWeakSet,
   isNil,
+  isUndefined,
+  isDefined,
 } as const;

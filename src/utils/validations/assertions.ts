@@ -1,125 +1,103 @@
-import { PrimitiveTypeGuards } from '../guards';
-import { generateKeyMap } from '../transformers';
+import {
+  PrimitiveTypeGuards,
+  ReferenceTypeGuards,
+  RefinedTypeGuards,
+} from '../guards';
+import type {
+  TAssert,
+  TTypeGuard,
+  TRGB,
+  TInternalUrl,
+  TAbsoluteURL,
+  TAnyFunction,
+  TJSONObjectString,
+  TJSONArrayString,
+  TJSONDataString,
+  TBufferLikeObject,
+} from '../../types';
 
-// const map = generateKeyMap()
+const assertValue = <T>(
+  value: unknown,
+  typeGuard: TTypeGuard<T>,
+  message?: string,
+): asserts value is T => {
+  if (!typeGuard(value)) {
+    throw new Error(message ?? 'Validation failed for value');
+  }
+};
 
-// import type { TAssert, TRGB } from '../../types'
-// import { isArray, isNumber } from '../guards';
+const makeAssert = <T>(guard: TTypeGuard<T>, _key: string): TAssert<T> => {
+  return (value: unknown, message?: string) =>
+    assertValue(value, guard, message);
+};
 
-// export const assertIsDefined: TAssert<unknown> = <T>(
-//     value: T | undefined,
-//     message?: string,
-// ): asserts value is T => {
-//     if (value === undefined) {
-//         throw new Error(message ?? 'Value must be defined');
-//     }
-// }
+// -------------------- Generate assertion functions --------------------
 
-// // Generic assert function
-// // export const assert: TAssert<unknown> = <T>(
-// //   value: unknown,
-// //   typeGuard: (v: unknown) => v is T,
-// //   message?: string
-// // ): asserts value is T => {
-// //   if (!typeGuard(value)) {
-// //     throw new Error(message ?? 'Validation failed for value');
-// //   }
-// // };
-// export const assertNotNil = <T>(
-//     value: T | null | undefined,
-//     message?: string,
-// ): asserts value is Required<T> => {
-//     if (value === null || value === undefined) {
-//         throw new Error(message ?? 'Value must not be null or undefined');
-//     }
-// }
+// Primitive asserts
+/* prettier-ignore */ export const assertIsNumber: TAssert<number> = makeAssert(PrimitiveTypeGuards.isNumber, 'isNumber');
+/* prettier-ignore */ export const assertIsInteger: TAssert<number> = makeAssert(PrimitiveTypeGuards.isInteger, 'isInteger');
+/* prettier-ignore */ export const assertIsString: TAssert<string> = makeAssert(PrimitiveTypeGuards.isString, 'isString');
+/* prettier-ignore */ export const assertIsNonEmptyString: TAssert<string> = makeAssert(PrimitiveTypeGuards.isNonEmptyString, 'isNonEmptyString');
+/* prettier-ignore */ export const assertIsBoolean: TAssert<boolean> = makeAssert(PrimitiveTypeGuards.isBoolean, 'isBoolean');
+/* prettier-ignore */ export const assertIsBigInt: TAssert<bigint> = makeAssert(PrimitiveTypeGuards.isBigInt, 'isBigInt');
+/* prettier-ignore */ export const assertIsSymbol: TAssert<symbol> = makeAssert(PrimitiveTypeGuards.isSymbol, 'isSymbol');
 
-// export const assertString: TAssert<string> = (value: unknown, message?: string): asserts value is string => {
-//     if (typeof value !== 'string') {
-//         throw new Error(message ?? 'Value must be a string');
-//     }
-// }
+// Reference asserts
+/* prettier-ignore */ export const assertIsNull: TAssert<null> = makeAssert(ReferenceTypeGuards.isNull, 'isNull');
+/* prettier-ignore */ export const assertIsUndefined: TAssert<undefined> = makeAssert(ReferenceTypeGuards.isUndefined, 'isUndefined');
+/* prettier-ignore */ export const assertIsDefined: TAssert<NonNullable<unknown>> = makeAssert(ReferenceTypeGuards.isDefined, 'isDefined');
+/* prettier-ignore */ export const assertIsNil: TAssert<null | undefined> = makeAssert(ReferenceTypeGuards.isNil, 'isNil');
+/* prettier-ignore */ export const assertIsFunction: TAssert<TAnyFunction> = makeAssert(ReferenceTypeGuards.isFunction, 'isFunction');
+/* prettier-ignore */ export const assertObject: TAssert<object> = makeAssert(ReferenceTypeGuards.isObject, 'isObject');
+/* prettier-ignore */ export const assertIsArray: TAssert<unknown[]> = makeAssert(ReferenceTypeGuards.isArray, 'isArray');
+/* prettier-ignore */ export const assertIsMap: TAssert<Map<unknown, unknown>> = makeAssert(ReferenceTypeGuards.isMap, 'isMap');
+/* prettier-ignore */ export const assertIsSet: TAssert<Set<unknown>> = makeAssert(ReferenceTypeGuards.isSet, 'isSet');
+/* prettier-ignore */ export const assertIsWeakMap: TAssert<WeakMap<object, unknown>> = makeAssert(ReferenceTypeGuards.isWeakMap, 'isWeakMap');
+/* prettier-ignore */ export const assertIsWeakSet: TAssert<WeakSet<object>> = makeAssert(ReferenceTypeGuards.isWeakSet, 'isWeakSet');
 
-// export const assertNumber: TAssert<number> = (value: unknown, message?: string): asserts value is number => {
-//     if (typeof value !== 'number') {
-//         throw new Error(message ?? 'Value must be a number');
-//     }
-// }
-// export const assertBigIntOrString = (
-//     value: unknown,
-//     message?: string,
-// ): asserts value is string | bigint => {
-//     if (typeof value !== 'bigint' && typeof value !== 'string') {
-//         throw new Error(message ?? 'Value must be a string or bigint');
-//     }
-// }
+// Refined / Composite asserts
+/* prettier-ignore */ export const assertIsCamelCase: TAssert<string> = makeAssert(RefinedTypeGuards.isCamelCase, 'isCamelCase');
+/* prettier-ignore */ export const assertIsBufferLikeObject: TAssert<TBufferLikeObject> = makeAssert(RefinedTypeGuards.isBufferLikeObject, 'isBufferLikeObject');
+/* prettier-ignore */ export const assertIsJSONArrayString: TAssert<TJSONArrayString> = makeAssert(RefinedTypeGuards.isJSONArrayString, 'isJSONArrayString');
+/* prettier-ignore */ export const assertIsJSONObjectString: TAssert<TJSONObjectString> = makeAssert(RefinedTypeGuards.isJSONObjectString, 'isJSONObjectString');
+/* prettier-ignore */ export const assertIsJsonString: TAssert<TJSONDataString> = makeAssert(RefinedTypeGuards.isJsonString, 'isJsonString');
+/* prettier-ignore */ export const assertIsAbsoluteUrl: TAssert<TAbsoluteURL> = makeAssert(RefinedTypeGuards.isAbsoluteUrl, 'isAbsoluteUrl');
+/* prettier-ignore */ export const assertIsInternalUrl: TAssert<TInternalUrl> = makeAssert(RefinedTypeGuards.isInternalUrl, 'isInternalUrl');
+/* prettier-ignore */ export const assertIsRGBTuple: TAssert<TRGB> = makeAssert(RefinedTypeGuards.isRGBTuple, 'isRGBTuple');
 
-// export const assertBoolean: TAssert<boolean> = (value: unknown, message?: string): asserts value is boolean => {
-//     if (typeof value !== 'boolean') {
-//         throw new Error(message ?? 'Value must be a boolean');
-//     }
-// }
+export const AssertionUtils = {
+  // creators
+  assertValue,
+  makeAssert,
+  // Primitive
+  assertIsNumber,
+  assertIsInteger,
+  assertIsString,
+  assertIsNonEmptyString,
+  assertIsBoolean,
+  assertIsBigInt,
+  assertIsSymbol,
 
-// export const assertObject = (
-//     value: unknown,
-//     message?: string,
-// ): asserts value is Record<string, unknown> => {
-//     if (typeof value !== 'object' || value === null || Array.isArray(value)) {
-//         throw new Error(message ?? 'Value must be a non-null object');
-//     }
-// }
-// export const assertIsArray = <T>(value: unknown, message?: string): asserts value is T[] => {
-//     if (!isArray(value)) {
-//         throw new Error(message ?? 'Value must be an array');
-//     }
-// }
-// export const assertInstanceOf = <T>(
-//     value: unknown,
-//     ctor: new (...args: unknown[]) => T,
-//     message?: string,
-// ): asserts value is T => {
-//     if (!(value instanceof ctor)) {
-//         throw new Error(message ?? `Value must be an instance of ${ctor.name}`);
-//     }
-// }
-// /** @see {@link AssertionUtilsDocs.assertRGB} */
-// export const assertRGB: TAssert<TRGB> = (input: unknown): asserts input is TRGB => {
-//     if (
-//         !isArray(input) ||
-//         input.length !== 3 ||
-//         input.some((n) => !isNumber(n) || n < 0 || n > 255)
-//     ) {
-//         throw new Error(
-//             `Invalid RGB array. Expected [r, g, b] where each 0–255, received: ${JSON.stringify(input,)}`);
-//     }
-// };
-// /**
-//  * ## 🧩 Available Assertion Methods
-//  *
-//  * - `assertionIsDefined` — Throws if a value is `undefined`.
-//  * - `assertionIsNotNil` — Throws if a value is `null` or `undefined`.
-//  * - `assertionIsString` — Throws if a value is not a string.
-//  * - `assertionIsNumber` — Throws if a value is not a number.
-//  * - `assertionIsBigIntOrString` — Throws if a value is not a bigint or string.
-//  * - `assertionIsBoolean` — Throws if a value is not a boolean.
-//  * - `assertionIsObject` — Throws if a value is not a non-null object.
-//  * - `assertionIsArray` — Throws if a value is not an array.
-//  * - `assertionIsInstanceOf` — Throws if a value is not an instance of a given constructor.
-//  *
-//  * ---
-//  *
-//  *  @see {@link ValidationUtilsDocs.AssertionUtils}
-//  */
-// export const AssertionUtils = {
-//     assertIsDefined,
-//     assertNotNil,
-//     assertIsArray,
-//     assertBigIntOrString,
-//     assertBoolean,
-//     assertObject,
-//     assertInstanceOf,
-//     assertNumber,
-//     assertString,
-//     assertRGB
+  // Reference
+  assertIsNull,
+  assertIsUndefined,
+  assertIsDefined,
+  assertIsNil,
+  assertIsFunction,
+  assertObject,
+  assertIsArray,
+  assertIsMap,
+  assertIsSet,
+  assertIsWeakMap,
+  assertIsWeakSet,
 
-// }
+  // Refined / Composite
+  assertIsCamelCase,
+  assertIsBufferLikeObject,
+  assertIsJSONArrayString,
+  assertIsJSONObjectString,
+  assertIsJsonString,
+  assertIsAbsoluteUrl,
+  assertIsInternalUrl,
+  assertIsRGBTuple,
+} as const;
