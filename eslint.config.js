@@ -30,6 +30,12 @@ module.exports = [
         process: 'readonly',
         URL: 'readonly',
         location: 'readonly',
+        HTMLDivElement: 'readonly',
+        fetch: 'readonly',
+        setTimeout: 'readonly',
+        clearTimeout: 'readonly',
+        setInterval: 'readonly',
+        clearInterval: 'readonly',
       },
     },
     plugins: {

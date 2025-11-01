@@ -2,7 +2,6 @@ import { REGEX_CONSTANTS } from '../../constants';
 import { TRGB, TCssRGB } from '../../types';
 import { isString } from '../guards';
 import { assertIsRGBTuple } from '../validations';
-// import CSSProperties
 
 export const hexToRGB = (hex: string): TRGB => {
   const normalized = hex.startsWith('#') ? hex.slice(1) : hex;

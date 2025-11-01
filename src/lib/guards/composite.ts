@@ -1,6 +1,6 @@
 import { TTypeGuard, TElementLike, THTMLTags } from '../../types';
-import { isObject, isFunction, isUndefined } from '../guards/reference';
-import { isBoolean, isNumber, isSymbol, isString } from '../guards/primitives';
+import { isObject, isFunction, isUndefined } from './reference';
+import { isBoolean, isNumber, isSymbol, isString } from './primitives';
 import { ObjectUtils } from '../common/object';
 
 /**  @see {@link CompositeTypeGuardsDocs.isInArray} */

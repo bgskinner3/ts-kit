@@ -3,8 +3,8 @@ import {
   capitalizeArray,
   toKeyByField,
   generateKeyMap,
-} from '../../src/utils';
-import { ObjectUtils } from '../../src/utils';
+} from '../../src/lib';
+import { ObjectUtils } from '../../src/lib';
 
 describe('ObjectTransformers', () => {
   describe('Capitalization utilities', () => {

@@ -10,7 +10,10 @@ import {
   isAbsoluteUrl,
   // isInternalUrl,
   isRGBTuple,
-} from '../../src/utils';
+  isPhoneNumber,
+  isEmail,
+  isHTMLString,
+} from '../../src/lib';
 
 describe('Refined / Composite Type Guards', () => {
   describe('isCamelCase', () => {
@@ -158,6 +161,93 @@ describe('Refined / Composite Type Guards', () => {
       expect(isRGBTuple([0, 128])).toBe(false);
       expect(isRGBTuple([0, 128, 256])).toBe(false);
       expect(isRGBTuple(['0', 128, 255])).toBe(false);
+    });
+  });
+  describe('isPhoneNumber', () => {
+    it('returns true for valid US numbers', () => {
+      expect(isPhoneNumber('123-456-7890')).toBe(true);
+      expect(isPhoneNumber('(123) 456-7890')).toBe(true);
+      expect(isPhoneNumber('+1 123-456-7890')).toBe(true);
+    });
+
+    it('returns true for valid EU numbers', () => {
+      expect(isPhoneNumber('+44 20 7946 0958')).toBe(true);
+      expect(isPhoneNumber('+49-30-1234567')).toBe(true);
+    });
+
+    it('returns true for valid generic international numbers', () => {
+      expect(isPhoneNumber('+91 98765 43210')).toBe(true);
+      expect(isPhoneNumber('+61 412 345 678')).toBe(true);
+    });
+
+    it('returns false for invalid numbers', () => {
+      expect(isPhoneNumber('abc')).toBe(false);
+      expect(isPhoneNumber('123')).toBe(false);
+      expect(isPhoneNumber('')).toBe(false);
+      expect(isPhoneNumber(null)).toBe(false);
+    });
+  });
+  describe('isEmail', () => {
+    it('returns true for valid emails', () => {
+      expect(isEmail('user@example.com')).toBe(true);
+      expect(isEmail('first.last+tag@sub.domain.co.uk')).toBe(true);
+      expect(isEmail('user_name-123@domain.io')).toBe(true);
+      expect(isEmail('simple@example.co')).toBe(true);
+    });
+
+    it('returns false for invalid emails', () => {
+      expect(isEmail('')).toBe(false); // empty string
+      expect(isEmail('plainaddress')).toBe(false); // no @
+      expect(isEmail('@missing-local.com')).toBe(false); // missing local part
+      expect(isEmail('user@.com')).toBe(false); // missing domain name
+      expect(isEmail('user@domain..com')).toBe(false); // double dot in domain
+    });
+
+    it('returns false for non-string values', () => {
+      expect(isEmail(null)).toBe(false);
+      expect(isEmail(undefined)).toBe(false);
+      expect(isEmail(12345)).toBe(false);
+      expect(isEmail({})).toBe(false);
+    });
+  });
+  describe('isHTMLString', () => {
+    it('returns true for safe HTML tags', () => {
+      expect(isHTMLString('<div>Hello</div>')).toBe(true);
+      expect(isHTMLString('<span>Text</span>')).toBe(true);
+      expect(isHTMLString('<p>Paragraph</p>')).toBe(true);
+      expect(isHTMLString('<ul><li>Item</li></ul>')).toBe(true);
+      expect(isHTMLString('<b>Bold</b>')).toBe(true);
+      expect(isHTMLString('<i>Italic</i>')).toBe(true);
+      expect(isHTMLString('<a href="https://example.com">Link</a>')).toBe(true);
+      expect(isHTMLString('<br>')).toBe(true);
+    });
+
+    it('returns true for HTML entities', () => {
+      expect(isHTMLString('&nbsp;')).toBe(true);
+      expect(isHTMLString('&copy;')).toBe(true);
+    });
+
+    it('returns false for disallowed or dangerous HTML tags', () => {
+      expect(isHTMLString('<script>alert(1)</script>')).toBe(false);
+      expect(isHTMLString('<iframe src="evil.com"></iframe>')).toBe(false);
+      expect(isHTMLString('<object></object>')).toBe(false);
+      expect(isHTMLString('<embed></embed>')).toBe(false);
+      expect(isHTMLString('<div style="color:red">Test</div>')).toBe(true); // style is allowed in tag, only tag name matters here
+    });
+
+    it('returns false for plain text or invalid HTML', () => {
+      expect(isHTMLString('Just text')).toBe(false);
+      expect(isHTMLString('Hello & world')).toBe(false); // no entity at end
+      expect(isHTMLString('123')).toBe(false);
+      expect(isHTMLString('')).toBe(false);
+    });
+
+    it('returns false for non-string values', () => {
+      expect(isHTMLString(null)).toBe(false);
+      expect(isHTMLString(undefined)).toBe(false);
+      expect(isHTMLString(123)).toBe(false);
+      expect(isHTMLString({})).toBe(false);
+      expect(isHTMLString([])).toBe(false);
     });
   });
 });

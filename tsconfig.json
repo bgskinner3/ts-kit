@@ -28,7 +28,7 @@
     "noEmitOnError": true, // Avoid emitting on compile errors
     /* === Output Format === */
     "removeComments": false, // Keep comments for better docs
-    "lib": ["ES2020", "DOM"], // Include DOM if utils may run in browsers
+    "lib": ["ES2022", "DOM", "DOM.Iterable", "ESNext.AsyncIterable"],
     "types": ["jest", "node"]
   },
   "include": ["src/**/*", "global"],

@@ -7,7 +7,7 @@ import {
   isKebabCase,
   isSnakeCase,
   ObjectUtils,
-} from '../../src/utils';
+} from '../../src/lib';
 
 type TestCase = readonly [string, string, string, string];
 

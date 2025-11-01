@@ -25,7 +25,7 @@ import {
   assertIsAbsoluteUrl,
   // assertIsInternalUrl,
   assertIsRGBTuple,
-} from '../../src/utils';
+} from '../../src/lib';
 
 describe('Primitive Assertion Functions', () => {
   test('assertIsNumber passes for valid numbers', () => {

@@ -12,7 +12,7 @@ import type {
   TSnakeCase,
   TKebabCase,
 } from '../../types';
-import { isNumber, isNonEmptyString } from './primitives';
+import { isNumber, isNonEmptyString, isString } from './primitives';
 import { REGEX_CONSTANTS } from '../../constants';
 import { isUndefined, isObject, isArray } from './reference';
 import { isArrayOf } from './composite';
@@ -126,6 +126,28 @@ export const isRGBTuple: TTypeGuard<TRGB> = (input: unknown): input is TRGB => {
   );
 };
 
+export const isPhoneNumber: TTypeGuard<string> = (
+  value: unknown,
+): value is string => {
+  if (!isNonEmptyString(value)) return false;
+
+  return [
+    REGEX_CONSTANTS.USPhoneNumber,
+    REGEX_CONSTANTS.EUPhoneNumber,
+    REGEX_CONSTANTS.genericPhoneNumber,
+  ].some((regex) => regex.test(value));
+};
+export const isEmail: TTypeGuard<string> = (
+  value: unknown,
+): value is string => {
+  return isString(value) && REGEX_CONSTANTS.emailRegex.test(value);
+};
+export const isHTMLString: TTypeGuard<string> = (
+  value: unknown,
+): value is string => {
+  return isString(value) && REGEX_CONSTANTS.htmlDetection.test(value);
+};
+
 export const RefinedTypeGuards = {
   isCamelCase,
   isBufferLikeObject,
@@ -137,4 +159,7 @@ export const RefinedTypeGuards = {
   isRGBTuple,
   isSnakeCase,
   isKebabCase,
+  isPhoneNumber,
+  isEmail,
+  isHTMLString,
 } as const;
