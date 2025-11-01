@@ -57,6 +57,8 @@ export const isElementOfType = <T extends THTMLTags>(
 ): element is { type: THTMLTags; props: object } =>
   isElementLike(element) && allowedTypes.includes(element.type as T);
 
+
+/**  @see {@link GuardUtilsDocs.CompositeTypeGuards} */
 export const CompositeTypeGuards = {
   isInArray,
   isArrayOf,

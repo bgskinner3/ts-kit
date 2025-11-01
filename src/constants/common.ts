@@ -10,7 +10,14 @@ const SAFE_HTML_TAGS = Object.freeze([
   'div',
   'br',
 ] as const);
-const LOG_TYPES = Object.freeze(['log', 'warn', 'error', 'info', 'debug', 'table'] as const)
+const LOG_TYPES = Object.freeze([
+  'log',
+  'warn',
+  'error',
+  'info',
+  'debug',
+  'table',
+] as const);
 const REGEX_CONSTANTS = {
   isoRegex:
     /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/,
@@ -52,6 +59,5 @@ const ANSI_COLOR_CODES = {
   bold: '\x1b[1m',
   underline: '\x1b[4m',
 } as const;
-
 
 export { REGEX_CONSTANTS, HTML_TAGS, ANSI_COLOR_CODES, LOG_TYPES };

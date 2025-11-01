@@ -25,7 +25,7 @@ export const isSymbol: TTypeGuard<symbol> = (value): value is symbol =>
 
 /**
  * Type guards for primitive types (string, number, boolean, etc.)
- * @see {@link ValidationUtilsDocs.PrimitiveTypeGuards}
+ * @see {@link GuardUtilsDocs.PrimitiveTypeGuards}
  */
 export const PrimitiveTypeGuards = {
   isNumber,

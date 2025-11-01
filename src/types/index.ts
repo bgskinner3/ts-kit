@@ -3,4 +3,4 @@ export * from './common-util-types';
 export * from './string-types';
 export * from './validation-types';
 export * from './branded';
-export * from './debug-types'
+export * from './debug-types';

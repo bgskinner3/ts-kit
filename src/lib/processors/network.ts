@@ -1,10 +1,5 @@
 /**
- * Fetches JSON from a URL and parses it with type safety.
- *
- * @template T - Expected type of the JSON response.
- * @param url - The URL to fetch.
- * @returns Parsed JSON of type T.
- * @throws If the fetch fails or response is not ok.
+ * @see {@link ProcessorUtilsDocs.fetchJson}
  */
 export async function fetchJson<T = unknown>(url: string): Promise<T> {
   const response = await fetch(url);
@@ -24,37 +19,16 @@ export async function fetchJson<T = unknown>(url: string): Promise<T> {
 }
 
 /**
- * Pauses execution for a specified amount of time.
- *
- * Useful in async functions when you want to wait or throttle execution,
- * e.g., for retry loops, animation delays, or rate-limiting API calls.
- *
- * @example
- * ```ts
- * async function demo() {
- *   console.log('Start');
- *   await delay(1000); // Pause for 1 second
- *   console.log('1 second later');
- * }
- * ```
- *
- * @param ms - The number of milliseconds to wait
- * @returns A Promise that resolves after the specified delay
+ * @see {@link ProcessorUtilsDocs.delay}
  */
 export const delay = (ms: number): Promise<void> =>
   new Promise((resolve) => setTimeout(resolve, ms));
 
 /**
- * Retry an asynchronous function with exponential backoff on rate-limited errors.
+ * Retries an async function multiple times with exponential backoff.
+ * Useful for handling rate limits or transient failures.
  *
- * @template T - Return type of the async function
- * @param fn - The async function to retry
- * @param retries - Maximum number of retry attempts (default: 5)
- * @param delayMs - Base delay in milliseconds for backoff (default: 500)
- * @returns The result of the async function
- *
- * @example
- * const result = await retry(() => fetchData(), 3, 300);
+ * @see {@link ProcessorUtilsDocs.retry} For full documentation
  */
 export async function retry<T>(
   fn: () => Promise<T>,

@@ -59,7 +59,7 @@ export const isRefObject = <T>(ref: Ref<T>): ref is RefObject<T | null> =>
 
 /**
  * Type guards for reference-based values (objects, arrays, maps, etc.)
- * @see {@link ValidationUtilsDocs.ReferenceTypeGuards}
+ * @see {@link GuardUtilsDocs.ReferenceTypeGuards}
  */
 export const ReferenceTypeGuards = {
   isNull,
