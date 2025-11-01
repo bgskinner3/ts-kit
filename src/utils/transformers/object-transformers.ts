@@ -1,5 +1,4 @@
 import { ObjectUtils, ArrayUtils } from '../common';
-import { isString } from '../guards';
 import { capitalizeString } from './string-transformers';
 
 export const generateKeyMap = <
@@ -53,7 +52,11 @@ export const capitalizeArray = <T extends string>(
 export const capitalizedKeys = <T extends Record<string, unknown>>(
   obj: T,
 ): Capitalize<keyof T & string>[] =>
-  capitalizeArray(ObjectUtils.keys(obj).filter(isString));
+  capitalizeArray(
+    ObjectUtils.keys(obj)
+      .map(String) // Convert all keys to string
+      .filter((key) => /^[A-Za-z]/.test(key)),
+  );
 
 export const ObjectTransformers = {
   capitalizedKeys,
