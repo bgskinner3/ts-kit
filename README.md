@@ -1,8 +1,4 @@
-# My TS Utils
-
-![Build Status](https://img.shields.io/github/actions/workflow/status/<your-username>/<repo-name>/ci.yml?branch=main)
-![Coverage](https://img.shields.io/badge/coverage-0%25-red)
-![License](https://img.shields.io/badge/license-MIT-blue)
+# TypeLens
 
 A modular collection of reusable, **type-safe TypeScript utility functions** for arrays, objects, validation, formatting, and more.
 

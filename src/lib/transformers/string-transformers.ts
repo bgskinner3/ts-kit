@@ -45,7 +45,6 @@ export const toSnakeCase = <T extends string>(
     '$1 $2',
   );
 
-  // Step 3: Split by spaces and join with underscores
   return withBoundaries
     .trim()
     .split(REGEX_CONSTANTS.whitespace)
