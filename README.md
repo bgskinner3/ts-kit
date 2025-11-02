@@ -87,6 +87,8 @@ src/
 │   │   ├── strings.ts
 │   │   └── index.ts
 │   └── debug/         # Development-only debug utilities
+│   │   └── index.ts
+│   └── color/
 │       └── index.ts
 └── types/             # Shared TypeScript types and interfaces
     └── index.ts
@@ -146,3 +148,44 @@ Includes helpers for **data processing**, such as network responses, React eleme
 Provides **debugging and logging helpers** to assist during development, not included in production builds.
 
 [Full Reference →](docs/debug.md)
+
+---
+
+## Usage
+
+This library is designed for **modular, tree-shakable imports**. You can import only what you need for minimal bundle size while leveraging full TypeScript type safety.
+
+### 1️⃣ Importing Utilities
+
+You can import **individual utilities** or **full modules**:
+
+```ts
+// Tree-shakable imports
+import { arrayMap, objectGet } from '@/utils/common';
+import { isNumber, isNonEmptyString } from '@/utils/guards/primitives';
+import { isArrayOf, isKeyOfObject } from '@/utils/guards/composite';
+import { isCamelCase, isRGBTuple } from '@/utils/guards/refined';
+
+// Full module import (less tree-shakable)
+import * as Guards from '@/utils/guards';
+```
+
+## 2️⃣ Using Type Guards
+
+Type guards help TypeScript **narrow types safely**:
+
+```ts
+const values: unknown[] = [42, 'hello', null];
+
+values.forEach((value) => {
+  if (isNumber(value)) {
+    console.log(value.toFixed(2)); // ✅ TypeScript knows it's a number
+  }
+
+  if (isNonEmptyString(value)) {
+    console.log(value.toUpperCase()); // ✅ TypeScript knows it's a string
+  }
+});
+```
+
+## 3️⃣ Composite Guards
