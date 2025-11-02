@@ -10,6 +10,7 @@ const SAFE_HTML_TAGS = Object.freeze([
   'div',
   'br',
 ] as const);
+
 const LOG_TYPES = Object.freeze([
   'log',
   'warn',
@@ -18,6 +19,8 @@ const LOG_TYPES = Object.freeze([
   'debug',
   'table',
 ] as const);
+
+
 const REGEX_CONSTANTS = {
   isoRegex:
     /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/,

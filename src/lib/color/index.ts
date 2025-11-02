@@ -103,3 +103,16 @@ export const interpolateColor = (
 
   return `rgb(${result.r}, ${result.g}, ${result.b})`;
 };
+
+
+export const ColorUtils = {
+  interpolateColor,
+  hexToRGBShorthand,
+  contrastTextColor,
+  isDarkColor,
+  isLumGreaterThan,
+  isLumLessThan,
+  getLuminance,
+  validateRGB,
+  hexToRGB
+} as const

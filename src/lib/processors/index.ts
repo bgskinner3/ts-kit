@@ -1,3 +1,20 @@
+import { lazyProxy, mergeRefs } from "./react";
+import { fetchJson, delay, retry } from "./network";
+
+
+const ProcessorUtils = {
+    lazyProxy,
+    mergeRefs,
+    fetchJson, delay, retry
+} as const
+
+
+export {
+    ProcessorUtils,
+    lazyProxy,
+    mergeRefs,
+    fetchJson, delay, retry
+}
 /**
  * =============================================================================
  * Processors Folder / Module
