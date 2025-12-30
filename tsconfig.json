@@ -29,7 +29,8 @@
     /* === Output Format === */
     "removeComments": false, // Keep comments for better docs
     "lib": ["ES2022", "DOM", "DOM.Iterable", "ESNext.AsyncIterable"],
-    "types": ["jest", "node"]
+    "types": ["jest", "node", "react"],
+    "incremental": true
   },
   "include": ["src/**/*", "global"],
   "exclude": [

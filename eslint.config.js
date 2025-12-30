@@ -21,7 +21,8 @@ module.exports = [
         sourceType: 'module',
       },
       globals: {
-        // ✅ replaces "env"
+        ...js.configs.recommended.globals,
+        ...tseslint.configs.recommended.globals,
         window: 'readonly',
         document: 'readonly',
         console: 'readonly',
@@ -31,6 +32,7 @@ module.exports = [
         URL: 'readonly',
         location: 'readonly',
         HTMLDivElement: 'readonly',
+        HTMLElement: 'readonly',
         fetch: 'readonly',
         setTimeout: 'readonly',
         clearTimeout: 'readonly',

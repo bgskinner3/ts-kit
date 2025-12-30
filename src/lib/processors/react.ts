@@ -1,5 +1,16 @@
-import type { Ref, RefCallback } from 'react';
-import { isFunction, isRef, isRefObject, isString } from '../guards';
+import type {
+  Ref,
+  RefCallback,
+  ElementType,
+  ComponentPropsWithoutRef,
+} from 'react';
+import {
+  isFunction,
+  isRef,
+  isRefObject,
+  isString,
+  isDOMEntry,
+} from '../guards';
 import { ArrayUtils, ObjectUtils } from '../common';
 
 /**
@@ -105,4 +116,16 @@ export function lazyProxy<T extends Record<string, unknown>>(obj: T): T {
   });
 }
 
+// export function extractDOMProps<
+//   TElement extends ElementType,
+//   TFullProps extends ComponentPropsWithoutRef<TElement>,
+// >(props: TFullProps): ComponentPropsWithoutRef<TElement> {
+//   const entries = ObjectUtils.entries(props);
+//   // 2. No cast needed: ArrayUtils.filter narrows based on the isDOMEntry predicate
+//   const filteredEntries = ArrayUtils.filter(entries, isDOMEntry<TElement>);
+//   // 3. No cast needed: ObjectUtils.fromEntries consumes the narrowed entries
 
+//   return ObjectUtils.fromEntries(
+//     filteredEntries,
+//   ) as ComponentPropsWithoutRef<TElement>;
+// }

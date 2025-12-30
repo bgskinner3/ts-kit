@@ -159,6 +159,43 @@ declare global {
      * ```
      */
     static isDarkColor(): void;
+
+    /**
+     * Converts a hex color string to an HSL (Hue, Saturation, Lightness) object.
+     *
+     * @param hex - A hexadecimal color string (e.g., "#ff0000" or "ff0000")
+     * @returns An object with:
+     *   - h: hue in degrees [0, 360)
+     *   - s: saturation [0, 1]
+     *   - l: lightness [0, 1]
+     *
+     * @example
+     * hexToHSL("#ff0000") // { h: 0, s: 1, l: 0.5 }
+     */
+    static hexToHSL(): void;
+
+    /**
+     * Converts a hexadecimal color string to a normalized RGB tuple.
+     *
+     * This function takes a standard hex color (like `#ff0000` or `ff0000`) and
+     * converts it to an RGB representation where each channel is a decimal number
+     * between 0 and 1 instead of 0–255. This format is commonly used in graphics
+     * and WebGL contexts (like Three.js or shaders) that expect normalized RGB values.
+     *
+     * @param hex - A hexadecimal color string, either in 3-digit shorthand (`#f00`)
+     *              or 6-digit full form (`#ff0000`). The leading `#` is optional.
+     *
+     * @returns A tuple `[r, g, b]` where each component is a number between 0 and 1:
+     *          - `r` = red channel normalized (0–1)
+     *          - `g` = green channel normalized (0–1)
+     *          - `b` = blue channel normalized (0–1)
+     *
+     * @example
+     * hexToNormalizedRGB("#ff0000"); // [1, 0, 0]  → pure red
+     * hexToNormalizedRGB("00ff00");  // [0, 1, 0]  → pure green
+     * hexToNormalizedRGB("#0000ff"); // [0, 0, 1]  → pure blue
+     */
+    static hexToNormalizedRGB(): void;
   }
 }
 

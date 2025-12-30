@@ -641,6 +641,32 @@ declare global {
      */
     static isKeyOfObject(): void;
     /**
+     * Type guard that checks whether a given unknown value is an object
+     * and contains a specific property key.
+     *
+     * Unlike `isKeyOfObject(obj)(key)` which only narrows the *key* type,
+     * this guard narrows the *object* itself. After calling this function,
+     * TypeScript knows that:
+     *
+     *   - `obj` is a non-null object
+     *   - `obj` contains the property `key`
+     *   - you can safely access `obj[key]`
+     *
+     * This is the preferred guard to use when you need to safely access
+     * dynamic or unknown object properties, such as when validating
+     * external or untyped data (e.g., errors from Supabase or fetch APIs).
+     *
+     * @example
+     * if (isKeyInObject("message")(err)) {
+     *   console.log(err.message); // fully typed and safe
+     * }
+     *
+     * @param key - The property key to check for.
+     * @returns A type guard that checks if an unknown value is an object
+     *          containing the specified key.
+     */
+    static isKeyInObject(): void;
+    /**
      * ## 🧩 isKeyOfArray — Type Guard for Allowed Primitive Keys
      *
      * Checks if a value is one of the keys in a given readonly array of allowed keys.

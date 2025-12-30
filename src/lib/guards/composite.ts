@@ -18,6 +18,12 @@ export const isKeyOfObject =
   (key: unknown): key is keyof T =>
     (isString(key) || isNumber(key) || isSymbol(key)) && key in obj;
 
+/** @see {@link CompositeTypeGuardsDocs.isKeyInObject}  */
+export const isKeyInObject =
+  <K extends PropertyKey>(key: K) =>
+  (obj: unknown): obj is Record<K, unknown> =>
+    isObject(obj) && key in obj;
+
 /** @see {@link CompositeTypeGuardsDocs.isKeyOfArray}  */
 export const isKeyOfArray =
   <T extends readonly (string | number | symbol)[]>(

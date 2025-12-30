@@ -1,5 +1,4 @@
 import { TTypeGuard, TAnyFunction } from '../../types';
-import type { Ref, RefObject } from 'react';
 
 export const isNull: TTypeGuard<null> = <T>(term: T | null): term is null =>
   term === null;
@@ -50,13 +49,6 @@ export const isWeakSet: TTypeGuard<WeakSet<object>> = <T extends object, U>(
   term: WeakSet<T> | U,
 ): term is WeakSet<T> => term instanceof WeakSet;
 
-export const isRef = <T>(value: unknown): value is Ref<T> =>
-  isDefined(value) &&
-  (isFunction(value) || (isObject(value) && 'current' in value));
-
-export const isRefObject = <T>(ref: Ref<T>): ref is RefObject<T | null> =>
-  !isNull(ref) && isObject(ref) && 'current' in ref;
-
 /**
  * Type guards for reference-based values (objects, arrays, maps, etc.)
  * @see {@link GuardUtilsDocs.ReferenceTypeGuards}
@@ -73,6 +65,4 @@ export const ReferenceTypeGuards = {
   isNil,
   isUndefined,
   isDefined,
-  isRef,
-  isRefObject,
 } as const;

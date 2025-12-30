@@ -103,8 +103,40 @@ export const interpolateColor = (
 
   return `rgb(${result.r}, ${result.g}, ${result.b})`;
 };
+/**  @see {@link ColorUtilsDocs.hexToHSL} */
+export function hexToHSL(hex: string): { h: number; s: number; l: number } {
+  // Convert hex to RGB and normalize to [0,1]
+  const [r, g, b] = hexToRGB(hex).map((v) => v / 255);
 
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  const l = (max + min) / 2;
 
+  let h = 0;
+  let s = 0;
+  const d = max - min;
+
+  if (d !== 0) {
+    // Calculate saturation
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+
+    // Calculate hue
+    if (max === r) {
+      h = ((g - b) / d + (g < b ? 6 : 0)) * 60;
+    } else if (max === g) {
+      h = ((b - r) / d + 2) * 60;
+    } else if (max === b) {
+      h = ((r - g) / d + 4) * 60;
+    }
+  }
+
+  return { h, s, l };
+}
+/**  @see {@link ColorUtilsDocs.hexToNormalizedRGB} */
+export const hexToNormalizedRGB = (hex: string): [number, number, number] => {
+  const [r, g, b] = hexToRGB(hex); // returns 0–255
+  return [r / 255, g / 255, b / 255];
+};
 export const ColorUtils = {
   interpolateColor,
   hexToRGBShorthand,
@@ -114,5 +146,5 @@ export const ColorUtils = {
   isLumLessThan,
   getLuminance,
   validateRGB,
-  hexToRGB
-} as const
+  hexToRGB,
+} as const;
