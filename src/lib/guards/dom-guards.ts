@@ -1,9 +1,9 @@
-// lib/react/guards/dom.ts
-import { VALID_DOM_PROPS } from '../../../constants';
-import { ObjectUtils, memoize } from '../../common';
-import type { TTypeGuard } from '../../../types';
+// lib/guards/dom.ts
+import { VALID_DOM_PROPS } from '../../constants';
+import { ObjectUtils, memoize } from '../common';
+import type { TTypeGuard } from '../../types';
 import type { ElementType, ComponentPropsWithoutRef } from 'react';
-import { isString } from '../../guards';
+import { isString } from '../guards';
 
 // 1. Build the regex string once at module load
 // Note: If VALID_DOM_PROPS is a Set, use [...VALID_DOM_PROPS].join('|')

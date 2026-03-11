@@ -1,15 +1,15 @@
 // lib/react/guards/node.ts
-import type { TTypeGuard, TNamedComponent } from '../../../types';
+import type {
+  TTypeGuard,
+  TNamedComponent,
+  TElementLike,
+  THTMLTags,
+} from '../../types';
 import type { ReactElement, ReactNode, MouseEvent } from 'react';
-import {
-  isArrayOf,
-  isNil,
-  isPrimitive,
-  isKeyInObject,
-  isFunction,
-  isObject,
-} from '../../guards';
-import { isReactPortal } from './primitive';
+import { isPrimitive, isString } from './primitives';
+import { isArrayOf, isKeyInObject } from './composite';
+import { isNil, isFunction, isObject } from './reference';
+import { isReactPortal } from './react-primitive';
 import { isValidElement, Fragment } from 'react';
 export const isValidReactNode: TTypeGuard<ReactNode> = (
   value: unknown,
@@ -52,6 +52,27 @@ export const hasOnClick: TTypeGuard<
     isFunction(value.props.onClick)
   );
 };
+/**
+ * Checks if an object "looks like" a React element without requiring the React Symbol.
+ * Useful for processing JSON-serialized components or third-party objects.
+ */
+export const isElementLike: TTypeGuard<TElementLike> = (
+  element: unknown,
+): element is TElementLike =>
+  isObject(element) &&
+  isKeyInObject('type')(element) &&
+  isKeyInObject('props')(element) &&
+  isObject(element.props) &&
+  (isString(element.type) || isFunction(element.type));
+
+/**
+ * Validates if an element-like object matches a specific set of HTML tags.
+ */
+export const isElementOfType = <T extends THTMLTags>(
+  element: unknown,
+  allowedTypes: THTMLTags,
+): element is { type: THTMLTags; props: object } =>
+  isElementLike(element) && allowedTypes.includes(element.type as T);
 
 /**
  * Guard to check if a React component type has identifying metadata.

@@ -8,15 +8,16 @@ import type {
   ReactElement,
   ReactNode,
 } from 'react';
-import { isFunction, isString } from '../../guards';
 import {
+  isFunction,
+  isString,
+  isDOMEntry,
   isRef,
   isRefObject,
-  isDOMEntry,
   isReactElement,
   hasNameMetadata,
 } from '../guards';
-import { ArrayUtils, ObjectUtils } from '../../common';
+import { ArrayUtils, ObjectUtils } from '../common';
 import { Children } from 'react';
 /**
  * Combines multiple React refs (callback refs or object refs) into a single ref callback.

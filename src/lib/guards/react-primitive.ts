@@ -1,5 +1,5 @@
 // lib/react/guards/primitive.ts
-import type { TTypeGuard } from '../../../types';
+import type { TTypeGuard } from '../../types';
 import type {
   Ref,
   RefObject,
@@ -8,25 +8,19 @@ import type {
   ReactPortal,
   ForwardRefExoticComponent,
 } from 'react';
-import {
-  isDefined,
-  isFunction,
-  isObject,
-  isNull,
-  isKeyInObject,
-} from '../../guards';
+import { isKeyInObject } from './composite';
+import { isDefined, isFunction, isObject, isNull } from './reference';
 /**
- * Internal helper to check if a value is a React-internal object 
+ * Internal helper to check if a value is a React-internal object
  * by validating its hidden `$$typeof` symbol.
  */
 const hasReactSymbol = (value: unknown, symbol: symbol): boolean =>
   isKeyInObject('$$typeof')(value) && value.$$typeof === symbol;
 
-
 /**
  * Checks if a value is a React Ref.
  * Validates both functional refs (callback refs) and object refs (createRef/useRef).
- * 
+ *
  * @template T - The type of the element or value being referenced.
  */
 export const isRef = <T>(value: unknown): value is Ref<T> =>
@@ -67,7 +61,7 @@ export const hasChildren = (value: unknown): value is { children: ReactNode } =>
 
 /**
  * Determines if a value is a valid React Component type.
- * Supports both Functional Components (functions) and Class Components 
+ * Supports both Functional Components (functions) and Class Components
  * (objects with a `render` method on their prototype).
  */
 export const isComponentType: TTypeGuard<ComponentType<unknown>> = (

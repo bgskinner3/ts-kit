@@ -3,3 +3,7 @@ export * from './primitives';
 export * from './composite';
 export * from './refined';
 export * from './link-guards';
+export * from './string-guards';
+export * from './dom-guards';
+export * from './node-guards';
+export * from './react-primitive';

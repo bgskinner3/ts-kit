@@ -3,7 +3,7 @@ const js = require('@eslint/js');
 const tseslint = require('@typescript-eslint/eslint-plugin');
 const tsParser = require('@typescript-eslint/parser');
 const prettier = require('eslint-plugin-prettier');
-const globals = require('globals'); 
+const globals = require('globals');
 /** @type {import("eslint").FlatConfig[]} */
 module.exports = [
   // 🔹 Ignore build / system directories
@@ -21,9 +21,9 @@ module.exports = [
         sourceType: 'module',
       },
       globals: {
-                ...globals.browser,
-        ...globals.node,    // 👈 This adds process, require, module, etc.
-        ...globals.jest,    // 👈 This adds describe, it, expect, etc.
+        ...globals.browser,
+        ...globals.node, // 👈 This adds process, require, module, etc.
+        ...globals.jest, // 👈 This adds describe, it, expect, etc.
         ...js.configs.recommended.globals,
         ...tseslint.configs.recommended.globals,
         window: 'readonly',

@@ -1,5 +1,5 @@
-import { TTypeGuard, TElementLike, THTMLTags } from '../../types';
-import { isObject, isFunction, isUndefined, isDefined } from './reference';
+import type { TTypeGuard } from '../../types';
+import { isObject, isUndefined, isDefined } from './reference';
 import { isBoolean, isNumber, isSymbol, isString } from './primitives';
 import { ObjectUtils } from '../common/object';
 
@@ -46,23 +46,6 @@ export const isRecordOf = <V>(
 ): value is Record<string, V> =>
   isObject(value) && ObjectUtils.values(value).every(typeGuard);
 
-/**  @see {@link CompositeTypeGuardsDocs.isElementLike} */
-export const isElementLike: TTypeGuard<TElementLike> = (
-  element: unknown,
-): element is TElementLike =>
-  isObject(element) &&
-  'type' in element &&
-  'props' in element &&
-  isObject(element.props) &&
-  (isString(element.type) || isFunction(element.type));
-
-/**  @see {@link CompositeTypeGuardsDocs.isElementOfType} */
-export const isElementOfType = <T extends THTMLTags>(
-  element: unknown,
-  allowedTypes: THTMLTags,
-): element is { type: THTMLTags; props: object } =>
-  isElementLike(element) && allowedTypes.includes(element.type as T);
-
 export const hasDefinedKeys = <T extends object>(
   requiredKeys: (keyof T)[],
 ): ((value: unknown) => value is T) => {
@@ -80,6 +63,4 @@ export const CompositeTypeGuards = {
   isKeyOfArray,
   isKeyOfObject,
   isRecordOf,
-  isElementOfType,
-  isElementLike,
 } as const;
