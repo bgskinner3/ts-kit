@@ -3,11 +3,13 @@ import {
   toKebabCase,
   toCamelCase,
   capitalizeString,
+} from '../../src/lib/transformers/string-transformers';
+import {
   isCamelCase,
   isKebabCase,
   isSnakeCase,
-  ObjectUtils,
-} from '../../src/lib';
+} from '../../src/lib/guards/string-guards';
+import { ObjectUtils } from '../../src/lib/common/object';
 
 type TestCase = readonly [string, string, string, string];
 

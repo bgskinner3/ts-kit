@@ -10,8 +10,9 @@ import {
   isNil,
   isUndefined,
   isDefined,
+  isInstanceOf,
   // isRef
-} from '../../src/lib';
+} from '../../src/lib/guards/reference';
 
 describe('Reference Type Guards', () => {
   describe('isNull', () => {
@@ -111,35 +112,34 @@ describe('Reference Type Guards', () => {
       expect(isWeakSet(new Set())).toBe(false);
     });
   });
-  // describe('isRef', () => {
-  //     it('returns true for object refs', () => {
-  //         const objRef: Ref<HTMLDivElement> = createRef<HTMLDivElement>();
-  //         expect(isRef(objRef)).toBe(true);
+  describe('isInstanceOf', () => {
+    class TestClass {}
+    class OtherClass {}
 
-  //         // Object literal mimicking RefObject
-  //         const fakeRef = { current: null };
-  //         expect(isRef(fakeRef)).toBe(true);
-  //     });
+    it('returns true for instances of the specified class', () => {
+      expect(isInstanceOf(new Date(), Date)).toBe(true);
+      expect(isInstanceOf(new RegExp(''), RegExp)).toBe(true);
+      expect(isInstanceOf(new TestClass(), TestClass)).toBe(true);
+    });
 
-  //     it('returns true for callback refs', () => {
-  //         const callbackRef: Ref<HTMLDivElement> = (el) => {
-  //             // do nothing
-  //         };
-  //         expect(isRef(callbackRef)).toBe(true);
-  //     });
+    it('returns false for instances of different classes', () => {
+      expect(isInstanceOf(new TestClass(), OtherClass)).toBe(false);
+      expect(isInstanceOf({}, TestClass)).toBe(false);
+    });
 
-  //     it('returns false for non-ref objects', () => {
-  //         expect(isRef({})).toBe(false);
-  //         expect(isRef({ notCurrent: 123 })).toBe(false);
-  //         expect(isRef([])).toBe(false);
-  //         expect(isRef(null)).toBe(false);
-  //         expect(isRef(undefined)).toBe(false);
-  //     });
+    it('returns false for primitive values', () => {
+      expect(isInstanceOf('hello', String)).toBe(false); // string literal is not an instance of String object
+      expect(isInstanceOf(42, Number)).toBe(false);
+      expect(isInstanceOf(null, Object)).toBe(false);
+    });
 
-  //     it('returns false for primitives', () => {
-  //         expect(isRef(123)).toBe(false);
-  //         expect(isRef('string')).toBe(false);
-  //         expect(isRef(true)).toBe(false);
-  //     });
-  // });
+    it('handles inheritance correctly', () => {
+      class Parent {}
+      class Child extends Parent {}
+      const instance = new Child();
+
+      expect(isInstanceOf(instance, Child)).toBe(true);
+      expect(isInstanceOf(instance, Parent)).toBe(true);
+    });
+  });
 });

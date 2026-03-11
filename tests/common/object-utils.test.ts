@@ -7,7 +7,7 @@ import {
   objectHas,
   objectGet,
   objectSet,
-} from '../../src/utils';
+} from '../../src/lib/common/object';
 
 describe('ObjectUtils', () => {
   describe('keys', () => {

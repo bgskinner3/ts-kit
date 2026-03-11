@@ -8,7 +8,7 @@ import {
   arrayFlatMap,
   arrayForEach,
   arrayFilterNonNullable,
-} from '../../src/utils';
+} from '../../src/lib/common/array';
 
 describe('ArrayUtils', () => {
   describe('includes', () => {

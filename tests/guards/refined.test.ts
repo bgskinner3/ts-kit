@@ -1,20 +1,20 @@
 import {
+  isBufferLikeObject,
+  isRGBTuple,
+  isPhoneNumber,
+  isEmail,
+} from '../../src/lib/guards/refined';
+import {
+  isJSONArrayString,
+  isJSONObjectString,
+  isJsonString,
   isCamelCase,
   isSnakeCase,
   isKebabCase,
   isHexByteString,
-  isBufferLikeObject,
-  isJSONArrayString,
-  isJSONObjectString,
-  isJsonString,
-  isAbsoluteUrl,
-  // isInternalUrl,
-  isRGBTuple,
-  isPhoneNumber,
-  isEmail,
   isHTMLString,
-} from '../../src/lib';
-
+} from '../../src/lib/guards/string-guards';
+import { isAbsoluteUrl } from '../../src/lib/guards/link-guards';
 describe('Refined / Composite Type Guards', () => {
   describe('isCamelCase', () => {
     it('returns true for valid camelCase strings', () => {

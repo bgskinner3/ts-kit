@@ -56,11 +56,3 @@ export const hasDefinedKeys = <T extends object>(
     );
   };
 };
-/**  @see {@link GuardUtilsDocs.CompositeTypeGuards} */
-export const CompositeTypeGuards = {
-  isInArray,
-  isArrayOf,
-  isKeyOfArray,
-  isKeyOfObject,
-  isRecordOf,
-} as const;

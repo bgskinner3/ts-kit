@@ -6,7 +6,8 @@ import {
   isBoolean,
   isBigInt,
   isSymbol,
-} from '../../src/utils';
+  isPrimitive,
+} from '../../src/lib/guards/primitives';
 
 describe('Primitive Type Guards', () => {
   describe('isNumber', () => {
@@ -68,6 +69,27 @@ describe('Primitive Type Guards', () => {
     it('returns true only for symbols', () => {
       expect(isSymbol(Symbol('foo'))).toBe(true);
       expect(isSymbol('foo')).toBe(false);
+    });
+  });
+  describe('isPrimitive', () => {
+    it('returns true for all valid renderable primitives', () => {
+      expect(isPrimitive('hello')).toBe(true);
+      expect(isPrimitive(123)).toBe(true);
+      expect(isPrimitive(true)).toBe(true);
+      expect(isPrimitive(42n)).toBe(true);
+    });
+
+    it('returns false for complex objects and nil values', () => {
+      expect(isPrimitive({})).toBe(false);
+      expect(isPrimitive([])).toBe(false);
+      expect(isPrimitive(null)).toBe(false);
+      expect(isPrimitive(undefined)).toBe(false);
+    });
+
+    it('returns false for non-finite numbers (NaN/Infinity)', () => {
+      // Since isNumber(NaN) is false, isPrimitive(NaN) should be false
+      expect(isPrimitive(NaN)).toBe(false);
+      expect(isPrimitive(Infinity)).toBe(false);
     });
   });
 });
