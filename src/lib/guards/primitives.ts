@@ -23,6 +23,10 @@ export const isBigInt: TTypeGuard<bigint> = (value): value is bigint =>
 export const isSymbol: TTypeGuard<symbol> = (value): value is symbol =>
   typeof value === 'symbol';
 
+export const isPrimitive = (
+  value: unknown,
+): value is string | number | boolean =>
+  isString(value) || isNumber(value) || isBoolean(value) || isBigInt(value);
 /**
  * Type guards for primitive types (string, number, boolean, etc.)
  * @see {@link GuardUtilsDocs.PrimitiveTypeGuards}
@@ -35,4 +39,5 @@ export const PrimitiveTypeGuards = {
   isBoolean,
   isBigInt,
   isSymbol,
+  isPrimitive,
 } as const;
