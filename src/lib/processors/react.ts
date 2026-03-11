@@ -15,7 +15,6 @@ import {
   isRef,
   isRefObject,
   isReactElement,
-  hasNameMetadata,
 } from '../guards';
 import { ArrayUtils, ObjectUtils } from '../common';
 import { Children } from 'react';
@@ -259,12 +258,7 @@ export function filterChildrenByDisplayName<T extends ReactNode>(
 ): ReactElement[] {
   return Children.toArray(children).filter((child): child is ReactElement => {
     if (!isReactElement(child)) return false;
-    if (!hasNameMetadata(child.type)) return false;
-
-    return (
-      child.type.displayName === displayName ||
-      child.type.name === displayName ||
-      child.type.type?.displayName === displayName
-    );
+    // @ts-expect-error - displayName may exist on type
+    return child.type?.displayName === displayName;
   });
 }

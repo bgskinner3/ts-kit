@@ -79,6 +79,7 @@ export const isElementOfType = <T extends THTMLTags>(
  * Unlocks 'displayName' and 'name' for safe access.
  */
 export const hasNameMetadata = (type: unknown): type is TNamedComponent =>
+  isFunction(type) &&
   (isObject(type) || isFunction(type)) &&
   (isKeyInObject('displayName')(type) ||
     isKeyInObject('name')(type) ||

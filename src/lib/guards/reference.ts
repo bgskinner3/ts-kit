@@ -14,9 +14,12 @@ export const isNil: TTypeGuard<null | undefined> = (
   value,
 ): value is null | undefined => value == null;
 
-export const isFunction: TTypeGuard<TAnyFunction> = <T extends TAnyFunction, U>(
-  term: T | U,
-): term is T => typeof term === 'function';
+// export const isFunction: TTypeGuard<TAnyFunction> = <T extends TAnyFunction, U>(
+//   term: T | U,
+// ): term is T => typeof term === 'function';
+export const isFunction: TTypeGuard<TAnyFunction> = (
+  value: unknown,
+): value is TAnyFunction => typeof value === 'function';
 
 export const isObject: TTypeGuard<object> = <T extends object, U>(
   term: T | U,
