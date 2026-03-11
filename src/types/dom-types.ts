@@ -19,9 +19,15 @@ type TKeyboardConfig = {
   pasteShortcut?: TShortcutDefinition;
 };
 
+type TBaseImageObject = {
+  src: string;
+  [key: string]: unknown;
+};
+
 export type {
   TKeyboardConfig,
   TShortcutDefinition,
   ModifierKey,
   TKeyboardActionResult,
+  TBaseImageObject,
 };
