@@ -5,7 +5,7 @@ import {
   isKeyOfObject,
   isRecordOf,
   hasDefinedKeys,
-  isKeyInObject
+  isKeyInObject,
 } from '../../src/lib/guards/composite';
 import { isString, isNumber } from '../../src/lib/guards/primitives';
 

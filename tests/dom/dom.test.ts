@@ -29,9 +29,9 @@ describe('getKeyboardAction', () => {
   });
 
   it('identifies copy shortcuts (Cmd/Ctrl + C)', () => {
-    const event = new KeyboardEvent('keydown', { 
-      key: 'c', 
-      metaKey: true // Simulating Mac Cmd+C
+    const event = new KeyboardEvent('keydown', {
+      key: 'c',
+      metaKey: true, // Simulating Mac Cmd+C
     });
     const action = getKeyboardAction(event);
 
@@ -40,9 +40,9 @@ describe('getKeyboardAction', () => {
   });
 
   it('identifies paste shortcuts (Cmd/Ctrl + V)', () => {
-    const event = new KeyboardEvent('keydown', { 
-      key: 'v', 
-      ctrlKey: true // Simulating Windows Ctrl+V
+    const event = new KeyboardEvent('keydown', {
+      key: 'v',
+      ctrlKey: true, // Simulating Windows Ctrl+V
     });
     const action = getKeyboardAction(event);
 
