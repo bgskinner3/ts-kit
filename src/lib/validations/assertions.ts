@@ -1,7 +1,15 @@
 import {
   PrimitiveTypeGuards,
   ReferenceTypeGuards,
-  RefinedTypeGuards,
+  isRGBTuple,
+  isCamelCase,
+  isBufferLikeObject,
+  isJSONArrayString,
+  isJSONObjectString,
+  isJsonString,
+  isAbsoluteUrl,
+  isInternalUrl
+  // RefinedTypeGuards,
 } from '../guards';
 import type {
   TAssert,
@@ -56,14 +64,14 @@ const makeAssert = <T>(guard: TTypeGuard<T>, _key: string): TAssert<T> => {
 /* prettier-ignore */ export const assertIsWeakSet: TAssert<WeakSet<object>> = makeAssert(ReferenceTypeGuards.isWeakSet, 'isWeakSet');
 
 // Refined / Composite asserts
-/* prettier-ignore */ export const assertIsCamelCase: TAssert<string> = makeAssert(RefinedTypeGuards.isCamelCase, 'isCamelCase');
-/* prettier-ignore */ export const assertIsBufferLikeObject: TAssert<TBufferLikeObject> = makeAssert(RefinedTypeGuards.isBufferLikeObject, 'isBufferLikeObject');
-/* prettier-ignore */ export const assertIsJSONArrayString: TAssert<TJSONArrayString> = makeAssert(RefinedTypeGuards.isJSONArrayString, 'isJSONArrayString');
-/* prettier-ignore */ export const assertIsJSONObjectString: TAssert<TJSONObjectString> = makeAssert(RefinedTypeGuards.isJSONObjectString, 'isJSONObjectString');
-/* prettier-ignore */ export const assertIsJsonString: TAssert<TJSONDataString> = makeAssert(RefinedTypeGuards.isJsonString, 'isJsonString');
-/* prettier-ignore */ export const assertIsAbsoluteUrl: TAssert<TAbsoluteURL> = makeAssert(RefinedTypeGuards.isAbsoluteUrl, 'isAbsoluteUrl');
-/* prettier-ignore */ export const assertIsInternalUrl: TAssert<TInternalUrl> = makeAssert(RefinedTypeGuards.isInternalUrl, 'isInternalUrl');
-/* prettier-ignore */ export const assertIsRGBTuple: TAssert<TRGB> = makeAssert(RefinedTypeGuards.isRGBTuple, 'isRGBTuple');
+/* prettier-ignore */ export const assertIsCamelCase: TAssert<string> = makeAssert(isCamelCase, 'isCamelCase');
+/* prettier-ignore */ export const assertIsBufferLikeObject: TAssert<TBufferLikeObject> = makeAssert(isBufferLikeObject, 'isBufferLikeObject');
+/* prettier-ignore */ export const assertIsJSONArrayString: TAssert<TJSONArrayString> = makeAssert(isJSONArrayString, 'isJSONArrayString');
+/* prettier-ignore */ export const assertIsJSONObjectString: TAssert<TJSONObjectString> = makeAssert(isJSONObjectString, 'isJSONObjectString');
+/* prettier-ignore */ export const assertIsJsonString: TAssert<TJSONDataString> = makeAssert(isJsonString, 'isJsonString');
+/* prettier-ignore */ export const assertIsAbsoluteUrl: TAssert<TAbsoluteURL> = makeAssert(isAbsoluteUrl, 'isAbsoluteUrl');
+/* prettier-ignore */ export const assertIsInternalUrl: TAssert<TInternalUrl> = makeAssert(isInternalUrl, 'isInternalUrl');
+/* prettier-ignore */ export const assertIsRGBTuple: TAssert<TRGB> = makeAssert(isRGBTuple, 'isRGBTuple');
 
 export const AssertionUtils = {
   // creators

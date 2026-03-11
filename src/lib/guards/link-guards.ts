@@ -17,7 +17,13 @@ export const isAbsoluteUrl: TTypeGuard<TAbsoluteURL> = (
 export const isInternalUrl: TTypeGuard<TInternalUrl> = (
   url: unknown,
 ): url is TInternalUrl => {
-  if (typeof window === 'undefined' || !isNonEmptyString(url)) return false;
+  if (
+    typeof window === 'undefined' ||
+    typeof location === 'undefined' ||
+    !isNonEmptyString(url)
+  ) {
+    return false;
+  }
   if (url.startsWith('/')) return true;
   try {
     const parsed = new URL(url, location.origin);

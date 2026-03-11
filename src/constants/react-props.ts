@@ -1,4 +1,5 @@
 import type { TPropMap } from '../types';
+
 /**
  * VALID_DOM_PROPS
  *
@@ -603,3 +604,4 @@ export const VALID_DOM_PROPS = {
   ...SVG_PRESENTATION_PROPS,
   ...STANDARD_HTML_PROPS,
 } satisfies TPropMap;
+export const VALID_DOM_TESTING_KEYS = Object.keys(VALID_DOM_PROPS);
