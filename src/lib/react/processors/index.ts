@@ -5,11 +5,19 @@ import type {
   SyntheticEvent,
   ComponentPropsWithoutRef,
   ElementType,
+  ReactElement,
+  ReactNode,
 } from 'react';
 import { isFunction, isString } from '../../guards';
-import { isRef, isRefObject, isDOMEntry } from '../guards';
+import {
+  isRef,
+  isRefObject,
+  isDOMEntry,
+  isReactElement,
+  hasNameMetadata,
+} from '../guards';
 import { ArrayUtils, ObjectUtils } from '../../common';
-
+import { Children } from 'react';
 /**
  * Combines multiple React refs (callback refs or object refs) into a single ref callback.
  *
@@ -213,4 +221,49 @@ export function extractDOMProps<
   return ObjectUtils.fromEntries(
     filteredEntries,
   ) as ComponentPropsWithoutRef<TElement>;
+}
+/**
+ * Filters React children by a specific component display name.
+ *
+ * This utility iterates over a ReactNode tree and returns only the children
+ * that are valid React elements with a `displayName` matching the provided string.
+ * It is especially useful for composite components like steppers or tabs,
+ * where you want to operate only on specific subcomponents while ignoring others.
+ *
+ * The original `children` array is **not mutated**; a new filtered array is returned.
+ *
+ * ### Features
+ * - Type-safe filtering of React elements.
+ * - Skips non-React elements automatically.
+ * - Returns a typed array of `ReactElement` for further processing.
+ *
+ * ### Example
+ * ```tsx
+ * const steps = filterChildrenByDisplayName(children, 'StepperStep');
+ * steps.forEach(step => console.log(step.props));
+ * ```
+ *
+ * ### Use Cases
+ * - Stepper components: only extract `StepperStep` children for layout/logic.
+ * - Tab components: only process `TabPanel` children.
+ * - Any composite React component requiring selective child processing.
+ *
+ * @param children - The ReactNode children to filter.
+ * @param displayName - The displayName of the component type to include.
+ * @returns An array of ReactElement matching the given displayName.
+ */
+export function filterChildrenByDisplayName<T extends ReactNode>(
+  children: T,
+  displayName: string,
+): ReactElement[] {
+  return Children.toArray(children).filter((child): child is ReactElement => {
+    if (!isReactElement(child)) return false;
+    if (!hasNameMetadata(child.type)) return false;
+
+    return (
+      child.type.displayName === displayName ||
+      child.type.name === displayName ||
+      child.type.type?.displayName === displayName
+    );
+  });
 }
