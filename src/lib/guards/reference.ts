@@ -49,6 +49,12 @@ export const isWeakSet: TTypeGuard<WeakSet<object>> = <T extends object, U>(
   term: WeakSet<T> | U,
 ): term is WeakSet<T> => term instanceof WeakSet;
 
+export function isInstanceOf<T extends object, Args extends unknown[]>(
+  value: unknown,
+  constructor: new (...args: Args) => T,
+): value is T {
+  return value instanceof constructor;
+}
 /**
  * Type guards for reference-based values (objects, arrays, maps, etc.)
  * @see {@link GuardUtilsDocs.ReferenceTypeGuards}
@@ -65,4 +71,5 @@ export const ReferenceTypeGuards = {
   isNil,
   isUndefined,
   isDefined,
+  isInstanceOf,
 } as const;

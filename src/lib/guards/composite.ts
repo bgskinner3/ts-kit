@@ -1,5 +1,5 @@
 import { TTypeGuard, TElementLike, THTMLTags } from '../../types';
-import { isObject, isFunction, isUndefined } from './reference';
+import { isObject, isFunction, isUndefined, isDefined } from './reference';
 import { isBoolean, isNumber, isSymbol, isString } from './primitives';
 import { ObjectUtils } from '../common/object';
 
@@ -63,6 +63,16 @@ export const isElementOfType = <T extends THTMLTags>(
 ): element is { type: THTMLTags; props: object } =>
   isElementLike(element) && allowedTypes.includes(element.type as T);
 
+export const hasDefinedKeys = <T extends object>(
+  requiredKeys: (keyof T)[],
+): ((value: unknown) => value is T) => {
+  return (value: unknown): value is T => {
+    if (!value || !isObject(value)) return false;
+    return requiredKeys.every(
+      (key) => isKeyInObject(key)(value) && isDefined(value[key]),
+    );
+  };
+};
 /**  @see {@link GuardUtilsDocs.CompositeTypeGuards} */
 export const CompositeTypeGuards = {
   isInArray,

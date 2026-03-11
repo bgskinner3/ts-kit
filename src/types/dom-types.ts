@@ -23,6 +23,21 @@ type TBaseImageObject = {
   src: string;
   [key: string]: unknown;
 };
+/**
+ * Local alias for the native DOM ScrollLogicalPosition.
+ * This resolves the ESLint 'no-undef' error and ensures
+ * compatibility across different TS configurations.
+ */
+type TScrollLogicalPosition = 'center' | 'end' | 'start' | 'nearest';
+
+type TScrollBehavior = 'auto' | 'smooth';
+
+type THashScrollOptions = {
+  href: string;
+  behavior?: TScrollBehavior;
+  block?: TScrollLogicalPosition;
+  event?: { preventDefault: () => void };
+};
 
 export type {
   TKeyboardConfig,
@@ -30,4 +45,5 @@ export type {
   ModifierKey,
   TKeyboardActionResult,
   TBaseImageObject,
+  THashScrollOptions,
 };

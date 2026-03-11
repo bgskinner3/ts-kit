@@ -5,10 +5,8 @@ import type {
   TJSONArrayString,
   TJSONObjectString,
   TJSONDataString,
-  TAbsoluteURL,
   TRGB,
   THexByteString,
-  TInternalUrl,
   TSnakeCase,
   TKebabCase,
 } from '../../types';
@@ -92,32 +90,6 @@ export const isJsonString: TTypeGuard<TJSONDataString> = (
 ): value is TJSONDataString =>
   isJSONArrayString(value) || isJSONObjectString(value);
 
-/**  @see {@link CompositeTypeGuardsDocs.isValidUrl} */
-export const isAbsoluteUrl: TTypeGuard<TAbsoluteURL> = (
-  url: unknown,
-): url is TAbsoluteURL => {
-  if (!isNonEmptyString(url)) return false;
-  try {
-    new URL(url);
-    return true;
-  } catch {
-    return false;
-  }
-};
-
-export const isInternalUrl: TTypeGuard<TInternalUrl> = (
-  url: unknown,
-): url is TInternalUrl => {
-  if (typeof window === 'undefined' || !isNonEmptyString(url)) return false;
-  if (url.startsWith('/')) return true;
-  try {
-    const parsed = new URL(url, location.origin);
-    return parsed.hostname === location.hostname;
-  } catch {
-    return false;
-  }
-};
-
 export const isRGBTuple: TTypeGuard<TRGB> = (input: unknown): input is TRGB => {
   return (
     isArray(input) &&
@@ -154,8 +126,6 @@ export const RefinedTypeGuards = {
   isJSONArrayString,
   isJSONObjectString,
   isJsonString,
-  isAbsoluteUrl,
-  isInternalUrl,
   isRGBTuple,
   isSnakeCase,
   isKebabCase,
