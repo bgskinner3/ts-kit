@@ -81,6 +81,6 @@ export function getKeyboardAction(
     isCopy,
     isClear,
     isAllowedKey,
-    shouldBlockTyping: !isAllowedKey && !isCopy,
+    shouldBlockTyping: !isAllowedKey && !isCopy && !isPaste,
   };
 }
