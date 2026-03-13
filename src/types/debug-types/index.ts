@@ -21,11 +21,15 @@ type TTableItem = {
   start?: number;
   end?: number;
 };
-
+type TProcessedTableItem = {
+  key: string | number;
+  duration: string;
+};
 export type {
   TGetCallerLocationOptions,
   TLogOptions,
   THighlighterMap,
   TLogType,
   TTableItem,
+  TProcessedTableItem,
 };

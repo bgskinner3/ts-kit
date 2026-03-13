@@ -7,9 +7,9 @@ import type {
   THexByteString,
   TSnakeCase,
   TKebabCase,
-} from '../../types';
+} from '../../../types';
 import { isNonEmptyString, isString } from './primitives';
-import { REGEX_CONSTANTS } from '../../constants';
+import { REGEX_CONSTANTS } from '../../../constants';
 import { isUndefined } from './reference';
 
 /** @see {@link PrimitiveTypeGuardsDocs.isCamelCase} */

@@ -1,6 +1,6 @@
-import type { TTypeGuard, TBufferLikeObject, TRGB } from '../../types';
+import type { TTypeGuard, TBufferLikeObject, TRGB } from '../../../types';
 import { isNumber, isNonEmptyString, isString } from './primitives';
-import { REGEX_CONSTANTS } from '../../constants';
+import { REGEX_CONSTANTS } from '../../../constants';
 import { isObject, isArray } from './reference';
 import { isArrayOf } from './composite';
 

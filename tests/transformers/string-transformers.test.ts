@@ -8,7 +8,7 @@ import {
   isCamelCase,
   isKebabCase,
   isSnakeCase,
-} from '../../src/lib/guards/string-guards';
+} from '../../src/lib/guards/core/string-guards';
 import { ObjectUtils } from '../../src/lib/common/object';
 
 type TestCase = readonly [string, string, string, string];

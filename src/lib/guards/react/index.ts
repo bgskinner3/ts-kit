@@ -1,0 +1,60 @@
+import { isDOMPropKey, isDOMEntry, isPropValid } from './dom-guards';
+import {
+  isValidReactNode,
+  isReactElement,
+  isFragment,
+  hasOnClick,
+  isElementLike,
+  isElementOfType,
+  hasNameMetadata,
+} from './node-guards';
+import {
+  isRef,
+  isRefObject,
+  isPromise,
+  isReactPortal,
+  hasChildren,
+  isComponentType,
+  isForwardRef,
+} from './react-primitive';
+
+const ReactTypeGuards = {
+  isRef,
+  isRefObject,
+  isPromise,
+  isReactPortal,
+  hasChildren,
+  isComponentType,
+  isForwardRef,
+  isValidReactNode,
+  isReactElement,
+  isFragment,
+  hasOnClick,
+  isElementLike,
+  isElementOfType,
+  hasNameMetadata,
+  isDOMPropKey,
+  isDOMEntry,
+  isPropValid,
+} as const;
+
+export {
+  isRef,
+  isRefObject,
+  isPromise,
+  isReactPortal,
+  hasChildren,
+  isComponentType,
+  isForwardRef,
+  isValidReactNode,
+  isReactElement,
+  isFragment,
+  hasOnClick,
+  isElementLike,
+  isElementOfType,
+  hasNameMetadata,
+  isDOMPropKey,
+  isDOMEntry,
+  isPropValid,
+  ReactTypeGuards,
+};

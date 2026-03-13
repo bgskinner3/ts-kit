@@ -1,4 +1,4 @@
-import type { TTypeGuard, TAbsoluteURL, TInternalUrl } from '../../types';
+import type { TTypeGuard, TAbsoluteURL, TInternalUrl } from '../../../types';
 import { isNonEmptyString } from './primitives';
 
 /**  @see {@link CompositeTypeGuardsDocs.isValidUrl} */

@@ -1,6 +1,6 @@
 import {
   PrimitiveTypeGuards,
-  ReferenceTypeGuards,
+  CoreTypeGuards,
   isRGBTuple,
   isCamelCase,
   isBufferLikeObject,
@@ -50,17 +50,17 @@ const makeAssert = <T>(guard: TTypeGuard<T>, _key: string): TAssert<T> => {
 /* prettier-ignore */ export const assertIsSymbol: TAssert<symbol> = makeAssert(PrimitiveTypeGuards.isSymbol, 'isSymbol');
 
 // Reference asserts
-/* prettier-ignore */ export const assertIsNull: TAssert<null> = makeAssert(ReferenceTypeGuards.isNull, 'isNull');
-/* prettier-ignore */ export const assertIsUndefined: TAssert<undefined> = makeAssert(ReferenceTypeGuards.isUndefined, 'isUndefined');
-/* prettier-ignore */ export const assertIsDefined: TAssert<NonNullable<unknown>> = makeAssert(ReferenceTypeGuards.isDefined, 'isDefined');
-/* prettier-ignore */ export const assertIsNil: TAssert<null | undefined> = makeAssert(ReferenceTypeGuards.isNil, 'isNil');
-/* prettier-ignore */ export const assertIsFunction: TAssert<TAnyFunction> = makeAssert(ReferenceTypeGuards.isFunction, 'isFunction');
-/* prettier-ignore */ export const assertObject: TAssert<object> = makeAssert(ReferenceTypeGuards.isObject, 'isObject');
-/* prettier-ignore */ export const assertIsArray: TAssert<unknown[]> = makeAssert(ReferenceTypeGuards.isArray, 'isArray');
-/* prettier-ignore */ export const assertIsMap: TAssert<Map<unknown, unknown>> = makeAssert(ReferenceTypeGuards.isMap, 'isMap');
-/* prettier-ignore */ export const assertIsSet: TAssert<Set<unknown>> = makeAssert(ReferenceTypeGuards.isSet, 'isSet');
-/* prettier-ignore */ export const assertIsWeakMap: TAssert<WeakMap<object, unknown>> = makeAssert(ReferenceTypeGuards.isWeakMap, 'isWeakMap');
-/* prettier-ignore */ export const assertIsWeakSet: TAssert<WeakSet<object>> = makeAssert(ReferenceTypeGuards.isWeakSet, 'isWeakSet');
+/* prettier-ignore */ export const assertIsNull: TAssert<null> = makeAssert(CoreTypeGuards.isNull, 'isNull');
+/* prettier-ignore */ export const assertIsUndefined: TAssert<undefined> = makeAssert(CoreTypeGuards.isUndefined, 'isUndefined');
+/* prettier-ignore */ export const assertIsDefined: TAssert<NonNullable<unknown>> = makeAssert(CoreTypeGuards.isDefined, 'isDefined');
+/* prettier-ignore */ export const assertIsNil: TAssert<null | undefined> = makeAssert(CoreTypeGuards.isNil, 'isNil');
+/* prettier-ignore */ export const assertIsFunction: TAssert<TAnyFunction> = makeAssert(CoreTypeGuards.isFunction, 'isFunction');
+/* prettier-ignore */ export const assertObject: TAssert<object> = makeAssert(CoreTypeGuards.isObject, 'isObject');
+/* prettier-ignore */ export const assertIsArray: TAssert<unknown[]> = makeAssert(CoreTypeGuards.isArray, 'isArray');
+/* prettier-ignore */ export const assertIsMap: TAssert<Map<unknown, unknown>> = makeAssert(CoreTypeGuards.isMap, 'isMap');
+/* prettier-ignore */ export const assertIsSet: TAssert<Set<unknown>> = makeAssert(CoreTypeGuards.isSet, 'isSet');
+/* prettier-ignore */ export const assertIsWeakMap: TAssert<WeakMap<object, unknown>> = makeAssert(CoreTypeGuards.isWeakMap, 'isWeakMap');
+/* prettier-ignore */ export const assertIsWeakSet: TAssert<WeakSet<object>> = makeAssert(CoreTypeGuards.isWeakSet, 'isWeakSet');
 
 // Refined / Composite asserts
 /* prettier-ignore */ export const assertIsCamelCase: TAssert<string> = makeAssert(isCamelCase, 'isCamelCase');

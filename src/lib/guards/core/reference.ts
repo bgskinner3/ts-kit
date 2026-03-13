@@ -1,4 +1,4 @@
-import { TTypeGuard, TAnyFunction } from '../../types';
+import { TTypeGuard, TAnyFunction } from '../../../types';
 
 export const isNull: TTypeGuard<null> = <T>(term: T | null): term is null =>
   term === null;
@@ -14,9 +14,7 @@ export const isNil: TTypeGuard<null | undefined> = (
   value,
 ): value is null | undefined => value == null;
 
-// export const isFunction: TTypeGuard<TAnyFunction> = <T extends TAnyFunction, U>(
-//   term: T | U,
-// ): term is T => typeof term === 'function';
+
 export const isFunction: TTypeGuard<TAnyFunction> = (
   value: unknown,
 ): value is TAnyFunction => typeof value === 'function';
@@ -58,21 +56,3 @@ export function isInstanceOf<T extends object, Args extends unknown[]>(
 ): value is T {
   return value instanceof constructor;
 }
-/**
- * Type guards for reference-based values (objects, arrays, maps, etc.)
- * @see {@link GuardUtilsDocs.ReferenceTypeGuards}
- */
-export const ReferenceTypeGuards = {
-  isNull,
-  isFunction,
-  isObject,
-  isArray,
-  isMap,
-  isSet,
-  isWeakMap,
-  isWeakSet,
-  isNil,
-  isUndefined,
-  isDefined,
-  isInstanceOf,
-} as const;

@@ -2,7 +2,7 @@ import {
   isPropValid,
   isDOMPropKey,
   isDOMEntry,
-} from '../../src/lib/guards/dom-guards';
+} from '../../src/lib/guards/react/dom-guards';
 import { VALID_DOM_TESTING_KEYS } from '../../src/constants/react-props';
 describe('DOM Property Guards', () => {
   describe('isPropValid', () => {

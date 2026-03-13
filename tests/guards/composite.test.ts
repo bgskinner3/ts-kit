@@ -6,8 +6,8 @@ import {
   isRecordOf,
   hasDefinedKeys,
   isKeyInObject,
-} from '../../src/lib/guards/composite';
-import { isString, isNumber } from '../../src/lib/guards/primitives';
+} from '../../src/lib/guards/core/composite';
+import { isString, isNumber } from '../../src/lib/guards/core/primitives';
 
 describe('Composite Type Guards', () => {
   describe('isInArray', () => {

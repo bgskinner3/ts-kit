@@ -9,7 +9,7 @@ import {
   isFragment,
   hasOnClick,
   isElementLike,
-} from '../../src/lib/guards/node-guards';
+} from '../../src/lib/guards/react/node-guards';
 
 describe('React Node Guards', () => {
   describe('isValidReactNode', () => {

@@ -1,4 +1,4 @@
-import { isBigInt, isNumber } from '../guards/primitives';
+import { isBigInt, isNumber } from '../guards/core/primitives';
 type TWelfordState = {
   count: number;
   mean: number;

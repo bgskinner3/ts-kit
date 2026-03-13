@@ -11,7 +11,7 @@ import {
   hasChildren,
   isComponentType,
   isForwardRef,
-} from '../../src/lib/guards/react-primitive';
+} from '../../src/lib/guards/react/react-primitive';
 
 describe('React Primitive Guards', () => {
   describe('isRef & isRefObject', () => {

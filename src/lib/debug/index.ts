@@ -1,138 +1,149 @@
-import {
-  isString,
-  isUndefined,
-  isBigInt,
-  isObject,
-  isKeyOfArray,
-} from '../guards';
-import { REGEX_CONSTANTS, ANSI_COLOR_CODES, LOG_TYPES } from '../../constants';
-import {
-  TGetCallerLocationOptions,
-  TLogOptions,
-  THighlighterMap,
-  TLogType,
-  TTableItem,
-} from '../../types';
-import { ArrayUtils } from '../common';
+import { logDev, highlight, getCallerLocation, serialize } from './debug';
 
-export function highlight(
-  text: string,
-  colorCode: keyof typeof ANSI_COLOR_CODES = 'yellow',
-) {
-  return `${ANSI_COLOR_CODES[colorCode]}${text}${ANSI_COLOR_CODES.reset}`;
+class DebugUtils {
+  // Map individual functions to static properties
+  public static readonly highlight = highlight;
+  public static readonly serialize = serialize;
+  public static readonly getCallerLocation = getCallerLocation;
 }
 
-/** Common terminal color mappings */
-export const logTypeHighlighters: THighlighterMap = {
-  log: (t) => highlight(t, 'yellow'),
-  info: (t) => highlight(t, 'cyan'),
-  error: (t) => highlight(t, 'red'),
-  debug: (t) => highlight(t, 'magenta'),
-  warn: (t) => highlight(t, 'yellow'),
-  table: (t) => t,
-};
+export { logDev, getCallerLocation, serialize, DebugUtils };
 
-/**
- * @see {@link DebugUtilsDocs.serialize}
- */
-export const serialize = (data: unknown): string => {
-  if (isUndefined(data)) return '';
-  if (isString(data)) return data;
+// import {
+//   isString,
+//   isUndefined,
+//   isBigInt,
+//   isObject,
+//   isKeyOfArray,
+// } from '../guards';
+// import { REGEX_CONSTANTS, ANSI_COLOR_CODES, LOG_TYPES } from '../../constants';
+// import {
+//   TGetCallerLocationOptions,
+//   TLogOptions,
+//   THighlighterMap,
+//   TLogType,
+//   TTableItem,
+// } from '../../types';
+// import { ArrayUtils } from '../common';
 
-  try {
-    return JSON.stringify(
-      data,
-      (_, value) => (isBigInt(value) ? value.toString() : value),
-      2,
-    );
-  } catch {
-    return String(data);
-  }
-};
+// export function highlight(
+//   text: string,
+//   colorCode: keyof typeof ANSI_COLOR_CODES = 'yellow',
+// ) {
+//   return `${ANSI_COLOR_CODES[colorCode]}${text}${ANSI_COLOR_CODES.reset}`;
+// }
 
-/**
- * @see {@link DebugUtilsDocs.getCallerLocation}
- */
-export const getCallerLocation = (
-  options: TGetCallerLocationOptions,
-): string => {
-  const {
-    preferredIndex = 3,
-    fallbackIndex = 2,
-    topParent = false,
-    stripPathPrefix = process.cwd(),
-  } = options;
+// /** Common terminal color mappings */
+// export const logTypeHighlighters: THighlighterMap = {
+//   log: (t) => highlight(t, 'yellow'),
+//   info: (t) => highlight(t, 'cyan'),
+//   error: (t) => highlight(t, 'red'),
+//   debug: (t) => highlight(t, 'magenta'),
+//   warn: (t) => highlight(t, 'yellow'),
+//   table: (t) => t,
+// };
 
-  const stack = new Error().stack;
-  if (!stack) return 'unknown';
+// /**
+//  * @see {@link DebugUtilsDocs.serialize}
+//  */
+// export const serialize = (data: unknown): string => {
+//   if (isUndefined(data)) return '';
+//   if (isString(data)) return data;
 
-  const lines = stack
-    .split('\n')
-    .slice(1)
-    .map((line) => line.replace(REGEX_CONSTANTS.stackTracePrefix, '').trim())
-    .filter(Boolean);
+//   try {
+//     return JSON.stringify(
+//       data,
+//       (_, value) => (isBigInt(value) ? value.toString() : value),
+//       2,
+//     );
+//   } catch {
+//     return String(data);
+//   }
+// };
 
-  const line = topParent
-    ? ([...lines].reverse().find((l) => !l.includes('node_modules')) ??
-      lines.at(-1))
-    : (lines[preferredIndex] ?? lines[fallbackIndex] ?? lines.at(-1));
+// /**
+//  * @see {@link DebugUtilsDocs.getCallerLocation}
+//  */
+// export const getCallerLocation = (
+//   options: TGetCallerLocationOptions,
+// ): string => {
+//   const {
+//     preferredIndex = 3,
+//     fallbackIndex = 2,
+//     topParent = false,
+//     stripPathPrefix = process.cwd(),
+//   } = options;
 
-  return stripPathPrefix
-    ? (line?.replace(stripPathPrefix, '') ?? 'unknown')
-    : (line ?? 'unknown');
-};
+//   const stack = new Error().stack;
+//   if (!stack) return 'unknown';
 
-/** @see {@link DebugUtilsDocs.logDev} for default color/highlight mappings. */
-export const logDev = (options: TLogOptions, ...args: unknown[]) => {
-  const isDev = process.env.NODE_ENV !== 'production';
-  const { enabled = true, overrideDev = false } = options;
+//   const lines = stack
+//     .split('\n')
+//     .slice(1)
+//     .map((line) => line.replace(REGEX_CONSTANTS.stackTracePrefix, '').trim())
+//     .filter(Boolean);
 
-  if (!enabled) return;
-  if (!isDev && !overrideDev) return;
+//   const line = topParent
+//     ? ([...lines].reverse().find((l) => !l.includes('node_modules')) ??
+//       lines.at(-1))
+//     : (lines[preferredIndex] ?? lines[fallbackIndex] ?? lines.at(-1));
 
-  //   // Determine log type
-  let type: TLogType = 'log';
-  const currentType = args[0];
-  if (isString(currentType) && isKeyOfArray(LOG_TYPES)(currentType)) {
-    type = currentType;
-  }
+//   return stripPathPrefix
+//     ? (line?.replace(stripPathPrefix, '') ?? 'unknown')
+//     : (line ?? 'unknown');
+// };
 
-  // Handle table logs separately
-  if (type === 'table') {
-    const tableData = ArrayUtils.map(args, (item: unknown) => {
-      if (item && isObject(item) && 'current' in item) {
-        // assume item.current is iterable
-        const curr = (item as { current: TTableItem[] }).current;
-        return curr.map((l) => ({
-          key: l.key,
-          duration:
-            l.end && l.start
-              ? `${(l.end - l.start).toFixed(2)}ms`
-              : 'in progress',
-        }));
-      }
-      return item;
-    });
-    console.table(tableData.flat());
-    return;
-  }
+// /** @see {@link DebugUtilsDocs.logDev} for default color/highlight mappings. */
+// export const logDev = (options: TLogOptions, ...args: unknown[]) => {
+//   const isDev = process.env.NODE_ENV !== 'production';
+//   const { enabled = true, overrideDev = false } = options;
 
-  const highlighter = logTypeHighlighters[type];
-  const messages = args.map((msg) => {
-    let text = isObject(msg) ? serialize(msg) : String(msg);
+//   if (!enabled) return;
+//   if (!isDev && !overrideDev) return;
 
-    return highlighter ? highlighter(text) : text;
-  });
+//   //   // Determine log type
+//   let type: TLogType = 'log';
+//   const currentType = args[0];
+//   if (isString(currentType) && isKeyOfArray(LOG_TYPES)(currentType)) {
+//     type = currentType;
+//   }
 
-  (console[type] ?? console.log)(...messages);
-};
+//   // Handle table logs separately
+//   if (type === 'table') {
+//     const tableData = ArrayUtils.map(args, (item: unknown) => {
+//       if (item && isObject(item) && 'current' in item) {
+//         // assume item.current is iterable
+//         const curr = (item as { current: TTableItem[] }).current;
+//         return curr.map((l) => ({
+//           key: l.key,
+//           duration:
+//             l.end && l.start
+//               ? `${(l.end - l.start).toFixed(2)}ms`
+//               : 'in progress',
+//         }));
+//       }
+//       return item;
+//     });
+//     console.table(tableData.flat());
+//     return;
+//   }
 
-/**
- * @see {@link DebugUtilsDocs.DebugUtils}
- */
-export const DebugUtils = {
-  logDev,
-  getCallerLocation,
-  serialize,
-  logTypeHighlighters,
-} as const;
+//   const highlighter = logTypeHighlighters[type];
+//   const messages = args.map((msg) => {
+//     let text = isObject(msg) ? serialize(msg) : String(msg);
+
+//     return highlighter ? highlighter(text) : text;
+//   });
+
+//   (console[type] ?? console.log)(...messages);
+// };
+
+// /**
+//  * @see {@link DebugUtilsDocs.DebugUtils}
+//  */
+// export const DebugUtils = {
+//   logDev,
+//   getCallerLocation,
+//   serialize,
+//   logTypeHighlighters,
+// } as const;

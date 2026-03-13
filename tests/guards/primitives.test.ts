@@ -7,7 +7,7 @@ import {
   isBigInt,
   isSymbol,
   isPrimitive,
-} from '../../src/lib/guards/primitives';
+} from '../../src/lib/guards/core/primitives';
 
 describe('Primitive Type Guards', () => {
   describe('isNumber', () => {

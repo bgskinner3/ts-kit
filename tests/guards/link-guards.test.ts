@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { isAbsoluteUrl } from '../../src/lib/guards/link-guards';
+import { isAbsoluteUrl } from '../../src/lib/guards/core/link-guards';
 
 describe('Link Property Guards', () => {
   describe('isAbsoluteUrl', () => {

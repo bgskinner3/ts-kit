@@ -3,7 +3,7 @@ import {
   isRGBTuple,
   isPhoneNumber,
   isEmail,
-} from '../../src/lib/guards/refined';
+} from '../../src/lib/guards/core/refined';
 import {
   isJSONArrayString,
   isJSONObjectString,
@@ -13,8 +13,8 @@ import {
   isKebabCase,
   isHexByteString,
   isHTMLString,
-} from '../../src/lib/guards/string-guards';
-import { isAbsoluteUrl } from '../../src/lib/guards/link-guards';
+} from '../../src/lib/guards/core/string-guards';
+import { isAbsoluteUrl } from '../../src/lib/guards/core/link-guards';
 describe('Refined / Composite Type Guards', () => {
   describe('isCamelCase', () => {
     it('returns true for valid camelCase strings', () => {

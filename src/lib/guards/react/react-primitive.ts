@@ -1,5 +1,5 @@
 // lib/react/guards/primitive.ts
-import type { TTypeGuard } from '../../types';
+import type { TTypeGuard } from '../../../types';
 import type {
   Ref,
   RefObject,
@@ -8,8 +8,8 @@ import type {
   ReactPortal,
   ForwardRefExoticComponent,
 } from 'react';
-import { isKeyInObject } from './composite';
-import { isDefined, isFunction, isObject, isNull } from './reference';
+import { isKeyInObject } from '../core/composite';
+import { isDefined, isFunction, isObject, isNull } from '../core/reference';
 /**
  * Internal helper to check if a value is a React-internal object
  * by validating its hidden `$$typeof` symbol.

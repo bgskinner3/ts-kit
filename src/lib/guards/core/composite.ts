@@ -1,7 +1,7 @@
-import type { TTypeGuard } from '../../types';
+import type { TTypeGuard } from '../../../types';
 import { isObject, isUndefined, isDefined } from './reference';
 import { isBoolean, isNumber, isSymbol, isString } from './primitives';
-import { ObjectUtils } from '../common/object';
+import { ObjectUtils } from '../../common/object';
 
 /**  @see {@link CompositeTypeGuardsDocs.isInArray} */
 export const isInArray = <T>(

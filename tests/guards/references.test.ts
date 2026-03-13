@@ -12,7 +12,7 @@ import {
   isDefined,
   isInstanceOf,
   // isRef
-} from '../../src/lib/guards/reference';
+} from '../../src/lib/guards/core/reference';
 
 describe('Reference Type Guards', () => {
   describe('isNull', () => {

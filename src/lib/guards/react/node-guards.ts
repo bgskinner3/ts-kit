@@ -4,11 +4,11 @@ import type {
   TNamedComponent,
   TElementLike,
   THTMLTags,
-} from '../../types';
+} from '../../../types';
 import type { ReactElement, ReactNode, MouseEvent } from 'react';
-import { isPrimitive, isString } from './primitives';
-import { isArrayOf, isKeyInObject } from './composite';
-import { isNil, isFunction, isObject } from './reference';
+import { isPrimitive, isString } from '../core/primitives';
+import { isArrayOf, isKeyInObject } from '../core/composite';
+import { isNil, isFunction, isObject } from '../core/reference';
 import { isReactPortal } from './react-primitive';
 import { isValidElement, Fragment } from 'react';
 export const isValidReactNode: TTypeGuard<ReactNode> = (
