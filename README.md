@@ -12,22 +12,29 @@ It’s **actively maintained and continuously expanded**, so new utilities and i
 
 - [Installation](#installation)
 - [Project Structure](#project-structure)
-<!-- - [Modules](#modules)
-  - [Common Utilities](#common-utilities)
-  - [Validations](#validations)
-  - [Guards](#guards)
-  - [Transformers](#transformers)
-  - [Processors](#processors)
-  - [Debug Utilities](#debug-utilities)
+- [Tree-Shaking & Modular Imports](#tree-shaking--modular-imports)
+- [Type Guards](#type-guards)
+  - [Core Guards](#core-guards)
+  - [React Guards](#react-guards)
+  - [Validation Guards](#validation-guards)
+- [Common Utilities](#common-utilities)
+- [Computation Utilities](#computation-utilities)
+- [Debug Utilities](#debug-utilities)
+- [DOM Utilities](#dom-utilities)
+- [Color Utilities](#color-utilities)
+- [Processor Utilities](#processor-utilities)
+- [Transformer Utilities](#transformer-utilities)
 - [Usage](#usage)
-- [Contributing](#contributing) -->
+- [Contributing](#contributing)
 
 ---
 
 ## Installation
 
 ```bash
-
+npm install your-ts-utils
+# or
+yarn add your-ts-utils
 
 ```
 
@@ -110,7 +117,7 @@ const value = objectGet({ user: { name: 'Alice' } }, 'user.name');
 
 ---
 
-## 🛡️ Type Guards
+## Type Guards
 
 Type guards are the backbone of this library. They allow you to safely narrow types across different environments.
 
@@ -137,9 +144,17 @@ Specific utilities for the React ecosystem. These handle the complexities of the
 
 ### 🔹 Validation Guards
 
+Custom validators to enforce business logic or complex object shapes.
+
 ---
 
 ## Common Utilities
+
+✅ Tree-shakable  
+✅ Type-safe  
+✅ Works with objects, arrays, and primitive types  
+✅ Modular imports supported 
+
 
 ### 🧰 Object, array, and generic helpers
 
@@ -151,10 +166,55 @@ Provides **type-safe, reusable, and tree-shakable utilities** for working with o
 
 ## Computation Utilities
 
+`ComputationUtils` provides **type-safe, numeric, and statistical helpers** for common mathematical operations.  
+It supports **numbers and BigInts**, incremental statistics (Welford’s algorithm), percentages, deltas, clamping, rounding, and anomaly detection.
+
+### Features
+
+✅ Supports both `number` and `bigint`  
+✅ Rounding & Clamping utilities  
+✅ Percentages & Ratios  
+✅ Incremental Statistics (Welford’s algorithm)  
+✅ Deltas & Percentage Change  
+✅ Anomaly Detection  
+⚠️ **Note:** Not tree-shakable — importing the class brings in all methods  
+
+
+[Full Reference →](docs/computation-utils.md)
+
 ---
 
 ## Debug Utilities
+WIP
 
 ---
 
-## DOM Utilities
+## DOM Utilities (`DomUtils`)
+
+> ⚠️ **Note:** These utilities are framework-agnostic, but importing `DomUtils` as a whole will include all methods in your bundle.
+
+`DomUtils` provides **type-safe, DOM-focused helpers** for handling keyboard interactions, media preloading, and image normalization. These utilities are **pure functions**, easy to test, and work in both native DOM and React environments.
+
+### Features
+
+✅ Keyboard event interpretation  
+✅ Image preloading with caching  
+✅ Image source normalization  
+✅ Pure and framework-agnostic  
+⚠️ Not tree-shakable when importing the full `DomUtils` object  
+
+[Full Reference →](docs/dom-utils.md)
+
+--- 
+## Color Utilities
+WIP
+
+--- 
+
+## Processor Utilities
+WIP
+
+--- 
+
+## Transformer Utilities
+WIP
