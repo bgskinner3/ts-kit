@@ -58,12 +58,12 @@ export const isRefObject = <T>(ref: Ref<T>): ref is RefObject<T | null> =>
 
 /**
  * ## 🧩 isPromise — Type Guard for Async Thenables
- * 
- * Checks if a value is a `Promise` or a "Thenable" object by validating 
+ *
+ * Checks if a value is a `Promise` or a "Thenable" object by validating
  * the existence of a `.then()` method.
  *
  * ---
- * 
+ *
  * ### 📘 Example Usage
  * ```ts
  * if (isPromise(data)) {
@@ -76,8 +76,8 @@ export const isPromise = <T>(value: unknown): value is Promise<T> =>
 
 /**
  * ## 🧩 isReactPortal — Type Guard for Portals
- * 
- * Checks if a value is a `ReactPortal` created via `ReactDOM.createPortal`. 
+ *
+ * Checks if a value is a `ReactPortal` created via `ReactDOM.createPortal`.
  * Validates the existence of the internal `containerInfo` property.
  */
 export const isReactPortal: TTypeGuard<ReactPortal> = (
@@ -87,8 +87,8 @@ export const isReactPortal: TTypeGuard<ReactPortal> = (
 
 /**
  * ## 🧩 hasChildren — Type Guard for Prop Objects with Children
- * 
- * Validates if an object contains a defined `children` property. 
+ *
+ * Validates if an object contains a defined `children` property.
  * Useful for verifying props in HOCs or wrapper components.
  */
 export const hasChildren = (value: unknown): value is { children: ReactNode } =>
@@ -98,8 +98,8 @@ export const hasChildren = (value: unknown): value is { children: ReactNode } =>
 
 /**
  * ## 🧩 isComponentType — Type Guard for React Components
- * 
- * Determines if a value is a valid React Component (Function Component or Class Component). 
+ *
+ * Determines if a value is a valid React Component (Function Component or Class Component).
  * For classes, it validates the existence of a `render` method on the prototype.
  */
 export const isComponentType: TTypeGuard<ComponentType<unknown>> = (
@@ -112,8 +112,8 @@ export const isComponentType: TTypeGuard<ComponentType<unknown>> = (
     isFunction(value.prototype.render));
 /**
  * ## 🧩 isForwardRef — Type Guard for ForwardRef Components
- * 
- * Validates if a component is wrapped in `React.forwardRef` by checking 
+ *
+ * Validates if a component is wrapped in `React.forwardRef` by checking
  * the internal `$$typeof` symbol.
  */
 export const isForwardRef: TTypeGuard<ForwardRefExoticComponent<object>> = (

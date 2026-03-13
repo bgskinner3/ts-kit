@@ -15,4 +15,13 @@ module.exports = {
       },
     ],
   },
+  collectCoverageFrom: [
+    'src/**/*.{ts,tsx}', // Include all TS files in src
+    '!src/**/*.d.ts', 
+    '!src/**/index.ts',
+    '!src/global.d.ts', 
+    '!src/managers/**', 
+    '!src/types/**', 
+    '!**/node_modules/**', 
+  ],
 };

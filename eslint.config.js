@@ -22,8 +22,8 @@ module.exports = [
       },
       globals: {
         ...globals.browser,
-        ...globals.node, 
-        ...globals.jest, 
+        ...globals.node,
+        ...globals.jest,
         ...js.configs.recommended.globals,
         ...tseslint.configs.recommended.globals,
         window: 'readonly',

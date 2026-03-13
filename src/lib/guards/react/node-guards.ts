@@ -29,8 +29,8 @@ export const isValidReactNode: TTypeGuard<ReactNode> = (
 
 /**
  * ## 🌳 isReactElement — Type Guard for JSX Elements
- * 
- * Validates if a value is a `ReactElement` (JSX). 
+ *
+ * Validates if a value is a `ReactElement` (JSX).
  * Uses React's internal security checks to ensure the object is a legitimate element.
  */
 export const isReactElement: TTypeGuard<ReactElement> = (
@@ -39,7 +39,7 @@ export const isReactElement: TTypeGuard<ReactElement> = (
 
 /**
  * ## 🌳 isFragment — Type Guard for React Fragments
- * 
+ *
  * Narrow check to determine if a React Element is specifically a `<React.Fragment>`.
  */
 export const isFragment: TTypeGuard<ReactElement> = (
@@ -47,16 +47,16 @@ export const isFragment: TTypeGuard<ReactElement> = (
 ): value is ReactElement => isValidElement(value) && value.type === Fragment;
 /**
  * ## 🌳 hasOnClick — Type Guard for Interactive Elements
- * 
+ *
  * Checks if a React Element has a valid `onClick` function in its props.
  * Useful for safely injecting behavior during `React.cloneElement`.
- * 
+ *
  * ---
  * ### 📘 Example Usage
  * ```ts
  * if (hasOnClick(child)) {
- *   return React.cloneElement(child, { 
- *     onClick: (e) => { console.log('Clicked!'); child.props.onClick(e); } 
+ *   return React.cloneElement(child, {
+ *     onClick: (e) => { console.log('Clicked!'); child.props.onClick(e); }
  *   });
  * }
  * ```
@@ -77,7 +77,7 @@ export const hasOnClick: TTypeGuard<
 };
 /**
  * ## 🌳 isElementLike — Type Guard for Duck-Typed Elements
- * 
+ *
  * Checks if an object "looks like" a React element (has type and props).
  * Useful for processing JSON-serialized components or objects from other environments.
  */
@@ -92,9 +92,9 @@ export const isElementLike: TTypeGuard<TElementLike> = (
 
 /**
  * ## 🌳 isElementOfType — Type Guard for Specific HTML Tags
- * 
+ *
  * Validates if an element-like object matches a specific set of allowed HTML tags.
- * 
+ *
  * @param allowedTypes - An array or string of tags to validate against (e.g., 'div' or ['a', 'button']).
  */
 export const isElementOfType = <T extends THTMLTags>(
@@ -105,7 +105,7 @@ export const isElementOfType = <T extends THTMLTags>(
 
 /**
  * ## 🌳 hasNameMetadata — Type Guard for Named Components
- * 
+ *
  * Checks if a React component type has identifying metadata like `displayName` or `name`.
  * Essential for debugging utilities or logging component names.
  */

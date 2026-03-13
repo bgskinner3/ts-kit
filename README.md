@@ -1,12 +1,10 @@
 # TypeScript Utility Library
 
-
 A **type-safe, custom-built utility library** for TypeScript projects, designed to make everyday development easier and safer.
 
 This library contains a growing collection of **helpers, validators, type guards, transformers, processors, and debug utilities**, all written with TypeScript type safety in mind.
 
 It’s **actively maintained and continuously expanded**, so new utilities and improvements are regularly added as I encounter common patterns and challenges in projects. Think of it as a personal toolkit for TypeScript development that **evolves with real-world needs**.
-
 
 ---
 
@@ -41,14 +39,14 @@ It’s **actively maintained and continuously expanded**, so new utilities and i
 
 src/
 ├── lib/
-│   ├── common/        # Generic helpers for arrays, objects, and other utilities
+│   ├── common/
 │   │   ├── arrays.ts
 │   │   ├── objects.ts
 │   │   └── index.ts
-│   ├── validations/   # Assertion and validation helpers
+│   ├── validations/
 │   │   ├── assertions.ts
 │   │   └── index.ts
-│   ├── guards/        # Type guards (primitive, reference, composite, refined)
+│   ├── guards/
 │   │   ├── core
 │   │   |   ├── primitives.ts
 │   │   |   ├── link-guards.ts
@@ -62,8 +60,29 @@ src/
 │   │   |   ├── node-guards.ts
 │   │   |   ├── react-primitive.ts
 │   │   |   └── index.ts
-
-
+│   ├── color/
+│   │   ├── color.ts
+│   │   └── index.ts
+│   ├── dom/
+│   │   ├── events.ts
+│   │   ├── media.ts
+│   │   └── index.ts
+│   ├── link/
+│   │   ├── link-utils.ts
+│   │   └── index.ts
+│   ├── processors/
+│   │   ├── network.ts
+│   │   ├── react.ts
+│   │   └── index.ts
+│   ├── transformers/
+│   │   ├── object-transformers.ts
+│   │   ├── string-transformers.ts
+│   │   └── index.ts
+│   ├── computation/
+│   │   └── index.ts
+│   ├── debug/
+│   │   ├── debug.ts
+│   │   └── index.ts
 
 ```
 
@@ -91,7 +110,7 @@ const value = objectGet({ user: { name: 'Alice' } }, 'user.name');
 
 ---
 
-## 🛡️ Type Guards 
+## 🛡️ Type Guards
 
 Type guards are the backbone of this library. They allow you to safely narrow types across different environments.
 
@@ -99,27 +118,24 @@ Type guards are the backbone of this library. They allow you to safely narrow ty
 
 The "Pure JS" foundation. These have zero dependencies and work in any environment (Node, Deno, Bun, Browser).
 
- - Primitives: High-speed checks for strings, numbers, bigints, and symbols.
- - Composite: Complex validation for objects, arrays, and record shapes.
- - String Formats: Validation for JSON, Hex, HTML, and case-conventions (Camel, Snake, Kebab).
- - Network: Safe URL detection and same-origin validation.
+- Primitives: High-speed checks for strings, numbers, bigints, and symbols.
+- Composite: Complex validation for objects, arrays, and record shapes.
+- String Formats: Validation for JSON, Hex, HTML, and case-conventions (Camel, Snake, Kebab).
+- Network: Safe URL detection and same-origin validation.
 
 [Full Reference →](docs/type-guards.md)
-
 
 ### ⚛️ React Guards
 
 Specific utilities for the React ecosystem. These handle the complexities of the Virtual DOM and component lifecycle.
 
- - Nodes: Validate renderable content, JSX elements, and Fragments.
- - Primitives: Safe checks for useRef objects, Portals, and forwardRef components.
- - DOM: Validation for prop keys and interactive elements (e.g., hasOnClick).
+- Nodes: Validate renderable content, JSX elements, and Fragments.
+- Primitives: Safe checks for useRef objects, Portals, and forwardRef components.
+- DOM: Validation for prop keys and interactive elements (e.g., hasOnClick).
 
 [Full Reference →](docs/type-guards.md)
 
-
 ### 🔹 Validation Guards
-
 
 ---
 
@@ -131,16 +147,13 @@ Provides **type-safe, reusable, and tree-shakable utilities** for working with o
 
 [Full Reference →](docs/common.md)
 
-
 ---
 
 ## Computation Utilities
 
-
 ---
 
 ## Debug Utilities
-
 
 ---
 

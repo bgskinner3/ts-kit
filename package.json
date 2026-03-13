@@ -1,23 +1,41 @@
 {
   "name": "@your-username/ts-utils",
   "version": "1.0.0",
-   "description": "A collection of high-performance TypeScript utilities and React type guards.",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "description": "A collection of high-performance TypeScript utilities and React type guards.",
+  "author": "Brennan Skinner",
+  "license": "ISC",
   "sideEffects": false,
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-   "build": "rm -rf dist && tsc --project tsconfig.build.json",
+    "dev": "tsup src/index.ts --format cjs,esm --watch --dts",
+    "build": "tsup src/index.ts --format cjs,esm --dts --clean --minify",
     "test": "jest",
     "cov:test": "jest --coverage",
     "lint": "eslint '**/*.{ts,tsx}' --max-warnings=0",
     "lint:fix": "eslint '**/*.{ts,tsx}' --fix",
     "format": "prettier --write '**/*.{ts,tsx,js,json,md}'",
-    "format:check": "prettier --check '**/*.{ts,tsx,js,json,md}'"
+    "format:check": "prettier --check '**/*.{ts,tsx,js,json,md}'",
+    "prepublishOnly": "npm run build && npm test"
   },
-  "keywords": ["typescript", "utils", "react", "guards"],
-  "author": "Brennan Skinner",
-  "license": "ISC",
-  "type": "commonjs",
+  "keywords": [
+    "typescript",
+    "utils",
+    "react",
+    "guards"
+  ],
   "devDependencies": {
     "@eslint/js": "^9.38.0",
     "@types/jest": "^30.0.0",
@@ -39,9 +57,10 @@
     "react-dom": "^19.2.4",
     "ts-jest": "^29.4.5",
     "ts-node": "^10.9.2",
+    "tsup": "^8.5.1",
     "typescript": "^5.9.3"
   },
-    "peerDependencies": {
+  "peerDependencies": {
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0"
   }
