@@ -232,7 +232,28 @@ These utilities are **pure functions**, framework-agnostic, and work in both bro
 --- 
 
 ## Processor Utilities
-WIP
+
+> ⚠️ **Note:** Importing the full `ProcessorUtils` or `ReactProcessorUtils` object will include all methods in your bundle.
+
+`ProcessorUtils` and `ReactProcessorUtils` provide **async, event, and React-focused helpers** for common operations like network requests, delays, retries, and React ref management.  
+These utilities are **pure functions** where possible, easy to test, and work in both browser and Node environments (with React-specific utilities designed for React apps).
+
+### Features
+
+✅ Fetch and parse JSON with robust error handling  
+✅ Retry async operations with exponential backoff  
+✅ Delay execution for throttling or timeouts  
+✅ Combine multiple React refs into a single callback  
+✅ Lazily evaluate object properties and cache results  
+✅ Merge CSS variables with existing style objects  
+✅ Safely merge event handlers with internal logic  
+✅ Filter and extract valid DOM props  
+✅ Select React children by `displayName`  
+✅ Pure and framework-agnostic where possible  
+⚠️ Not tree-shakable when importing the full `ProcessorUtils` / `ReactProcessorUtils` object  
+
+
+[Full Reference →](docs/processor-utils.md)
 
 --- 
 
