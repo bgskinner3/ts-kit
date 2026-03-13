@@ -1,15 +1,4 @@
-const HTML_TAGS = Object.freeze(['div', 'span', 'a', 'p', 'ul', 'li'] as const);
-const SAFE_HTML_TAGS = Object.freeze([
-  'b',
-  'i',
-  'p',
-  'ul',
-  'li',
-  'a',
-  'span',
-  'div',
-  'br',
-] as const);
+import { SAFE_HTML_TAGS } from './dom';
 
 const LOG_TYPES = Object.freeze([
   'log',
@@ -62,4 +51,4 @@ const ANSI_COLOR_CODES = {
   underline: '\x1b[4m',
 } as const;
 
-export { REGEX_CONSTANTS, HTML_TAGS, ANSI_COLOR_CODES, LOG_TYPES };
+export { REGEX_CONSTANTS, ANSI_COLOR_CODES, LOG_TYPES };

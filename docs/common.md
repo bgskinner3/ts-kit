@@ -34,7 +34,7 @@ const clean = filterNonNullable([1, null, 2]); // [1, 2]
 const doubled = map(clean, (n) => n * 2); // [2, 4]
 ```
 
-### 🧩 Object Utilities (`ObjectUtils`)
+## 🧩 Object Utilities (`ObjectUtils`)
 
 **Purpose:**  
 Type-safe object helpers wrapping `Object.*` APIs, providing:

@@ -52,9 +52,3 @@ export const toSnakeCase = <T extends string>(
     .toLowerCase();
 };
 
-export const StringTransformers = {
-  toSnakeCase,
-  toKebabCase,
-  toCamelCase,
-  capitalizeString,
-} as const;

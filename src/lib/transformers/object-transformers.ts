@@ -58,9 +58,4 @@ export const capitalizedKeys = <T extends Record<string, unknown>>(
       .filter((key) => /^[A-Za-z]/.test(key)),
   );
 
-export const ObjectTransformers = {
-  capitalizedKeys,
-  capitalizeArray,
-  toKeyByField,
-  generateKeyMap,
-} as const;
+
