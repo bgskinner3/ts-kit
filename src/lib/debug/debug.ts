@@ -33,7 +33,16 @@ export const logTypeHighlighters: THighlighterMap = {
 };
 
 /**
- * @see {@link DebugUtilsDocs.serialize}
+ * Safely serializes any value into a readable string.
+ *
+ * - Handles objects, BigInts, and circular structures gracefully.
+ * - Pretty-prints JSON for readability.
+ *
+ * @example
+ * ```ts
+ * DebugUtils.serialize({ foo: 'bar' });
+ * // => "{\n  \"foo\": \"bar\"\n}"
+ * ```
  */
 export const serialize = (data: unknown): string => {
   if (isUndefined(data)) return '';
@@ -51,7 +60,50 @@ export const serialize = (data: unknown): string => {
 };
 
 /**
- * @see {@link DebugUtilsDocs.getCallerLocation}
+ * UTIL LOCATION: DEBUG UTILS
+ *
+ *
+ * Retrieves the caller's location (file, line, and column) from the stack trace.
+ *
+ * Useful for logging, debugging, and tracing where a function was called from.
+ *
+ * It works by inspecting `Error().stack` and extracting relevant frames.
+ *
+ * @param preferredIndex - The zero-based stack frame index to prioritize (default: 3).
+ * @param fallbackIndex - The fallback frame index if the preferred frame doesn’t exist (default: 2).
+ * @param topParent - If `true`, returns the top-most relevant stack frame in your code (skipping `node_modules`).
+ * @param stripPathPrefix - If provided, removes this prefix (e.g., your project root path) from the returned string.
+ *
+ * @returns A string describing the caller’s location, e.g. `"src/utils/core/debug.ts:42:15"`.
+ *
+ * @example
+ * ```ts
+ * import { DebugUtils } from '@/utils/core/debug';
+ *
+ * function exampleFunction() {
+ *   console.log(DebugUtils.getCallerLocation());
+ * }
+ *
+ * exampleFunction();
+ * // Example output:
+ * // "src/utils/core/debug.ts:12:5"
+ * ```
+ *
+ * @example
+ * ```ts
+ * // Get the top-most relevant frame (ignoring node_modules)
+ * console.log(DebugUtils.getCallerLocation(3, 2, true));
+ * // Example output:
+ * // "src/server/api/user.ts:88:17"
+ * ```
+ *
+ * @example
+ * ```ts
+ * // Strip out the absolute path prefix for cleaner logs
+ * console.log(DebugUtils.getCallerLocation(3, 2, false, process.cwd()));
+ * // Example output:
+ * // "/src/services/logger.ts:54:9"
+ * ```
  */
 export const getCallerLocation = (
   options: TGetCallerLocationOptions,
@@ -82,7 +134,32 @@ export const getCallerLocation = (
     : (line ?? 'unknown');
 };
 
-/** @see {@link DebugUtilsDocs.logDev} for default color/highlight mappings. */
+/**
+ * Logs messages to the console **only in development environment** unless overridden.
+ * Supports standard log types ('log', 'warn', 'error', 'info', 'debug') as well as
+ * table logging for structured data.
+ *
+ * @remarks
+ * - If the first argument matches a log type in `LOG_TYPES`, it is treated as the type.
+ * - Table logs are automatically formatted if the items contain a `current` array of objects.
+ * - Each message is stringified if it is an object.
+ * - Optional highlighters can be applied via `logTypeHighlighters`.
+ *
+ * @param options - Configuration options for this log call
+ * @param options.enabled - Whether this log should be enabled (default: true)
+ * @param options.overrideDev - Force logging even in production (default: false)
+ * @param args - Messages to log. If the first item is a log type string, it is used as the type.
+ *
+ * @example
+ * ```ts
+ * logDev({}, 'info', 'Server started on port', 3000);
+ *
+ * logDev({ overrideDev: true }, 'error', new Error('Something failed'));
+ *
+ * logDev({}, 'table', { current: [{ key: 'task1', start: 0, end: 120 }] });
+ * ```
+ *
+ */
 export const logDev = (options: TLogOptions, ...args: unknown[]) => {
   const isDev = process.env.NODE_ENV !== 'production';
   const { enabled = true, overrideDev = false } = options;
@@ -126,4 +203,3 @@ export const logDev = (options: TLogOptions, ...args: unknown[]) => {
 
   (console[type] ?? console.log)(...messages);
 };
-

@@ -34,23 +34,98 @@ export const getLuminance = (rgb: TRGB | string): number => {
   return 0.2126 * transform(r) + 0.7152 * transform(g) + 0.0722 * transform(b);
 };
 
-/**  @see {@link ColorUtilsDocs.isLumLessThan} */
+/**
+ * ## 🌗 isLumLessThan — Check if a Color’s Luminance is Below a Threshold
+ *
+ * Determines whether the luminance of a color (in RGB array or HEX format)
+ * is less than the specified threshold. Uses `getLuminance()` internally.
+ *
+ * @param color - RGB tuple or HEX color string (e.g. `[255,255,255]` or `"#ffffff"`)
+ * @param threshold - A number between 0 and 1 representing the luminance cutoff.
+ * @returns `true` if the color’s luminance is less than the threshold.
+ *
+ * @example
+ * ```ts
+ * isLumLessThan('#000000', 0.2); // true
+ * isLumLessThan([255,255,255], 0.2); // false
+ * ```
+ */
 export const isLumLessThan = (
   color: TRGB | string,
   threshold: number,
 ): boolean => getLuminance(validateRGB(color)) < threshold;
 
-/**  @see {@link ColorUtilsDocs.isDarkColor} */
+/**
+ * ## 🌑 isDarkColor — Check if a Color is Perceptually Dark
+ *
+ * Determines whether a color is "dark" based on a standard WCAG-inspired
+ * luminance threshold (0.179). Works with both HEX and RGB formats.
+ *
+ * @param color - RGB tuple or HEX color string.
+ * @returns `true` if the color is considered dark.
+ *
+ * @example
+ * ```ts
+ * isDarkColor('#000000'); // true
+ * isDarkColor('#ffffff'); // false
+ * ```
+ */
 export const isDarkColor = (color: TRGB | string): boolean =>
   isLumLessThan(color, 0.179);
 
-/**  @see {@link ColorUtilsDocs.isLumGreaterThan} */
+/**
+ * ## ☀️ isLumGreaterThan — Check if a Color’s Luminance Exceeds a Threshold
+ *
+ * Determines whether the luminance of a color is above the given threshold.
+ *
+ * @param color - RGB tuple or HEX color string.
+ * @param threshold - A number between 0 and 1 representing the luminance cutoff.
+ * @returns `true` if the color’s luminance is greater than the threshold.
+ *
+ * @example
+ * ```ts
+ * isLumGreaterThan('#ffffff', 0.2); // true
+ * isLumGreaterThan('#222222', 0.2); // false
+ * ```
+ */
 export const isLumGreaterThan = (
   color: TRGB | string,
   threshold: number,
 ): boolean => getLuminance(validateRGB(color)) > threshold;
 
-/**  @see {@link ColorUtilsDocs.contrastTextColor} */
+/**
+ * ## 🎨 contrastTextColor — Returns an Accessible Text Color Based on Background
+ *
+ * Dynamically selects a readable text color (`black` or `white`) depending on
+ * the background color’s luminance.
+ *
+ * The function can return:
+ * - **Tailwind classes** (e.g. `'text-black'` / `'text-white'`)
+ * - **CSS color values** (e.g. `'#000000'` / `'#ffffff'`)
+ *
+ * ---
+ *
+ * @param color - RGB tuple or HEX color string.
+ * @param options - Optional configuration for return format and threshold.
+ * @returns A string representing the contrasting text color (Tailwind or CSS).
+ *
+ * ---
+ *
+ * @example
+ * ```ts
+ * // Tailwind mode (default)
+ * contrastTextColor('#000000');
+ * // → 'text-white'
+ *
+ * // CSS mode
+ * contrastTextColor('#ffffff', { mode: 'css' });
+ * // → '#000000'
+ *
+ * // Custom threshold
+ * contrastTextColor([120,120,120], { threshold: 0.2 });
+ * // → 'text-white'
+ * ```
+ */
 export const contrastTextColor = (
   color: TRGB | string,
   options?: {
@@ -69,7 +144,34 @@ export const contrastTextColor = (
   return isLight ? 'text-black' : 'text-white';
 };
 
-/**  @see {@link ColorUtilsDocs.hexToRGBShorthand} */
+/**
+ * ## 🎨 hexToRGBShorthand — Convert Hex Color to RGB Array
+ *
+ * Converts a **hex color string** into an RGB array `[r, g, b]`.
+ * Supports both **3-character shorthand** (e.g., `#abc`) and **6-character hex** (e.g., `#aabbcc`).
+ *
+ * ---
+ *
+ * ### ⚙️ Core Purpose
+ * - Convert a user-friendly or CSS hex color into a numeric RGB array.
+ * - Handles shorthand hex and expands it automatically.
+ * - Returns `null` for invalid hex strings.
+ *
+ * ---
+ *
+ * ### 📘 Example Usage
+ * ```ts
+ * hexToRGBShorthand('#abc');     // [170, 187, 204]
+ * hexToRGBShorthand('#aabbcc');  // [170, 187, 204]
+ * hexToRGBShorthand('invalid');  // null
+ * ```
+ *
+ * ---
+ *
+ * ### 📌 Notes
+ * - Input must be a valid 3- or 6-character hex string (case-insensitive).
+ * - Output is always a `[number, number, number]` array if valid.
+ */
 export const hexToRGBShorthand = (
   hex: string,
 ): [number, number, number] | null => {
@@ -89,7 +191,45 @@ export const hexToRGBShorthand = (
   ];
 };
 
-/**  @see {@link ColorUtilsDocs.interpolateColor} */
+/**
+ * ## 🎨 interpolateColor — Linear Interpolation Between Two RGB Colors
+ *
+ * Interpolates between two RGB colors based on a `factor` and returns a **CSS rgb() string**.
+ *
+ * ---
+ *
+ * ### ⚙️ Core Purpose
+ * - Blend two colors linearly using a numeric factor between `0` and `1`.
+ * - `factor = 0` returns the `start` color.
+ * - `factor = 1` returns the `end` color.
+ * - Any value in-between returns the proportional mix.
+ *
+ * ---
+ *
+ * ### 📘 Example Usage
+ * ```ts
+ * interpolateColor(
+ *   { r: 255, g: 0, b: 0 },
+ *   { r: 0, g: 0, b: 255 },
+ *   0.5
+ * );
+ * // → "rgb(128, 0, 128)"
+ *
+ * interpolateColor(
+ *   { r: 0, g: 255, b: 0 },
+ *   { r: 0, g: 0, b: 0 },
+ *   0.25
+ * );
+ * // → "rgb(0, 191, 0)"
+ * ```
+ *
+ * ---
+ *
+ * ### 📌 Notes
+ * - `start` and `end` colors must have `r`, `g`, `b` values as numbers.
+ * - `factor` should ideally be in `[0, 1]`, but values outside will extrapolate.
+ * - Returns a **valid CSS rgb() string** ready to use in style properties.
+ */
 export const interpolateColor = (
   start: { r: number; g: number; b: number },
   end: { r: number; g: number; b: number },
@@ -103,7 +243,18 @@ export const interpolateColor = (
 
   return `rgb(${result.r}, ${result.g}, ${result.b})`;
 };
-/**  @see {@link ColorUtilsDocs.hexToHSL} */
+/**
+ * Converts a hex color string to an HSL (Hue, Saturation, Lightness) object.
+ *
+ * @param hex - A hexadecimal color string (e.g., "#ff0000" or "ff0000")
+ * @returns An object with:
+ *   - h: hue in degrees [0, 360)
+ *   - s: saturation [0, 1]
+ *   - l: lightness [0, 1]
+ *
+ * @example
+ * hexToHSL("#ff0000") // { h: 0, s: 1, l: 0.5 }
+ */
 export function hexToHSL(hex: string): { h: number; s: number; l: number } {
   // Convert hex to RGB and normalize to [0,1]
   const [r, g, b] = hexToRGB(hex).map((v) => v / 255);
@@ -132,7 +283,27 @@ export function hexToHSL(hex: string): { h: number; s: number; l: number } {
 
   return { h, s, l };
 }
-/**  @see {@link ColorUtilsDocs.hexToNormalizedRGB} */
+/**
+ * Converts a hexadecimal color string to a normalized RGB tuple.
+ *
+ * This function takes a standard hex color (like `#ff0000` or `ff0000`) and
+ * converts it to an RGB representation where each channel is a decimal number
+ * between 0 and 1 instead of 0–255. This format is commonly used in graphics
+ * and WebGL contexts (like Three.js or shaders) that expect normalized RGB values.
+ *
+ * @param hex - A hexadecimal color string, either in 3-digit shorthand (`#f00`)
+ *              or 6-digit full form (`#ff0000`). The leading `#` is optional.
+ *
+ * @returns A tuple `[r, g, b]` where each component is a number between 0 and 1:
+ *          - `r` = red channel normalized (0–1)
+ *          - `g` = green channel normalized (0–1)
+ *          - `b` = blue channel normalized (0–1)
+ *
+ * @example
+ * hexToNormalizedRGB("#ff0000"); // [1, 0, 0]  → pure red
+ * hexToNormalizedRGB("00ff00");  // [0, 1, 0]  → pure green
+ * hexToNormalizedRGB("#0000ff"); // [0, 0, 1]  → pure blue
+ */
 export const hexToNormalizedRGB = (hex: string): [number, number, number] => {
   const [r, g, b] = hexToRGB(hex); // returns 0–255
   return [r / 255, g / 255, b / 255];

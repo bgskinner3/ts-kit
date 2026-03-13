@@ -7,7 +7,7 @@ class DebugUtils {
   public static readonly getCallerLocation = getCallerLocation;
 }
 
-export { logDev, getCallerLocation, serialize, DebugUtils };
+export { logDev, getCallerLocation, serialize, highlight, DebugUtils };
 
 // import {
 //   isString,

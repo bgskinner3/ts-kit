@@ -5,7 +5,6 @@
     "module": "Node16", // For ESM + tree-shaking
     "moduleResolution": "Node16", // ⚡ Recommended for TS 5.3+ + ESM projects
     "outDir": "dist",
-    "rootDir": "src",
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true, // Helpful when debugging distributed code
@@ -28,27 +27,10 @@
     "noEmitOnError": true, // Avoid emitting on compile errors
     /* === Output Format === */
     "removeComments": false, // Keep comments for better docs
-    "lib": [
-      "ES2022",
-      "DOM",
-      "DOM.Iterable",
-      "ESNext.AsyncIterable"
-    ],
-    "types": [
-      "jest",
-      "node",
-      "react"
-    ],
+    "lib": ["ES2022", "DOM", "DOM.Iterable", "ESNext.AsyncIterable"],
+    "types": ["jest", "node", "react"],
     "incremental": true
   },
-  "include": [
-    "src/**/*",
-    "global",
-    "tests/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "coverage"
-  ]
+  "include": ["src/**/*", "global", "tests/**/*"],
+  "exclude": ["node_modules", "dist", "coverage"]
 }

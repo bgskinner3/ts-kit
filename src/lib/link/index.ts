@@ -16,5 +16,6 @@ export {
   normalizeUrl,
   handleInternalHashScroll,
   extractRelativePath,
+  stripHash,
   LinkUtils,
 };
