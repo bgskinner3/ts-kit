@@ -133,23 +133,71 @@ describe('Color Utilities', () => {
 
   describe('hexToHSL', () => {
     it('converts white correctly', () => {
-      const hsl = hexToHSL('#ffffff');
-
-      expect(hsl.l).toBeCloseTo(1);
-      expect(hsl.s).toBeCloseTo(0);
+      const { h, s, l } = hexToHSL('#ffffff');
+      expect(h).toBeCloseTo(0); // hue is undefined for gray, default to 0
+      expect(s).toBeCloseTo(0);
+      expect(l).toBeCloseTo(1);
     });
 
     it('converts black correctly', () => {
-      const hsl = hexToHSL('#000000');
-
-      expect(hsl.l).toBeCloseTo(0);
-      expect(hsl.s).toBeCloseTo(0);
+      const { h, s, l } = hexToHSL('#000000');
+      expect(h).toBeCloseTo(0);
+      expect(s).toBeCloseTo(0);
+      expect(l).toBeCloseTo(0);
     });
 
     it('converts red correctly', () => {
       const { h, s, l } = hexToHSL('#ff0000');
-
       expect(h).toBeCloseTo(0);
+      expect(s).toBeCloseTo(1);
+      expect(l).toBeCloseTo(0.5);
+    });
+
+    it('converts green correctly', () => {
+      const { h, s, l } = hexToHSL('#00ff00');
+      expect(h).toBeCloseTo(120);
+      expect(s).toBeCloseTo(1);
+      expect(l).toBeCloseTo(0.5);
+    });
+
+    it('converts blue correctly', () => {
+      const { h, s, l } = hexToHSL('#0000ff');
+      expect(h).toBeCloseTo(240);
+      expect(s).toBeCloseTo(1);
+      expect(l).toBeCloseTo(0.5);
+    });
+
+    it('converts cyan correctly', () => {
+      const { h, s, l } = hexToHSL('#00ffff');
+      expect(h).toBeCloseTo(180);
+      expect(s).toBeCloseTo(1);
+      expect(l).toBeCloseTo(0.5);
+    });
+
+    it('converts magenta correctly', () => {
+      const { h, s, l } = hexToHSL('#ff00ff');
+      expect(h).toBeCloseTo(300);
+      expect(s).toBeCloseTo(1);
+      expect(l).toBeCloseTo(0.5);
+    });
+
+    it('converts yellow correctly', () => {
+      const { h, s, l } = hexToHSL('#ffff00');
+      expect(h).toBeCloseTo(60);
+      expect(s).toBeCloseTo(1);
+      expect(l).toBeCloseTo(0.5);
+    });
+
+    it('converts gray shades correctly', () => {
+      const { h, s, l } = hexToHSL('#808080'); // medium gray
+      expect(h).toBeCloseTo(0);
+      expect(s).toBeCloseTo(0);
+      expect(l).toBeCloseTo(0.5);
+    });
+
+    it('accepts lowercase hex', () => {
+      const { h, s, l } = hexToHSL('#ff00ff');
+      expect(h).toBeCloseTo(300);
       expect(s).toBeCloseTo(1);
       expect(l).toBeCloseTo(0.5);
     });
