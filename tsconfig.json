@@ -25,7 +25,7 @@
     "removeComments": false, 
     "lib": ["ES2022", "DOM", "DOM.Iterable", "ESNext.AsyncIterable"],
     "types": ["jest", "node", "react"],
-    "incremental": true
+    "incremental": false
   },
   "include": ["src/**/*", "global", "tests/**/*"],
   "exclude": ["node_modules", "dist", "coverage"]
