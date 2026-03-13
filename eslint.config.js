@@ -22,8 +22,8 @@ module.exports = [
       },
       globals: {
         ...globals.browser,
-        ...globals.node, // 👈 This adds process, require, module, etc.
-        ...globals.jest, // 👈 This adds describe, it, expect, etc.
+        ...globals.node, 
+        ...globals.jest, 
         ...js.configs.recommended.globals,
         ...tseslint.configs.recommended.globals,
         window: 'readonly',
@@ -48,7 +48,6 @@ module.exports = [
       prettier,
     },
     rules: {
-      // Spread recommended rules instead of using `extends`
       ...js.configs.recommended.rules,
       ...tseslint.configs.recommended.rules,
 
@@ -61,8 +60,6 @@ module.exports = [
       ],
     },
   },
-
-  // 🔹 Test files (Jest / Vitest)
   {
     files: ['**/*.test.ts', '**/*.spec.ts'],
     languageOptions: {
