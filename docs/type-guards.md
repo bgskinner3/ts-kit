@@ -111,8 +111,6 @@ if (isElementOfType(element, ['div', 'span'])) {
 | `isHTMLString` | Checks if a string appears to contain HTML markup. |
 
 
-
-
 --- 
 
 ## ⚛️ React Guards (ReactGuards)
