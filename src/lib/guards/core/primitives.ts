@@ -27,17 +27,3 @@ export const isPrimitive = (
   value: unknown,
 ): value is string | number | boolean =>
   isString(value) || isNumber(value) || isBoolean(value) || isBigInt(value);
-/**
- * Type guards for primitive types (string, number, boolean, etc.)
- * @see {@link GuardUtilsDocs.PrimitiveTypeGuards}
- */
-export const PrimitiveTypeGuards = {
-  isNumber,
-  isInteger,
-  isString,
-  isNonEmptyString,
-  isBoolean,
-  isBigInt,
-  isSymbol,
-  isPrimitive,
-} as const;

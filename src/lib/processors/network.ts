@@ -31,38 +31,6 @@ export const delay = (ms: number): Promise<void> =>
  *
  * @see {@link ProcessorUtilsDocs.retry} For full documentation
  */
-// export async function retry<T>(
-//   fn: () => Promise<T>,
-//   retries = 5,
-//   delayMs = 500,
-// ): Promise<T> {
-//   for (let attempt = 0; attempt <= retries; attempt++) {
-//     try {
-//       const result = await fn();
-//       //   if (attempt > 0) logDev(`[Retry] Success on attempt ${attempt + 1}`);
-//       return result;
-//     } catch {
-//       //   const isRateLimit =
-//       //     err?.code === 'BAD_DATA' || err?.message?.includes('Too Many Requests');
-
-//       //   if (!isRateLimit || attempt === retries) {
-//       //     console.error(`[Retry] Failed on attempt ${attempt + 1}:`, err);
-//       //     throw err;
-//       //   }
-
-//       const backoff = delayMs * 2 ** attempt + Math.random() * 200;
-//       console.warn(
-//         `[Retry] Rate limited on attempt ${attempt + 1}, retrying in ${Math.round(backoff)}ms...`,
-//       );
-
-//       // Await delay before next attempt
-//       await new Promise((resolve) => setTimeout(resolve, backoff));
-//     }
-//   }
-
-//   // This should never be reached, but TS wants a return/throw
-//   throw new Error('Retry attempts exhausted');
-// }
 export async function retry<T>(
   fn: () => Promise<T>,
   retries = 5,

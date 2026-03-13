@@ -1,5 +1,4 @@
 import {
-  PrimitiveTypeGuards,
   CoreTypeGuards,
   isRGBTuple,
   isCamelCase,
@@ -41,13 +40,13 @@ const makeAssert = <T>(guard: TTypeGuard<T>, _key: string): TAssert<T> => {
 // -------------------- Generate assertion functions --------------------
 
 // Primitive asserts
-/* prettier-ignore */ export const assertIsNumber: TAssert<number> = makeAssert(PrimitiveTypeGuards.isNumber, 'isNumber');
-/* prettier-ignore */ export const assertIsInteger: TAssert<number> = makeAssert(PrimitiveTypeGuards.isInteger, 'isInteger');
-/* prettier-ignore */ export const assertIsString: TAssert<string> = makeAssert(PrimitiveTypeGuards.isString, 'isString');
-/* prettier-ignore */ export const assertIsNonEmptyString: TAssert<string> = makeAssert(PrimitiveTypeGuards.isNonEmptyString, 'isNonEmptyString');
-/* prettier-ignore */ export const assertIsBoolean: TAssert<boolean> = makeAssert(PrimitiveTypeGuards.isBoolean, 'isBoolean');
-/* prettier-ignore */ export const assertIsBigInt: TAssert<bigint> = makeAssert(PrimitiveTypeGuards.isBigInt, 'isBigInt');
-/* prettier-ignore */ export const assertIsSymbol: TAssert<symbol> = makeAssert(PrimitiveTypeGuards.isSymbol, 'isSymbol');
+/* prettier-ignore */ export const assertIsNumber: TAssert<number> = makeAssert(CoreTypeGuards.isNumber, 'isNumber');
+/* prettier-ignore */ export const assertIsInteger: TAssert<number> = makeAssert(CoreTypeGuards.isInteger, 'isInteger');
+/* prettier-ignore */ export const assertIsString: TAssert<string> = makeAssert(CoreTypeGuards.isString, 'isString');
+/* prettier-ignore */ export const assertIsNonEmptyString: TAssert<string> = makeAssert(CoreTypeGuards.isNonEmptyString, 'isNonEmptyString');
+/* prettier-ignore */ export const assertIsBoolean: TAssert<boolean> = makeAssert(CoreTypeGuards.isBoolean, 'isBoolean');
+/* prettier-ignore */ export const assertIsBigInt: TAssert<bigint> = makeAssert(CoreTypeGuards.isBigInt, 'isBigInt');
+/* prettier-ignore */ export const assertIsSymbol: TAssert<symbol> = makeAssert(CoreTypeGuards.isSymbol, 'isSymbol');
 
 // Reference asserts
 /* prettier-ignore */ export const assertIsNull: TAssert<null> = makeAssert(CoreTypeGuards.isNull, 'isNull');
