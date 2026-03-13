@@ -176,14 +176,14 @@ export const logDev = (options: TLogOptions, ...args: unknown[]) => {
 
   // Handle table logs separately
   if (type === 'table') {
-    const tableData = ArrayUtils.map(args, (item: unknown) => {
+    // skip first argument, which is the log type string
+    const tableData = ArrayUtils.map(args.slice(1), (item: unknown) => {
       if (item && isObject(item) && 'current' in item) {
-        // assume item.current is iterable
         const curr = (item as { current: TTableItem[] }).current;
         return curr.map((l) => ({
           key: l.key,
           duration:
-            l.end && l.start
+            l.end != null && l.start != null
               ? `${(l.end - l.start).toFixed(2)}ms`
               : 'in progress',
         }));

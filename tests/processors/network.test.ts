@@ -1,4 +1,7 @@
-import { fetchJson, delay } from '../../src/lib/processors/network';
+/**
+ * @jest-environment jsdom
+ */
+import { fetchJson, delay, retry } from '../../src/lib/processors/network';
 
 describe('Network Processor Utils', () => {
   describe('delay', () => {
@@ -51,38 +54,47 @@ describe('Network Processor Utils', () => {
     });
   });
 
-  // describe('retry', () => {
-  //   it('should return result on first success', async () => {
-  //     const fn = jest.fn().mockResolvedValue('success');
-  //     const result = await retry(fn);
+  describe('retry', () => {
+    let _warnSpy: jest.SpyInstance;
+    let _errorSpy: jest.SpyInstance;
 
-  //     expect(result).toBe('success');
-  //     expect(fn).toHaveBeenCalledTimes(1);
-  //   });
+    beforeEach(() => {
+      _warnSpy = jest.spyOn(console, 'warn').mockImplementation();
+      _errorSpy = jest.spyOn(console, 'error').mockImplementation();
+    });
 
-  //   // it('should retry on rate limit errors and eventually succeed', async () => {
-  //   //   const fn = jest
-  //   //     .fn()
-  //   //     .mockRejectedValueOnce({ message: 'Too Many Requests' })
-  //   //     .mockResolvedValueOnce('success');
+    afterEach(() => {
+      jest.restoreAllMocks();
+    });
 
-  //   //   const result = await retry(fn, 5, 10); // small delay for tests
-  //   //   expect(result).toBe('success');
-  //   //   expect(fn).toHaveBeenCalledTimes(5);
-  //   // });
+    it('should return result on first success', async () => {
+      const fn = jest.fn().mockResolvedValue('success');
+      const result = await retry(fn);
+      expect(result).toBe('success');
+      expect(fn).toHaveBeenCalledTimes(1);
+    });
 
-  //   it('should fail immediately if the error is not a rate limit', async () => {
-  //     const fn = jest.fn().mockRejectedValue(new Error('Normal Error'));
+    it('should retry on rate limit errors and eventually succeed', async () => {
+      const fn = jest
+        .fn()
+        .mockRejectedValueOnce({ message: 'Too Many Requests' })
+        .mockResolvedValueOnce('success');
 
-  //     await expect(retry(fn, 3, 10)).rejects.toThrow('Normal Error');
-  //     expect(fn).toHaveBeenCalledTimes(1);
-  //   });
+      const result = await retry(fn, 5, 10);
+      expect(result).toBe('success');
+      expect(fn).toHaveBeenCalledTimes(2); // ✅ only 2 calls
+    });
 
-  //   // it('should throw after exhausting all retries', async () => {
-  //   //   const fn = jest.fn().mockRejectedValue({ message: 'Too Many Requests' });
+    it('should fail immediately if the error is not a rate limit', async () => {
+      const fn = jest.fn().mockRejectedValue(new Error('Normal Error'));
+      await expect(retry(fn, 3, 10)).rejects.toThrow('Normal Error');
+      expect(fn).toHaveBeenCalledTimes(1);
+    });
 
-  //   //   await expect(retry(fn, 2, 10)).rejects.toThrow('Too Many Requests');
-  //   //   expect(fn).toHaveBeenCalledTimes(3); // Initial + 2 retries
-  //   // });
-  // });
+    it('should throw after exhausting all retries', async () => {
+      const fn = jest.fn().mockRejectedValue({ message: 'Too Many Requests' });
+      await expect(retry(fn, 2, 10)).rejects.toThrow('Too Many Requests');
+      expect(fn).toHaveBeenCalledTimes(3); // Initial + 2 retries
+    });
+  });
 });

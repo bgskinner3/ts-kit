@@ -7,11 +7,11 @@ These utilities are **pure functions**, framework-agnostic, and work in both nat
 
 ## Utilities Table
 
-| Function | Description |
-| -------- | ----------- |
-| `getKeyboardAction(event, config)` | Interprets a `KeyboardEvent` and returns semantic actions: copy, paste, clear, allowed keys, or block typing. Configurable via `TKeyboardConfig`. |
-| `preloadImages(urls, options)` | Preloads one or multiple images with caching. Uses `Image.decode()` when available, falls back to `onload/onerror`. LRU cache prevents memory overflow. |
-| `normalizeImageSrc(src)` | Normalizes various image sources into a plain string URL. Supports string URLs, image objects, module default exports, Next.js `StaticImageData`, Vite, etc. |
+| Function                           | Description                                                                                                                                                  |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `getKeyboardAction(event, config)` | Interprets a `KeyboardEvent` and returns semantic actions: copy, paste, clear, allowed keys, or block typing. Configurable via `TKeyboardConfig`.            |
+| `preloadImages(urls, options)`     | Preloads one or multiple images with caching. Uses `Image.decode()` when available, falls back to `onload/onerror`. LRU cache prevents memory overflow.      |
+| `normalizeImageSrc(src)`           | Normalizes various image sources into a plain string URL. Supports string URLs, image objects, module default exports, Next.js `StaticImageData`, Vite, etc. |
 
 ---
 
@@ -33,7 +33,6 @@ await preloadImages(['/img/photo1.jpg', '/img/photo2.jpg']);
 
 // Normalize image source
 const imageUrl = normalizeImageSrc(imageModule);
-
 ```
 
 ### 2️⃣ Using the full DomUtils object
@@ -52,7 +51,6 @@ await DomUtils.preloadImages(['/img/photo1.jpg', '/img/photo2.jpg']);
 
 // Normalize image source
 const imageUrl = DomUtils.normalizeImageSrc(imageModule);
-
 ```
 
 > ⚠️ **Note:** While convenient, using `DomUtils` is **not tree-shakable**.  

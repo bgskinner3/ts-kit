@@ -13,17 +13,17 @@
 
 ## Methods
 
-| Function                     | Description                                                                                         |
-| ---------------------------- | --------------------------------------------------------------------------------------------------- |
-| `round(value, decimals)`     | Rounds a number to the specified number of decimal places.                                          |
-| `clamp(val, min, max)`       | Constrains a number to stay within `[min, max]`.                                                    |
-| `getPercentage(value, total, decimals)` | Computes a percentage of `value` over `total`, safely handling `number` and `bigint`.          |
-| `computeMean(arr)`           | Calculates the arithmetic mean of an array of numbers or BigInts.                                   |
-| `isAnomaly(value, mean, stdDev, threshold)` | Determines if a number is an outlier based on the standard deviation and threshold.            |
-| `computeRatio(achieved, total, decimals)` | Returns a human-readable pass/fail ratio as a percentage.                                        |
-| `welfordUpdate(state, newValue)` | Incrementally updates Welford’s running mean and variance for streaming data.                   |
-| `computeDelta(current, past)` | Computes net and absolute difference between two numbers or BigInts.                               |
-| `computePercentageChange(current, past, scale)` | Computes the percentage change between two numbers or BigInts, optionally scaled.           |
+| Function                                        | Description                                                                           |
+| ----------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `round(value, decimals)`                        | Rounds a number to the specified number of decimal places.                            |
+| `clamp(val, min, max)`                          | Constrains a number to stay within `[min, max]`.                                      |
+| `getPercentage(value, total, decimals)`         | Computes a percentage of `value` over `total`, safely handling `number` and `bigint`. |
+| `computeMean(arr)`                              | Calculates the arithmetic mean of an array of numbers or BigInts.                     |
+| `isAnomaly(value, mean, stdDev, threshold)`     | Determines if a number is an outlier based on the standard deviation and threshold.   |
+| `computeRatio(achieved, total, decimals)`       | Returns a human-readable pass/fail ratio as a percentage.                             |
+| `welfordUpdate(state, newValue)`                | Incrementally updates Welford’s running mean and variance for streaming data.         |
+| `computeDelta(current, past)`                   | Computes net and absolute difference between two numbers or BigInts.                  |
+| `computePercentageChange(current, past, scale)` | Computes the percentage change between two numbers or BigInts, optionally scaled.     |
 
 ---
 

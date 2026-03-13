@@ -147,15 +147,14 @@ Specific utilities for the React ecosystem. These handle the complexities of the
 **Purpose:**  
 Runtime validators built on top of type guards. Use them to assert that values conform to expected types, with optional error messages. Includes **primitive, reference, and composite assertions**, as well as **custom assertion creators**.
 
-- **Creators:** `assertValue`, `makeAssert`  
-- **Primitive Assertions:** `assertIsNumber`, `assertIsInteger`, `assertIsString`, `assertIsBoolean`, `assertIsBigInt`, `assertIsSymbol`  
-- **Reference Assertions:** `assertIsNull`, `assertIsUndefined`, `assertIsDefined`, `assertIsNil`, `assertIsFunction`, `assertObject`, `assertIsArray`, `assertIsMap`, `assertIsSet`, `assertIsWeakMap`, `assertIsWeakSet`  
+- **Creators:** `assertValue`, `makeAssert`
+- **Primitive Assertions:** `assertIsNumber`, `assertIsInteger`, `assertIsString`, `assertIsBoolean`, `assertIsBigInt`, `assertIsSymbol`
+- **Reference Assertions:** `assertIsNull`, `assertIsUndefined`, `assertIsDefined`, `assertIsNil`, `assertIsFunction`, `assertObject`, `assertIsArray`, `assertIsMap`, `assertIsSet`, `assertIsWeakMap`, `assertIsWeakSet`
 - **Refined / Composite Assertions:** `assertIsCamelCase`, `assertIsBufferLikeObject`, `assertIsJSONArrayString`, `assertIsJSONObjectString`, `assertIsJsonString`, `assertIsAbsoluteUrl`, `assertIsInternalUrl`, `assertIsRGBTuple`
 
 > ⚠️ **Note:** Importing the full `AssertionUtils` object is **not tree-shakable**. For smaller bundles, prefer individual assertion imports.
 
 [Full Reference →](docs/type-guards.md)
-
 
 ---
 
@@ -164,8 +163,7 @@ Runtime validators built on top of type guards. Use them to assert that values c
 ✅ Tree-shakable  
 ✅ Type-safe  
 ✅ Works with objects, arrays, and primitive types  
-✅ Modular imports supported 
-
+✅ Modular imports supported
 
 ### 🧰 Object, array, and generic helpers
 
@@ -188,8 +186,7 @@ It supports **numbers and BigInts**, incremental statistics (Welford’s algorit
 ✅ Incremental Statistics (Welford’s algorithm)  
 ✅ Deltas & Percentage Change  
 ✅ Anomaly Detection  
-⚠️ **Note:** Not tree-shakable — importing the class brings in all methods  
-
+⚠️ **Note:** Not tree-shakable — importing the class brings in all methods
 
 [Full Reference →](docs/computation-utils.md)
 
@@ -207,12 +204,14 @@ It supports **numbers and BigInts**, incremental statistics (Welford’s algorit
 ✅ Image preloading with caching  
 ✅ Image source normalization  
 ✅ Pure and framework-agnostic  
-⚠️ Not tree-shakable when importing the full `DomUtils` object  
+⚠️ Not tree-shakable when importing the full `DomUtils` object
 
 [Full Reference →](docs/dom-utils.md)
 
---- 
+---
+
 ## Color Utilities
+
 > ⚠️ **Note:** Importing the full `ColorUtils` object will include all methods in your bundle.
 
 `ColorUtils` provides **type-safe, color-focused helpers** for common operations like color parsing, conversion, and manipulation.  
@@ -225,11 +224,11 @@ These utilities are **pure functions**, framework-agnostic, and work in both bro
 ✅ Generate color variations (lighten, darken, alpha adjustments)  
 ✅ Compare and blend colors  
 ✅ Pure and framework-agnostic  
-⚠️ Not tree-shakable when importing the full `ColorUtils` object 
+⚠️ Not tree-shakable when importing the full `ColorUtils` object
 
 [Full Reference →](docs/color-utils.md)
 
---- 
+---
 
 ## Processor Utilities
 
@@ -250,22 +249,24 @@ These utilities are **pure functions** where possible, easy to test, and work in
 ✅ Filter and extract valid DOM props  
 ✅ Select React children by `displayName`  
 ✅ Pure and framework-agnostic where possible  
-⚠️ Not tree-shakable when importing the full `ProcessorUtils` / `ReactProcessorUtils` object  
-
+⚠️ Not tree-shakable when importing the full `ProcessorUtils` / `ReactProcessorUtils` object
 
 [Full Reference →](docs/processor-utils.md)
 
---- 
+---
 
 ## Transformer Utilities
+
 WIP
 
 ---
 
 ## Debug Utilities
+
 WIP
 
 ---
 
 ## Link Utilities
+
 WIP

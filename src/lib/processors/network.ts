@@ -1,4 +1,4 @@
-import { isObject, isDefined } from '../guards';
+import { isObject, isDefined, isKeyInObject, isString } from '../guards';
 /**
  * ## 🌐 fetchJson — Fetch and Parse JSON from a URL
  *
@@ -96,11 +96,41 @@ export async function retry<T>(
     );
   }
 
+  // for (let attempt = 0; attempt <= retries; attempt++) {
+  //   try {
+  //     const result = await fn();
+  //     if (attempt > 0)
+  //       console.log({}, `[Retry] Success on attempt ${attempt + 1}`);
+  //     return result;
+  //   } catch (err: unknown) {
+  //     lastError = err;
+  //     let isRateLimit = false;
+
+  //     if (isErrorWithProps(err)) {
+  //       const msg = err.message ?? '';
+  //       const code = err.code ?? '';
+  //       isRateLimit = code === 'BAD_DATA' || msg.includes('Too Many Requests');
+  //     }
+  //     if (!isRateLimit || attempt === retries) {
+  //       console.error(`[Retry] Failed on attempt ${attempt + 1}:`, err);
+  //       throw err;
+  //     }
+
+  //     const backoff = delayMs * 2 ** attempt + Math.random() * 200;
+  //     console.warn(
+  //       `[Retry] Rate limited on attempt ${attempt + 1}, retrying in ${Math.round(backoff)}ms...`,
+  //     );
+
+  //     // Await delay before next attempt
+  //     await new Promise((resolve) => setTimeout(resolve, backoff));
+  //   }
+  // }
   for (let attempt = 0; attempt <= retries; attempt++) {
     try {
       const result = await fn();
-      if (attempt > 0)
+      if (attempt > 0) {
         console.log({}, `[Retry] Success on attempt ${attempt + 1}`);
+      }
       return result;
     } catch (err: unknown) {
       lastError = err;
@@ -111,17 +141,35 @@ export async function retry<T>(
         const code = err.code ?? '';
         isRateLimit = code === 'BAD_DATA' || msg.includes('Too Many Requests');
       }
+
+      // If not rate-limit error or last attempt, throw
       if (!isRateLimit || attempt === retries) {
         console.error(`[Retry] Failed on attempt ${attempt + 1}:`, err);
-        throw err;
+
+        // Normalize error so Jest can catch it
+        let errorToThrow: Error;
+
+        if (err instanceof Error) {
+          errorToThrow = err;
+        } else if (
+          isObject(err) &&
+          isKeyInObject('message')(err) &&
+          isString(err.message)
+        ) {
+          errorToThrow = new Error(err.message);
+        } else {
+          errorToThrow = new Error(String(err || 'Retry failed'));
+        }
+
+        throw errorToThrow;
       }
 
+      // Calculate exponential backoff + random jitter
       const backoff = delayMs * 2 ** attempt + Math.random() * 200;
       console.warn(
         `[Retry] Rate limited on attempt ${attempt + 1}, retrying in ${Math.round(backoff)}ms...`,
       );
 
-      // Await delay before next attempt
       await new Promise((resolve) => setTimeout(resolve, backoff));
     }
   }

@@ -109,6 +109,7 @@ if (isElementOfType(element, ['div', 'span'])) {
 | `isHTMLString`       | Checks if a string appears to contain HTML markup.                                                      |
 
 ---
+
 ## 🔧 Assertions
 
 **Purpose:**  
@@ -119,10 +120,10 @@ Includes both **generic creators** and **pre-built primitive, reference, and com
 
 ### Core Assertion Creators
 
-| Function | Description |
-| -------- | ----------- |
+| Function                                  | Description                                                                                                      |
+| ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | `assertValue(value, typeGuard, message?)` | Asserts that a value passes a type guard. Narrows the type at compile time. Throws an error if validation fails. |
-| `makeAssert(guard, key)` | Creates a reusable assertion function for a specific type guard. Returns a function `(value, message?) => void`. |
+| `makeAssert(guard, key)`                  | Creates a reusable assertion function for a specific type guard. Returns a function `(value, message?) => void`. |
 
 ---
 
@@ -130,51 +131,56 @@ Includes both **generic creators** and **pre-built primitive, reference, and com
 
 #### Primitive Assertions
 
-| Function | Description |
-| -------- | ----------- |
-| `assertIsNumber(value)` | Asserts value is a number. |
-| `assertIsInteger(value)` | Asserts value is an integer. |
-| `assertIsString(value)` | Asserts value is a string. |
+| Function                        | Description                          |
+| ------------------------------- | ------------------------------------ |
+| `assertIsNumber(value)`         | Asserts value is a number.           |
+| `assertIsInteger(value)`        | Asserts value is an integer.         |
+| `assertIsString(value)`         | Asserts value is a string.           |
 | `assertIsNonEmptyString(value)` | Asserts value is a non-empty string. |
-| `assertIsBoolean(value)` | Asserts value is a boolean. |
-| `assertIsBigInt(value)` | Asserts value is a bigint. |
-| `assertIsSymbol(value)` | Asserts value is a symbol. |
+| `assertIsBoolean(value)`        | Asserts value is a boolean.          |
+| `assertIsBigInt(value)`         | Asserts value is a bigint.           |
+| `assertIsSymbol(value)`         | Asserts value is a symbol.           |
 
 #### Reference Assertions
 
-| Function | Description |
-| -------- | ----------- |
-| `assertIsNull(value)` | Asserts value is `null`. |
-| `assertIsUndefined(value)` | Asserts value is `undefined`. |
-| `assertIsDefined(value)` | Asserts value is not `null` or `undefined`. |
-| `assertIsNil(value)` | Asserts value is `null` or `undefined`. |
-| `assertIsFunction(value)` | Asserts value is a function. |
-| `assertObject(value)` | Asserts value is a non-null object. |
-| `assertIsArray(value)` | Asserts value is an array. |
-| `assertIsMap(value)` | Asserts value is a `Map`. |
-| `assertIsSet(value)` | Asserts value is a `Set`. |
-| `assertIsWeakMap(value)` | Asserts value is a `WeakMap`. |
-| `assertIsWeakSet(value)` | Asserts value is a `WeakSet`. |
+| Function                   | Description                                 |
+| -------------------------- | ------------------------------------------- |
+| `assertIsNull(value)`      | Asserts value is `null`.                    |
+| `assertIsUndefined(value)` | Asserts value is `undefined`.               |
+| `assertIsDefined(value)`   | Asserts value is not `null` or `undefined`. |
+| `assertIsNil(value)`       | Asserts value is `null` or `undefined`.     |
+| `assertIsFunction(value)`  | Asserts value is a function.                |
+| `assertObject(value)`      | Asserts value is a non-null object.         |
+| `assertIsArray(value)`     | Asserts value is an array.                  |
+| `assertIsMap(value)`       | Asserts value is a `Map`.                   |
+| `assertIsSet(value)`       | Asserts value is a `Set`.                   |
+| `assertIsWeakMap(value)`   | Asserts value is a `WeakMap`.               |
+| `assertIsWeakSet(value)`   | Asserts value is a `WeakSet`.               |
 
 #### Refined / Composite Assertions
 
-| Function | Description |
-| -------- | ----------- |
-| `assertIsCamelCase(value)` | Asserts string follows `camelCase`. |
+| Function                          | Description                                                                               |
+| --------------------------------- | ----------------------------------------------------------------------------------------- |
+| `assertIsCamelCase(value)`        | Asserts string follows `camelCase`.                                                       |
 | `assertIsBufferLikeObject(value)` | Asserts value matches Node.js Buffer JSON structure `{ type: 'Buffer', data: number[] }`. |
-| `assertIsJSONArrayString(value)` | Asserts string is valid JSON array. |
-| `assertIsJSONObjectString(value)` | Asserts string is valid JSON object. |
-| `assertIsJsonString(value)` | Asserts string is valid JSON (array or object). |
-| `assertIsAbsoluteUrl(value)` | Asserts string is a valid absolute URL. |
-| `assertIsInternalUrl(value)` | Asserts string is relative or belongs to current origin. |
-| `assertIsRGBTuple(value)` | Asserts value is an RGB tuple `[number, number, number]`. |
+| `assertIsJSONArrayString(value)`  | Asserts string is valid JSON array.                                                       |
+| `assertIsJSONObjectString(value)` | Asserts string is valid JSON object.                                                      |
+| `assertIsJsonString(value)`       | Asserts string is valid JSON (array or object).                                           |
+| `assertIsAbsoluteUrl(value)`      | Asserts string is a valid absolute URL.                                                   |
+| `assertIsInternalUrl(value)`      | Asserts string is relative or belongs to current origin.                                  |
+| `assertIsRGBTuple(value)`         | Asserts value is an RGB tuple `[number, number, number]`.                                 |
 
 ---
 
 ### Example Usage
 
 ```ts
-import { assertIsNumber, assertIsString, assertIsDefined, makeAssert } from '@/utils/guards/assertions';
+import {
+  assertIsNumber,
+  assertIsString,
+  assertIsDefined,
+  makeAssert,
+} from '@/utils/guards/assertions';
 
 const value: unknown = 42;
 assertIsNumber(value); // narrows type to number
@@ -188,9 +194,7 @@ assertIsDefined(optional); // throws if null or undefined
 // Using a custom reusable assertion
 const assertNumber = makeAssert(isNumber, 'myNumber');
 assertNumber(value); // same as assertIsNumber
-
 ```
-
 
 ---
 
