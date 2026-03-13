@@ -1,19 +1,16 @@
 {
   "compilerOptions": {
-    /* === Output === */
-    "target": "ES2020", // Good modern baseline
-    "module": "ESNext", // 👈 Change from Node16 to ESNext
-    "moduleResolution": "bundler", // 👈 Now this is allowed!
+    "target": "ES2020",
+    "module": "ESNext", 
+    "moduleResolution": "bundler",
     "allowImportingTsExtensions": false,
     "outDir": "dist",
     "declaration": true,
     "declarationMap": true,
-    "sourceMap": true, // Helpful when debugging distributed code
-    /* === Interop & Imports === */
+    "sourceMap": true, 
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true, // For smoother import of CJS deps
+    "allowSyntheticDefaultImports": true, 
     "resolveJsonModule": true,
-    /* === Strictness === */
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
@@ -21,13 +18,11 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    /* === Build Quality === */
     "newLine": "lf",
-    "stripInternal": true, // Hide @internal exports from .d.ts
-    "isolatedModules": true, // Ensures safe transpilation
-    "noEmitOnError": true, // Avoid emitting on compile errors
-    /* === Output Format === */
-    "removeComments": false, // Keep comments for better docs
+    "stripInternal": true, 
+    "isolatedModules": true, 
+    "noEmitOnError": true, 
+    "removeComments": false, 
     "lib": ["ES2022", "DOM", "DOM.Iterable", "ESNext.AsyncIterable"],
     "types": ["jest", "node", "react"],
     "incremental": true
