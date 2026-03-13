@@ -144,7 +144,18 @@ Specific utilities for the React ecosystem. These handle the complexities of the
 
 ### 🔹 Validation Guards
 
-Custom validators to enforce business logic or complex object shapes.
+**Purpose:**  
+Runtime validators built on top of type guards. Use them to assert that values conform to expected types, with optional error messages. Includes **primitive, reference, and composite assertions**, as well as **custom assertion creators**.
+
+- **Creators:** `assertValue`, `makeAssert`  
+- **Primitive Assertions:** `assertIsNumber`, `assertIsInteger`, `assertIsString`, `assertIsBoolean`, `assertIsBigInt`, `assertIsSymbol`  
+- **Reference Assertions:** `assertIsNull`, `assertIsUndefined`, `assertIsDefined`, `assertIsNil`, `assertIsFunction`, `assertObject`, `assertIsArray`, `assertIsMap`, `assertIsSet`, `assertIsWeakMap`, `assertIsWeakSet`  
+- **Refined / Composite Assertions:** `assertIsCamelCase`, `assertIsBufferLikeObject`, `assertIsJSONArrayString`, `assertIsJSONObjectString`, `assertIsJsonString`, `assertIsAbsoluteUrl`, `assertIsInternalUrl`, `assertIsRGBTuple`
+
+> ⚠️ **Note:** Importing the full `AssertionUtils` object is **not tree-shakable**. For smaller bundles, prefer individual assertion imports.
+
+[Full Reference →](docs/type-guards.md)
+
 
 ---
 
@@ -181,11 +192,6 @@ It supports **numbers and BigInts**, incremental statistics (Welford’s algorit
 
 
 [Full Reference →](docs/computation-utils.md)
-
----
-
-## Debug Utilities
-WIP
 
 ---
 
@@ -231,4 +237,14 @@ WIP
 --- 
 
 ## Transformer Utilities
+WIP
+
+---
+
+## Debug Utilities
+WIP
+
+---
+
+## Link Utilities
 WIP

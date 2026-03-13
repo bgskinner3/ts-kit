@@ -21,7 +21,26 @@ import type {
   TJSONDataString,
   TBufferLikeObject,
 } from '../../types';
-
+/**
+ * Asserts that a given value passes a type guard check.
+ *
+ * Throws an error if the value does not satisfy the provided type guard.
+ * This is useful for runtime type validation while preserving TypeScript type narrowing.
+ *
+ * @template T - The expected type the value should satisfy.
+ * @param value - The value to validate.
+ * @param typeGuard - A type guard function that returns `true` if the value is of type `T`.
+ * @param message - Optional custom error message to throw if validation fails.
+ *
+ * @throws {Error} If the value does not satisfy the type guard.
+ *
+ * @example
+ * ```ts
+ * const isString = (v: unknown): v is string => typeof v === 'string';
+ * const myValue: unknown = "hello";
+ * assertValue(myValue, isString); // narrows type of myValue to string
+ * ```
+ */
 const assertValue = <T>(
   value: unknown,
   typeGuard: TTypeGuard<T>,
@@ -31,7 +50,26 @@ const assertValue = <T>(
     throw new Error(message ?? 'Validation failed for value');
   }
 };
-
+/**
+ * Creates a reusable assertion function for a specific type guard.
+ *
+ * This higher-order utility generates a function that asserts values of the guarded type,
+ * optionally attaching a key for error context.
+ *
+ * @template T - The type the guard asserts.
+ * @param guard - A type guard function for type `T`.
+ * @param _key - Optional key or label used for context (currently unused, can be used in error messages).
+ * @returns A function `(value, message?) => void` that asserts the value is of type `T`.
+ *
+ * @example
+ * ```ts
+ * const isNumber = (v: unknown): v is number => typeof v === 'number';
+ * const assertNumber = makeAssert(isNumber, 'myNumber');
+ *
+ * const value: unknown = 42;
+ * assertNumber(value); // Narrows value type to number
+ * ```
+ */
 const makeAssert = <T>(guard: TTypeGuard<T>, _key: string): TAssert<T> => {
   return (value: unknown, message?: string) =>
     assertValue(value, guard, message);
