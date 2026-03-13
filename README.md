@@ -207,7 +207,21 @@ WIP
 
 --- 
 ## Color Utilities
-WIP
+> ⚠️ **Note:** Importing the full `ColorUtils` object will include all methods in your bundle.
+
+`ColorUtils` provides **type-safe, color-focused helpers** for common operations like color parsing, conversion, and manipulation.  
+These utilities are **pure functions**, framework-agnostic, and work in both browser and Node environments.
+
+### Features
+
+✅ Parse color strings (HEX, RGB, HSL)  
+✅ Convert between color formats (e.g., HEX → RGB, RGB → HSL)  
+✅ Generate color variations (lighten, darken, alpha adjustments)  
+✅ Compare and blend colors  
+✅ Pure and framework-agnostic  
+⚠️ Not tree-shakable when importing the full `ColorUtils` object 
+
+[Full Reference →](docs/color-utils.md)
 
 --- 
 
