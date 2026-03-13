@@ -1,22 +1,6 @@
 import type { TKeyboardConfig } from '../types';
-const HTML_TAGS = Object.freeze(['div', 'span', 'a', 'p', 'ul', 'li'] as const);
-const SAFE_HTML_TAGS = Object.freeze([
-  'b',
-  'i',
-  'p',
-  'ul',
-  'li',
-  'a',
-  'span',
-  'div',
-  'br',
-  'strong',
-  'em',
-  'u',
-  'code',
-  'pre',
-  'blockquote',
-] as const);
+/* prettier-ignore */ const HTML_TAGS = Object.freeze(['div', 'span', 'a', 'p', 'ul', 'li'] as const);
+/* prettier-ignore */ const SAFE_HTML_TAGS = Object.freeze([ 'b', 'i', 'p', 'ul', 'li', 'a', 'span', 'div', 'br', 'strong', 'em', 'u', 'code', 'pre', 'blockquote' ] as const);
 const DEFAULT_KEYBOARD_CONFIG: Required<TKeyboardConfig> = {
   allowedKeys: [
     'arrowleft',

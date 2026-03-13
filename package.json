@@ -1,8 +1,9 @@
 {
-  "name": "ts-utils",
+  "name": "@your-username/ts-utils",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+   "description": "A collection of high-performance TypeScript utilities and React type guards.",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "sideEffects": false,
   "scripts": {
    "build": "rm -rf dist && tsc --project tsconfig.build.json",
