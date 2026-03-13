@@ -11,6 +11,13 @@ import { isArrayOf, isKeyInObject } from '../core/composite';
 import { isNil, isFunction, isObject } from '../core/reference';
 import { isReactPortal } from './react-primitive';
 import { isValidElement, Fragment } from 'react';
+
+/**
+ * ## 🌳 isValidReactNode — Type Guard for all Renderable Content
+ *
+ * Validates if a value is a valid `ReactNode` (anything React can render).
+ * This includes primitives, JSX elements, Portals, and recursive arrays of nodes.
+ */
 export const isValidReactNode: TTypeGuard<ReactNode> = (
   value: unknown,
 ): value is ReactNode =>
@@ -21,22 +28,38 @@ export const isValidReactNode: TTypeGuard<ReactNode> = (
   isArrayOf(isValidReactNode, value);
 
 /**
- * Validates if a value is a React Element (JSX).
- * Uses React's internal $$typeof check for security.
+ * ## 🌳 isReactElement — Type Guard for JSX Elements
+ * 
+ * Validates if a value is a `ReactElement` (JSX). 
+ * Uses React's internal security checks to ensure the object is a legitimate element.
  */
 export const isReactElement: TTypeGuard<ReactElement> = (
   value: unknown,
 ): value is ReactElement => isValidElement(value);
 
 /**
- * Narrow check for Fragments.
+ * ## 🌳 isFragment — Type Guard for React Fragments
+ * 
+ * Narrow check to determine if a React Element is specifically a `<React.Fragment>`.
  */
 export const isFragment: TTypeGuard<ReactElement> = (
   value: unknown,
 ): value is ReactElement => isValidElement(value) && value.type === Fragment;
 /**
- * Checks if a React Element has a valid `onClick` handler in its props.
- * Useful for cloning elements and injecting click behavior safely.
+ * ## 🌳 hasOnClick — Type Guard for Interactive Elements
+ * 
+ * Checks if a React Element has a valid `onClick` function in its props.
+ * Useful for safely injecting behavior during `React.cloneElement`.
+ * 
+ * ---
+ * ### 📘 Example Usage
+ * ```ts
+ * if (hasOnClick(child)) {
+ *   return React.cloneElement(child, { 
+ *     onClick: (e) => { console.log('Clicked!'); child.props.onClick(e); } 
+ *   });
+ * }
+ * ```
  */
 export const hasOnClick: TTypeGuard<
   ReactElement<{ onClick?: (e: MouseEvent<HTMLElement>) => void }>
@@ -53,8 +76,10 @@ export const hasOnClick: TTypeGuard<
   );
 };
 /**
- * Checks if an object "looks like" a React element without requiring the React Symbol.
- * Useful for processing JSON-serialized components or third-party objects.
+ * ## 🌳 isElementLike — Type Guard for Duck-Typed Elements
+ * 
+ * Checks if an object "looks like" a React element (has type and props).
+ * Useful for processing JSON-serialized components or objects from other environments.
  */
 export const isElementLike: TTypeGuard<TElementLike> = (
   element: unknown,
@@ -66,7 +91,11 @@ export const isElementLike: TTypeGuard<TElementLike> = (
   (isString(element.type) || isFunction(element.type));
 
 /**
- * Validates if an element-like object matches a specific set of HTML tags.
+ * ## 🌳 isElementOfType — Type Guard for Specific HTML Tags
+ * 
+ * Validates if an element-like object matches a specific set of allowed HTML tags.
+ * 
+ * @param allowedTypes - An array or string of tags to validate against (e.g., 'div' or ['a', 'button']).
  */
 export const isElementOfType = <T extends THTMLTags>(
   element: unknown,
@@ -75,8 +104,10 @@ export const isElementOfType = <T extends THTMLTags>(
   isElementLike(element) && allowedTypes.includes(element.type as T);
 
 /**
- * Guard to check if a React component type has identifying metadata.
- * Unlocks 'displayName' and 'name' for safe access.
+ * ## 🌳 hasNameMetadata — Type Guard for Named Components
+ * 
+ * Checks if a React component type has identifying metadata like `displayName` or `name`.
+ * Essential for debugging utilities or logging component names.
  */
 export const hasNameMetadata = (type: unknown): type is TNamedComponent =>
   isFunction(type) &&

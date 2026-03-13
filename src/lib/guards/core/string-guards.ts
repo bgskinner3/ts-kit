@@ -46,13 +46,13 @@ export const isCamelCase: TTypeGuard<TCamelCase<string>> = (
 ): value is TCamelCase<string> =>
   typeof value === 'string' && REGEX_CONSTANTS.camelCase.test(value);
 
-/** @see {@link PrimitiveTypeGuardsDocs.isCamelCase} */
+
 export const isSnakeCase: TTypeGuard<TSnakeCase<string>> = (
   value,
 ): value is TSnakeCase<string> =>
   typeof value === 'string' && REGEX_CONSTANTS.snakeCase.test(value);
 
-/** @see {@link PrimitiveTypeGuardsDocs.isCamelCase} */
+
 export const isKebabCase: TTypeGuard<TKebabCase<string>> = (
   value,
 ): value is TKebabCase<string> =>

@@ -14,7 +14,6 @@ export const isNil: TTypeGuard<null | undefined> = (
   value,
 ): value is null | undefined => value == null;
 
-
 export const isFunction: TTypeGuard<TAnyFunction> = (
   value: unknown,
 ): value is TAnyFunction => typeof value === 'function';
@@ -36,7 +35,35 @@ export const isSet: TTypeGuard<Set<unknown>> = <T, U>(
   term: Set<T> | U,
 ): term is Set<T> => term instanceof Set;
 
-/** @see {@link ReferenceTypeGuardsDocs.isWeakMap}  */
+/**
+ * Checks if the given value is an instance of `WeakMap`.
+ *
+ * A **WeakMap** is a special kind of `Map` where:
+ * - **Keys must be objects** (not primitives)
+ * - Keys are **held weakly**, meaning if there are no other references to the key object,
+ *   it can be garbage-collected automatically
+ * - It does **not** support iteration (`.keys()`, `.values()`, `.entries()` are not available)
+ * - It is ideal for **storing private metadata** about objects without preventing cleanup
+ *
+ * 🧠 Useful for:
+ * - Caching computed data for objects
+ * - Associating data with DOM elements without memory leaks
+ *
+ * 📚 **Learn more:**
+ * - [MDN — WeakMap](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap)
+ *
+ * @example
+ * ```ts
+ * const weakMap = new WeakMap<object, number>();
+ * const obj = {};
+ *
+ * weakMap.set(obj, 42);
+ *
+ * ReferenceTypeGuards.isWeakMap(weakMap); // true
+ * ReferenceTypeGuards.isWeakMap(new Map()); // false
+ * ReferenceTypeGuards.isWeakMap({}); // false
+ * ```
+ */
 export const isWeakMap: TTypeGuard<WeakMap<object, unknown>> = <
   K extends object,
   V,
@@ -45,7 +72,35 @@ export const isWeakMap: TTypeGuard<WeakMap<object, unknown>> = <
   term: WeakMap<K, V> | U,
 ): term is WeakMap<K, V> => term instanceof WeakMap;
 
-/** @see {@link ReferenceTypeGuardsDocs.isWeakSet}  */
+/**
+ * Checks if the given value is an instance of `WeakSet`.
+ *
+ * A **WeakSet** is a special kind of `Set` where:
+ * - It can only store **object values** (no primitives)
+ * - Objects are **held weakly**, meaning if there are no other references to an object,
+ *   it can be garbage-collected automatically
+ * - It is **not iterable** — you can’t get its contents or size
+ * - Commonly used to track object presence without memory leaks
+ *
+ * 🧠 Useful for:
+ * - Tracking which objects have been processed
+ * - Marking objects as “seen” in caches or graph traversals
+ *
+ * 📚 **Learn more:**
+ * - [MDN — WeakSet](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet)
+ *
+ * @example
+ * ```ts
+ * const weakSet = new WeakSet<object>();
+ * const obj = {};
+ *
+ * weakSet.add(obj);
+ *
+ * ReferenceTypeGuards.isWeakSet(weakSet); // true
+ * ReferenceTypeGuards.isWeakSet(new Set()); // false
+ * ReferenceTypeGuards.isWeakSet([]); // false
+ * ```
+ */
 export const isWeakSet: TTypeGuard<WeakSet<object>> = <T extends object, U>(
   term: WeakSet<T> | U,
 ): term is WeakSet<T> => term instanceof WeakSet;
