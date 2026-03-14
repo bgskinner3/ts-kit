@@ -1,6 +1,6 @@
 {
   "name": "@bgskinner2/ts-utils",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A collection of high-performance TypeScript utilities and React type guards.",
   "author": "Brennan Skinner",
   "license": "ISC",
