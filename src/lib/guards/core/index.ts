@@ -47,6 +47,7 @@ import {
   isKeyOfObject,
   isInArray,
   isKeyInObject,
+  isShape,
 } from './composite';
 
 export const CoreTypeGuards = {
@@ -97,6 +98,7 @@ export const CollectionTypeGuards = {
   isKeyOfArray,
   isInArray,
   hasKeys: hasDefinedKeys,
+  isShape,
 } as const;
 
 export * from './reference';

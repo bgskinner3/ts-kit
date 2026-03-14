@@ -125,28 +125,28 @@ Type guards are the backbone of this library. They allow you to safely narrow ty
 
 The "Pure JS" foundation. These have zero dependencies and work in any environment (Node, Deno, Bun, Browser).
 
-| Function           | Description                                                                    |
-| ------------------ | ------------------------------------------------------------------------------ |
-| `isObject`         | Checks if a value is a non-null object (excluding arrays).                     |
-| `isArray`          | Checks if a value is an array.                                                 |
-| `isFunction`       | Checks if a value is a function.                                               |
-| `isMap`            | Checks if a value is a `Map`.                                                  |
-| `isSet`            | Checks if a value is a `Set`.                                                  |
-| `isWeakMap`        | Checks if a value is a `WeakMap`.                                              |
-| `isWeakSet`        | Checks if a value is a `WeakSet`.                                              |
-| `isNull`           | Checks if a value is exactly `null`.                                           |
-| `isNil`            | Checks if a value is `null` or `undefined`.                                    |
-| `isInstanceOf`     | Checks if a value is an instance of a given constructor.                       |
-| `isDefined`        | Checks if a value is neither `null` nor `undefined`.                           |
-| `isUndefined`      | Checks if a value is `undefined`.                                              |
-| `isNumber`         | Checks if a value is a finite number (not `NaN`).                              |
-| `isInteger`        | Checks if a value is an integer.                                               |
-| `isString`         | Checks if a value is a string.                                                 |
-| `isNonEmptyString` | Checks if a value is a non-empty, non-whitespace string.                       |
-| `isBoolean`        | Checks if a value is a boolean.                                                |
-| `isBigInt`         | Checks if a value is a `bigint`.                                               |
-| `isSymbol`         | Checks if a value is a `symbol`.                                               |
-| `isPrimitive`      | Checks if a value is a primitive (`string`, `number`, `boolean`, or `bigint`). |
+| Function             | Description                                                                                             |
+| -------------------- | ------------------------------------------------------------------------------------------------------- |
+| `isObject`           | Checks if a value is a non-null object (excluding arrays).                                              |
+| `isArray`            | Checks if a value is an array.                                                                          |
+| `isFunction`         | Checks if a value is a function.                                                                        |
+| `isMap`              | Checks if a value is a `Map`.                                                                           |
+| `isSet`              | Checks if a value is a `Set`.                                                                           |
+| `isWeakMap`          | Checks if a value is a `WeakMap`.                                                                       |
+| `isWeakSet`          | Checks if a value is a `WeakSet`.                                                                       |
+| `isNull`             | Checks if a value is exactly `null`.                                                                    |
+| `isNil`              | Checks if a value is `null` or `undefined`.                                                             |
+| `isInstanceOf`       | Checks if a value is an instance of a given constructor.                                                |
+| `isDefined`          | Checks if a value is neither `null` nor `undefined`.                                                    |
+| `isUndefined`        | Checks if a value is `undefined`.                                                                       |
+| `isNumber`           | Checks if a value is a finite number (not `NaN`).                                                       |
+| `isInteger`          | Checks if a value is an integer.                                                                        |
+| `isString`           | Checks if a value is a string.                                                                          |
+| `isNonEmptyString`   | Checks if a value is a non-empty, non-whitespace string.                                                |
+| `isBoolean`          | Checks if a value is a boolean.                                                                         |
+| `isBigInt`           | Checks if a value is a `bigint`.                                                                        |
+| `isSymbol`           | Checks if a value is a `symbol`.                                                                        |
+| `isPrimitive`        | Checks if a value is a primitive (`string`, `number`, `boolean`, or `bigint`).                          |
 | `isAbsoluteUrl`      | Checks if a value is a valid absolute URL using the `URL` constructor.                                  |
 | `isInternalUrl`      | Checks if a URL is relative (`/path`) or belongs to the current origin (browser only).                  |
 | `isInArray`          | Factory guard that checks if a value exists in a predefined array (uses a `Set` internally).            |
@@ -242,7 +242,6 @@ Runtime validators built on top of type guards. Use them to assert that values c
 | `assertIsAbsoluteUrl(value)`      | Asserts string is a valid absolute URL.                                                   |
 | `assertIsInternalUrl(value)`      | Asserts string is relative or belongs to current origin.                                  |
 | `assertIsRGBTuple(value)`         | Asserts value is an RGB tuple `[number, number, number]`.                                 |
-
 
 > ⚠️ **Note:** Importing the full `AssertionUtils` object is **not tree-shakable**. For smaller bundles, prefer individual assertion imports.
 

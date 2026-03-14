@@ -95,6 +95,7 @@ if (isElementOfType(element, ['div', 'span'])) {
 | `isArrayOf`          | Checks if a value is an array where every element satisfies a given type guard.                         |
 | `isRecordOf`         | Checks if a value is an object where all values satisfy a given type guard.                             |
 | `hasDefinedKeys`     | Factory guard that verifies an object contains required keys with defined values.                       |
+| `isShape`            | High-fidelity recursive factory that validates an object against a strict structural "contract".        |
 | `isBufferLikeObject` | Checks if a value matches the Node.js Buffer JSON structure `{ type: 'Buffer', data: number[] }`.       |
 | `isRGBTuple`         | Checks if a value is a tuple `[number, number, number]` with values between `0–255`.                    |
 | `isPhoneNumber`      | Checks if a string matches common international phone number patterns.                                  |

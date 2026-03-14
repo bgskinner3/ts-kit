@@ -310,3 +310,74 @@ export const hasDefinedKeys = <T extends object>(
     );
   };
 };
+
+/**
+ * ## 🧩 isShape — Recursive Structural Type Guard Factory
+ *
+ * Creates a **high-fidelity type guard** that validates whether an unknown object
+ * conforms to a specific structural "contract" defined by a schema of guards.
+ *
+ * ---
+ *
+ * ### ⚙️ Core Purpose
+ * - 🔹 **Eliminate `as` casting**: Moves from speculative assertions to deterministic verification.
+ * - 🔹 **Recursive Validation**: Safely audits nested object trees by composing guards.
+ * - 🔹 **Compile-Time Synchronization**: Using `[K in keyof T]` ensures the schema
+ *   stays in sync with the interface. If the interface changes, the guard will fail to compile.
+ *
+ * ---
+ *
+ * ### 📘 Example Usage
+ * ```ts
+ * interface UserProfile {
+ *   id: string;
+ *   settings: { theme: 'dark' | 'light' };
+ * }
+ *
+ * // Define the contract once
+ * const isUserProfile = isShape<UserProfile>({
+ *   id: isString,
+ *   settings: isShape({
+ *     theme: isInArray(['dark', 'light'] as const)
+ *   })
+ * });
+ *
+ * const rawData: unknown = await fetchApi();
+ *
+ * if (isUserProfile(rawData)) {
+ *   // ✅ rawData is now fully narrowed, including nested properties.
+ *   console.log(rawData.settings.theme);
+ * }
+ * ```
+ *
+ * ---
+ *
+ * ### 📌 Notes
+ * - **Exorcises Ghost Objects**: Unlike `{} as T`, this verifies every required key.
+ * - **Optional Support**: If a key is missing in the value but allowed in the schema,
+ *   the individual property guard must handle the `undefined` case.
+ * - **Zero Casts**: Internally leverages `isKeyInObject` for type-safe property discovery.
+ *
+ * @typeParam T - The target interface or object type to validate.
+ * @param schema - A mapping of keys from `T` to their corresponding `TTypeGuard`.
+ * @returns A type guard function that narrows `unknown` to `T`.
+ */
+export const isShape = <T extends object>(schema: {
+  [K in keyof T]: TTypeGuard<T[K]>;
+}): TTypeGuard<T> => {
+  const schemaKeys = ObjectUtils.keys(schema);
+
+  return (value: unknown): value is T => {
+    if (!isObject(value)) return false;
+
+    for (const key of schemaKeys) {
+      const guard = schema[key];
+
+      if (!isKeyInObject(key)(value)) return false;
+
+      if (!guard(value[key])) return false;
+    }
+
+    return true;
+  };
+};

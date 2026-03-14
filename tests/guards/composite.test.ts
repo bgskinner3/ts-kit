@@ -6,8 +6,13 @@ import {
   isRecordOf,
   hasDefinedKeys,
   isKeyInObject,
+  isShape,
 } from '../../src/lib/guards/core/composite';
-import { isString, isNumber } from '../../src/lib/guards/core/primitives';
+import {
+  isString,
+  isNumber,
+  isBoolean,
+} from '../../src/lib/guards/core/primitives';
 
 describe('Composite Type Guards', () => {
   describe('isInArray', () => {
@@ -91,6 +96,67 @@ describe('Composite Type Guards', () => {
       expect(isUser({ id: 1 })).toBe(false);
       expect(isUser({ id: 1, name: undefined })).toBe(false);
       expect(isUser(null)).toBe(false);
+    });
+  });
+  describe('isShape', () => {
+    type Nested = {
+      id: string;
+      meta: { ok: boolean };
+    };
+
+    const isNested = isShape<Nested>({
+      id: isString,
+      meta: isShape<{ ok: boolean }>({
+        ok: isBoolean,
+      }),
+    });
+
+    it('✅ handles deep recursive validation', () => {
+      const valid: unknown = { id: '1', meta: { ok: true } };
+      expect(isNested(valid)).toBe(true);
+    });
+
+    it('❌ catches deep failures', () => {
+      const invalid: unknown = { id: '1', meta: { ok: 'not-a-boolean' } };
+
+      expect(isNested(invalid)).toBe(false);
+    });
+
+    it('❌ handles null/undefined inputs gracefully', () => {
+      expect(isNested(null)).toBe(false);
+      expect(isNested(undefined)).toBe(false);
+    });
+
+    it('❌ rejects primitive inputs', () => {
+      expect(isNested('oops')).toBe(false);
+      expect(isNested(42)).toBe(false);
+      expect(isNested(true)).toBe(false);
+    });
+
+    it('❌ catches missing keys in nested objects', () => {
+      const missing: unknown = { id: '1', meta: {} };
+      expect(isNested(missing)).toBe(false);
+    });
+
+    it('❌ rejects null nested objects', () => {
+      const invalid: unknown = { id: '1', meta: null };
+      expect(isNested(invalid)).toBe(false);
+    });
+  });
+
+  describe('Edge Case Audit', () => {
+    it('isRecordOf should handle empty objects', () => {
+      // Mathematically, an empty set contains no invalid values.
+      expect(isRecordOf({}, isNumber)).toBe(true);
+    });
+
+    it('isArrayOf should handle empty arrays', () => {
+      expect(isArrayOf(isString, [])).toBe(true);
+    });
+
+    it('isNumber should reject NaN and Infinity (Senior Move)', () => {
+      expect(isNumber(NaN)).toBe(false);
+      expect(isNumber(Infinity)).toBe(false);
     });
   });
 });
