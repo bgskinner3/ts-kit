@@ -32,9 +32,9 @@ It’s **actively maintained and continuously expanded**, so new utilities and i
 ## Installation
 
 ```bash
-npm install your-ts-utils
-# or
-yarn add your-ts-utils
+
+npm i @bgskinner2/ts-utils
+
 
 ```
 
@@ -125,10 +125,49 @@ Type guards are the backbone of this library. They allow you to safely narrow ty
 
 The "Pure JS" foundation. These have zero dependencies and work in any environment (Node, Deno, Bun, Browser).
 
-- Primitives: High-speed checks for strings, numbers, bigints, and symbols.
-- Composite: Complex validation for objects, arrays, and record shapes.
-- String Formats: Validation for JSON, Hex, HTML, and case-conventions (Camel, Snake, Kebab).
-- Network: Safe URL detection and same-origin validation.
+| Function           | Description                                                                    |
+| ------------------ | ------------------------------------------------------------------------------ |
+| `isObject`         | Checks if a value is a non-null object (excluding arrays).                     |
+| `isArray`          | Checks if a value is an array.                                                 |
+| `isFunction`       | Checks if a value is a function.                                               |
+| `isMap`            | Checks if a value is a `Map`.                                                  |
+| `isSet`            | Checks if a value is a `Set`.                                                  |
+| `isWeakMap`        | Checks if a value is a `WeakMap`.                                              |
+| `isWeakSet`        | Checks if a value is a `WeakSet`.                                              |
+| `isNull`           | Checks if a value is exactly `null`.                                           |
+| `isNil`            | Checks if a value is `null` or `undefined`.                                    |
+| `isInstanceOf`     | Checks if a value is an instance of a given constructor.                       |
+| `isDefined`        | Checks if a value is neither `null` nor `undefined`.                           |
+| `isUndefined`      | Checks if a value is `undefined`.                                              |
+| `isNumber`         | Checks if a value is a finite number (not `NaN`).                              |
+| `isInteger`        | Checks if a value is an integer.                                               |
+| `isString`         | Checks if a value is a string.                                                 |
+| `isNonEmptyString` | Checks if a value is a non-empty, non-whitespace string.                       |
+| `isBoolean`        | Checks if a value is a boolean.                                                |
+| `isBigInt`         | Checks if a value is a `bigint`.                                               |
+| `isSymbol`         | Checks if a value is a `symbol`.                                               |
+| `isPrimitive`      | Checks if a value is a primitive (`string`, `number`, `boolean`, or `bigint`). |
+| `isAbsoluteUrl`      | Checks if a value is a valid absolute URL using the `URL` constructor.                                  |
+| `isInternalUrl`      | Checks if a URL is relative (`/path`) or belongs to the current origin (browser only).                  |
+| `isInArray`          | Factory guard that checks if a value exists in a predefined array (uses a `Set` internally).            |
+| `isKeyOfObject`      | Factory guard that checks whether a value is a valid key of a given object.                             |
+| `isKeyInObject`      | Factory guard that checks whether an object contains a specific key.                                    |
+| `isKeyOfArray`       | Factory guard that checks if a value matches one of the allowed primitive keys in an array.             |
+| `isArrayOf`          | Checks if a value is an array where every element satisfies a given type guard.                         |
+| `isRecordOf`         | Checks if a value is an object where all values satisfy a given type guard.                             |
+| `hasDefinedKeys`     | Factory guard that verifies an object contains required keys with defined values.                       |
+| `isBufferLikeObject` | Checks if a value matches the Node.js Buffer JSON structure `{ type: 'Buffer', data: number[] }`.       |
+| `isRGBTuple`         | Checks if a value is a tuple `[number, number, number]` with values between `0–255`.                    |
+| `isPhoneNumber`      | Checks if a string matches common international phone number patterns.                                  |
+| `isEmail`            | Checks if a value is a valid email address string.                                                      |
+| `isCamelCase`        | Checks if a string follows `camelCase` naming conventions.                                              |
+| `isSnakeCase`        | Checks if a string follows `snake_case` naming conventions.                                             |
+| `isKebabCase`        | Checks if a string follows `kebab-case` naming conventions.                                             |
+| `isJSONArrayString`  | Checks if a string contains valid JSON that parses to an array.                                         |
+| `isJSONObjectString` | Checks if a string contains valid JSON that parses to an object.                                        |
+| `isJsonString`       | Checks if a string contains valid JSON (array or object).                                               |
+| `isHexByteString`    | Factory guard that checks if a string is a valid hexadecimal byte string (optionally enforcing length). |
+| `isHTMLString`       | Checks if a string appears to contain HTML markup.                                                      |
 
 [Full Reference →](docs/type-guards.md)
 
@@ -136,9 +175,25 @@ The "Pure JS" foundation. These have zero dependencies and work in any environme
 
 Specific utilities for the React ecosystem. These handle the complexities of the Virtual DOM and component lifecycle.
 
-- Nodes: Validate renderable content, JSX elements, and Fragments.
-- Primitives: Safe checks for useRef objects, Portals, and forwardRef components.
-- DOM: Validation for prop keys and interactive elements (e.g., hasOnClick).
+| Function           | Category        | Description                                                                            |
+| ------------------ | --------------- | -------------------------------------------------------------------------------------- |
+| `isRef`            | React Primitive | Checks if a value is a valid React `Ref` (callback ref or object ref with `.current`). |
+| `isRefObject`      | React Primitive | Checks if a value is a `RefObject` containing a `.current` property.                   |
+| `isPromise`        | React Utility   | Checks if a value is a `Promise` or "thenable" object with a `.then()` method.         |
+| `isReactPortal`    | React Primitive | Checks if a value is a React Portal created via `ReactDOM.createPortal`.               |
+| `hasChildren`      | React Props     | Checks if an object contains a defined `children` property.                            |
+| `isComponentType`  | React Component | Checks if a value is a valid React component (function or class component).            |
+| `isForwardRef`     | React Component | Checks if a component was created using `React.forwardRef`.                            |
+| `isValidReactNode` | React Node      | Checks if a value is a valid `ReactNode` (anything React can render).                  |
+| `isReactElement`   | React Node      | Checks if a value is a valid JSX `ReactElement`.                                       |
+| `isFragment`       | React Node      | Checks if a React element is a `<React.Fragment>`.                                     |
+| `hasOnClick`       | React Props     | Checks if a React element has a valid `onClick` handler.                               |
+| `isElementLike`    | React Node      | Checks if an object resembles a React element (`type` and `props`).                    |
+| `isElementOfType`  | React Node      | Checks if an element-like object matches one of the allowed HTML tag types.            |
+| `hasNameMetadata`  | React Component | Checks if a component has identifying metadata like `displayName` or `name`.           |
+| `isPropValid`      | DOM Guard       | Checks if a property is a valid React DOM attribute or event handler.                  |
+| `isDOMPropKey`     | DOM Guard       | Type guard validating a string as a valid DOM property key.                            |
+| `isDOMEntry`       | DOM Guard       | Checks if a `[key, value]` pair represents a valid DOM property entry for an element.  |
 
 [Full Reference →](docs/type-guards.md)
 
@@ -147,10 +202,47 @@ Specific utilities for the React ecosystem. These handle the complexities of the
 **Purpose:**  
 Runtime validators built on top of type guards. Use them to assert that values conform to expected types, with optional error messages. Includes **primitive, reference, and composite assertions**, as well as **custom assertion creators**.
 
-- **Creators:** `assertValue`, `makeAssert`
-- **Primitive Assertions:** `assertIsNumber`, `assertIsInteger`, `assertIsString`, `assertIsBoolean`, `assertIsBigInt`, `assertIsSymbol`
-- **Reference Assertions:** `assertIsNull`, `assertIsUndefined`, `assertIsDefined`, `assertIsNil`, `assertIsFunction`, `assertObject`, `assertIsArray`, `assertIsMap`, `assertIsSet`, `assertIsWeakMap`, `assertIsWeakSet`
-- **Refined / Composite Assertions:** `assertIsCamelCase`, `assertIsBufferLikeObject`, `assertIsJSONArrayString`, `assertIsJSONObjectString`, `assertIsJsonString`, `assertIsAbsoluteUrl`, `assertIsInternalUrl`, `assertIsRGBTuple`
+#### Primitive Assertions
+
+| Function                        | Description                          |
+| ------------------------------- | ------------------------------------ |
+| `assertIsNumber(value)`         | Asserts value is a number.           |
+| `assertIsInteger(value)`        | Asserts value is an integer.         |
+| `assertIsString(value)`         | Asserts value is a string.           |
+| `assertIsNonEmptyString(value)` | Asserts value is a non-empty string. |
+| `assertIsBoolean(value)`        | Asserts value is a boolean.          |
+| `assertIsBigInt(value)`         | Asserts value is a bigint.           |
+| `assertIsSymbol(value)`         | Asserts value is a symbol.           |
+
+#### Reference Assertions
+
+| Function                   | Description                                 |
+| -------------------------- | ------------------------------------------- |
+| `assertIsNull(value)`      | Asserts value is `null`.                    |
+| `assertIsUndefined(value)` | Asserts value is `undefined`.               |
+| `assertIsDefined(value)`   | Asserts value is not `null` or `undefined`. |
+| `assertIsNil(value)`       | Asserts value is `null` or `undefined`.     |
+| `assertIsFunction(value)`  | Asserts value is a function.                |
+| `assertObject(value)`      | Asserts value is a non-null object.         |
+| `assertIsArray(value)`     | Asserts value is an array.                  |
+| `assertIsMap(value)`       | Asserts value is a `Map`.                   |
+| `assertIsSet(value)`       | Asserts value is a `Set`.                   |
+| `assertIsWeakMap(value)`   | Asserts value is a `WeakMap`.               |
+| `assertIsWeakSet(value)`   | Asserts value is a `WeakSet`.               |
+
+#### Refined / Composite Assertions
+
+| Function                          | Description                                                                               |
+| --------------------------------- | ----------------------------------------------------------------------------------------- |
+| `assertIsCamelCase(value)`        | Asserts string follows `camelCase`.                                                       |
+| `assertIsBufferLikeObject(value)` | Asserts value matches Node.js Buffer JSON structure `{ type: 'Buffer', data: number[] }`. |
+| `assertIsJSONArrayString(value)`  | Asserts string is valid JSON array.                                                       |
+| `assertIsJSONObjectString(value)` | Asserts string is valid JSON object.                                                      |
+| `assertIsJsonString(value)`       | Asserts string is valid JSON (array or object).                                           |
+| `assertIsAbsoluteUrl(value)`      | Asserts string is a valid absolute URL.                                                   |
+| `assertIsInternalUrl(value)`      | Asserts string is relative or belongs to current origin.                                  |
+| `assertIsRGBTuple(value)`         | Asserts value is an RGB tuple `[number, number, number]`.                                 |
+
 
 > ⚠️ **Note:** Importing the full `AssertionUtils` object is **not tree-shakable**. For smaller bundles, prefer individual assertion imports.
 
