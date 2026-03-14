@@ -6,5 +6,5 @@ export * from './debug';
 export * from './dom';
 export * from './computation';
 export * from './color';
-export * from './computation';
 export * from './link';
+export * from './processors';
