@@ -45,14 +45,22 @@ import { ObjectUtils } from '../../common/object';
  * @param target - The array of allowed values.
  * @returns A type guard function that narrows `unknown` to `T | undefined`.
  */
-export const isInArray = <T>(
+export const isInArray = <T>(target: readonly T[]): TTypeGuard<T> => {
+  const set = new Set(target);
+  return (value: unknown): value is T =>
+    // If it's undefined and not in your set, it returns false.
+    // This correctly fails a "Required" field check.
+    set.has(value as T);
+};
+/**
+ const isInArrayDep = <T>(
   target: readonly T[],
 ): TTypeGuard<T | undefined> => {
   const set = new Set(target);
   return (value: unknown): value is T | undefined =>
     !isUndefined(value) && set.has(value as T);
 };
-
+ */
 /**
  * Checks whether a value is a valid key of a given object.
  *
