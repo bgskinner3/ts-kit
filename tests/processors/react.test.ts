@@ -9,6 +9,7 @@ import {
   lazyProxy,
   mergeCssVars,
   mergeEventHandlerClicks,
+  getRefCurrent,
 } from '../../src/lib/processors/react';
 
 describe('React Processor Utils', () => {
@@ -130,6 +131,33 @@ describe('React Processor Utils', () => {
       // Test memoized (if your logic supports TargetMemo)
       const filteredMemo = filterChildrenByDisplayName(children, 'TargetMemo');
       expect(filteredMemo).toHaveLength(1);
+    });
+  });
+  describe('getRefCurrent', () => {
+    it('returns the value from a RefObject', () => {
+      const mockElement = { id: 'test-el' };
+      const objRef = { current: mockElement };
+
+      const result = getRefCurrent(objRef);
+      expect(result).toBe(mockElement);
+    });
+
+    it('returns null for function/callback refs', () => {
+      const fnRef = jest.fn();
+
+      // Callback refs are valid Ref types, but have no synchronous .current
+      const result = getRefCurrent(fnRef);
+      expect(result).toBeNull();
+    });
+
+    it('returns null for null or undefined refs', () => {
+      expect(getRefCurrent(null)).toBeNull();
+      expect(getRefCurrent(undefined)).toBeNull();
+    });
+
+    it('returns null if RefObject.current is not yet set', () => {
+      const emptyRef = { current: null };
+      expect(getRefCurrent(emptyRef)).toBeNull();
     });
   });
 });

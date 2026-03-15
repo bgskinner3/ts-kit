@@ -6,6 +6,7 @@ import {
   mergeEventHandlerClicks,
   extractDOMProps,
   filterChildrenByDisplayName,
+  getRefCurrent,
 } from './react';
 const ProcessorUtils = {
   fetchJson,
@@ -20,6 +21,7 @@ const ReactProcessorUtils = {
   mergeEventHandlerClicks,
   extractDOMProps,
   filterChildrenByDisplayName,
+  getRefCurrent,
 } as const;
 
 export {
@@ -34,4 +36,5 @@ export {
   mergeEventHandlerClicks,
   extractDOMProps,
   filterChildrenByDisplayName,
+  getRefCurrent,
 };

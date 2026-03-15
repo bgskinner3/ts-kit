@@ -262,3 +262,26 @@ export function filterChildrenByDisplayName<T extends ReactNode>(
     return child.type?.displayName === displayName;
   });
 }
+/**
+ * Safely extracts the current value from a React Ref.
+ *
+ * Supports:
+ * 1. RefObjects (e.g., from `useRef`)
+ * 2. ForwardedRefs (which might be null or functions)
+ *
+ * This is particularly useful in `useLayoutEffect` or `useFrame` when
+ * dealing with `forwardRef` components to avoid repetitive type casting.
+ *
+ * @param ref - The React ref to extract the value from
+ * @returns The current value of the ref, or null if it's a function ref or unassigned
+ */
+export function getRefCurrent<T>(ref: Ref<T> | undefined | null): T | null {
+  if (!ref) return null;
+
+  if (isRefObject(ref)) {
+    return ref.current;
+  }
+
+  // Callback refs (functions) don't have a 'current' property we can synchronously pull
+  return null;
+}
