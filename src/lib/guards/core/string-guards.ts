@@ -162,3 +162,22 @@ export const isJsonString: TTypeGuard<TJSONDataString> = (
   value: unknown,
 ): value is TJSONDataString =>
   isJSONArrayString(value) || isJSONObjectString(value);
+/**
+ * Type guard to check if a value is a string representing a hex color.
+ *
+ * Supports:
+ * - 3-digit hex colors, e.g., "#ABC"
+ * - 6-digit hex colors, e.g., "#AABBCC"
+ *
+ * Example:
+ * ```ts
+ * if (isHexColor("#fff")) {
+ *   // TypeScript knows this is a string and a valid hex color
+ * }
+ * ```
+ */
+export const isHexColor: TTypeGuard<string> = (
+  value: unknown,
+): value is string => {
+  return isString(value) && /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(value);
+};

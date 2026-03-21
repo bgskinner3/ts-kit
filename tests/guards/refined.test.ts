@@ -13,6 +13,7 @@ import {
   isKebabCase,
   isHexByteString,
   isHTMLString,
+  isHexColor,
 } from '../../src/lib/guards/core/string-guards';
 import { isAbsoluteUrl } from '../../src/lib/guards/core/link-guards';
 describe('Refined / Composite Type Guards', () => {
@@ -248,6 +249,46 @@ describe('Refined / Composite Type Guards', () => {
       expect(isHTMLString(123)).toBe(false);
       expect(isHTMLString({})).toBe(false);
       expect(isHTMLString([])).toBe(false);
+    });
+  });
+  describe('isHexColor', () => {
+    it('returns true for valid 3-digit and 6-digit hex colors', () => {
+      // 3-digit hex
+      expect(isHexColor('#fff')).toBe(true);
+      expect(isHexColor('#ABC')).toBe(true);
+      // 6-digit hex
+      expect(isHexColor('#123456')).toBe(true);
+      expect(isHexColor('#abcdef')).toBe(true);
+      expect(isHexColor('#ABCDEF')).toBe(true);
+    });
+
+    it('returns false for invalid hex colors', () => {
+      // Too short / too long
+      expect(isHexColor('#ff')).toBe(false);
+      expect(isHexColor('#12345')).toBe(false);
+      expect(isHexColor('#1234567')).toBe(false);
+
+      // Invalid characters
+      expect(isHexColor('#12G')).toBe(false);
+      expect(isHexColor('#12345Z')).toBe(false);
+
+      // Missing #
+      expect(isHexColor('123456')).toBe(false);
+      expect(isHexColor('fff')).toBe(false);
+
+      // Non-string types
+      expect(isHexColor(null)).toBe(false);
+      expect(isHexColor(undefined)).toBe(false);
+      expect(isHexColor(123456)).toBe(false);
+      expect(isHexColor({})).toBe(false);
+
+      // Empty string
+      expect(isHexColor('')).toBe(false);
+    });
+
+    it('handles edge cases with mixed case', () => {
+      expect(isHexColor('#AbC')).toBe(true);
+      expect(isHexColor('#aBcDeF')).toBe(true);
     });
   });
 });

@@ -7,6 +7,7 @@ import {
   isKebabCase,
   isSnakeCase,
   isCamelCase,
+  isHexColor,
 } from './string-guards';
 import { isAbsoluteUrl, isInternalUrl } from './link-guards';
 import {
@@ -88,6 +89,7 @@ export const FormatTypeGuards = {
   isJSONArrayString,
   isRGBTuple,
   isBufferLikeObject,
+  isHexColor,
 } as const;
 
 export const CollectionTypeGuards = {
