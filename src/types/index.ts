@@ -7,3 +7,4 @@ export * from './debug-types';
 export * from './react';
 export * from './dom-types';
 export * from './link-types';
+export * from './color-types';

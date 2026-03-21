@@ -14,6 +14,7 @@ import {
   isHexByteString,
   isHTMLString,
   isHexColor,
+  isRGBString,
 } from '../../src/lib/guards/core/string-guards';
 import { isAbsoluteUrl } from '../../src/lib/guards/core/link-guards';
 describe('Refined / Composite Type Guards', () => {
@@ -289,6 +290,41 @@ describe('Refined / Composite Type Guards', () => {
     it('handles edge cases with mixed case', () => {
       expect(isHexColor('#AbC')).toBe(true);
       expect(isHexColor('#aBcDeF')).toBe(true);
+    });
+  });
+  describe('isRGBString', () => {
+    it('returns true for valid RGB strings', () => {
+      expect(isRGBString('rgb(0,0,0)')).toBe(true);
+      expect(isRGBString('rgb(255,255,255)')).toBe(true);
+      expect(isRGBString('rgb(128, 64, 32)')).toBe(true);
+      expect(isRGBString('RGB(12,34,56)')).toBe(true); // case-insensitive
+      expect(isRGBString('rgb( 12 , 34 , 56 )')).toBe(true); // spaces allowed
+    });
+
+    it('returns false for RGB strings with out-of-range values', () => {
+      expect(isRGBString('rgb(256,0,0)')).toBe(false);
+      expect(isRGBString('rgb(-1,0,0)')).toBe(false);
+      expect(isRGBString('rgb(0,0,300)')).toBe(false);
+    });
+
+    it('returns false for RGB strings with invalid formats', () => {
+      expect(isRGBString('rgb(0,0)')).toBe(false);
+      expect(isRGBString('rgb(0;0;0)')).toBe(false);
+      expect(isRGBString('rgb(0 0 0)')).toBe(false); // Still false (missing commas)
+    });
+
+    it('returns false for non-string values', () => {
+      expect(isRGBString(null)).toBe(false);
+      expect(isRGBString(undefined)).toBe(false);
+      expect(isRGBString(123)).toBe(false);
+      expect(isRGBString([255, 0, 0])).toBe(false); // array is not string
+      expect(isRGBString({ r: 0, g: 0, b: 0 })).toBe(false);
+    });
+
+    it('returns false for empty string or nonsense', () => {
+      expect(isRGBString('')).toBe(false);
+      expect(isRGBString('not a color')).toBe(false);
+      expect(isRGBString('rgb(abc,def,ghi)')).toBe(false);
     });
   });
 });

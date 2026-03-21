@@ -8,6 +8,8 @@ import {
   isSnakeCase,
   isCamelCase,
   isHexColor,
+  isTuple3,
+  isRGBString,
 } from './string-guards';
 import { isAbsoluteUrl, isInternalUrl } from './link-guards';
 import {
@@ -90,6 +92,8 @@ export const FormatTypeGuards = {
   isRGBTuple,
   isBufferLikeObject,
   isHexColor,
+  isTuple3,
+  isRGBString,
 } as const;
 
 export const CollectionTypeGuards = {

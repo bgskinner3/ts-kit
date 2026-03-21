@@ -7,10 +7,12 @@ import type {
   THexByteString,
   TSnakeCase,
   TKebabCase,
+  TRGBTuple,
 } from '../../../types';
 import { isNonEmptyString, isString } from './primitives';
 import { REGEX_CONSTANTS } from '../../../constants';
 import { isUndefined } from './reference';
+import { isArrayOf } from './composite';
 
 /**
  * Checks if the value is a camelCase string.
@@ -181,3 +183,66 @@ export const isHexColor: TTypeGuard<string> = (
 ): value is string => {
   return isString(value) && /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(value);
 };
+
+/**
+ * Type guard to check if a string is a valid RGB color string.
+ *
+ * Accepts strings like "rgb(255, 0, 128)" (case-insensitive, spaces allowed).
+ *
+ * Example:
+ * ```ts
+ * const color: unknown = "rgb(255, 100, 50)";
+ * if (isRGBString(color)) {
+ *   // TypeScript now knows color is a string and valid RGB
+ * }
+ * ```
+ */
+export const isRGBString: TTypeGuard<string> = (
+  value: unknown,
+): value is string => {
+  if (!isString(value)) return false;
+
+  // Updated regex: 'a' is optional, and the 4th alpha value is optional
+  const rgbRegex =
+    /^rgba?\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})(?:\s*,\s*[\d.]+)?\s*\)$/i;
+
+  const match = value.match(rgbRegex);
+  if (!match) return false;
+
+  const r = Number(match[1]);
+  const g = Number(match[2]);
+  const b = Number(match[3]);
+
+  return [r, g, b].every((v) => v >= 0 && v <= 255);
+};
+/**
+ * Type guard to check if a value is a 3-element numeric tuple.
+ *
+ * This ensures that:
+ * - The value is an array.
+ * - The array has exactly 3 elements.
+ * - All elements are valid numbers (not NaN).
+ *
+ * Example usage:
+ * ```ts
+ * const value: unknown = [255, 128, 64];
+ * if (isTuple3(value)) {
+ *   // TypeScript now knows value is [number, number, number]
+ *   const [r, g, b] = value;
+ * }
+ * ```
+ *
+ * Use case:
+ * - Validating RGB or numeric tuples safely before using them in computations.
+ * - Useful in color utilities, vector math, or APIs that expect 3-number arrays.
+ *
+ * @param value - The value to check.
+ * @returns `true` if `value` is an array of exactly 3 numbers; otherwise `false`.
+ */
+export const isTuple3: TTypeGuard<TRGBTuple> = (
+  value: unknown,
+): value is TRGBTuple =>
+  isArrayOf(
+    (v): v is number => typeof v === 'number' && !Number.isNaN(v),
+    value,
+  ) && value.length === 3;

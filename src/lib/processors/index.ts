@@ -38,3 +38,4 @@ export {
   filterChildrenByDisplayName,
   getRefCurrent,
 };
+export * from './visual';
