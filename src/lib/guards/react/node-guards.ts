@@ -4,8 +4,15 @@ import type {
   TNamedComponent,
   TElementLike,
   THTMLTags,
+  TPropType,
 } from '../../../types';
-import type { ReactElement, ReactNode, MouseEvent } from 'react';
+import type {
+  ReactElement,
+  ReactNode,
+  MouseEvent,
+  ComponentProps,
+  ComponentType,
+} from 'react';
 import { isPrimitive, isString } from '../core/primitives';
 import { isArrayOf, isKeyInObject } from '../core/composite';
 import { isNil, isFunction, isObject } from '../core/reference';
@@ -115,3 +122,49 @@ export const hasNameMetadata = (type: unknown): type is TNamedComponent =>
   (isKeyInObject('displayName')(type) ||
     isKeyInObject('name')(type) ||
     isKeyInObject('type')(type));
+
+/**
+ * createPropGuard
+ *
+ * Creates a type guard for a specific prop of a React component.
+ *
+ * This utility generates a type-safe runtime check for a prop,
+ * allowing TypeScript to narrow the type of a value to the exact prop type.
+ *
+ * Only requires the component type and the prop key.
+ * Works best for props that are primitive types (`string | number | boolean`)
+ * or literal unions of these types.
+ *
+ * @template T - The React component type (must extend `ComponentType<object>`).
+ * @template K - The key of the prop to guard (must be a valid key of `ComponentProps<T>`).
+ *
+ * @returns A type guard function `(value: unknown) => value is TPropType<T, K>`.
+ *          This function can be used in runtime checks and JSX type narrowing.
+ *
+ * @example
+ * ```ts
+ * import StatusIndicator from './StatusIndicator';
+ *
+ * // Create a type guard for the "indicator" prop
+ * const isIndicator = createPropGuard<typeof StatusIndicator, 'indicator'>();
+ *
+ * const rawValue: string = "positive";
+ *
+ * if (isIndicator(rawValue)) {
+ *   // TS now treats rawValue as StatusIndicatorProps['indicator']
+ *   return <StatusIndicator indicator={rawValue} />;
+ * }
+ * ```
+ *
+ */
+export function createPropGuard<
+  T extends ComponentType<object>,
+  K extends keyof ComponentProps<T>,
+>(): TTypeGuard<TPropType<T, K>> {
+  /* prettier-ignore */ const guard: TTypeGuard<TPropType<T, K>> = 
+  (value: unknown): value is TPropType<T, K> => {
+    return isPrimitive(typeof value);
+  };
+
+  return guard;
+}

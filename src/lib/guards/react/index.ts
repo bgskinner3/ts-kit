@@ -7,6 +7,7 @@ import {
   isElementLike,
   isElementOfType,
   hasNameMetadata,
+  createPropGuard,
 } from './node-guards';
 import {
   isRef,
@@ -36,6 +37,7 @@ const ReactTypeGuards = {
   isDOMPropKey,
   isDOMEntry,
   isPropValid,
+  createPropGuard,
 } as const;
 
 export {
