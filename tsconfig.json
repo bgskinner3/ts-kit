@@ -27,6 +27,6 @@
     "types": ["jest", "node", "react"],
     "incremental": false
   },
-  "include": ["src/**/*", "global", "tests/**/*"],
+  "include": ["src/**/*", "solid-core/**/*", "global", "tests/**/*"],
   "exclude": ["node_modules", "dist", "coverage"]
 }

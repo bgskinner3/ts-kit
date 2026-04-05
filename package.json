@@ -20,8 +20,10 @@
     "dist"
   ],
   "scripts": {
+    "prepare": "ts-patch install",
     "dev": "tsup src/index.ts --format cjs,esm --watch --dts",
-    "build": "tsup src/index.ts --format cjs,esm --dts --clean --minify",
+    "build": "tsup src/index.ts transformer/index.ts --format cjs,esm --dts --clean",
+    "build:deprecated": "tsup src/index.ts --format cjs,esm --dts --clean --minify",
     "test": "jest",
     "cov:test": "jest --coverage",
     "lint": "eslint '**/*.{ts,tsx}' --max-warnings=0",
@@ -57,6 +59,7 @@
     "react-dom": "^19.2.4",
     "ts-jest": "^29.4.5",
     "ts-node": "^10.9.2",
+    "ts-patch": "^3.3.0",
     "tsup": "^8.5.1",
     "typescript": "^5.9.3"
   },

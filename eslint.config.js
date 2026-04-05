@@ -10,13 +10,26 @@ module.exports = [
   {
     ignores: ['node_modules', 'dist', 'coverage'],
   },
-
+  {
+    files: ['solid-core/**/*.ts'],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      },
+    },
+    rules: {
+      // Relaxing 'any' is helpful for the complex Compiler API
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-require-imports': 'off',
+    },
+  },
   // 🔹 Core JS + TS linting
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.js'],
     languageOptions: {
       parser: tsParser,
       parserOptions: {
+        project: './tsconfig.json',
         ecmaVersion: 'latest',
         sourceType: 'module',
       },
