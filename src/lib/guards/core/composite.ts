@@ -389,3 +389,52 @@ export const isShape = <T extends object>(schema: {
     return true;
   };
 };
+
+/**
+ * ## 🛡️ isType — Universal Type Guard Executor
+ *
+ * The primary entry point for performing a type-safe "handshake" between
+ * unknown data and a specific structural contract (Schema).
+ *
+ * ---
+ *
+ * ### ⚙️ Core Purpose
+ * - 🔹 **Single Point of Entry**: Provides a standardized way to execute any `TTypeGuard`.
+ * - 🔹 **Runtime-to-Type Bridge**: Validates the `value` at runtime while
+ *   simultaneously narrowing its type in the TypeScript compiler.
+ * - 🔹 **Clean Syntax**: Offers a readable `(value, schema)` API, perfect for
+ *   API response handling or user input validation.
+ *
+ * ---
+ *
+ * ### 📘 Example Usage
+ * ```ts
+ * // 1. Use a primitive guard
+ * if (isType(name, isString)) {
+ *   console.log(name.toUpperCase());
+ * }
+ *
+ * // 2. Use a complex literal/shape guard (Fixes 'Bill' | 'Bob' issue)
+ * const isOwner = isOneOf(['Bill', 'Bob'] as const);
+ *
+ * if (isType(rawData, isOwner)) {
+ *   // ✅ rawData is narrowed from 'unknown' to exactly 'Bill' | 'Bob'
+ *   console.log(`Welcome back, ${rawData}`);
+ * }
+ * ```
+ *
+ * ---
+ *
+ * ### 📌 Notes
+ * - **Abstraction**: It doesn't care if the schema is a simple check (`isNumber`)
+ *   or a complex tree (`isShape`). It treats all guards as a black box.
+ * - **Zero Casting**: Eliminates the need for `as T` by providing a
+ *   boolean-based type proof.
+ *
+ * @typeParam T - The target type expected for the value.
+ * @param value - The raw, untrusted data (usually `unknown`).
+ * @param schema - The `TTypeGuard` function used to verify the data.
+ * @returns A boolean indicating if the value matches the type `T`.
+ */
+export const isType = <T>(value: unknown, schema: TTypeGuard<T>): value is T =>
+  schema(value);
