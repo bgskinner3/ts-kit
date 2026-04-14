@@ -7,15 +7,23 @@ import type {
 type CamelCaseFromArray<
   WordsArr extends string[],
   Options extends { preserveConsecutiveUppercase: boolean },
-  OutputString extends string = '',
+  IsFirst extends boolean = true,
 > = WordsArr extends [
-  infer FirstWord extends string,
+  infer First extends string,
   ...infer Rest extends string[],
 ]
-  ? Options['preserveConsecutiveUppercase'] extends true
-    ? `${Capitalize<FirstWord>}${CamelCaseFromArray<Rest, Options>}`
-    : `${Capitalize<Lowercase<FirstWord>>}${CamelCaseFromArray<Rest, Options>}`
-  : OutputString;
+  ? IsFirst extends true
+    ? // Handle the first word: force full lowercase if not preserving
+      `${Options['preserveConsecutiveUppercase'] extends true
+        ? Uncapitalize<First>
+        : Lowercase<First>}${CamelCaseFromArray<Rest, Options, false>}`
+    : // Handle subsequent words: force capitalization
+      `${Options['preserveConsecutiveUppercase'] extends true
+        ? Capitalize<First>
+        : Capitalize<
+            Lowercase<First>
+          >}${CamelCaseFromArray<Rest, Options, false>}`
+  : '';
 
 export type TCamelCase<
   Type,
@@ -23,10 +31,9 @@ export type TCamelCase<
 > = Type extends string
   ? string extends Type
     ? Type
-    : Uncapitalize<
-        CamelCaseFromArray<
-          TWords<Type extends Uppercase<Type> ? Lowercase<Type> : Type>,
-          TMergeDelimiterCaseOptions<Options>
-        >
+    : CamelCaseFromArray<
+        TWords<Type extends Uppercase<Type> ? Lowercase<Type> : Type>,
+        TMergeDelimiterCaseOptions<Options>,
+        true // Explicitly start as first word
       >
   : Type;

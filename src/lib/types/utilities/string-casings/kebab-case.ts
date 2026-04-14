@@ -7,19 +7,18 @@ import type {
 type KebabCaseFromArray<
   WordsArr extends string[],
   Options extends { preserveConsecutiveUppercase: boolean },
-  OutputString extends string = '',
 > = WordsArr extends [
   infer FirstWord extends string,
   ...infer Rest extends string[],
 ]
   ? Rest['length'] extends 0
     ? Options['preserveConsecutiveUppercase'] extends true
-      ? FirstWord
-      : Lowercase<FirstWord>
+      ? FirstWord // Preserve: 'ID' -> 'ID'
+      : Lowercase<FirstWord> // Don't Preserve: 'ID' -> 'id'
     : Options['preserveConsecutiveUppercase'] extends true
       ? `${FirstWord}-${KebabCaseFromArray<Rest, Options>}`
       : `${Lowercase<FirstWord>}-${KebabCaseFromArray<Rest, Options>}`
-  : OutputString;
+  : '';
 
 export type TKebabCase<
   Type,
@@ -28,7 +27,7 @@ export type TKebabCase<
   ? string extends Type
     ? Type
     : KebabCaseFromArray<
-        TWords<Type extends Uppercase<Type> ? Lowercase<Type> : Type>,
+        TWords<Type>, // Pass raw 'camelCaseInput' here
         TMergeDelimiterCaseOptions<Options>
       >
   : Type;
