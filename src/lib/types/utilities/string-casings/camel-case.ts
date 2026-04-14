@@ -17,7 +17,7 @@ type CamelCaseFromArray<
     : `${Capitalize<Lowercase<FirstWord>>}${CamelCaseFromArray<Rest, Options>}`
   : OutputString;
 
-type TCamelCase<
+export type TCamelCase<
   Type,
   Options extends TDelimiterCaseOptions = object,
 > = Type extends string
@@ -30,5 +30,3 @@ type TCamelCase<
         >
       >
   : Type;
-
-export type { TCamelCase };

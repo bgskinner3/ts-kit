@@ -174,7 +174,7 @@ expectType<TRecrReadonlyExpected2>(recursiveReadOnly2);
 
 // Edge Case: Mutation Block (Structural check)
 type TRecrReadonlyActual3 =
-  TRecursiveReadonly<number[]> extends { push: any } ? true : false;
+  TRecursiveReadonly<number[]> extends { push: unknown } ? true : false;
 type TRecrReadonlyExpected3 = false;
 export type _trrd3 = TExpect<
   TEqual<TRecrReadonlyActual3, TRecrReadonlyExpected3>

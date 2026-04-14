@@ -1,6 +1,5 @@
 export * from './debug-types';
 export * from './react';
-export * from './string-types';
 export * from './branded';
 export * from './color-types';
 export * from './dom-types';

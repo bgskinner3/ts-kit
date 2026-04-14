@@ -1,14 +1,12 @@
 import type {
   TTypeGuard,
-  TCamelCase,
   TJSONArrayString,
   TJSONObjectString,
   TJSONDataString,
   THexByteString,
-  TSnakeCase,
-  TKebabCase,
   TRGBTuple,
 } from '../../../types';
+import type { TSnakeCase, TKebabCase, TCamelCase } from '../../types';
 import { isNonEmptyString, isString } from './primitives';
 import { REGEX_CONSTANTS } from '../../../constants';
 import { isUndefined } from './reference';
