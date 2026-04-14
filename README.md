@@ -361,3 +361,67 @@ WIP
 ## Link Utilities
 
 WIP
+
+// new intro
+
+@bgskinner2/ts-utils
+The Type-Strict Architecture Kit
+Stop guessing. Stop casting. Start narrowing.
+@bgskinner2/ts-utils is a high-performance, tree-shakable toolkit for developers who treat type safety as a requirement, not a suggestion. We provide the runtime logic and "Wizard-Level" types to kill as any hacks and handle the edge cases that standard libraries ignore.
+🚀 Why This Library?
+🎯 Zero-Cheat Narrowing: Real runtime guards that communicate perfectly with the TS compiler.
+🌲 100% Tree-Shakable: ESM-first. You only pay for the bytes you actually import.
+🛠️ Architecture First: Specialized helpers for state normalization, design systems, and data transformation.
+📦 Zero Dependencies: No supply-chain bloat. Just pure, optimized logic.
+✨ A Taste of the Toolkit
+The following is just a small sample of our comprehensive utility suite. View the Full API Reference for the complete list.
+🛠 Featured Runtime Utils
+isDOMEntry (The Prop-Filter)
+Filter out internal logic props while keeping valid React DOM attributes. No more "Unknown Prop" warnings.
+
+```tsx
+const SafeDiv = ({ internalFlag, ...props }) => (
+  <div {...Object.fromEntries(Object.entries(props).filter(isDOMEntry))} />
+);
+```
+
+generateKeyMap (The Auto-Completer)
+Transform arrays into keyed objects with perfect IDE autocompletion using Template Literal Types.
+
+```ts
+const actions = generateKeyMap({
+  keys: ['user'] as const,
+  prefix: 'get',
+  suffix: 'Data',
+});
+// Result: { user: 'getUserData' } (Type-safe and autocompleted)
+```
+
+🧩 A Taste of Advanced Utility Types
+High-level types for complex state manipulation. Zero runtime cost.
+TXOR<T, U> (Strict Exclusivity)
+Standard unions are leaky. TXOR enforces a strict choice between two property sets, preventing invalid state combinations.
+
+```ts
+type Auth = TXOR<{ email: string }, { provider: string }>;
+const valid: Auth = { email: 'test@me.com' }; // ✅
+const invalid: Auth = { email: 'test@me.com', provider: 'google' }; // ❌ Error
+```
+
+TCamelCase<S> (Recursive Transformer)
+A wizard-level string transformer that handles complex delimiters and case preservation at the type level.
+
+```ts
+type Key = TCamelCase<'USER_FIRST_NAME'>; // Result: "userFirstName"
+```
+
+🛠 API Overview
+This is just a fraction of what's available:
+Category Highlights
+Type Guards isString, isDOMPropKey, isNonNullable, isObject
+Enforcement TXOR, TRequireKey, Branded, DeepPartial
+Data Logic toKeyByField, lazyProxy, DeepNormalizeBigInt
+Async/Network retry (w/ Backoff), fetchJson, delay
+🛡️ The Philosophy
+If a bug can be caught at compile-time, it should never reach runtime. Our utilities turn "cheats" into "constraints." We follow SemVer and are optimized for Modern TypeScript (5.x+).
+Explore the Full Documentation Garden | Report a Bug

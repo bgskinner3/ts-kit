@@ -51,4 +51,28 @@ type TMerge<O1, O2> = O2 & Omit<O1, keyof O2>;
  */
 type TCreateDiff<T, U> = Omit<T, keyof U> & Omit<U, keyof T>;
 
-export type { TCreateDiff, TMerge, TPrettify };
+/**
+ * TBigIntToggle — Bidirectional BigInt/String Transformer
+ *
+ * A logical switch that toggles a type between `bigint` and `string`.
+ *
+ * This is primarily used in data-fetching and persistence layers to handle
+ * "Nominal IDs" that are stored as BigInts in a database but must be
+ * converted to Strings for safe JSON serialization and frontend consumption.
+ *
+ * @template T - The type to toggle (must be a `string` or `bigint`)
+ *
+ * @example
+ * // 1. Map a database BigInt to a frontend String
+ * type DbId = bigint;
+ * type DisplayId = TBigIntToggle<DbId>; // Result: string
+ *
+ * // 2. Map a frontend String back to a database BigInt
+ * type InputId = string;
+ * type SaveId = TBigIntToggle<InputId>; // Result: bigint
+ */
+type TBigIntToggle<T extends string | bigint> = T extends string
+  ? bigint
+  : string;
+
+export type { TCreateDiff, TMerge, TPrettify, TBigIntToggle };

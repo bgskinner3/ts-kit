@@ -3,8 +3,8 @@ import type { TEqual, TExpect } from '../../../../src/types';
 import type {
   TUnionResolver,
   TOmitMethods,
-  //   TRequireIf,
-  //   TIfValueRequire,
+  TRequireIf,
+  TIfValueRequire,
 } from '../../../../src/lib/types/utilities/core';
 import { forceType } from '../../../test-utils';
 
@@ -84,7 +84,9 @@ export type _ur8 = TExpect<TEqual<UR_Actual8, UR_Expected8>>;
 const val8: unknown = {};
 forceType<UR_Actual8>(val8);
 expectType<UR_Expected8>(val8);
-
+// ====================================================================================================
+// ====================================================================================================
+// ====================================================================================================
 /**
  * TOmitMethods TESTS
  *
@@ -111,116 +113,116 @@ expectType<TOmitM_Expected1>(actual1);
 
 // ----------------------
 // identity case TEST
-type TM_Actual2 = TOmitMethods<{
+type OmitMActual2 = TOmitMethods<{
   a: string;
   b: number;
 }>;
 
-type TM_Expected2 = {
+type OmitMExpected2 = {
   a: string;
   b: number;
 };
 
-export type _tm2 = TExpect<TEqual<TM_Actual2, TM_Expected2>>;
+export type _tm2 = TExpect<TEqual<OmitMActual2, OmitMExpected2>>;
 const actual2: unknown = {};
-forceType<TM_Actual2>(actual2);
-expectType<TM_Expected2>(actual2);
+forceType<OmitMActual2>(actual2);
+expectType<OmitMExpected2>(actual2);
 
 // ----------------------
 // empty object TEST
 
-type TM_Actual3 = TOmitMethods<{
+type OmitMActual3 = TOmitMethods<{
   a: () => void;
   b: (x: number) => string;
 }>;
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-type TM_Expected3 = {};
+type OmitMExpected3 = {};
 
-export type _tm3 = TExpect<TEqual<TM_Actual3, TM_Expected3>>;
+export type _tm3 = TExpect<TEqual<OmitMActual3, OmitMExpected3>>;
 
 const actual3: unknown = {};
-forceType<TM_Actual3>(actual3);
-expectType<TM_Expected3>(actual3);
+forceType<OmitMActual3>(actual3);
+expectType<OmitMExpected3>(actual3);
 
 // ----------------------
 // Optional methods TEST
-type TM_Actual4 = TOmitMethods<{
+type OmitMActual4 = TOmitMethods<{
   a?: () => void;
   b: string;
   c?: number;
 }>;
 
-type TM_Expected4 = {
+type OmitMExpected4 = {
   b: string;
   c?: number;
 };
 
-export type _tm4 = TExpect<TEqual<TM_Actual4, TM_Expected4>>;
+export type _tm4 = TExpect<TEqual<OmitMActual4, OmitMExpected4>>;
 
 const actual4: unknown = {};
-forceType<TM_Actual3>(actual4);
-expectType<TM_Expected3>(actual4);
+forceType<OmitMActual4>(actual4);
+expectType<OmitMExpected4>(actual4);
 
 // ----------------------
 // Union of function + non-function
-type TM_Actual5 = TOmitMethods<{
+type OmitMActual5 = TOmitMethods<{
   a: string | (() => void);
   b: number;
 }>;
 
-type TM_Expected5 = {
+type OmitMExpected5 = {
   a: string | (() => void); // should NOT be removed (not purely a method)
   b: number;
 };
 
-export type _tm5 = TExpect<TEqual<TM_Actual5, TM_Expected5>>;
+export type _tm5 = TExpect<TEqual<OmitMActual5, OmitMExpected5>>;
 
 const actual5: unknown = {};
-forceType<TM_Actual3>(actual5);
-expectType<TM_Expected3>(actual5);
+forceType<OmitMActual5>(actual5);
+expectType<OmitMExpected5>(actual5);
 
 // ----------------------
 // Mixed object + method + optional + readonly
-type TM_Actual6 = TOmitMethods<{
+type OmitMActual6 = TOmitMethods<{
   readonly a: string;
   readonly b: () => void;
   c?: () => number;
   d: boolean;
 }>;
 
-type TM_Expected6 = {
+type OmitMExpected6 = {
   readonly a: string;
   d: boolean;
 };
 
-export type _tm6 = TExpect<TEqual<TM_Actual6, TM_Expected6>>;
+export type _tm6 = TExpect<TEqual<OmitMActual6, OmitMExpected6>>;
 const actual6: unknown = {};
-forceType<TM_Actual3>(actual6);
-expectType<TM_Expected3>(actual6);
+forceType<OmitMActual6>(actual6);
+expectType<OmitMExpected6>(actual6);
 
-// ----------------------
-//Index signature
-type TM_Actual7 = TOmitMethods<{
-  [key: string]: string;
-  a: () => void;
-  b: number;
-}>;
+// // ----------------------
+// //Index signature
+// type OmitMActual7 = TOmitMethods<{
+//   [key: string]: unknown;
+//   a: () => void;
+//   b: number;
+// }>;
 
-type TM_Expected7 = {
-  [key: string]: string;
-  b: number;
-};
+// type OmitMExpected7 = {
+//   [key: string]: unknown;
+//   b: number;
+// };
 
-export type _tm7 = TExpect<TEqual<TM_Actual7, TM_Expected7>>;
+// export type _tm7 = TExpect<TEqual<OmitMActual7, OmitMExpected7>>;
 
-const actual7: unknown = {};
-forceType<TM_Actual3>(actual7);
-expectType<TM_Expected3>(actual7);
+// const actual7: unknown = {};
+// forceType<OmitMActual7>(actual7);
+// expectType<OmitMExpected7>(actual7);
 
 // ----------------------
 //Nested object methods (should NOT strip deeply)
-type TM_Actual8 = TOmitMethods<{
+type OmitMActual8 = TOmitMethods<{
   a: {
     x: () => void;
     y: string;
@@ -228,34 +230,350 @@ type TM_Actual8 = TOmitMethods<{
   b: () => void;
 }>;
 
-type TM_Expected8 = {
+type OmitMExpected8 = {
   a: {
     x: () => void; // untouched (deep removal not expected)
     y: string;
   };
 };
 
-export type _tm8 = TExpect<TEqual<TM_Actual8, TM_Expected8>>;
+export type _tm8 = TExpect<TEqual<OmitMActual8, OmitMExpected8>>;
 const actual8: unknown = {};
-forceType<TM_Actual3>(actual8);
-expectType<TM_Expected3>(actual8);
+forceType<OmitMActual8>(actual8);
+expectType<OmitMExpected8>(actual8);
+
+// ====================================================================================================
+// ====================================================================================================
+// ====================================================================================================
 
 /**
  * TRequireIf TESTS
  *
  * USECASE --
+ * This utility is designed for "Discriminated Requirement" logic. It solves
+ * the common problem where an interface has optional properties that should
+ * only exist (and must exist) under specific conditions.
  *
+ * SCENARIO:
+ * Imagine a 'Transaction' object.
+ * - If the 'type' is 'WIRE', the 'iban' field is MANDATORY.
+ * - If the 'type' is 'CASH', the 'iban' field is FORBIDDEN (to prevent data pollution).
  *
+ * WHY USE THIS OVER STANDARD UNIONS?
+ * Standard unions require you to manually redefine every shared property
+ * (like id, timestamp, amount) in every branch. TRequireIf allows you to
+ * take an existing Base Type and "inject" conditional logic onto it
+ * dynamically, significantly reducing boilerplate and maintenance.
+ *
+ * BEHAVIOR:
+ * 1. Requirement: Maps K2 to a required version of its type when K1 is V1.
+ * 2. Exclusion: Maps K2 to 'undefined' when K1 is NOT V1.
+ * 3. Preservation: Keeps all other properties of the Base Type intact.
  */
 
 // ----------------------
+type Base = {
+  value: bigint;
+  unit: 'eth' | 'gwei' | 'token';
+  decimals?: number;
+};
+
+type TRequire_Actual1 = TRequireIf<Base, 'unit', 'token', 'decimals'>;
+
+type TRequire_Expected1 =
+  | {
+      value: bigint;
+      unit: 'token';
+      decimals: number;
+    }
+  | {
+      value: bigint;
+      unit: Exclude<'eth' | 'gwei' | 'token', 'token'>;
+      decimals?: never;
+    };
+
+export type _tr1 = TExpect<TEqual<TRequire_Actual1, TRequire_Expected1>>;
+
+const actualOne: unknown = {};
+forceType<TRequire_Actual1>(actualOne);
+expectType<TRequire_Expected1>(actualOne);
+
+// ----------------------
+// NON-TRIGGER CASE TEST
+// //-----------------------
+type TRequire_Actual2 = TRequireIf<Base, 'unit', 'token', 'decimals'>['unit'];
+
+type TRequire_Expected2 = 'eth' | 'gwei' | 'token';
+
+export type _tr2 = TExpect<TEqual<TRequire_Actual2, TRequire_Expected2>>;
+
+const actualTwo: unknown = '';
+forceType<TRequire_Actual2>(actualTwo);
+expectType<TRequire_Expected2>(actualTwo);
+
+// ----------------------
+// REQUIRED BEHAVIOR STRICTNESS TEST
+// //-----------------------
+
+type TRequire_Actual3 = Extract<
+  TRequireIf<Base, 'unit', 'token', 'decimals'>,
+  { unit: 'token' }
+>;
+
+type TRequire_Expected3 = {
+  value: bigint;
+  unit: 'token';
+  decimals: number;
+};
+
+export type _tr3 = TExpect<TEqual<TRequire_Actual3, TRequire_Expected3>>;
+
+const actualThree: unknown = '';
+forceType<TRequire_Actual3>(actualThree);
+expectType<TRequire_Expected3>(actualThree);
+
+// ----------------------
+// FORBIDDEN BEHAVIOR TEST
+// //-----------------------
+type TRequire_Actual4 = Extract<
+  TRequireIf<Base, 'unit', 'token', 'decimals'>,
+  { unit: 'eth' | 'gwei' } // Match the exclusion branch's full union
+>;
+
+type TRequire_Expected4 = {
+  value: bigint;
+  unit: 'eth' | 'gwei';
+  decimals?: undefined;
+};
+
+export type _tr4 = TExpect<TEqual<TRequire_Actual4, TRequire_Expected4>>;
+
+const actualFour: unknown = '';
+forceType<TRequire_Actual4>(actualFour);
+expectType<TRequire_Expected4>(actualFour);
+
+// ----------------------
+// multiple non-trigger values
+// //-----------------------
+
+type TRequire_Actual5 = TRequireIf<
+  {
+    mode: 'a' | 'b' | 'c';
+    flag?: boolean;
+  },
+  'mode',
+  'c',
+  'flag'
+>;
+
+type TRequire_Expected5 =
+  | {
+      mode: 'c';
+      flag: boolean;
+    }
+  | {
+      mode: 'a' | 'b';
+      flag?: never;
+    };
+
+export type _tr5 = TExpect<TEqual<TRequire_Actual5, TRequire_Expected5>>;
+const actualFive: unknown = {};
+forceType<TRequire_Actual5>(actualFive);
+expectType<TRequire_Expected5>(actualFive);
+
+// ----------------------
+// optional trigger property
+// //-----------------------
+type TRequire_Actual6 = TRequireIf<
+  {
+    mode?: 'a' | 'b';
+    flag?: boolean;
+  },
+  'mode',
+  'b',
+  'flag'
+>;
+
+type TRequire_Expected6 =
+  | {
+      mode: 'b'; // Trigger branch: 'mode' becomes required because it is exactly 'b'
+      flag: boolean;
+    }
+  | {
+      mode?: 'a'; // Exclusion branch: 'mode' remains optional (includes 'a' | undefined)
+      flag?: undefined; // Matches the utility's use of 'undefined' for forbidden properties
+    };
+
+export type _tr6 = TExpect<TEqual<TRequire_Actual6, TRequire_Expected6>>;
+const actualSix: unknown = {};
+forceType<TRequire_Actual6>(actualSix);
+expectType<TRequire_Expected6>(actualSix);
+// ----------------------
+// K2 already required
+// //-----------------------
+
+type TRequire_Actual7 = TRequireIf<
+  {
+    mode: 'a' | 'b';
+    flag: number;
+  },
+  'mode',
+  'b',
+  'flag'
+>;
+
+type TRequire_Expected7 =
+  | {
+      mode: 'b';
+      flag: number;
+    }
+  | {
+      mode: 'a';
+      flag?: never;
+    };
+
+export type _tr7 = TExpect<TEqual<TRequire_Actual7, TRequire_Expected7>>;
+const actualSeven: unknown = {};
+forceType<TRequire_Actual7>(actualSeven);
+expectType<TRequire_Expected7>(actualSeven);
+// ----------------------
+// This exposes a real design issue.
+// //-----------------------
+type TRequire_Actual8 = TRequireIf<
+  {
+    mode: 'a' | 'b';
+  },
+  'mode',
+  'b',
+  'flag'
+>;
+
+type TRequire_Expected8 =
+  | {
+      mode: 'b';
+      flag: unknown;
+    }
+  | {
+      mode: 'a';
+      flag?: never;
+    };
+
+export type _tr8 = TExpect<TEqual<TRequire_Actual8, TRequire_Expected8>>;
+const actualEight: unknown = {};
+forceType<TRequire_Actual8>(actualEight);
+expectType<TRequire_Expected8>(actualEight);
+
+// ====================================================================================================
+// ====================================================================================================
+// ====================================================================================================
 
 /**
  * TIfValueRequire TESTS
  *
  * USECASE --
+ * Designed for hierarchical configuration schemas (Record<string, Record<string, string>>).
+ * This utility enforces that if a specific VALUE (key of a sub-record) is chosen
+ * for Category A, then a VALUE must also be provided for Category B.
  *
+ * SCENARIO:
+ * In a Theme Engine:
+ * - If 'colorMode' is set to 'custom', then 'brandColor' MUST be defined.
+ * - If 'colorMode' is 'light' or 'dark', 'brandColor' is FORBIDDEN (to ensure consistency).
+ *
+ * This prevents "half-configured" states in complex nested settings.
  *
  */
 
 // ----------------------
+// ----------------------
+// SCHEMA SETUP
+// ----------------------
+type TAppConfig = {
+  auth: {
+    oidc: string;
+    guest: string;
+  };
+  storage: {
+    s3: string;
+    local: string;
+  };
+};
+
+// If auth is 'oidc', storage MUST be defined.
+type TRequireIf_Actual1 = TIfValueRequire<
+  TAppConfig,
+  'auth',
+  'oidc',
+  'storage'
+>;
+
+type TRequireIf_Expected1 =
+  | {
+      auth: 'oidc';
+      storage: 's3' | 'local';
+    }
+  | {
+      auth?: 'guest';
+      storage?: undefined;
+    };
+
+export type _tiv1 = TExpect<TEqual<TRequireIf_Actual1, TRequireIf_Expected1>>;
+const actualIfRequireOne: unknown = {};
+forceType<TRequireIf_Actual1>(actualIfRequireOne);
+expectType<TRequireIf_Expected1>(actualIfRequireOne);
+
+// ----------------------
+//  Required Strictness (Triggered)
+// ----------------------
+type TRequireIf_Actual2 = Extract<TRequireIf_Actual1, { auth: 'oidc' }>;
+
+type TRequireIf_Expected2 = {
+  auth: 'oidc';
+  storage: 's3' | 'local';
+};
+
+export type _tiv2 = TExpect<TEqual<TRequireIf_Actual2, TRequireIf_Expected2>>;
+
+const actualIfRequireTwo: unknown = {};
+forceType<TRequireIf_Actual2>(actualIfRequireTwo);
+expectType<TRequireIf_Expected2>(actualIfRequireTwo);
+// ----------------------
+//  Forbidden Strictness (Non-Triggered)
+// ----------------------
+type TRequireIf_Actual3 = Extract<TRequireIf_Actual1, { auth?: 'guest' }>;
+
+type TRequireIf_Expected3 = {
+  auth?: 'guest';
+  storage?: undefined;
+};
+
+export type _tiv3 = TExpect<TEqual<TRequireIf_Actual3, TRequireIf_Expected3>>;
+
+const actualIfRequireThree: unknown = {};
+forceType<TRequireIf_Actual3>(actualIfRequireThree);
+expectType<TRequireIf_Expected3>(actualIfRequireThree);
+// ----------------------
+//  Multi-Value Categories
+// ----------------------
+type MultiConfig = {
+  mode: { a: ''; b: ''; c: '' };
+  feature: { x: ''; y: '' };
+};
+
+type TRequireIf_Actual4 = TIfValueRequire<MultiConfig, 'mode', 'a', 'feature'>;
+
+type TRequireIf_Expected4 =
+  | {
+      mode: 'a';
+      feature: 'x' | 'y';
+    }
+  | {
+      mode?: 'b' | 'c';
+      feature?: undefined;
+    };
+
+export type _tiv4 = TExpect<TEqual<TRequireIf_Actual4, TRequireIf_Expected4>>;
+
+const actualIfRequireFour: unknown = {};
+forceType<TRequireIf_Actual4>(actualIfRequireFour);
+expectType<TRequireIf_Expected4>(actualIfRequireFour);

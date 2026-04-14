@@ -100,7 +100,7 @@ type TRecursivePartial<T> = {
  * type StrictProfile = TRecursiveRequired<UserProfile>;
  */
 
-type TRecursiveRequired<T> = T extends Function
+type TRecursiveRequired<T> = T extends (...args: unknown[]) => unknown
   ? T
   : T extends Array<infer U>
     ? Array<TRecursiveRequired<U>>
@@ -127,7 +127,7 @@ type TRecursiveRequired<T> = T extends Function
  * // Result: { readonly id: number; readonly profile: { readonly bio: string }; readonly tags: ReadonlyArray<string> }
  * type ReadonlyUser = TRecursiveReadonly<User>;
  */
-type TRecursiveReadonly<T> = T extends Function
+type TRecursiveReadonly<T> = T extends (...args: unknown[]) => unknown
   ? T
   : T extends Array<infer U>
     ? ReadonlyArray<TRecursiveReadonly<U>>
@@ -158,6 +158,68 @@ type TNonNullableDeep<T> = {
     : NonNullable<T[P]>;
 };
 
+/**
+ * TDeepBigIntToNumber — Recursive BigInt Normalization
+ *
+ * Traverses a data structure and maps all `bigint` types to `number`.
+ *
+ * Since the JSON specification does not support BigInt, this utility is
+ * essential for preparing data for `JSON.stringify()`, network transmission,
+ * or frontend consumption where `number` is the expected primitive.
+ *
+ * @template T - The structure (Object, Array, or Primitive) to normalize
+ *
+ * @example
+ * type DBResult = { id: bigint; tags: bigint[]; metadata: { size: bigint } };
+ *
+ * // Result: { id: number; tags: number[]; metadata: { size: number } }
+ * type APIPayload = TDeepBigIntToNumber<DBResult>;
+ */
+type TDeepBigIntToNumber<T> = T extends bigint
+  ? number
+  : T extends (infer U)[]
+    ? TDeepBigIntToNumber<U>[]
+    : T extends Record<string, unknown>
+      ? { [K in keyof T]: TDeepBigIntToNumber<T[K]> }
+      : T;
+/**
+ * TNormalizeValue — Recursive BigInt-to-Number Normalizer
+ *
+ * Deeply traverses an input structure and converts all `bigint` values into `number`.
+ *
+ * This utility is critical for "Stage-2" data preparation before JSON serialization,
+ * as the standard `JSON.stringify` will throw a TypeError when encountering BigInts.
+ *
+ * @template T - The structure (Primitive, Array, or Object) to normalize.
+ *
+ * @example
+ * type RawStats = { count: bigint; history: bigint[]; metadata: { id: bigint } };
+ *
+ * // Result: { count: number; history: number[]; metadata: { id: number } }
+ * type SerializedStats = TNormalizeValue<RawStats>;
+ */
+type TNormalizeValue<T> = T extends bigint
+  ? number
+  : T extends (infer U)[]
+    ? TNormalizeValue<U>[]
+    : T extends Record<string, unknown>
+      ? TNormalizedBigIntToNumber<T>
+      : T;
+
+/**
+ * TNormalizedBigIntToNumber — Mapped Object Normalization
+ *
+ * A supporting mapped type that applies `TNormalizeValue` recursively across
+ * all keys of an object.
+ *
+ * @template T - The object structure to iterate over.
+ *
+ * @note This is an internal structural helper for `TNormalizeValue`. Use
+ * `TNormalizeValue` as the primary entry point for general data structures.
+ */
+type TNormalizedBigIntToNumber<T> = {
+  [K in keyof T]: TNormalizeValue<T[K]>;
+};
 export type {
   TNonNullableDeep,
   TRecursivePartial,
@@ -165,4 +227,7 @@ export type {
   TRecursiveReadonly,
   TDeepWriteable,
   TDeepMap,
+  TDeepBigIntToNumber,
+  TNormalizeValue,
+  TNormalizedBigIntToNumber,
 };

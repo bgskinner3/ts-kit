@@ -4,8 +4,9 @@ import type {
   TCreateDiff,
   TMerge,
   TPrettify,
+  TBigIntToggle,
 } from '../../../../src/lib/types/primitives/logic';
-
+import { forceType } from '../../../test-utils';
 // ==========================================
 // TPrettify Tests
 // ==========================================
@@ -74,3 +75,46 @@ type Same = { a: 1; b: 2 };
 type NoDiff = TPrettify<TCreateDiff<Same, Same>>;
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export type _t9 = TExpect<TEqual<NoDiff, {}>>;
+
+// ==========================================
+// TBigIntToggle Tests
+// ==========================================
+
+// Case 1: BigInt to String (Database -> Frontend)
+type FromDb = bigint;
+type ToFrontend = TBigIntToggle<FromDb>;
+export type _t10 = TExpect<TEqual<ToFrontend, string>>;
+
+const bigIntValOne: unknown = '';
+forceType<ToFrontend>(bigIntValOne);
+expectType<string>(bigIntValOne);
+
+// Case 2: String to BigInt (Frontend -> Database)
+type FromInput = string;
+type ToDb = TBigIntToggle<FromInput>;
+export type _t11 = TExpect<TEqual<ToDb, bigint>>;
+const bigIntValTwo: unknown = 0n;
+forceType<ToDb>(bigIntValTwo);
+expectType<bigint>(bigIntValTwo);
+
+// Case 3: Literal BigInt to String
+type SpecificId = 100n;
+type ToggledLiteral = TBigIntToggle<SpecificId>;
+// Note: TBigIntToggle targets the base primitive 'string'
+export type _t12 = TExpect<TEqual<ToggledLiteral, string>>;
+
+const bigIntValThree: unknown = '';
+forceType<ToggledLiteral>(bigIntValThree);
+expectType<string>(bigIntValThree);
+
+// Case 4: Union Toggle (Ensures distributive property works)
+type Mixed = string | bigint;
+type ToggledUnion = TBigIntToggle<Mixed>;
+// Should result in bigint | string (swapped)
+export type _t13 = TExpect<TEqual<ToggledUnion, bigint | string>>;
+
+const mixedVal: unknown = 'test'; // Could also be 100n
+forceType<ToggledUnion>(mixedVal);
+
+// We expect the variable to be the union, not just one side.
+expectType<bigint | string>(mixedVal);

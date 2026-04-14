@@ -1,3 +1,5 @@
+import { TPrettify } from '../../primitives';
+
 type TConfigSchema = Record<string, Record<string, string>>;
 /**
  * TRecursiveReadonly: Deep Immutability Utility
@@ -18,15 +20,23 @@ type TConfigSchema = Record<string, Record<string, string>>;
  * // Result: { readonly id: number; readonly profile: { readonly bio: string }; readonly tags: ReadonlyArray<string> }
  * type ReadonlyUser = TRecursiveReadonly<User>;
  */
+// type TIfValueRequire<
+//   T extends TConfigSchema,
+//   K1 extends keyof T,
+//   V1 extends keyof T[K1],
+//   K2 extends keyof T,
+// > =
+//   | ({ [P in K1]: V1 } & { [P in K2]: keyof T[K2] }) // If Trigger matches, Dependent is REQUIRED
+//   | ({ [P in K1]?: Exclude<keyof T[K1], V1> | null } & { [P in K2]?: never }); // Otherwise, Dependent is FORBIDDEN
 type TIfValueRequire<
   T extends TConfigSchema,
   K1 extends keyof T,
   V1 extends keyof T[K1],
   K2 extends keyof T,
-> =
-  | ({ [P in K1]: V1 } & { [P in K2]: keyof T[K2] }) // If Trigger matches, Dependent is REQUIRED
-  | ({ [P in K1]?: Exclude<keyof T[K1], V1> | null } & { [P in K2]?: never }); // Otherwise, Dependent is FORBIDDEN
-
+> = TPrettify<
+  | ({ [P in K1]: V1 } & { [P in K2]: keyof T[K2] })
+  | ({ [P in K1]?: Exclude<keyof T[K1], V1> } & { [P in K2]?: undefined })
+>;
 /**
  * TRequireIf: Conditional Requirement Utility
  *
@@ -59,11 +69,21 @@ type TIfValueRequire<
  *
  * // ❌ Error: Property 'decimals' is forbidden for 'eth'
  * const fail2: TStrictFormat = { value: 1n, unit: 'eth', decimals: 18 };
+ *
+ * Enforces conditional requirements.
+ * Makes {@link K2} required if {@link K1} matches {@link V1}.
+ * Otherwise, {@link K2} is forbidden.
  */
-type TRequireIf<T, K1 extends keyof T, V1 extends T[K1], K2 extends keyof T> =
-  | (Omit<T, K1 | K2> & { [P in K1]: V1 } & { [P in K2]: T[K2] }) // Branch: K1 is V1, K2 is REQUIRED
-  | (Omit<T, K2> & { [P in K1]?: Exclude<T[K1], V1> } & { [P in K2]?: never }); // Branch: K1 is NOT V1, K2 is FORBIDDEN
-
+type TRequireIf<
+  T,
+  K1 extends keyof T,
+  V1 extends T[K1],
+  K2 extends string,
+> = TPrettify<
+  /* prettier-ignore */ | (Omit<T, K1 | (K2 & keyof T)> & { [P in K1]: V1  } & { [P in K2]-?: K2 extends keyof T ? Exclude<T[K2], undefined> : unknown })
+  /* prettier-ignore */
+  | (Omit<T, K1 | (K2 & keyof T)> & { [P in K1]: Exclude<T[K1], V1> } & { [P in K2]?: undefined })
+>;
 /**
  * TOmitMethods: Data-Only Utility
  *
@@ -83,19 +103,21 @@ type TRequireIf<T, K1 extends keyof T, V1 extends T[K1], K2 extends keyof T> =
  * // Result: { id: string }
  * type UserData = TOmitMethods<User>;
  */
-// type TOmitMethods<T> = Pick<
-//   T,
-//   {
-//     [K in keyof T]: T[K] extends (...args: unknown[]) => unknown ? never : K;
-//   }[keyof T]
-// >;
 type FunctionKeys<T> = {
-  // Use never[] for arguments to catch functions with any number of parameters
-  [K in keyof T]: T[K] extends (...args: never[]) => unknown ? K : never;
+  [K in keyof T]: string extends K // 1. Skip the general 'string' or 'number' indexers
+    ? never
+    : number extends K
+      ? never
+      : // 2. Omit the key if its value (minus undefined) is a function
+        Exclude<T[K], undefined> extends (...args: never[]) => unknown
+        ? K
+        : never;
 }[keyof T];
 
-type TOmitMethods<T> = Omit<T, FunctionKeys<T>>;
-
+type TOmitMethods<T> = {
+  // Use key remapping to filter out the identified function keys
+  [K in keyof T as K extends FunctionKeys<T> ? never : K]: T[K];
+};
 /**
  type FunctionKeys<T> = {
   [K in keyof T]: T[K] extends (...args: any[]) => any ? K : never;
