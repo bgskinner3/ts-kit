@@ -47,4 +47,20 @@ function exportStaticMethods<T extends new (...args: unknown[]) => unknown>(
   return result;
 }
 
-export { exportAndRenameStaticMethods, exportStaticMethods };
+const toWords = (value: string): string[] => {
+  if (!value) return [];
+
+  // 1. Split by existing delimiters (space, dash, underscore)
+  // 2. Use a regex that catches:
+  //    - Lowercase to Uppercase transitions (camelCase -> camel, Case)
+  //    - Acronym boundaries (XMLHttp -> XML, Http)
+  //    - Numbers
+  return value
+    .replace(/([a-z])([A-Z])/g, '$1 $2') // camelCase -> camel Case
+    .replace(/([A-Z])([A-Z][a-z])/g, '$1 $2') // XMLHttp -> XML Http
+    .replace(/[^a-zA-Z0-9]+/g, ' ') // delimiters -> space
+    .trim()
+    .split(/\s+/);
+};
+
+export { exportAndRenameStaticMethods, exportStaticMethods, toWords };

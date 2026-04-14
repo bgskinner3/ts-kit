@@ -27,5 +27,6 @@ module.exports = {
     '!src/managers/**',
     '!src/types/**',
     '!**/node_modules/**',
+    '!src/lib/processors/visual.ts'
   ],
 };

@@ -113,3 +113,20 @@ describe('StringTransformers COntinued', () => {
     });
   });
 });
+describe('toCamelCase Edge Cases', () => {
+  it('returns an empty string when no words are found', () => {
+    // This hits the "if (words.length === 0)" branch
+    expect(toCamelCase('')).toBe('');
+    expect(toCamelCase('   ')).toBe('');
+    expect(toCamelCase('___---')).toBe('');
+  });
+});
+
+describe('toKebabCase and toSnakeCase Edge Cases', () => {
+  it('returns empty strings for empty inputs', () => {
+    expect(toKebabCase('')).toBe('');
+    expect(toSnakeCase('')).toBe('');
+    expect(toKebabCase('   ')).toBe('');
+    expect(toSnakeCase('___')).toBe('');
+  });
+});

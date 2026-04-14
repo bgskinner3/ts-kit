@@ -1,6 +1,7 @@
 import { TCamelCase, TSnakeCase, TKebabCase } from '../types';
 import { isNil, isNonEmptyString } from '../guards';
 import { REGEX_CONSTANTS } from '../../constants';
+import { toWords } from '../../managers';
 /**
  * ## 🔠 capitalizeString — Capitalize First Letter
  *
@@ -25,6 +26,7 @@ import { REGEX_CONSTANTS } from '../../constants';
 export const capitalizeString = <S extends string>(str: S): Capitalize<S> => {
   return (str[0].toUpperCase() + str.slice(1)) as Capitalize<S>;
 };
+
 /**
  * ## 🐪 toCamelCase — Convert String to camelCase
  *
@@ -48,17 +50,18 @@ export const capitalizeString = <S extends string>(str: S): Capitalize<S> => {
  *
  * @param value - String to transform
  */
-
-export const toCamelCase = <T extends TCamelCase<string>>(
+export const toCamelCase = <T extends string>(
   value: T | string,
 ): TCamelCase<T | string> => {
-  if (isNil(value) || !isNonEmptyString(value)) return '';
-  const cleaned = value.replace(REGEX_CONSTANTS.letterSeparator, ' ');
-  return cleaned
-    .replace(REGEX_CONSTANTS.camelCaseBoundary, (word, idx) =>
-      idx === 0 ? word.toLowerCase() : word.toUpperCase(),
-    )
-    .replace(REGEX_CONSTANTS.whitespace, '');
+  const words = toWords(value);
+  if (words.length === 0) return '';
+
+  return words
+    .map((word, idx) => {
+      const lower = word.toLowerCase();
+      return idx === 0 ? lower : lower.charAt(0).toUpperCase() + lower.slice(1);
+    })
+    .join('') as TCamelCase<T>;
 };
 /**
  * ## 🧵 toKebabCase — Convert String to kebab-case
@@ -86,17 +89,10 @@ export const toCamelCase = <T extends TCamelCase<string>>(
 export const toKebabCase = <T extends string>(
   value: T | string,
 ): TKebabCase<T | string> => {
-  if (isNil(value) || !isNonEmptyString(value)) return '';
-  const cleaned = value.replace(REGEX_CONSTANTS.wordBoundarySplitter, ' ');
-  const withBoundaries = cleaned.replace(
-    REGEX_CONSTANTS.kebabCaseBoundary,
-    '$1 $2',
-  );
-  return withBoundaries
-    .trim()
-    .split(REGEX_CONSTANTS.whitespace)
-    .join('-')
-    .toLowerCase();
+  const words = toWords(value);
+  if (words.length === 0) return '';
+
+  return words.map((word) => word.toLowerCase()).join('-') as TKebabCase<T>;
 };
 /**
  * ## 🐍 toSnakeCase — Convert String to snake_case
@@ -123,17 +119,8 @@ export const toKebabCase = <T extends string>(
 export const toSnakeCase = <T extends string>(
   value: T | string,
 ): TSnakeCase<T | string> => {
-  if (isNil(value) || !isNonEmptyString(value)) return '';
-  const cleaned = value.replace(REGEX_CONSTANTS.wordBoundarySplitter, ' ');
-  // Step 2: Insert spaces before uppercase letters (camelCase boundaries)
-  const withBoundaries = cleaned.replace(
-    REGEX_CONSTANTS.kebabCaseBoundary,
-    '$1 $2',
-  );
+  const words = toWords(value);
+  if (words.length === 0) return '';
 
-  return withBoundaries
-    .trim()
-    .split(REGEX_CONSTANTS.whitespace)
-    .join('_')
-    .toLowerCase();
+  return words.map((word) => word.toLowerCase()).join('_') as TSnakeCase<T>;
 };

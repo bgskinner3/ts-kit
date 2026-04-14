@@ -22,16 +22,6 @@ export function highlight(
   return `${ANSI_COLOR_CODES[colorCode]}${text}${ANSI_COLOR_CODES.reset}`;
 }
 
-/** Common terminal color mappings */
-export const logTypeHighlighters: THighlighterMap = {
-  log: (t) => highlight(t, 'yellow'),
-  info: (t) => highlight(t, 'cyan'),
-  error: (t) => highlight(t, 'red'),
-  debug: (t) => highlight(t, 'magenta'),
-  warn: (t) => highlight(t, 'yellow'),
-  table: (t) => t,
-};
-
 /**
  * Safely serializes any value into a readable string.
  *
@@ -193,7 +183,14 @@ export const logDev = (options: TLogOptions, ...args: unknown[]) => {
     console.table(tableData.flat());
     return;
   }
-
+  const logTypeHighlighters: THighlighterMap = {
+    log: (t) => highlight(t, 'yellow'),
+    info: (t) => highlight(t, 'cyan'),
+    error: (t) => highlight(t, 'red'),
+    debug: (t) => highlight(t, 'magenta'),
+    warn: (t) => highlight(t, 'yellow'),
+    table: (t) => t,
+  };
   const highlighter = logTypeHighlighters[type];
   const messages = args.map((msg) => {
     let text = isObject(msg) ? serialize(msg) : String(msg);
