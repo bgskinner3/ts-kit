@@ -1,32 +1,19 @@
 import type { TPrettify } from '../../primitives';
 /**
- * TDeepMap: Recursive Type Transformation Utility
+ * @utilType type
+ * @name TDeepMap
+ * @category Types Object
+ * @description Recursively traverses a data structure and replaces all occurrences of one type with another.
+ * @link #tdeepmap
+ *
+ * ## 🌳 TDeepMap — Recursive Type Transformation
  *
  * Deeply traverses an object, interface, or array and replaces all
- * occurrences of one type (From) with another (To).
+ * occurrences of one type (`From`) with another (`To`).
  *
- * @template T - The data structure to traverse (Object, Array, or Primitive)
- * @template From - The type to search for (e.g., bigint)
- * @template To - The type to replace it with (e.g., number)
- *
- * @example
- * interface TApiResponse {
- *   id: string;
- *   balance: bigint;
- *   history: { amount: bigint; timestamp: number }[];
- *   metadata: { supply: { total: bigint; circulating: bigint } };
- * }
- *
- * // Recursively convert every bigint in the response to a number for frontend use
- * type TNormalizedResponse = TDeepMap<TApiResponse, bigint, number>;
- *
- * // Resulting shape:
- * // {
- * //   id: string;
- * //   balance: number;
- * //   history: { amount: number; timestamp: number }[];
- * //   metadata: { supply: { total: number; circulating: number } };
- * // }
+ * @template T - The structure to traverse.
+ * @template From - The type to find.
+ * @template To - The type to replace it with.
  */
 type TDeepMap<T, From, To> = T extends From
   ? To
@@ -37,22 +24,18 @@ type TDeepMap<T, From, To> = T extends From
       : T;
 
 /**
- * TDeepWriteable: Recursive Mutability Utility
+ * @utilType type
+ * @name TDeepWriteable
+ * @category Types Object
+ * @description Recursively removes the 'readonly' modifier from all properties, including nested objects and arrays.
+ * @link #tdeepwriteable
  *
- * Removes the 'readonly' modifier from all properties within an object,
- * including nested objects and arrays. It effectively converts a
- * deeply immutable type into a mutable one.
+ * ## ✏️ TDeepWriteable — Recursive Mutability Utility
  *
- * @template T - The type to make mutable
+ * Converts a deeply immutable type into a mutable one. It handles nested
+ * objects, arrays, and preserves specialized types like Dates and RegExps.
  *
- * @example
- * interface ImmutableUser {
- *   readonly id: string;
- *   readonly profile: { readonly bio: string };
- * }
- *
- * // Result: { id: string; profile: { bio: string } }
- * type MutableUser = TDeepWriteable<ImmutableUser>;
+ * @template T - The type to make mutable.
  */
 type TDeepWriteable<T> = T extends (...args: never[]) => unknown
   ? T
@@ -62,21 +45,19 @@ type TDeepWriteable<T> = T extends (...args: never[]) => unknown
       ? { -readonly [K in keyof T]: TDeepWriteable<T[K]> }
       : T;
 /**
- * TDeepBigIntToNumber — Recursive BigInt Normalization
+ * @utilType type
+ * @name TDeepBigIntToNumber
+ * @category Types Object
+ * @description Specialized deep mapper that converts all bigint types to number for JSON serialization safety.
+ * @link #tdeepbiginttonumber
  *
- * Traverses a data structure and maps all `bigint` types to `number`.
+ * ## 🔄 TDeepBigIntToNumber — Recursive BigInt Normalization
  *
- * Since the JSON specification does not support BigInt, this utility is
- * essential for preparing data for `JSON.stringify()`, network transmission,
- * or frontend consumption where `number` is the expected primitive.
+ * Traverses a structure and maps all `bigint` types to `number`. This is
+ * essential for preparing database results for `JSON.stringify()` or
+ * frontend consumption.
  *
- * @template T - The structure (Object, Array, or Primitive) to normalize
- *
- * @example
- * type DBResult = { id: bigint; tags: bigint[]; metadata: { size: bigint } };
- *
- * // Result: { id: number; tags: number[]; metadata: { size: number } }
- * type APIPayload = TDeepBigIntToNumber<DBResult>;
+ * @template T - The structure to normalize.
  */
 type TDeepBigIntToNumber<T> = T extends bigint
   ? number
@@ -86,22 +67,16 @@ type TDeepBigIntToNumber<T> = T extends bigint
       ? { [K in keyof T]: TDeepBigIntToNumber<T[K]> }
       : T;
 /**
- * TRecursivePartial: Deep Optional Utility
+ * @utilType type
+ * @name TRecursivePartial
+ * @category Types Object
+ * @description Recursively makes every property in an object, including nested structures and arrays, optional.
+ * @link #trecursivepartial
+ *
+ * ## 🧩 TRecursivePartial — Deep Optional Utility
  *
  * Makes every property in an object—and all nested objects/arrays—optional.
- * This is ideal for defining partial updates for complex state trees or
- * configuration overrides.
- *
- * @template T - The source interface or type
- *
- * @example
- * interface AppConfig {
- *   theme: { colors: { primary: string; secondary: string } };
- *   enabled: boolean;
- * }
- *
- * // Result: { theme?: { colors?: { primary?: string; secondary?: string } }; enabled?: boolean }
- * type PartialConfig = TRecursivePartial<AppConfig>;
+ * Ideal for defining partial updates for complex state trees or configuration overrides.
  */
 type TRecursivePartial<T> = T extends (...args: never[]) => unknown
   ? T
@@ -111,24 +86,17 @@ type TRecursivePartial<T> = T extends (...args: never[]) => unknown
       ? { [P in keyof T]?: TRecursivePartial<T[P]> }
       : T;
 /**
- * TRecursiveRequired: Deep Requirement Utility
+ * @utilType type
+ * @name TRecursiveRequired
+ * @category Types Object
+ * @description Recursively removes the optional '?' modifier from every property level, ensuring the structure is fully populated.
+ * @link #trecursiverequired
  *
- * The inverse of TRecursivePartial. It recursively removes the optional ('?')
- * modifier from every property level, ensuring the entire structure is fully
- * populated. It safely bypasses functions to avoid breaking method signatures.
+ * ## 🔒 TRecursiveRequired — Deep Requirement Utility
  *
- * @template T - The type containing optional properties
- *
- * @example
- * interface UserProfile {
- *   name?: string;
- *   settings?: { notifications?: boolean };
- * }
- *
- * // Result: { name: string; settings: { notifications: boolean } }
- * type StrictProfile = TRecursiveRequired<UserProfile>;
+ * The inverse of TRecursivePartial. It ensures the entire structure is fully
+ * populated while safely bypassing functions to avoid breaking method signatures.
  */
-
 type TRecursiveRequired<T> = T extends (...args: never[]) => unknown
   ? T
   : T extends Array<infer U>
@@ -138,23 +106,16 @@ type TRecursiveRequired<T> = T extends (...args: never[]) => unknown
       : T;
 
 /**
- * TRecursiveReadonly: Deep Immutability Utility
+ * @utilType type
+ * @name TRecursiveReadonly
+ * @category Types Object
+ * @description Recursively applies the 'readonly' modifier to every property of an object and its children.
+ * @link #trecursivereadonly
+ *
+ * ## 🛡️ TRecursiveReadonly — Deep Immutability Utility
  *
  * Recursively applies the 'readonly' modifier to every property of an object,
- * including nested objects and arrays. It ensures that the entire data
- * structure becomes immutable. Functions are preserved as-is.
- *
- * @template T - The type to make recursively readonly
- *
- * @example
- * interface User {
- *   id: number;
- *   profile: { bio: string };
- *   tags: string[];
- * }
- *
- * // Result: { readonly id: number; readonly profile: { readonly bio: string }; readonly tags: ReadonlyArray<string> }
- * type ReadonlyUser = TRecursiveReadonly<User>;
+ * including nested objects and arrays, ensuring the entire structure is immutable.
  */
 type TRecursiveReadonly<T> = T extends (...args: unknown[]) => unknown
   ? T
@@ -165,27 +126,17 @@ type TRecursiveReadonly<T> = T extends (...args: unknown[]) => unknown
       : T;
 
 /**
- * TNonNullableDeep: Strict Null-Removal Utility
+ * @utilType type
+ * @name TNonNullableDeep
+ * @category Types Logic
+ * @description Recursively removes 'null' and 'undefined' from every property in an object tree.
+ * @link #tnonnullabledeep
  *
- * Traverses an object tree and removes 'null' and 'undefined' from every
- * property value. This is useful for sanitizing API responses or
- * ensuring a data structure is fully initialized before use.
+ * ## 🧹 TNonNullableDeep — Strict Null-Removal Utility
  *
- * @template T - The type containing nullable or undefined values
- *
- * @example
- * interface APIResponse {
- *   data: { id: string | null; meta?: { count: number | undefined } };
- * }
- *
- * // Result: { data: { id: string; meta: { count: number } } }
- * type CleanResponse = TNonNullableDeep<APIResponse>;
+ * Traverses an object tree and removes 'null' and 'undefined'. This also forces
+ * optional properties to be required and defined.
  */
-// type TNonNullableDeep<T> = {
-//   [P in keyof T]: NonNullable<T[P]> extends object
-//     ? TNonNullableDeep<NonNullable<T[P]>>
-//     : NonNullable<T[P]>;
-// };
 type TNonNullableDeep<T> = TPrettify<{
   // The '-?' ensures optional properties are made required AND non-nullable
   [P in keyof T]-?: NonNullable<T[P]> extends object
@@ -194,20 +145,16 @@ type TNonNullableDeep<T> = TPrettify<{
 }>;
 
 /**
- * TNormalizeValue — Recursive BigInt-to-Number Normalizer
+ * @utilType type
+ * @name TNormalizeValue
+ * @category Types Logic
+ * @description Recursively converts all bigint values into numbers to prepare structures for JSON serialization.
+ * @link #tnormalizevalue
+ *
+ * ## 🔄 TNormalizeValue — Recursive BigInt-to-Number Normalizer
  *
  * Deeply traverses an input structure and converts all `bigint` values into `number`.
- *
- * This utility is critical for "Stage-2" data preparation before JSON serialization,
- * as the standard `JSON.stringify` will throw a TypeError when encountering BigInts.
- *
- * @template T - The structure (Primitive, Array, or Object) to normalize.
- *
- * @example
- * type RawStats = { count: bigint; history: bigint[]; metadata: { id: bigint } };
- *
- * // Result: { count: number; history: number[]; metadata: { id: number } }
- * type SerializedStats = TNormalizeValue<RawStats>;
+ * Critical for preventing TypeErrors during `JSON.stringify`.
  */
 type TNormalizeValue<T> = T extends bigint
   ? number
@@ -218,15 +165,21 @@ type TNormalizeValue<T> = T extends bigint
       : T;
 
 /**
- * TNormalizedBigIntToNumber — Mapped Object Normalization
+ * @utilType type
+ * @name TNormalizedBigIntToNumber
+ * @category Types Logic
+ * @description Internal mapped type helper that applies TNormalizeValue recursively across object keys.
+ * @link #tnormalizedbiginttonumber
+ *
+ * ## 🛠️ TNormalizedBigIntToNumber — Mapped Normalization Helper
  *
  * A supporting mapped type that applies `TNormalizeValue` recursively across
  * all keys of an object.
  *
- * @template T - The object structure to iterate over.
- *
  * @note This is an internal structural helper for `TNormalizeValue`. Use
  * `TNormalizeValue` as the primary entry point for general data structures.
+ *
+ * @template T - The object structure to iterate over.
  */
 type TNormalizedBigIntToNumber<T> = {
   [K in keyof T]: TNormalizeValue<T[K]>;

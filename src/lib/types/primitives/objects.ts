@@ -1,49 +1,52 @@
 /**
- * TUnpackObject: Property Value Extractor
+ * @utilType type
+ * @name TUnpackObject
+ * @category Types Object
+ * @description Extracts a union of all possible property values from an object, interface, or array.
+ * @link #tunpackobject
  *
- * Extracts a union of all possible property values from an object or interface.
- * Useful for creating types based on the data contained within a map.
+ * ## 📦 TUnpackObject — Property Value Extractor
  *
- * @template T - The source object type
+ * Extracts a union of all values contained within an object or array.
+ * Perfect for creating types based on the data within a constant map or config object.
  *
- * @example
- * const Colors = { primary: '#f00', secondary: '#0f0' } as const;
- * // Result: '#f00' | '#0f0'
- * type ColorValues = TUnpackObject<typeof Colors>;
+ * @template T - The source object or array type.
  */
 type TUnpackObject<T> =
   T extends Array<infer U> ? U : T extends object ? T[keyof T] : never;
 
 /**
- * TWriteable: Shallow Mutability Utility
+ * @utilType type
+ * @name TWriteable
+ * @category Types Object
+ * @description Removes the 'readonly' modifier from the top-level properties of a type to allow mutation.
+ * @link #twriteable
  *
- * Removes the 'readonly' modifier from the top-level properties of a type.
- * Unlike TDeepWriteable, this only affects the immediate keys of the object.
+ * ## ✏️ TWriteable — Shallow Mutability Utility
  *
- * @template T - The type to make mutable
+ * Removes the `readonly` constraint from the immediate keys of an object.
+ * This allows you to modify properties on an object that was previously marked as immutable.
  *
- * @example
- * interface User { readonly id: string; name: string; }
- * // Result: { id: string; name: string; }
- * type MutableUser = TWriteable<User>;
+ * @template T - The type to make mutable.
  */
 type TWriteable<T> = {
   -readonly [P in keyof T]: T[P];
 };
 
 /**
- * TEnsure: Selective Requirement Utility
+ * @utilType type
+ * @name TEnsure
+ * @category Types Object
+ * @description Makes a specific subset of optional keys required while preserving the rest of the object structure.
+ * @link #tensure
  *
- * Takes a type and makes a specific subset of its keys (K) required,
- * while leaving the rest of the object structure untouched.
+ * ## 🔒 TEnsure — Selective Requirement Utility
  *
- * @template T - The source type
- * @template K - The keys to be made required
+ * Takes a type and forces specific keys (`K`) to be required. This is highly
+ * useful for validation layers where you know certain optional fields have been filled.
  *
- * @example
- * interface Post { title?: string; body?: string; id: number; }
- * // Result: { title: string; body?: string; id: number; }
- * type ValidatedPost = TEnsure<Post, 'title'>;
+ * @template T - The source type.
+ * @template K - The keys to be made required.
  */
 type TEnsure<T, K extends keyof T> = Omit<T, K> & Required<Pick<T, K>>;
 

@@ -15,6 +15,21 @@ import {
 } from '../../types';
 import { ArrayUtils } from '../common';
 
+/**
+ * @utilType util
+ * @name highlight
+ * @category Debug
+ * @description Wraps text in ANSI color codes for stylized terminal output.
+ * @link #highlight
+ *
+ * ## 🖍️ highlight — Terminal Text Colorizer
+ *
+ * Applies ANSI color codes to a string for readable console logging.
+ *
+ * @param text - The content to colorize.
+ * @param colorCode - The color key (e.g., 'yellow', 'red', 'cyan').
+ * @returns The color-wrapped string.
+ */
 export function highlight(
   text: string,
   colorCode: keyof typeof ANSI_COLOR_CODES = 'yellow',
@@ -23,16 +38,19 @@ export function highlight(
 }
 
 /**
- * Safely serializes any value into a readable string.
+ * @utilType util
+ * @name serialize
+ * @category Debug
+ * @description Safely serializes any value, including BigInts and circular structures, into a pretty-printed string.
+ * @link #serialize
  *
- * - Handles objects, BigInts, and circular structures gracefully.
- * - Pretty-prints JSON for readability.
+ * ## 🗂️ serialize — Safe Data Stringifier
  *
- * @example
- * ```ts
- * DebugUtils.serialize({ foo: 'bar' });
- * // => "{\n  \"foo\": \"bar\"\n}"
- * ```
+ * Converts values into readable JSON. Gracefully handles types that normally
+ * break `JSON.stringify`, like BigInts, and provides clean indentation.
+ *
+ * @param data - The value to serialize.
+ * @returns A formatted string representation.
  */
 export const serialize = (data: unknown): string => {
   if (isUndefined(data)) return '';
@@ -50,21 +68,16 @@ export const serialize = (data: unknown): string => {
 };
 
 /**
- * UTIL LOCATION: DEBUG UTILS
+ * @utilType util
+ * @name getCallerLocation
+ * @category Debug
+ * @description Parses the stack trace to identify the file, line, and column of the calling function.
+ * @link #getcallerlocation
  *
+ * ## 📍 getCallerLocation — Stack Trace Tracer
  *
- * Retrieves the caller's location (file, line, and column) from the stack trace.
- *
- * Useful for logging, debugging, and tracing where a function was called from.
- *
- * It works by inspecting `Error().stack` and extracting relevant frames.
- *
- * @param preferredIndex - The zero-based stack frame index to prioritize (default: 3).
- * @param fallbackIndex - The fallback frame index if the preferred frame doesn’t exist (default: 2).
- * @param topParent - If `true`, returns the top-most relevant stack frame in your code (skipping `node_modules`).
- * @param stripPathPrefix - If provided, removes this prefix (e.g., your project root path) from the returned string.
- *
- * @returns A string describing the caller’s location, e.g. `"src/utils/core/debug.ts:42:15"`.
+ * Retrieves the caller's location (file, line, and column).
+ * Useful for automated logging, debugging, and identifying the origin of specific operations.
  *
  * @example
  * ```ts
@@ -125,30 +138,30 @@ export const getCallerLocation = (
 };
 
 /**
- * Logs messages to the console **only in development environment** unless overridden.
- * Supports standard log types ('log', 'warn', 'error', 'info', 'debug') as well as
- * table logging for structured data.
+ * @utilType util
+ * @name logDev
+ * @category Debug
+ * @description Environment-aware logger that restricts output to development mode, supports semantic log types, and auto-formats table data.
+ * @link #logdev
  *
- * @remarks
- * - If the first argument matches a log type in `LOG_TYPES`, it is treated as the type.
- * - Table logs are automatically formatted if the items contain a `current` array of objects.
- * - Each message is stringified if it is an object.
- * - Optional highlighters can be applied via `logTypeHighlighters`.
+ * ## 🚀 logDev — Environment-Safe Logger
  *
- * @param options - Configuration options for this log call
- * @param options.enabled - Whether this log should be enabled (default: true)
- * @param options.overrideDev - Force logging even in production (default: false)
- * @param args - Messages to log. If the first item is a log type string, it is used as the type.
+ * Logs messages to the console **only in development** unless explicitly overridden.
+ * It acts as a smart wrapper around `console`, providing:
+ * - **Semantic Types**: Supports 'info', 'warn', 'error', 'debug', and 'table'.
+ * - **Auto-Serialization**: Automatically runs `serialize()` on objects and BigInts.
+ * - **Table Formatting**: Specialized handling for structured timing/performance data.
+ * - **ANSI Highlighting**: Color-codes output based on the log type for better visibility.
+ *
+ * @param options.enabled - Toggle logging off for specific calls.
+ * @param options.overrideDev - Force the log to show in production (use sparingly).
+ * @param args - The data to log. If the first argument is a `TLogType`, it sets the console method.
  *
  * @example
  * ```ts
- * logDev({}, 'info', 'Server started on port', 3000);
- *
- * logDev({ overrideDev: true }, 'error', new Error('Something failed'));
- *
- * logDev({}, 'table', { current: [{ key: 'task1', start: 0, end: 120 }] });
+ * logDev({}, 'info', 'App initialized');
+ * logDev({ overrideDev: true }, 'error', 'Critical production failure');
  * ```
- *
  */
 export const logDev = (options: TLogOptions, ...args: unknown[]) => {
   const isDev = process.env.NODE_ENV !== 'production';

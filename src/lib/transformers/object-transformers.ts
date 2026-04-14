@@ -1,29 +1,12 @@
 import { ObjectUtils, ArrayUtils } from '../common';
 import { capitalizeString } from './string-transformers';
 /**
- * ## 🔑 generateKeyMap — Create a Typed Key Transformation Map
+ * @utilType util
+ * @name generateKeyMap
+ * @category Object Transformers
+ * @description Creates a typed mapping of original keys to transformed strings using a prefix/suffix pattern.
+ * @link #generatekeymap
  *
- * Generates an object mapping original keys to transformed string values
- * using an optional **prefix** and required **suffix**.
- *
- * This is useful when generating standardized property names such as
- * getter/setter names, CSS class maps, or API field mappings.
- *
- * ---
- *
- * ### ⚙️ Behavior
- * - Iterates through the provided `keys` array.
- * - Builds a new string for each key using:
- *   - Optional `prefix`
- *   - Capitalized original key
- *   - Required `suffix`
- * - Returns a **fully typed mapping object** where:
- *
- * ```
- * key -> transformedValue
- * ```
- *
- * ---
  *
  * ### 📘 Example
  *
@@ -42,10 +25,6 @@ import { capitalizeString } from './string-transformers';
  * ```
  *
  * ---
- *
- * @typeParam K - Keys to transform
- * @typeParam P - Optional prefix string
- * @typeParam S - Required suffix string
  */
 export const generateKeyMap = <
   K extends string,
@@ -75,15 +54,11 @@ export const generateKeyMap = <
   >;
 };
 /**
- * ## 🗂️ toKeyByField — Convert Array to Keyed Object
- *
- * Converts an array of objects into a **record keyed by a specific field**.
- *
- * The specified key field becomes the **object key**, and the remaining
- * properties are preserved as the value.
- *
- * This is useful for quickly creating lookup tables from API responses
- * or normalized datasets.
+ * @utilType util
+ * @name toKeyByField
+ * @category Object Transformers
+ * @description Normalizes an array of objects into a record keyed by a specific field.
+ * @link #tokeybyfield
  *
  * ---
  *
@@ -103,11 +78,6 @@ export const generateKeyMap = <
  * //   2: { name: 'Bob' }
  * // }
  * ```
- *
- * ---
- *
- * @param rows - Array of objects to transform
- * @param keyField - Property used as the object key
  */
 export const toKeyByField = <
   RowType extends Record<Key, string | number | symbol>,
@@ -125,13 +95,11 @@ export const toKeyByField = <
   ) satisfies Record<RowType[Key], Omit<RowType, Key>>;
 };
 /**
- * ## 🔠 capitalizeArray — Capitalize All Strings in an Array
- *
- * Transforms every string in an array so that the **first letter is capitalized**.
- *
- * Uses the `capitalizeString` utility internally and preserves the
- * literal type relationship using `Capitalize<T>`.
- *
+ * @utilType util
+ * @name capitalizeArray
+ * @category Object Transformers
+ * @description Capitalizes the first letter of every string in an array.
+ * @link #capitalizearray
  * ---
  *
  * ### 📘 Example
@@ -142,25 +110,16 @@ export const toKeyByField = <
  * // Result:
  * // ['Name', 'Email']
  * ```
- *
- * ---
- *
- * @param arr - Array of strings to capitalize
  */
 export const capitalizeArray = <T extends string>(
   arr: readonly T[],
 ): Capitalize<T>[] => ArrayUtils.map(arr, capitalizeString);
 /**
- * ## 🔠 capitalizedKeys — Get Capitalized Object Keys
- *
- * Extracts keys from an object and returns them as an array of
- * **capitalized strings**.
- *
- * Only keys that **start with a letter** are included.
- *
- * This is useful when generating UI labels, enum-like lists,
- * or metadata from object shapes.
- *
+ * @utilType util
+ * @name capitalizedKeys
+ * @category Object Transformers
+ * @description Extracts and capitalizes an object's keys, filtering for those starting with letters.
+ * @link #capitalizedkeys
  * ---
  *
  * ### 📘 Example
@@ -176,10 +135,6 @@ export const capitalizeArray = <T extends string>(
  * // Result:
  * // ['Id', 'Name']
  * ```
- *
- * ---
- *
- * @param obj - Object whose keys should be capitalized
  */
 export const capitalizedKeys = <T extends Record<string, unknown>>(
   obj: T,

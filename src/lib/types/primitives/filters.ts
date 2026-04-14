@@ -1,16 +1,24 @@
 /**
- * TFilterKeysByValue: Type-Based Key Selector
+ * @utilType type
+ * @name TFilterKeysByValue
+ * @category Types Filters Primitive
+ * @description Extracts only the keys of an object whose values match a specific type.
+ * @link #tfilterkeysbyvalue
  *
- * Extracts only the keys of an object that match a specific value type.
- * Useful for filtering objects to find all "string" keys or all "number" keys.
+ * ## 🔑 TFilterKeysByValue — Type-Based Key Selector
  *
- * @template T - The source object type
- * @template U - The value type to filter by
+ * Scans an interface or object type and returns a union of keys that match the
+ * provided value type `U`.
+ *
+ * @template T - The source object type.
+ * @template U - The value type to filter by (e.g., string, number).
  *
  * @example
+ * ```ts
  * interface Profile { id: number; bio: string; age: number; }
- * // Result: 'id' | 'age'
  * type NumericKeys = TFilterKeysByValue<Profile, number>;
+ * // → 'id' | 'age'
+ * ```
  */
 type TFilterKeysByValue<T, U> = {
   // The "-?" strips the optionality during the mapping phase
@@ -18,18 +26,26 @@ type TFilterKeysByValue<T, U> = {
 }[keyof T];
 
 /**
- * TStripType: Type-Based Property Filter
+ * @utilType type
+ * @name TStripType
+ * @category Types Filters Primitive
+ * @description Creates a new type by removing all properties that match a specific value type.
+ * @link #tstriptype
  *
- * Creates a new type by excluding all properties that match a specific value type.
- * This is the inverse of PickByType.
+ * ## ✂️ TStripType — Type-Based Property Filter
  *
- * @template T - The source object type
- * @template U - The value type to remove
+ * The inverse of a selective "Pick". It creates a new object type by excluding
+ * any properties where the value extends type `U`.
+ *
+ * @template T - The source object type.
+ * @template U - The value type to remove.
  *
  * @example
+ * ```ts
  * interface Todo { id: string; completed: boolean; createdAt: Date; }
- * // Result: { id: string; createdAt: Date; }
- * type HideFlags = TStripType<Todo, boolean>;
+ * type WithoutBooleans = TStripType<Todo, boolean>;
+ * // → { id: string; createdAt: Date; }
+ * ```
  */
 type TStripType<T, U> = {
   [K in keyof T as T[K] extends U ? never : K]: T[K];

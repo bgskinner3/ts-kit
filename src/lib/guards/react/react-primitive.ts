@@ -18,12 +18,11 @@ const hasReactSymbol = (value: unknown, symbol: symbol): boolean =>
   isKeyInObject('$$typeof')(value) && value.$$typeof === symbol;
 
 /**
- * ## 🧩 isRef — Type Guard for React Refs
- *
- * Validates if a value is a valid React Ref, covering both **Functional (Callback) Refs**
- * and **Object Refs** (created via `useRef` or `createRef`).
- *
- * ---
+ * @utilType Guard
+ * @name isRef
+ * @category Guards React
+ * @description Validates if a value is a valid React Ref, covering both Callback Refs and Object Refs (createRef/useRef).
+ * @link #isref
  *
  * ### 📘 Example Usage
  * ```ts
@@ -38,12 +37,11 @@ export const isRef = <T>(value: unknown): value is Ref<T> =>
   (isFunction(value) || (isObject(value) && 'current' in value));
 
 /**
- * ## 🧩 isRefObject — Type Guard for Persistent Ref Objects
- *
- * Specifically checks if a value is a `RefObject` (an object containing a `.current` property).
- * This effectively narrows the type away from Callback Refs.
- *
- * ---
+ * @utilType Guard
+ * @name isRefObject
+ * @category Guards React
+ * @description Specifically narrows a Ref type to an object containing a .current property (RefObject).
+ * @link #isrefobject
  *
  * ### 📘 Example Usage
  * ```ts
@@ -57,12 +55,11 @@ export const isRefObject = <T>(ref: Ref<T>): ref is RefObject<T | null> =>
   !isNull(ref) && isObject(ref) && 'current' in ref;
 
 /**
- * ## 🧩 isPromise — Type Guard for Async Thenables
- *
- * Checks if a value is a `Promise` or a "Thenable" object by validating
- * the existence of a `.then()` method.
- *
- * ---
+ * @utilType Guard
+ * @name isPromise
+ * @category Guards Core
+ * @description Checks if a value is a Promise or a "Thenable" by validating the existence of a .then() method.
+ * @link #ispromise
  *
  * ### 📘 Example Usage
  * ```ts
@@ -75,10 +72,11 @@ export const isPromise = <T>(value: unknown): value is Promise<T> =>
   !!value && isKeyInObject('then')(value) && isFunction(value.then);
 
 /**
- * ## 🧩 isReactPortal — Type Guard for Portals
- *
- * Checks if a value is a `ReactPortal` created via `ReactDOM.createPortal`.
- * Validates the existence of the internal `containerInfo` property.
+ * @utilType Guard
+ * @name isReactPortal
+ * @category Guards React
+ * @description Validates if a value is a ReactPortal created via ReactDOM.createPortal.
+ * @link #isreactportal
  */
 export const isReactPortal: TTypeGuard<ReactPortal> = (
   value: unknown,
@@ -86,10 +84,11 @@ export const isReactPortal: TTypeGuard<ReactPortal> = (
   isObject(value) && isKeyInObject('containerInfo')(value);
 
 /**
- * ## 🧩 hasChildren — Type Guard for Prop Objects with Children
- *
- * Validates if an object contains a defined `children` property.
- * Useful for verifying props in HOCs or wrapper components.
+ * @utilType Guard
+ * @name hasChildren
+ * @category Guards React
+ * @description Validates if a props object contains a defined children property.
+ * @link #haschildren
  */
 export const hasChildren = (value: unknown): value is { children: ReactNode } =>
   isObject(value) &&
@@ -97,10 +96,11 @@ export const hasChildren = (value: unknown): value is { children: ReactNode } =>
   isDefined(value.children);
 
 /**
- * ## 🧩 isComponentType — Type Guard for React Components
- *
- * Determines if a value is a valid React Component (Function Component or Class Component).
- * For classes, it validates the existence of a `render` method on the prototype.
+ * @utilType Guard
+ * @name isComponentType
+ * @category Guards React
+ * @description Determines if a value is a valid React Component (Function or Class Component).
+ * @link #iscomponenttype
  */
 export const isComponentType: TTypeGuard<ComponentType<unknown>> = (
   value: unknown,
@@ -111,10 +111,11 @@ export const isComponentType: TTypeGuard<ComponentType<unknown>> = (
     isKeyInObject('render')(value.prototype) &&
     isFunction(value.prototype.render));
 /**
- * ## 🧩 isForwardRef — Type Guard for ForwardRef Components
- *
- * Validates if a component is wrapped in `React.forwardRef` by checking
- * the internal `$$typeof` symbol.
+ * @utilType Guard
+ * @name isForwardRef
+ * @category Guards React
+ * @description Validates if a component is wrapped in React.forwardRef.
+ * @link #isforwardref
  */
 export const isForwardRef: TTypeGuard<ForwardRefExoticComponent<object>> = (
   value: unknown,

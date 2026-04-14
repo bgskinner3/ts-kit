@@ -13,49 +13,45 @@ import { isUndefined } from './reference';
 import { isArrayOf } from './composite';
 
 /**
- * Checks if the value is a camelCase string.
- *
- * By default, this checks that:
- * - The string starts with a lowercase letter
- * - Only contains alphanumeric characters
- * - No separators like `_`, `-`, or spaces
- *
- * You can think of this in terms of the `TCamelCase` type:
- * ```ts
- * type Example = TCamelCase<'my-variable'>; // 'myVariable'
- * ```
- *
- * Optionally, camelCase strings may preserve consecutive uppercase letters
- * using `TCamelCaseOptions['preserveConsecutiveUppercase']`. For example:
- * ```ts
- * type Example1 = TCamelCase<'FOO-BAR'>; // 'fooBAR' if preserveConsecutiveUppercase = true
- * type Example2 = TCamelCase<'FOO-BAR', { preserveConsecutiveUppercase: false }>; // 'fooBar'
- * ```
- *
- * @example
- * ```ts
- * TypeGuardUtils.isCamelCase('myVariable'); // true
- * TypeGuardUtils.isCamelCase('myVariable2'); // true
- * TypeGuardUtils.isCamelCase('MyVariable'); // false (starts with uppercase)
- * TypeGuardUtils.isCamelCase('my_variable'); // false (contains underscore)
- * TypeGuardUtils.isCamelCase('fooBAR'); // true if preserveConsecutiveUppercase is considered
- * ```
+ * @utilType Guard
+ * @name isCamelCase
+ * @category Guards String
+ * @description Validates if a string follows camelCase naming conventions.
+ * @link #iscamelcase
  */
 export const isCamelCase: TTypeGuard<TCamelCase<string>> = (
   value,
 ): value is TCamelCase<string> =>
   typeof value === 'string' && REGEX_CONSTANTS.camelCase.test(value);
-
+/**
+ * @utilType Guard
+ * @name isSnakeCase
+ * @category Guards String
+ * @description Validates if a string follows snake_case naming conventions.
+ * @link #issnakecase
+ */
 export const isSnakeCase: TTypeGuard<TSnakeCase<string>> = (
   value,
 ): value is TSnakeCase<string> =>
   typeof value === 'string' && REGEX_CONSTANTS.snakeCase.test(value);
-
+/**
+ * @utilType Guard
+ * @name isKebabCase
+ * @category Guards String
+ * @description Validates if a string follows kebab-case naming conventions.
+ * @link #iskebabcase
+ */
 export const isKebabCase: TTypeGuard<TKebabCase<string>> = (
   value,
 ): value is TKebabCase<string> =>
   typeof value === 'string' && REGEX_CONSTANTS.kebabCase.test(value);
-
+/**
+ * @utilType Guard
+ * @name isJSONArrayString
+ * @category Guards String
+ * @description Verifies if a string is a valid JSON-serialized array.
+ * @link #isjsonarraystring
+ */
 export const isJSONArrayString: TTypeGuard<TJSONArrayString> = (
   value: unknown,
 ): value is TJSONArrayString => {
@@ -66,7 +62,13 @@ export const isJSONArrayString: TTypeGuard<TJSONArrayString> = (
     return false;
   }
 };
-
+/**
+ * @utilType Guard
+ * @name isJSONObjectString
+ * @category Guards String
+ * @description Verifies if a string is a valid JSON-serialized object.
+ * @link #isjsonobjectstring
+ */
 export const isJSONObjectString: TTypeGuard<TJSONObjectString> = (
   value: unknown,
 ): value is TJSONObjectString => {
@@ -80,6 +82,14 @@ export const isJSONObjectString: TTypeGuard<TJSONObjectString> = (
     return false;
   }
 };
+
+/**
+ * @utilType Guard
+ * @name isHTMLString
+ * @category Guards String
+ * @description Checks if a string contains HTML tags using regex detection.
+ * @link #ishtmlstring
+ */
 export const isHTMLString: TTypeGuard<string> = (
   value: unknown,
 ): value is string => {
@@ -87,18 +97,11 @@ export const isHTMLString: TTypeGuard<string> = (
 };
 
 /**
- * Checks whether a string is a valid hexadecimal representation.
- *
- * A hexadecimal string consists of characters 0–9, a–f, or A–F,
- * and is often used for binary data encoding, color codes, cryptographic hashes, etc.
- *
- * Key points:
- * - The value must be a non-empty string.
- * - Only characters `[0-9a-fA-F]` are allowed.
- * - The length must be even, unless `expectedLength` is provided.
- * - If `expectedLength` is specified, the string must match that exact length.
- * - Returns a TypeScript type guard, so it narrows the type to `string` when used.
- *
+ * @utilType Guard
+ * @name isHexByteString
+ * @category Guards String
+ * @description Factory that creates a guard to validate if a string is a valid hex byte string, optionally enforcing length.
+ * @link #ishexbytestring
  * Example usage:
  * ```ts
  * isHexString("0a1b2c"); // true
@@ -106,17 +109,6 @@ export const isHTMLString: TTypeGuard<string> = (
  * isHexString("0a1b2c", 6); // true
  * isHexString("0a1b2c", 8); // false (length mismatch)
  * ```
- *
- * Use case:
- * - Validating inputs for cryptographic functions.
- * - Ensuring a string is a valid hex color code.
- * - Checking serialized binary data in hexadecimal format.
- *
- * @param value - The value to check.
- * @param expectedLength - Optional length the hex string must match exactly.
- * @returns `true` if `value` is a valid hexadecimal string; otherwise `false`.
- *
- * @typeParam T - N/A
  */
 export const isHexByteString = (
   expectedLength?: number,
@@ -132,49 +124,22 @@ export const isHexByteString = (
 };
 
 /**
- * Checks whether a string contains valid JSON.
- *
- * This type guard ensures that:
- * - The value is a non-empty string.
- * - The string can be parsed successfully using `JSON.parse()`.
- *
- * Key points:
- * - Returns a TypeScript type guard, narrowing the type to `string`.
- * - Invalid JSON or non-string values return `false`.
- * - Useful for validating dynamic input or API responses.
- *
- * Example usage:
- * ```ts
- * isJsonString('{"foo": 1}'); // true
- * isJsonString('["a", "b"]'); // true
- * isJsonString('not json');   // false
- * isJsonString('');           // false
- * ```
- *
- * Use case:
- * - Safely validate strings before parsing them as JSON.
- * - Guard input data in APIs, configuration files, or user inputs.
- *
- * @param value - The value to validate.
- * @returns `true` if `value` is a string containing valid JSON; otherwise `false`.
+ * @utilType Guard
+ * @name isJsonString
+ * @category Guards String
+ * @description Validates if a string is a valid JSON-serialized array or object.
+ * @link #isjsonstring
  */
 export const isJsonString: TTypeGuard<TJSONDataString> = (
   value: unknown,
 ): value is TJSONDataString =>
   isJSONArrayString(value) || isJSONObjectString(value);
 /**
- * Type guard to check if a value is a string representing a hex color.
- *
- * Supports:
- * - 3-digit hex colors, e.g., "#ABC"
- * - 6-digit hex colors, e.g., "#AABBCC"
- *
- * Example:
- * ```ts
- * if (isHexColor("#fff")) {
- *   // TypeScript knows this is a string and a valid hex color
- * }
- * ```
+ * @utilType Guard
+ * @name isHexColor
+ * @category Guards Color
+ * @description Validates if a string is a valid 3 or 6-digit HEX color code.
+ * @link #ishexcolor
  */
 export const isHexColor: TTypeGuard<string> = (
   value: unknown,
@@ -183,17 +148,11 @@ export const isHexColor: TTypeGuard<string> = (
 };
 
 /**
- * Type guard to check if a string is a valid RGB color string.
- *
- * Accepts strings like "rgb(255, 0, 128)" (case-insensitive, spaces allowed).
- *
- * Example:
- * ```ts
- * const color: unknown = "rgb(255, 100, 50)";
- * if (isRGBString(color)) {
- *   // TypeScript now knows color is a string and valid RGB
- * }
- * ```
+ * @utilType Guard
+ * @name isRGBString
+ * @category Guards Color
+ * @description Validates if a string is a valid CSS rgb() or rgba() string.
+ * @link #isrgbstring
  */
 export const isRGBString: TTypeGuard<string> = (
   value: unknown,
@@ -214,28 +173,11 @@ export const isRGBString: TTypeGuard<string> = (
   return [r, g, b].every((v) => v >= 0 && v <= 255);
 };
 /**
- * Type guard to check if a value is a 3-element numeric tuple.
- *
- * This ensures that:
- * - The value is an array.
- * - The array has exactly 3 elements.
- * - All elements are valid numbers (not NaN).
- *
- * Example usage:
- * ```ts
- * const value: unknown = [255, 128, 64];
- * if (isTuple3(value)) {
- *   // TypeScript now knows value is [number, number, number]
- *   const [r, g, b] = value;
- * }
- * ```
- *
- * Use case:
- * - Validating RGB or numeric tuples safely before using them in computations.
- * - Useful in color utilities, vector math, or APIs that expect 3-number arrays.
- *
- * @param value - The value to check.
- * @returns `true` if `value` is an array of exactly 3 numbers; otherwise `false`.
+ * @utilType Guard
+ * @name isTuple3
+ * @category Guards Core
+ * @description Validates if a value is an array of exactly three non-NaN numbers.
+ * @link #istuple3
  */
 export const isTuple3: TTypeGuard<TRGBTuple> = (
   value: unknown,

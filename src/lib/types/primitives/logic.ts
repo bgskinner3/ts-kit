@@ -1,75 +1,66 @@
 /**
- * TPrettify: IntelliSense Optimization Utility
+ * @utilType type
+ * @name TPrettify
+ * @category Types Logic Primitive
+ * @description Flattens complex type intersections into a single readable object for better IDE IntelliSense.
+ * @link #tprettify
  *
- * Flattens complex intersections and mapped types into a single,
- * readable object interface. It doesn't change the logic of the type,
- * but makes the hover-over tooltips in IDEs much easier to debug.
+ * ## ✨ TPrettify — IntelliSense Optimizer
  *
- * @template T - The complex or intersected type to flatten
+ * Flattens nested or intersected types into a single flat interface.
+ * This doesn't change type logic but ensures that when you hover over a type in your IDE,
+ * you see the full object structure instead of a list of intersections.
  *
- * @example
- * type Intersected = { a: string } & { b: number } & { c: boolean };
- *
- * // Hovering over 'Pretty' shows: { a: string; b: number; c: boolean }
- * // Instead of: { a: string } & { b: number } & { c: boolean }
- * type Pretty = TPrettify<Intersected>;
+ * @template T - The complex type to flatten.
  */
 type TPrettify<T> = { [K in keyof T]: T[K] } & {};
 /**
- * TMerge: Deep Object Merge Utility
+ * @utilType type
+ * @name TMerge
+ * @category Types Logic Primitive
+ * @description Merges two types, allowing properties in the second type to override those in the first.
+ * @link #tmerge
  *
- * Merges two types where properties in the second type (O2) override
- * those in the first (O1). It ensures that the resulting type respects
- * the structure of O2 while retaining non-conflicting keys from O1.
+ * ## 🤝 TMerge — Type Override Utility
  *
- * @template O1 - The base object type
- * @template O2 - The overriding object type
+ * Combines two object types. If both types share a key, the type from the second
+ * object (O2) takes precedence. Useful for defining "Update" or "Patch" types.
  *
- * @example
- * type Base = { id: number; name: string; active: boolean };
- * type Update = { id: string; active: string };
- *
- * // Result: { id: string; name: string; active: string }
- * type Merged = TMerge<Base, Update>;
+ * @template O1 - The base object type.
+ * @template O2 - The overriding object type.
  */
 type TMerge<O1, O2> = O2 & Omit<O1, keyof O2>;
 
 /**
- * TCreateDiff: Symmetric Difference Utility
+ * @utilType type
+ * @name TCreateDiff
+ * @category Types Logic Primitive
+ * @description Identifies the unique properties that exist in one type or the other, but not both.
+ * @link #tcreatediff
  *
- * Identifies the properties that exist in type T or type U, but NOT in both.
- * It effectively returns the "unique" keys from two different objects.
+ * ## ⚖️ TCreateDiff — Symmetric Difference Utility
  *
- * @template T - The first type
- * @template U - The second type
+ * Extracts the properties that are unique to each type. If a key exists in both `T`
+ * and `U`, it is excluded from the resulting type.
  *
- * @example
- * type A = { name: string; id: number; };
- * type B = { name: string; age: number; };
- * // Result: { id: number; age: number; }
- * type UniqueData = TCreateDiff<A, B>;
+ * @template T - The first type.
+ * @template U - The second type.
  */
 type TCreateDiff<T, U> = Omit<T, keyof U> & Omit<U, keyof T>;
 
 /**
- * TBigIntToggle — Bidirectional BigInt/String Transformer
+ * @utilType type
+ * @name TBigIntToggle
+ * @category Types Logic Primitive
+ * @description Bidirectionally toggles a type between bigint and string for safe JSON serialization mapping.
+ * @link #tbiginttoggle
  *
- * A logical switch that toggles a type between `bigint` and `string`.
+ * ## 🔄 TBigIntToggle — Serialization Transformer
  *
- * This is primarily used in data-fetching and persistence layers to handle
- * "Nominal IDs" that are stored as BigInts in a database but must be
- * converted to Strings for safe JSON serialization and frontend consumption.
+ * A utility for handling BigInt IDs. It maps `bigint` to `string` for frontend
+ * consumption (JSON safety) and maps `string` back to `bigint` for database operations.
  *
- * @template T - The type to toggle (must be a `string` or `bigint`)
- *
- * @example
- * // 1. Map a database BigInt to a frontend String
- * type DbId = bigint;
- * type DisplayId = TBigIntToggle<DbId>; // Result: string
- *
- * // 2. Map a frontend String back to a database BigInt
- * type InputId = string;
- * type SaveId = TBigIntToggle<InputId>; // Result: bigint
+ * @template T - The type to toggle (must be string or bigint).
  */
 type TBigIntToggle<T extends string | bigint> = T extends string
   ? bigint

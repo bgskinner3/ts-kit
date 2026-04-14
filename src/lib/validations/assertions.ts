@@ -22,15 +22,11 @@ import type {
   TBufferLikeObject,
 } from '../../types';
 /**
- * Asserts that a given value passes a type guard check.
- *
- * Throws an error if the value does not satisfy the provided type guard.
- * This is useful for runtime type validation while preserving TypeScript type narrowing.
- *
- * @template T - The expected type the value should satisfy.
- * @param value - The value to validate.
- * @param typeGuard - A type guard function that returns `true` if the value is of type `T`.
- * @param message - Optional custom error message to throw if validation fails.
+ * @utilType util
+ * @name assertValue
+ * @category Validations Assertions
+ * @description Asserts that a value passes a type guard check, throwing an error if it fails while preserving TS narrowing.
+ * @link #assertvalue
  *
  * @throws {Error} If the value does not satisfy the type guard.
  *
@@ -51,15 +47,11 @@ export function assertValue<T>(
   }
 }
 /**
- * Creates a reusable assertion function for a specific type guard.
- *
- * This higher-order utility generates a function that asserts values of the guarded type,
- * optionally attaching a key for error context.
- *
- * @template T - The type the guard asserts.
- * @param guard - A type guard function for type `T`.
- * @param _key - Optional key or label used for context (currently unused, can be used in error messages).
- * @returns A function `(value, message?) => void` that asserts the value is of type `T`.
+ * @utilType util
+ * @name makeAssert
+ * @category Validations Assertions
+ * @description Higher-order utility that creates a reusable assertion function for a specific type guard.
+ * @link #makeassert
  *
  * @example
  * ```ts

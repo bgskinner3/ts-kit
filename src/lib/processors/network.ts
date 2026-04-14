@@ -1,9 +1,10 @@
 import { isObject, isDefined, isKeyInObject, isString } from '../guards';
 /**
- * ## 🌐 fetchJson — Fetch and Parse JSON from a URL
- *
- * Performs a `fetch` request and attempts to parse the response as JSON.
- * Throws a detailed error if the request fails or the response is not valid JSON.
+ * @utilType util
+ * @name fetchJson
+ * @category Processors Network
+ * @description Fetches and parses JSON from a URL with detailed error handling.
+ * @link #fetchjson
  *
  * ---
  *
@@ -39,10 +40,11 @@ export async function fetchJson<T = unknown>(url: string): Promise<T> {
 }
 
 /**
- * ## ⏱ delay — Pause Execution for a Duration
- *
- * Returns a Promise that resolves after a specified number of milliseconds.
- * Useful for throttling, rate-limiting, or waiting between async operations.
+ * @utilType util
+ * @name delay
+ * @category Processors Network
+ * @description Returns a Promise that resolves after a specified duration in milliseconds.
+ * @link #delay
  *
  * ---
  *
@@ -60,10 +62,11 @@ export const delay = (ms: number): Promise<void> =>
   new Promise((resolve) => setTimeout(resolve, ms));
 
 /**
- * ## 🔁 retry — Retry an Async Function with Exponential Backoff
- *
- * Executes an async function multiple times if it fails, with an **exponential backoff** strategy.
- * Automatically handles transient failures or rate-limiting errors.
+ * @utilType util
+ * @name retry
+ * @category Processors Network
+ * @description Executes an async function with exponential backoff and jitter on failure.
+ * @link #retry
  *
  * ---
  *
@@ -73,13 +76,6 @@ export const delay = (ms: number): Promise<void> =>
  * const result = await retry(() => fetchJson('/api/data'), 3, 500);
  * console.log(result);
  * ```
- *
- * @template T - Return type of the async function
- * @param fn - Async function to retry
- * @param retries - Maximum number of retry attempts (default: 5)
- * @param delayMs - Base delay in milliseconds for exponential backoff (default: 500)
- * @returns Result of the async function if successful
- * @throws Last encountered error if all retries fail
  */
 export async function retry<T>(
   fn: () => Promise<T>,

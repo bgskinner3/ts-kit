@@ -11,18 +11,19 @@ import {
 import { ObjectUtils, ArrayUtils } from '../common';
 
 /**
+ * @utilType util
+ * @name normalizeUrl
+ * @category Link
+ * @description Standardizes various URL inputs (strings, URL instances, or objects) into a single clean string URL.
+ * @link #normalizeurl
+ *
+ * ## 🔗 normalizeUrl — Universal URL Stringifier
+ *
  * Normalize various URL inputs to a string.
+ * Supports native URL objects, Next.js style query objects, and standard strings.
  *
- * @param href - The input URL, which can be a string, URL instance, or object with pathname/query/hash.
+ * @param href - The input URL (string, URL instance, or object with pathname/query/hash).
  * @returns A normalized string URL.
- *
- * @example
- * LinkUtils.normalizeUrl('https://example.com/path?query=1#hash');
- * // 'https://example.com/path?query=1#hash'
- *
- * @example
- * LinkUtils.normalizeUrl({ pathname: '/path', query: { q: '1' }, hash: '#section' });
- * // '/path?q=1#section'
  */
 export function normalizeUrl(
   href?: string | URL | TGenericUrlObject | null,
@@ -72,33 +73,16 @@ export function normalizeUrl(
   return '';
 }
 /**
- * ## 🧩 extractRelativePath — Extracts Relative Paths
+ * @utilType util
+ * @name extractRelativePath
+ * @category Link
+ * @description Safely extracts the pathname from absolute or relative internal URLs, ensuring a leading slash.
+ * @link #extractrelativepath
  *
- * Extracts the relative path from an internal URL or absolute URL pointing
- * to the same origin. Ensures that the returned path always starts with `/`.
+ * ## 🧩 extractRelativePath — Internal Path Extractor
  *
- * ---
- *
- * ### ⚙️ Core Purpose
- * - 🔹 Converts internal absolute URLs to relative paths.
- * - 🔹 Preserves already relative paths.
- * - 🔹 Safely handles invalid or external URLs by returning `/`.
- *
- * ---
- *
- * ### 📘 Example Usage
- * ```ts
- * LinkUtils.extractRelativePath('/about');
- * // '/about'
- *
- * LinkUtils.extractRelativePath('https://example.com/about?query=1');
- * // '/about'
- *
- * LinkUtils.extractRelativePath('https://external.com/page');
- * // '/'
- * ```
- *
- * ---
+ * Extracts the relative path from an internal or absolute URL.
+ * External URLs or invalid inputs are safely resolved to `/`.
  *
  * @param url - The input URL string or unknown value.
  * @returns A string representing the relative path, always starting with `/`.
@@ -119,7 +103,18 @@ export const extractRelativePath = (url?: unknown): string => {
   return `/${trimmedUrl}`;
 };
 /**
- * Removes the hash fragment from a URL string while preserving path and query.
+ * @utilType util
+ * @name stripHash
+ * @category Link
+ * @description Removes the hash fragment (#) from a URL while preserving the path and query parameters.
+ * @link #striphash
+ *
+ * ## ✂️ stripHash — Fragment Remover
+ *
+ * Removes the hash fragment from a URL string.
+ * Fast, SSR-safe, and handles both internal and absolute URLs accurately.
+ *
+ * @param url - The URL to process.
  */
 export const stripHash = (url?: string): string => {
   if (!url) return '';
@@ -146,7 +141,21 @@ export const stripHash = (url?: string): string => {
     return url.split('#')[0];
   }
 };
-
+/**
+ * @utilType util
+ * @name handleInternalHashScroll
+ * @category Dom Events
+ * @description Manages smooth scrolling for internal anchor links with cross-browser safety checks.
+ * @link #handleinternalhashscroll
+ *
+ * ## 📜 handleInternalHashScroll — Smooth Fragment Scrolling
+ *
+ * Intercepts anchor clicks to perform smooth scrolling to a target ID.
+ * Includes built-in exclusions for iOS Safari where native scroll behavior is often inconsistent.
+ *
+ * @param options.href - The hash ID (e.g. '#target').
+ * @param options.behavior - The scroll timing ('smooth' | 'auto').
+ */
 export const handleInternalHashScroll = ({
   event,
   href,

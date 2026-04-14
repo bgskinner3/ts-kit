@@ -3,28 +3,28 @@ import type { TPrettify } from '../../primitives';
 type TArrayItems<T extends Array<unknown>> =
   T extends Array<infer TItems> ? TItems : never;
 /**
- * TFixedLengthArray: Immutable-Length Array Utility
+ * @utilType type
+ * @name TFixedLengthArray
+ * @category Types Array
+ * @description Creates an immutable-length array type that prevents mutation methods like push or pop while preserving numeric indexing.
+ * @link #tfixedlengtharray
  *
- * Creates a type that behaves like a standard array but prevents any operations
- * that would mutate its length (like .push() or .pop()). It ensures the
- * 'length' property is treated as a fixed numeric literal.
+ * ## 📏 TFixedLengthArray — Immutable-Length Array Utility
  *
- * @template T - A tuple type representing the fixed structure (e.g., [string, number])
+ * Transforms a tuple into an array-like structure that treats 'length' as a fixed
+ * numeric literal. It effectively strips methods that would modify the array's size
+ * (like `.push()`, `.pop()`, or `.splice()`), ensuring data integrity for fixed sets.
+ *
+ * @template T - A tuple type representing the fixed structure (e.g., [string, number]).
  *
  * @example
+ * ```ts
  * type Coordinate = [number, number];
  * type FixedCoord = TFixedLengthArray<Coordinate>;
  *
  * const point: FixedCoord = [10, 20];
- *
- * // ✅ Valid: Accessing and iteration
- * const x = point[0];
- *
- * // ❌ Error: Property 'push' does not exist on TFixedLengthArray
- * point.push(30);
- *
- * // ❌ Error: Property 'splice' does not exist
- * point.splice(0, 1);
+ * point.push(30); // ❌ Error: Property 'push' does not exist
+ * ```
  */
 type TFixedLengthArray<T extends unknown[]> = TPrettify<
   {

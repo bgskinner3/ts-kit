@@ -5,27 +5,11 @@ import { isObject, isArray } from './reference';
 import { isArrayOf } from './composite';
 
 /**
- * Checks if a value is a **Buffer-like object**.
- *
- * A Buffer-like object is an object with the following shape:
- * ```ts
- * {
- *   type: 'Buffer';
- *   data: number[];
- * }
- * ```
- *
- * This guard validates:
- * - ✅ The value is a non-null object
- * - ✅ The `type` property exists and is exactly `'Buffer'`
- * - ✅ The `data` property exists and is an array of numbers
- *
- * ---
- * ### Key Points
- * - Uses `isObject` to ensure the value is an object
- * - Uses `isArrayOf(isNumber)` to check that `data` contains only numbers
- * - This is a **composite type guard** because it combines multiple primitive/reference checks
- *
+ * @utilType Guard
+ * @name isBufferLikeObject
+ * @category Guards Core
+ * @description Validates if an object matches the shape of a serialized Buffer (e.g., { type: 'Buffer', data: number[] }).
+ * @link #isbufferlikeobject
  * ---
  * ### Example Usage
  * ```ts
@@ -52,19 +36,11 @@ export const isBufferLikeObject: TTypeGuard<TBufferLikeObject> = (
   return hasTypeBuffer && hasNumberArrayData;
 };
 /**
- * ## 🎨 isRGBTuple — Type Guard for Color Values
- *
- * Validates if a value is an array of exactly three numbers, each representing
- * a standard 8-bit color channel (0-255).
- *
- * ---
- *
- * ### ⚙️ Core Purpose
- * - 🔹 Verify the value is an array with a `length` of 3.
- * - 🔹 Ensure every element is a number within the range [0, 255].
- * - 🔹 Provide a **TypeScript type guard** (`TRGB`) for safe tuple access.
- *
- * ---
+ * @utilType Guard
+ * @name isRGBTuple
+ * @category Guards Core
+ * @description Checks if a value is a valid RGB tuple: an array of exactly three numbers between 0 and 255.
+ * @link #isrgbtuple
  *
  * ### 📘 Example Usage
  * ```ts
@@ -81,19 +57,11 @@ export const isRGBTuple: TTypeGuard<TRGB> = (input: unknown): input is TRGB => {
   );
 };
 /**
- * ## 📞 isPhoneNumber — Type Guard for International Formats
- *
- * Validates whether a string matches common phone number patterns, including
- * US, EU, and generic international formats.
- *
- * ---
- *
- * ### ⚙️ Core Purpose
- * - 🔹 Test strings against a set of optimized regular expressions.
- * - 🔹 Support multiple geographical formats (US/EU/Global).
- * - 🔹 Ensure the value is a non-empty string before testing.
- *
- * ---
+ * @utilType Guard
+ * @name isPhoneNumber
+ * @category Guards Core
+ * @description Validates a string against common US, EU, and generic phone number regex patterns.
+ * @link #isphonenumber
  *
  * ### 📘 Example Usage
  * ```ts
@@ -115,18 +83,12 @@ export const isPhoneNumber: TTypeGuard<string> = (
 };
 
 /**
- * ## 📧 isEmail — Type Guard for Email Addresses
- *
- * Validates if a string conforms to a standard email address format using
- * a robust regular expression.
- *
- * ---
- *
- * ### ⚙️ Core Purpose
- * - 🔹 Verify the string contains a valid local part, '@' symbol, and domain.
- * - 🔹 Perform a high-speed check suitable for form validation or data cleaning.
- *
- * ---
+ * @utilType Guard
+ * @name isEmail
+ * @category Guards Core
+ * @description Validates if a string follows a standard email format using regex.
+ * @link #isemail
+
  *
  * ### 📘 Example Usage
  * ```ts

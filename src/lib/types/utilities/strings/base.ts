@@ -1,14 +1,16 @@
 /**
- * ToPath: Recursive Path Constructor
+ * @utilType type
+ * @name ToPath
+ * @category Types String
+ * @description Recursively transforms a tuple of string segments into a forward-slash separated URL path.
+ * @link #topath
  *
- * Transforms a tuple of strings into a URL path string separated by forward slashes.
- * It recursively joins elements, ensuring no trailing slash if the list is empty.
+ * ## 🛣️ ToPath — Recursive Path Constructor
  *
- * @template TItems - A tuple of path segments (e.g., ['users', 'profile'])
+ * Transforms a tuple of strings into a URL path. It recursively joins elements,
+ * ensuring proper slash placement without trailing slashes.
  *
- * @example
- * // Result: "users/profile/settings"
- * type MyPath = ToPath<['users', 'profile', 'settings']>;
+ * @template TItems - A tuple of path segments (e.g., ['api', 'v1']).
  */
 type ToPath<TItems extends string[]> = TItems extends [
   infer Head extends string,
@@ -17,18 +19,19 @@ type ToPath<TItems extends string[]> = TItems extends [
   ? `${Head}${Tail extends [] ? '' : `/${ToPath<Tail>}`}`
   : '';
 
-// Recursively builds a query string from parameter names
 /**
- * ToQueryString: Recursive Query Parameter Builder
+ * @utilType type
+ * @name ToQueryString
+ * @category Types String
+ * @description Transforms a tuple of parameter keys into a template literal query string with string placeholders.
+ * @link #toquerystring
  *
- * Transforms a tuple of parameter names into a template literal representing
- * a query string. Each key is mapped to a generic `string` value placeholder.
+ * ## 🔍 ToQueryString — Recursive Query Parameter Builder
  *
- * @template TParams - A tuple of query keys (e.g., ['id', 'ref'])
+ * Maps a list of keys to a URI-compatible query string format (`key=${string}`).
+ * Ideal for defining expected URL shapes in type-safe routing.
  *
- * @example
- * // Result: "id=string&ref=string"
- * type MyQuery = ToQueryString<['id', 'ref']>;
+ * @template TParams - A tuple of query keys (e.g., ['id', 'limit']).
  */
 type ToQueryString<TParams extends string[]> = TParams extends [
   infer Head extends string,
@@ -38,25 +41,21 @@ type ToQueryString<TParams extends string[]> = TParams extends [
   : '';
 
 /**
- * TStrictURL: Type-Safe URL Template
+ * @utilType type
+ * @name TStrictURL
+ * @category Types String
+ * @description Generates a strictly formatted URL template literal enforced by protocol, domain, path, and query params.
+ * @link #tstricturl
  *
- * Generates a strictly formatted URL template literal based on protocol,
- * domain, and optional path/query parameters. This is excellent for
- * enforcing valid endpoint structures in API clients.
+ * ## 🌐 TStrictURL — Type-Safe URL Template
  *
- * @template TProtocol - Restricted to 'https' or 'http'
- * @template TDomain - Must end in a valid TLD (.com, .dev, or .io)
- * @template TPath - Optional tuple of path segments
- * @template TParams - Optional tuple of query parameter keys
+ * Enforces a valid endpoint structure at the type level. Validates protocol,
+ * TLD (com/dev/io), and recursively builds out the path and query string.
  *
- * @example
- * // Result: "https://myapp.com"
- * type UserEndpoint = TStrictURL<
- *   'https',
- *   '://myapp.com',
- *   ['v1', 'user'],
- *   ['id', 'token']
- * >;
+ * @template TProtocol - 'https' | 'http'.
+ * @template TDomain - Must include a valid TLD.
+ * @template TPath - Tuple of segments.
+ * @template TParams - Tuple of query keys.
  */
 type TStrictURL<
   TProtocol extends 'https' | 'http',

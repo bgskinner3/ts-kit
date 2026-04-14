@@ -2,29 +2,16 @@ import type { TTypeGuard, TAbsoluteURL, TInternalUrl } from '../../../types';
 import { isNonEmptyString } from './primitives';
 
 /**
- * ## 🧩 isValidUrl — Type Guard for Absolute URLs
+ * @utilType Guard
+ * @name isAbsoluteUrl
+ * @category Guards Link
+ * @description Validates if a string is a valid absolute URL that can be parsed by the browser's URL constructor.
+ * @link #isabsoluteurl
  *
- * Checks whether a given string is a valid absolute URL according to the
- * browser's `URL` constructor. Returns `true` if the string can be parsed
- * as a valid URL, otherwise `false`.
+ * ## 🧩 isAbsoluteUrl — Type Guard for Absolute URLs
  *
- * ---
- *
- * ### ⚙️ Core Purpose
- * - 🔹 Ensures the string is non-empty and a valid URL.
- * - 🔹 Provides a **TypeScript type guard** (`url is string`) for safe narrowing.
- *
- * ---
- *
- * ### 📘 Example Usage
- * ```ts
- * isValidUrl('https://example.com'); // true
- * isValidUrl('ftp://example.com');   // true
- * isValidUrl('not a url');           // false
- * isValidUrl('');                     // false
- * ```
- *
- * ---
+ * Checks whether a given string is a valid absolute URL. Returns `true` if the string
+ * can be parsed as a valid URL, otherwise `false`.
  *
  * @param url - The value to validate as a URL.
  * @returns `true` if `url` is a non-empty valid absolute URL string.
@@ -41,37 +28,17 @@ export const isAbsoluteUrl: TTypeGuard<TAbsoluteURL> = (
   }
 };
 /**
+ * @utilType Guard
+ * @name isInternalUrl
+ * @category Guards Link
+ * @description Checks if a URL is a relative path or an absolute URL matching the current window's origin.
+ * @link #isinternalurl
+ *
  * ## 🏠 isInternalUrl — Type Guard for Same-Origin or Relative Links
  *
  * Checks if a value is a valid internal URL. A URL is considered "internal" if it
  * is a relative path (starts with `/`) or an absolute URL that matches the
- * current window's origin (same domain).
- *
- * ---
- *
- * ### ⚙️ Core Purpose
- * - 🔹 Distinguish between internal navigation and external outbound links.
- * - 🔹 Validate relative paths for client-side routing.
- * - 🔹 Ensure a URL belongs to the current application's hostname.
- *
- * ---
- *
- * ### 📘 Example Usage
- * ```ts
- * // Assuming current origin is 'https://myapp.com'
- * isInternalUrl('/dashboard');              // true
- * isInternalUrl('https://myapp.com'); // true
- * isInternalUrl('https://google.com');      // false
- * isInternalUrl('mailto:test@test.com');    // false
- * ```
- *
- * ---
- *
- * ### ⚠️ Environment Note
- * - This guard requires a **browser environment** (`window.location`).
- * - In SSR or Node.js environments, it will consistently return `false`.
- *
- * ---
+ * current window's origin.
  *
  * @param url - The value to validate as an internal link.
  * @returns `true` if `url` is a non-empty string belonging to the current origin.

@@ -12,6 +12,13 @@ const PRELOAD_CACHE = new Map<string, true>();
 const MAX_CACHE_SIZE = 200;
 
 /**
+ * @utilType util
+ * @name preloadImages
+ * @category Dom Media
+ * @description Preloads and caches images using Image.decode() for non-blocking rendering and LRU management.
+ * @link #preloadImages
+ *
+ *
  * Preloads images with PRELOAD caching.
  *
  * This utility:
@@ -83,6 +90,14 @@ export async function preloadImages(
   await Promise.all(tasks);
 }
 /**
+ * @utilType util
+ * @name normalizeImageSrc
+ * @category Dom Media
+ * @description Extracts a clean URL string from various image source types, including bundler imports and static objects.
+ * @link #normalizeImageSrc
+ *
+ *
+ *
  * Normalizes a variety of image sources into a plain string URL.
  * @template T - The shape of the image object, defaulting to our base structure.
  */

@@ -25,7 +25,19 @@ type SnakeCaseFromArray<
   : OutputString;
 
 /**
- * Convert a string literal to snake_case
+ * @utilType type
+ * @name TSnakeCase
+ * @category Types String
+ * @description Recursively transforms a string into snake_case (e.g., hello_world), ideal for database or API keys.
+ * @link #tsnakecase
+ *
+ * ## 🐍 TSnakeCase — Type-Level snake_case Transformer
+ *
+ * Converts a string literal or union into `snake_case`.
+ * Handles normalization of existing separators and ensures all words
+ * are joined by underscores.
+ *
+ * @template Type - The string literal to transform.
  */
 export type TSnakeCase<
   Type,

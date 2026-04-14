@@ -1,5 +1,5 @@
 {
-  "cSpell.words": ["THTML", "TJSON", "TRGB", "TXOR", "Uncapitalize"],
+  "cSpell.words": ["THTML", "TJSON", "TRGB", "TXOR", "Uncapitalize", "Welford"],
   "typescript.format.enable": false,
   "javascript.format.enable": false,
   "prettier.requireConfig": true,

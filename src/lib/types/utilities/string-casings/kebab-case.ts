@@ -19,7 +19,21 @@ type KebabCaseFromArray<
       ? `${FirstWord}-${KebabCaseFromArray<Rest, Options>}`
       : `${Lowercase<FirstWord>}-${KebabCaseFromArray<Rest, Options>}`
   : '';
-
+/**
+ * @utilType type
+ * @name TKebabCase
+ * @category Types String
+ * @description Recursively transforms a string into kebab-case (e.g., hello-world), ideal for CSS classes and URLs.
+ * @link #tkebabcase
+ *
+ * ## 🧵 TKebabCase — Type-Level kebab-case Transformer
+ *
+ * Converts a string literal or union into `kebab-case`.
+ * It automatically splits at camelCase boundaries, spaces, or underscores
+ * and joins them with dashes.
+ *
+ * @template Type - The string literal to transform.
+ */
 export type TKebabCase<
   Type,
   Options extends TDelimiterCaseOptions = object,

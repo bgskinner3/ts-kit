@@ -5,7 +5,14 @@ import type {
 } from '../../types';
 import { DEFAULT_KEYBOARD_CONFIG } from '../../constants';
 /**
- * Interprets a keyboard event and returns semantic information about the user's intent.
+ * @utilType util
+ * @name getKeyboardAction
+ * @category Dom Events
+ * @description Interprets a keyboard event and returns semantic information about the user's intent.
+ * @link #getKeyboardAction
+ *
+ *
+ *
  *
  * This utility analyzes a `KeyboardEvent` and classifies it into meaningful actions
  * such as copy, paste, clear, or typing, based on a configurable keyboard policy.

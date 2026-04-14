@@ -14,8 +14,11 @@ const reactPropsRegex = new RegExp(
   `^((${allDomKeys})|(([Dd][Aa][Tt][Aa]|[Aa][Rr][Ii][Aa]|x)-.*))$`,
 );
 /**
- * Validates if a property is a standard DOM/SVG attribute or event handler.
- * Memoized to ensure O(1) lookups after the first check.
+ * @utilType util
+ * @name isPropValid
+ * @category Guards React
+ * @description Memoized validator that checks if a string is a standard DOM attribute, SVG attribute, or React event handler.
+ * @link #ispropvalid
  */
 export const isPropValid = memoize((prop: string): boolean => {
   return (
@@ -26,13 +29,22 @@ export const isPropValid = memoize((prop: string): boolean => {
   );
 });
 /**
- * Type guard to check if a value is a valid DOM property string.
+ * @utilType Guard
+ * @name isDOMPropKey
+ * @category Guards React
+ * @description Type guard to verify if an unknown value is a string that represents a valid DOM property.
+ * @link #isdompropkey
+
  */
 export const isDOMPropKey: TTypeGuard<string> = (
   value: unknown,
 ): value is string => isString(value) && isPropValid(value);
 /**
- * Checks if a key-value entry represents a valid DOM property for a specific element.
+ * @utilType Guard
+ * @name isDOMEntry
+ * @category Guards React
+ * @description Validates if a key-value pair entry represents a valid DOM property for a specific HTML element type.
+ * @link #isdomentry
  */
 export const isDOMEntry = <TElement extends ElementType>(
   entry: [PropertyKey, unknown],

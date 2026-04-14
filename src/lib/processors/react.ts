@@ -19,16 +19,11 @@ import {
 import { ArrayUtils, ObjectUtils } from '../common';
 import { Children } from 'react';
 /**
- * Combines multiple React refs (callback refs or object refs) into a single ref callback.
- *
- * This is especially useful when a component needs to:
- * 1. Forward a ref to its parent via `forwardRef`
- * 2. Maintain its own internal ref for hooks like `useInView`, animations, or measurements
- *
- * The returned callback handles both:
- * - Function refs (calls the function with the new value)
- * - Object refs (assigns the `current` property)
- * - Properly supports `null` for unmounting
+ * @utilType util
+ * @name mergeRefs
+ * @category React
+ * @description Consolidates multiple React refs (callback or object) into a single functional ref.
+ * @link #mergerefs
  *
  * @example
  * ```ts
@@ -55,44 +50,22 @@ export const mergeRefs = <T>(
   };
 };
 /**
- * Lazily evaluates the properties of an object that are functions and caches the results.
+ * @utilType util
+ * @name lazyProxy
+ * @category Logic
+ * @description Transparently caches the results of function properties upon first access.
+ * @link #lazyproxy
  *
- * This utility is useful when you have an object with expensive-to-compute properties
- * (functions) that you don’t want to execute until they are actually accessed. It also
- * ensures that each property is only computed **once**, even if accessed multiple times.
+ * ## ⏱️ lazyProxy — On-Demand Property Evaluation
  *
- * The original object is **not mutated**; all computed results are stored in an internal cache.
+ * Wraps an object in a Proxy to lazily evaluate function properties.
+ * Results are cached, ensuring expensive computations only run once.
  *
- * ### Features
- * - Lazy evaluation of function properties.
- * - Caches results for repeated access.
- * - Safe for shared or frozen objects.
- * - Works only on original string keys of the object.
+ * - **Immutable**: Does not mutate the original object.
+ * - **Performant**: Ideal for heavy config objects or unused properties.
  *
- * ### Example
- * ```ts
- * const config = {
- *   a: 10,
- *   b: () => Math.random() * 100,
- *   c: () => 'computed',
- * };
- *
- * const lazyConfig = lazyProxy(config);
- *
- * console.log(lazyConfig.a); // 10
- * console.log(lazyConfig.b); // e.g., 42.3 (evaluated only once)
- * console.log(lazyConfig.b); // same value as above (cached)
- * console.log(lazyConfig.c); // 'computed'
- * ```
- *
- * ### Use Cases
- * - Configuration objects with expensive default values.
- * - Large objects where some properties are rarely used.
- * - Avoiding repeated computation in utility objects or library settings.
- * - Safe lazy initialization in complex apps without mutating original objects.
- *
- * @param obj - The object whose function properties should be lazily evaluated.
- * @returns A proxied version of the object where function properties are evaluated lazily and cached.
+ * @param obj - The object containing functions to be lazily evaluated.
+ * @returns A proxied version of the object with cached evaluation.
  */
 export function lazyProxy<T extends Record<string, unknown>>(obj: T): T {
   const cache = new Map<keyof T, unknown>();
@@ -120,11 +93,20 @@ export function lazyProxy<T extends Record<string, unknown>>(obj: T): T {
   });
 }
 /**
- * Merges CSS variables with an optional style object.
+ * @utilType util
+ * @name mergeCssVars
+ * @category React
+ * @description Safely merges a dictionary of CSS variables into a React CSSProperties object.
+ * @link #mergecssvars
  *
- * @param vars - An object where keys are CSS variable names (like '--my-var') and values are strings
- * @param style - Optional existing style object to merge
- * @returns A CSSProperties object ready to pass to a React component
+ * ## 🎨 mergeCssVars — Dynamic Style Injection
+ *
+ * Cleanly merges custom CSS variables with standard React style objects.
+ * Automatically filters out `undefined` or empty values to keep the DOM clean.
+ *
+ * @param vars - Object containing CSS variable names (e.g., '--brand-color').
+ * @param style - Existing React style object to merge with.
+ * @returns A validated CSSProperties object.
  */
 export function mergeCssVars<
   T extends Record<string, string | number | undefined>,
@@ -141,27 +123,22 @@ export function mergeCssVars<
   };
 }
 /**
- * Merges a user-provided event handler with an internal component handler.
+ * @utilType util
+ * @name mergeEventHandlerClicks
+ * @category React
+ * @description Orchestrates user and internal click handlers, allowing user-level preventDefault() to block internal logic.
+ * @link #mergeeventhandlerclicks
  *
+ * ## 🖱️ mergeEventHandlerClicks — Smart Event Composition
+ *
+ * Merges a user-provided event handler with an internal component handler.
  * The `internalHandler` will only execute if the `userHandler` does not call
- * `event.preventDefault()`. This allows users of your component to opt-out
- * of default behaviors.
+ * `event.preventDefault()`.
  *
  * @template E - The type of the SyntheticEvent (e.g., React.MouseEvent)
  * @param userHandler - The external handler passed via props
- * @param internalHandler - The library/internal logic that should run by default
+ * @param internalHandler - The library logic that should run by default
  * @returns A single function that orchestrates both calls
- *
- * @example
- * ```tsx
- * const handleClick = mergeEventHandlerClicks<React.MouseEvent>(
- *   props.onClick,
- *   (e) => console.log("Internal logic ran!")
- * );
- *
- * // In the component:
- * <button onClick={handleClick}>Click Me</button>
- * ```
  */
 export function mergeEventHandlerClicks<E extends SyntheticEvent>(
   userHandler?: (event: E) => void,
@@ -176,38 +153,16 @@ export function mergeEventHandlerClicks<E extends SyntheticEvent>(
   };
 }
 /**
+ * @utilType util
+ * @name extractDOMProps
+ * @category React
+ * @description Strips custom component props to return only valid HTML attributes for a specific element.
+ * @link #extractdomprops
+ *
+ * ## 🧹 extractDOMProps — Safe Attribute Filtering
+ *
  * Automatically extracts valid DOM props from a combined props object.
- *
- * This utility prevents React warnings like: "React does not recognize the `prop` on a DOM element."
- * It works by filtering the object against a whitelist of valid HTML attributes at runtime,
- * while maintaining strict TypeScript narrowing so the return type matches the target element.
- *
- * ### Features
- * - **Auto-Filtering**: No need to manually maintain an array of keys to delete.
- * - **Type Safe**: Automatically narrows the return type to `ComponentPropsWithoutRef<T>`.
- * - **Standard Compliant**: Supports all standard HTML attributes, `data-*`, and `aria-*` props.
- *
- * ### Example
- * ```tsx
- * interface MyButtonProps extends ComponentPropsWithoutRef<'button'> {
- *   mainCircleSize: number; // Custom prop: will be stripped
- *   variant: 'primary';    // Custom prop: will be stripped
- * }
- *
- * const MyButton = (props: MyButtonProps) => {
- *   // domProps is automatically inferred as ComponentPropsWithoutRef<'button'>
- *   // 'mainCircleSize' and 'variant' are removed automatically.
- *   const domProps = extractDOMProps<'button', MyButtonProps>(props);
- *
- *   return <button {...domProps}>Click Me</button>;
- * };
- * ```
- *
- * @template TElement - The HTML element type (e.g., 'div', 'button', 'span')
- * @template TFullProps - The combined custom and DOM props interface
- *
- * @param props - The full props object containing both custom and DOM-valid keys.
- * @returns A cleaned object containing only valid DOM properties for the specified element.
+ * Prevents React "unknown prop" warnings by filtering against a whitelist.
  */
 export function extractDOMProps<
   TElement extends ElementType,
@@ -223,34 +178,16 @@ export function extractDOMProps<
   ) as ComponentPropsWithoutRef<TElement>;
 }
 /**
- * Filters React children by a specific component display name.
+ * @utilType util
+ * @name filterChildrenByDisplayName
+ * @category React
+ * @description Filters a React children tree to find components matching a specific displayName.
+ * @link #filterchildrenbydisplayname
  *
- * This utility iterates over a ReactNode tree and returns only the children
- * that are valid React elements with a `displayName` matching the provided string.
- * It is especially useful for composite components like steppers or tabs,
- * where you want to operate only on specific subcomponents while ignoring others.
+ * ## 🔍 filterChildrenByDisplayName — Selective Child Parsing
  *
- * The original `children` array is **not mutated**; a new filtered array is returned.
- *
- * ### Features
- * - Type-safe filtering of React elements.
- * - Skips non-React elements automatically.
- * - Returns a typed array of `ReactElement` for further processing.
- *
- * ### Example
- * ```tsx
- * const steps = filterChildrenByDisplayName(children, 'StepperStep');
- * steps.forEach(step => console.log(step.props));
- * ```
- *
- * ### Use Cases
- * - Stepper components: only extract `StepperStep` children for layout/logic.
- * - Tab components: only process `TabPanel` children.
- * - Any composite React component requiring selective child processing.
- *
- * @param children - The ReactNode children to filter.
- * @param displayName - The displayName of the component type to include.
- * @returns An array of ReactElement matching the given displayName.
+ * Iterates over a ReactNode tree and returns only the children
+ * matching the provided string. Ideal for composite components like Tabs or Steppers.
  */
 export function filterChildrenByDisplayName<T extends ReactNode>(
   children: T,
@@ -263,18 +200,18 @@ export function filterChildrenByDisplayName<T extends ReactNode>(
   });
 }
 /**
- * Safely extracts the current value from a React Ref.
+ * @utilType util
+ * @name getRefCurrent
+ * @category React
+ * @description Safely extracts the current value from either RefObjects or ForwardedRefs.
+ * @link #getrefcurrent
  *
- * Supports:
- * 1. RefObjects (e.g., from `useRef`)
- * 2. ForwardedRefs (which might be null or functions)
+ * ## ⚓ getRefCurrent — Safe Ref Access
  *
- * This is particularly useful in `useLayoutEffect` or `useFrame` when
- * dealing with `forwardRef` components to avoid repetitive type casting.
- *
- * @param ref - The React ref to extract the value from
- * @returns The current value of the ref, or null if it's a function ref or unassigned
+ * Supports RefObjects (useRef) and ForwardedRefs. Useful in effects to avoid
+ * repetitive null-checks and type casting.
  */
+
 export function getRefCurrent<T>(ref: Ref<T> | undefined | null): T | null {
   if (!ref) return null;
 

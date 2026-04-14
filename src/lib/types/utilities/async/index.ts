@@ -1,35 +1,49 @@
 /**
- * TPromisify: Property-Level Promise Wrapper
+ * @utilType type
+ * @name TPromisify
+ * @category Types Async
+ * @description Maps over an object type and wraps every property value in a Promise.
+ * @link #tpromisify
  *
- * Maps over an object type and wraps every property value in a Promise.
- * This is particularly useful when defining the return type of a
- * data-fetching layer or a proxy that handles async operations.
+ * ## ⏳ TPromisify — Property-Level Promise Wrapper
  *
- * @template T - The original object structure
+ * Transforms an interface so that every property becomes asynchronous.
+ * This is ideal for defining the return types of data-fetching layers or
+ * async proxies.
+ *
+ * @template T - The original object structure.
  *
  * @example
+ * ```ts
  * interface UserData { id: string; age: number; }
- *
- * // Result: { id: Promise<string>; age: Promise<number>; }
  * type AsyncUser = TPromisify<UserData>;
+ * // → { id: Promise<string>; age: Promise<number>; }
+ * ```
  */
 type TPromisify<T> = {
   [P in keyof T]: Promise<T[P]>;
 };
 
 /**
- * TPromiseType: Promise Resolution Utility
+ * @utilType type
+ * @name TPromiseType
+ * @category Types Async
+ * @description Unwraps a Promise type to extract the underlying value type.
+ * @link #tpromisetype
  *
- * Unwraps a Promise type to extract the underlying value type (U).
- * If the provided type is not a Promise, it resolves to `never`.
+ * ## 🔓 TPromiseType — Promise Resolution Utility
  *
- * @template T - The Promise type to unwrap
+ * Extracts the "resolved" type from a Promise. If the type passed in isn't
+ * a Promise, it resolves to `never`.
+ *
+ * @template T - The Promise type to unwrap.
  *
  * @example
- * type ApiResponse = Promise<{ status: number; data: any }>;
- *
- * // Result: { status: number; data: any }
+ * ```ts
+ * type ApiResponse = Promise<{ status: number }>;
  * type RawResponse = TPromiseType<ApiResponse>;
+ * // → { status: number }
+ * ```
  */
 type TPromiseType<T> = T extends Promise<infer U> ? U : never;
 

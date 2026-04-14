@@ -1,59 +1,76 @@
 import { TTypeGuard } from '../../../types';
-
+/**
+ * @utilType Guard
+ * @name isNumber
+ * @category Guards Primitive
+ * @description Validates that a value is a number, excluding NaN and Infinity.
+ * @link #isnumber
+ */
 export const isNumber: TTypeGuard<number> = (value): value is number =>
   typeof value === 'number' && !Number.isNaN(value) && Number.isFinite(value);
-
+/**
+ * @utilType Guard
+ * @name isInteger
+ * @category Guards Primitive
+ * @description Checks whether a value is a valid integer.
+ * @link #isinteger
+ */
 export const isInteger: TTypeGuard<number> = (value): value is number =>
   Number.isInteger(value);
-
+/**
+ * @utilType Guard
+ * @name isString
+ * @category Guards Primitive
+ * @description Validates that a value is a string.
+ * @link #isstring
+ */
 export const isString: TTypeGuard<string> = (value): value is string =>
   typeof value === 'string';
-
+/**
+ * @utilType Guard
+ * @name isNonEmptyString
+ * @category Guards Primitive
+ * @description Validates that a value is a string with a length greater than zero (excluding whitespace).
+ * @link #isnonemptystring
+ */
 export const isNonEmptyString: TTypeGuard<string> = (value): value is string =>
   typeof value === 'string' && value.length > 0 && value.trim().length > 0;
-
+/**
+ * @utilType Guard
+ * @name isBoolean
+ * @category Guards Primitive
+ * @description Validates that a value is a boolean (true or false).
+ * @link #isboolean
+ */
 export const isBoolean: TTypeGuard<boolean> = (value): value is boolean =>
   typeof value === 'boolean';
 
 /**
- * Checks if the value is a bigint.
- *
- * @example
- * ```ts
- * PrimitiveTypeGuards.isBigInt(123n); // true
- * PrimitiveTypeGuards.isBigInt(123); // false
- * ```
+ * @utilType Guard
+ * @name isBigInt
+ * @category Guards Primitive
+ * @description Validates that a value is a BigInt.
+ * @link #isbigint
  */
 export const isBigInt: TTypeGuard<bigint> = (value): value is bigint =>
   typeof value === 'bigint';
 
 /**
- * Checks whether a value is a `symbol`.
- *
- * In JavaScript, a `symbol` is a unique and immutable primitive value that can be used as a key
- * for object properties. Each symbol is guaranteed to be unique, even if two symbols have the same
- * description.
- *
- * Key points:
- * - Symbols are often used to add unique property keys to objects without risk of name collisions.
- * - `typeof value === 'symbol'` is used to check if a value is a symbol.
- *
- * @example
- * ```ts
- * const sym1 = Symbol('foo');
- * const sym2 = Symbol('foo');
- *
- * isSymbol(sym1); // true
- * isSymbol(sym2); // true
- * isSymbol('foo'); // false
- *
- * const obj = { [sym1]: 123 };
- * console.log(obj[sym1]); // 123
- * ```
+ * @utilType Guard
+ * @name isSymbol
+ * @category Guards Primitive
+ * @description Validates that a value is a unique JavaScript symbol.
+ * @link #issymbol
  */
 export const isSymbol: TTypeGuard<symbol> = (value): value is symbol =>
   typeof value === 'symbol';
-
+/**
+ * @utilType Guard
+ * @name isPrimitive
+ * @category Guards Primitive
+ * @description Validates if a value is any of the basic JS primitives: string, number, boolean, or bigint.
+ * @link #isprimitive
+ */
 export const isPrimitive = (
   value: unknown,
 ): value is string | number | boolean =>

@@ -25,6 +25,24 @@ type CamelCaseFromArray<
           >}${CamelCaseFromArray<Rest, Options, false>}`
   : '';
 
+/**
+ * @utilType type
+ * @name TCamelCase
+ * @category Types String
+ * @description Recursively transforms a string or string union into camelCase by normalizing separators and word boundaries.
+ * @link #tcamelcase
+ *
+ * ## 🐪 TCamelCase — Type-Level camelCase Transformer
+ *
+ * Converts a string literal or union of strings into `camelCase`.
+ * It intelligently handles:
+ * - **Separators**: Normalizes snake_case, kebab-case, and spaces.
+ * - **Casing**: Automatically handles SCREAMING_SNAKE_CASE and PascalCase.
+ * - **Inference**: Preserves TypeScript literal types for precise mapping.
+ *
+ * @template Type - The string literal or union to transform.
+ * @template Options - Optional configuration for delimiter handling.
+ */
 export type TCamelCase<
   Type,
   Options extends TDelimiterCaseOptions = object,
