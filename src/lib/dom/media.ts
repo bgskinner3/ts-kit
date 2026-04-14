@@ -6,7 +6,7 @@ import {
   isString,
   isObject,
 } from '../guards';
-import type { TBaseImageObject } from '../../types';
+import type { TBaseImageObject } from '../types';
 
 const PRELOAD_CACHE = new Map<string, true>();
 const MAX_CACHE_SIZE = 200;

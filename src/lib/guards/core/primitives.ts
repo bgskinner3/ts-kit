@@ -1,4 +1,4 @@
-import { TTypeGuard } from '../../../types';
+import { TTypeGuard } from '../../types';
 
 export const isNumber: TTypeGuard<number> = (value): value is number =>
   typeof value === 'number' && !Number.isNaN(value) && Number.isFinite(value);

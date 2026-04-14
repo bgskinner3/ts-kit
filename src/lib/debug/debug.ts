@@ -12,7 +12,7 @@ import {
   THighlighterMap,
   TLogType,
   TTableItem,
-} from '../../types';
+} from '../types';
 import { ArrayUtils } from '../common';
 
 export function highlight(

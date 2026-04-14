@@ -21,3 +21,9 @@ tree.md
 
 # docs 
 is-solid-docs.d.ts
+core.md
+arrays.md
+objects.md
+strings.md
+async.md
+unions.md

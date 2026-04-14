@@ -1,4 +1,4 @@
-import { TCamelCase, TSnakeCase, TKebabCase } from '../../types';
+import { TCamelCase, TSnakeCase, TKebabCase } from '../types';
 import { isNil, isNonEmptyString } from '../guards';
 import { REGEX_CONSTANTS } from '../../constants';
 /**

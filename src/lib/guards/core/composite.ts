@@ -1,4 +1,4 @@
-import type { TTypeGuard } from '../../../types';
+import type { TTypeGuard } from '../../types';
 import { isObject, isDefined } from './reference';
 import { isBoolean, isNumber, isSymbol, isString } from './primitives';
 import { ObjectUtils } from '../../common/object';

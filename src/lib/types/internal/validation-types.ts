@@ -1,4 +1,4 @@
-import { HTML_TAGS } from '../constants';
+import { HTML_TAGS } from '../../../constants';
 import { TJSONObjectString, TJSONArrayString } from './branded';
 type TTypeGuard<T> = (value: unknown) => value is T;
 type TAssert<T> = (value: unknown) => asserts value is T;

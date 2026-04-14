@@ -1,4 +1,4 @@
-import type { TFixedLengthArray } from '../../types';
+import type { TFixedLengthArray } from '../types';
 import { exportAndRenameStaticMethods } from '../../managers';
 
 /**

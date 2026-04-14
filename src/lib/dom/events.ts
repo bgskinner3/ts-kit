@@ -2,7 +2,7 @@ import type {
   TKeyboardConfig,
   TShortcutDefinition,
   TKeyboardActionResult,
-} from '../../types';
+} from '../types';
 import { DEFAULT_KEYBOARD_CONFIG } from '../../constants';
 /**
  * Interprets a keyboard event and returns semantic information about the user's intent.

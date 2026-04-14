@@ -1,4 +1,4 @@
-import type { TGenericUrlObject, THashScrollOptions } from '../../types';
+import type { TGenericUrlObject, THashScrollOptions } from '../types';
 import {
   isDefined,
   isString,
