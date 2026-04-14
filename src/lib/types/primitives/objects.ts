@@ -11,7 +11,8 @@
  * // Result: '#f00' | '#0f0'
  * type ColorValues = TUnpackObject<typeof Colors>;
  */
-type TUnpackObject<T> = T[keyof T];
+type TUnpackObject<T> =
+  T extends Array<infer U> ? U : T extends object ? T[keyof T] : never;
 
 /**
  * TWriteable: Shallow Mutability Utility

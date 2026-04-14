@@ -1,10 +1,10 @@
 import { expectType } from 'jest-tsd';
+import type { TEqual, TExpect } from '../../../../src/types';
 import type {
   TFilterKeysByValue,
   TStripType,
 } from '../../../../src/lib/types/primitives/filters';
-import type { TEqual, TExpect } from '../../../../src/types';
-/** 🧪 Mock Data */
+
 type TComplexUser = {
   readonly id: number;
   name: string;
@@ -15,7 +15,7 @@ type TComplexUser = {
 };
 
 // ==========================================
-// 🛡️ TFilterKeysByValue Assertions
+// TFilterKeysByValue Assertions
 // ==========================================
 
 // Case: Standard primitives and nullables
@@ -42,7 +42,7 @@ export type _t4 = TExpect<TEqual<ActualNever, never>>;
 expectType<never>({} as ActualNever);
 
 // ==========================================
-// 🛡️ TStripType Assertions
+// TStripType Assertions
 // ==========================================
 
 // Case: Removing properties by type
