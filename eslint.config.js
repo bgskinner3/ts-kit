@@ -19,7 +19,8 @@ export default [
       },
     },
     rules: {
-      '@typescript-eslint/no-explicit-any': 'off',
+      // '@typescript-eslint/no-explicit-any': 'off',
+      /* prettier-ignore */ '@typescript-eslint/no-explicit-any': 'warn',
     },
   },
   // 🔹 Core JS + TS linting

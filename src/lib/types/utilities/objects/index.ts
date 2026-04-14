@@ -109,6 +109,33 @@ type TRecursiveRequired<T> = T extends Function
       : T;
 
 /**
+ * TRecursiveReadonly: Deep Immutability Utility
+ *
+ * Recursively applies the 'readonly' modifier to every property of an object,
+ * including nested objects and arrays. It ensures that the entire data
+ * structure becomes immutable. Functions are preserved as-is.
+ *
+ * @template T - The type to make recursively readonly
+ *
+ * @example
+ * interface User {
+ *   id: number;
+ *   profile: { bio: string };
+ *   tags: string[];
+ * }
+ *
+ * // Result: { readonly id: number; readonly profile: { readonly bio: string }; readonly tags: ReadonlyArray<string> }
+ * type ReadonlyUser = TRecursiveReadonly<User>;
+ */
+type TRecursiveReadonly<T> = T extends Function
+  ? T
+  : T extends Array<infer U>
+    ? ReadonlyArray<TRecursiveReadonly<U>>
+    : T extends object
+      ? { readonly [K in keyof T]: TRecursiveReadonly<T[K]> }
+      : T;
+
+/**
  * TNonNullableDeep: Strict Null-Removal Utility
  *
  * Traverses an object tree and removes 'null' and 'undefined' from every
@@ -129,4 +156,13 @@ type TNonNullableDeep<T> = {
   [P in keyof T]: NonNullable<T[P]> extends object
     ? TNonNullableDeep<NonNullable<T[P]>>
     : NonNullable<T[P]>;
+};
+
+export type {
+  TNonNullableDeep,
+  TRecursivePartial,
+  TRecursiveRequired,
+  TRecursiveReadonly,
+  TDeepWriteable,
+  TDeepMap,
 };

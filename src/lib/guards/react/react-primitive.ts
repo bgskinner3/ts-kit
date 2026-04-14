@@ -1,5 +1,5 @@
 // lib/react/guards/primitive.ts
-import type { TTypeGuard } from '../../types';
+import type { TTypeGuard } from '../../../types';
 import type {
   Ref,
   RefObject,

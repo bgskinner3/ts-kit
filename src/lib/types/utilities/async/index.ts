@@ -32,3 +32,5 @@ type TPromisify<T> = {
  * type RawResponse = TPromiseType<ApiResponse>;
  */
 type TPromiseType<T> = T extends Promise<infer U> ? U : never;
+
+export type { TPromiseType, TPromisify };

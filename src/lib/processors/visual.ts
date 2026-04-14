@@ -3,7 +3,7 @@ import type {
   TContrastStatus,
   TTypeGuard,
   TRGBTuple,
-} from '../types';
+} from '../../types';
 import { getLuminance } from '../color';
 import { isHexColor, isRGBString, isKeyInObject, isTuple3 } from '../guards';
 import { ObjectUtils } from '../common/object';

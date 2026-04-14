@@ -68,3 +68,5 @@ type TStrictURL<
   : `/${ToPath<TPath>}`}${TParams extends []
   ? ''
   : `?${ToQueryString<TParams>}`}`;
+
+export type { TStrictURL, ToPath, ToQueryString };

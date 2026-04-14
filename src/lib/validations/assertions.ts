@@ -20,7 +20,7 @@ import type {
   TJSONArrayString,
   TJSONDataString,
   TBufferLikeObject,
-} from '../types';
+} from '../../types';
 /**
  * Asserts that a given value passes a type guard check.
  *

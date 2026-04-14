@@ -1,4 +1,4 @@
-import { TTypeGuard, TAnyFunction } from '../../types';
+import { TTypeGuard, TAnyFunction } from '../../../types';
 
 export const isNull: TTypeGuard<null> = <T>(term: T | null): term is null =>
   term === null;

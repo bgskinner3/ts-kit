@@ -8,7 +8,7 @@ import type {
   TSnakeCase,
   TKebabCase,
   TRGBTuple,
-} from '../../types';
+} from '../../../types';
 import { isNonEmptyString, isString } from './primitives';
 import { REGEX_CONSTANTS } from '../../../constants';
 import { isUndefined } from './reference';

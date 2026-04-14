@@ -1,25 +1,24 @@
 type TConfigSchema = Record<string, Record<string, string>>;
 /**
- * TRequireKey: A utility type to force a dependency between two variants.
+ * TRecursiveReadonly: Deep Immutability Utility
  *
- * It creates a discriminated union that makes a "Dependent" key required
- * ONLY when a "Trigger" key matches a specific value.
+ * Recursively applies the 'readonly' modifier to every property of an object,
+ * including nested objects and arrays. It ensures that the entire data
+ * structure becomes immutable. Functions are preserved as-is.
  *
- * @template T - The Variant Schema (e.g., TThemedTextSchema)
- * @template K1 - The "Trigger" key (e.g., 'variant')
- * @template V1 - The value of K1 that triggers the requirement (e.g., 'gradientText')
- * @template K2 - The "Dependent" key that becomes required (e.g., 'gradients')
+ * @template T - The type to make recursively readonly
  *
  * @example
- * // If variant is 'gradientText', the user MUST provide a 'gradients' selection.
- * // If variant is anything else, 'gradients' is forbidden.
- * type MyRules = TRequireKey<MySchema, 'variant', 'gradientText', 'gradients'>;
+ * interface User {
+ *   id: number;
+ *   profile: { bio: string };
+ *   tags: string[];
+ * }
  *
- * @example
- * // Usage in tcva:
- * export const myVariants = tcva<MySchema, MyRules>('base-classes', { ... });
+ * // Result: { readonly id: number; readonly profile: { readonly bio: string }; readonly tags: ReadonlyArray<string> }
+ * type ReadonlyUser = TRecursiveReadonly<User>;
  */
-type TRequireKey<
+type TIfValueRequire<
   T extends TConfigSchema,
   K1 extends keyof T,
   V1 extends keyof T[K1],
@@ -66,25 +65,6 @@ type TRequireIf<T, K1 extends keyof T, V1 extends T[K1], K2 extends keyof T> =
   | (Omit<T, K2> & { [P in K1]?: Exclude<T[K1], V1> } & { [P in K2]?: never }); // Branch: K1 is NOT V1, K2 is FORBIDDEN
 
 /**
- * TMerge: Deep Object Merge Utility
- *
- * Merges two types where properties in the second type (O2) override
- * those in the first (O1). It ensures that the resulting type respects
- * the structure of O2 while retaining non-conflicting keys from O1.
- *
- * @template O1 - The base object type
- * @template O2 - The overriding object type
- *
- * @example
- * type Base = { id: number; name: string; active: boolean };
- * type Update = { id: string; active: string };
- *
- * // Result: { id: string; name: string; active: string }
- * type Merged = TMerge<Base, Update>;
- */
-type TMerge<O1, O2> = O2 & Omit<O1, keyof O2>;
-
-/**
  * TOmitMethods: Data-Only Utility
  *
  * Strips all function properties (methods) from a type, leaving only
@@ -124,20 +104,5 @@ type TOmitMethods<T> = Pick<
  * type StatusList = TUnionResolver<Status>;
  */
 type TUnionResolver<T> = T extends infer U ? { type: U }[] : never;
-/**
- * TPrettify: IntelliSense Optimization Utility
- *
- * Flattens complex intersections and mapped types into a single,
- * readable object interface. It doesn't change the logic of the type,
- * but makes the hover-over tooltips in IDEs much easier to debug.
- *
- * @template T - The complex or intersected type to flatten
- *
- * @example
- * type Intersected = { a: string } & { b: number } & { c: boolean };
- *
- * // Hovering over 'Pretty' shows: { a: string; b: number; c: boolean }
- * // Instead of: { a: string } & { b: number } & { c: boolean }
- * type Pretty = TPrettify<Intersected>;
- */
-type TPrettify<T> = { [K in keyof T]: T[K] } & {};
+
+export type { TUnionResolver, TOmitMethods, TRequireIf, TIfValueRequire };

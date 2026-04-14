@@ -8,3 +8,4 @@ export * from './computation';
 export * from './color';
 export * from './link';
 export * from './processors';
+export * from './types';

@@ -1,7 +1,7 @@
 // lib/guards/dom.ts
 import { VALID_DOM_PROPS } from '../../../constants';
 import { ObjectUtils } from '../../common';
-import type { TTypeGuard } from '../../types';
+import type { TTypeGuard } from '../../../types';
 import type { ElementType, ComponentPropsWithoutRef } from 'react';
 import { isString } from '../core/primitives';
 import { memoize } from '../../common/memoize';

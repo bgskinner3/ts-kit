@@ -1,4 +1,4 @@
-import { TStaticMethods } from '../lib/types';
+import { TStaticMethods } from '../types';
 
 /**  @see {@link ManagerDocs.exportStaticMethods}  */
 function exportAndRenameStaticMethods<

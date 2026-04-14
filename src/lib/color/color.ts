@@ -1,5 +1,5 @@
 import { REGEX_CONSTANTS } from '../../constants';
-import { TRGB, TCssRGB } from '../types';
+import { TRGB, TCssRGB } from '../../types';
 import { isString } from '../guards';
 import { assertIsRGBTuple } from '../validations';
 

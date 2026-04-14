@@ -5,7 +5,7 @@ import type {
   TElementLike,
   THTMLTags,
   TPropType,
-} from '../../types';
+} from '../../../types';
 import type {
   ReactElement,
   ReactNode,
