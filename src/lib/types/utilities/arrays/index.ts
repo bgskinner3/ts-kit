@@ -1,10 +1,4 @@
-type TArrayLengthMutationKeys =
-  | 'splice'
-  | 'push'
-  | 'pop'
-  | 'shift'
-  | 'unshift'
-  | number;
+import type { TPrettify } from '../../primitives';
 
 type TArrayItems<T extends Array<unknown>> =
   T extends Array<infer TItems> ? TItems : never;
@@ -32,13 +26,14 @@ type TArrayItems<T extends Array<unknown>> =
  * // ❌ Error: Property 'splice' does not exist
  * point.splice(0, 1);
  */
-type TFixedLengthArray<T extends unknown[]> = Pick<
-  T,
-  Exclude<keyof T, TArrayLengthMutationKeys>
-> & {
-  [Symbol.iterator]: () => IterableIterator<TArrayItems<T>>;
-} & {
-  length: number;
-};
+type TFixedLengthArray<T extends unknown[]> = TPrettify<
+  {
+    // Filter to only keep numeric keys (indices)
+    [K in keyof T as K extends `${number}` ? K : never]: T[K];
+  } & {
+    [Symbol.iterator]: () => IterableIterator<TArrayItems<T>>;
+    length: number;
+  }
+>;
 
 export type { TFixedLengthArray };
