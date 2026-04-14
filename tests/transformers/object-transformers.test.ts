@@ -138,3 +138,88 @@ describe('ObjectTransformers', () => {
     });
   });
 });
+/**
+ import type {
+  //   TFilterKeysByValue,
+  TStripType,
+} from '../../../src/lib/types/primitives/filters';
+import type { TEqual, TExpect } from '../../../src/types/testing';
+
+type TComplexUser = {
+  readonly id: number;
+  name: string;
+  age?: number; // number | undefined
+  bio: string | null; // string | null
+  roles: string[] | 'guest'; // Union type
+  tags: string[] | undefined; // Another optional pattern
+};
+type TFilterKeysByValue<T, U> = {
+  [K in keyof T]-?: NonNullable<T[K]> extends U ? K : never;
+}[keyof T];
+describe('Filter Primitives (Thorough Edge Case Testing)', () => {
+  describe('TFilterKeysByValue', () => {
+    it('should handle standard primitives (including nullables via NonNullable)', () => {
+      // NonNullable<name> is string. NonNullable<bio> is string.
+      // Both match 'string'.
+      type Actual = TFilterKeysByValue<TComplexUser, string>;
+      type Expected = 'name' | 'bio';
+
+      type _test = TExpect<TEqual<Actual, Expected>>;
+    });
+
+    it('should handle loose matching for optional numbers (?-)', () => {
+      // Testing if your utility handles the '?' correctly
+      type Actual = TFilterKeysByValue<TComplexUser, number>;
+      type Expected = 'id' | 'age';
+      type _test = TExpect<TEqual<Actual, Expected>>;
+    });
+
+    it('should extract union types correctly', () => {
+      type Actual = TFilterKeysByValue<TComplexUser, string[] | 'guest'>;
+
+      // Both match because string[] (from tags) extends the union string[] | 'guest'
+      type Expected = 'roles';
+
+      type _test = TExpect<TEqual<Actual, Expected>>;
+    });
+
+    it('should return never when no keys match the filter', () => {
+      type Actual = TFilterKeysByValue<TComplexUser, boolean>;
+
+      type _test = TExpect<TEqual<Actual, never>>;
+    });
+  });
+
+  describe('TStripType', () => {
+    it('should remove properties including readonly ones', () => {
+      type Actual = TStripType<TComplexUser, number>;
+      // Should remove 'id' and 'age'
+      type Expected = {
+        name: string;
+        bio: string | null;
+        roles: string[] | 'guest';
+        tags: string[] | undefined;
+      };
+      type _test = TExpect<TEqual<Actual, Expected>>;
+    });
+
+    it('should strip nullables only if null is included in U', () => {
+      // Stripping 'string' should leave 'bio' alone because 'bio' is 'string | null'
+      type Actual = TStripType<TComplexUser, string>;
+      type _test = TExpect<Actual['bio'] extends string | null ? true : false>;
+    });
+
+    it('should effectively strip optional properties', () => {
+      type Actual = TStripType<TComplexUser, string[] | undefined>;
+      // 'tags' should be gone
+      type _test = TExpect<TEqual<keyof Actual & 'tags', never>>;
+    });
+  });
+
+  // Keep Jest runner from complaining about empty files
+  it('✅ Type Check Validation Complete', () => {
+    expect(true).toBe(true);
+  });
+});
+
+ */

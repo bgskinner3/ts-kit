@@ -13,7 +13,8 @@
  * type NumericKeys = TFilterKeysByValue<Profile, number>;
  */
 type TFilterKeysByValue<T, U> = {
-  [K in keyof T]: T[K] extends U ? K : never;
+  // The "-?" strips the optionality during the mapping phase
+  [K in keyof T]-?: NonNullable<T[K]> extends U ? K : never;
 }[keyof T];
 
 /**

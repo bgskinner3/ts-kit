@@ -7,3 +7,4 @@ export * from './dom-types';
 export * from './link-types';
 export * from './manager-types';
 export * from './validation-types';
+export * from './testing';
