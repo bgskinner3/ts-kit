@@ -53,18 +53,50 @@ describe('React Primitive Guards', () => {
   });
 
   describe('isComponentType', () => {
-    it('identifies functional components', () => {
+    it('identifies functional components (hits isFunction branch)', () => {
       const FnComp = () => null;
+      // This returns true at the very first check
       expect(isComponentType(FnComp)).toBe(true);
     });
 
-    it('identifies class components', () => {
-      class ClassComp extends React.Component {
-        render() {
-          return null;
-        }
-      }
-      expect(isComponentType(ClassComp)).toBe(true);
+    it('returns false for non-component objects (hits the false branches)', () => {
+      // Hits: isFunction(false) -> has 'prototype'(true) -> isObject(prototype)(true)
+      // -> has 'render'(false) 🛑
+      const plainObj = { prototype: {} };
+      expect(isComponentType(plainObj)).toBe(false);
+
+      // Hits: isFunction(false) -> has 'prototype'(false) 🛑
+      expect(isComponentType({ arbitrary: 'data' })).toBe(false);
+    });
+
+    it('returns false for null or primitives', () => {
+      expect(isComponentType(null)).toBe(false);
+      expect(isComponentType(123)).toBe(false);
+    });
+    it('hits the final isFunction check for class-like objects', () => {
+      // 1. isFunction(fakeClass) is FALSE (it's a plain object)
+      // 2. has prototype is TRUE
+      // 3. isObject(prototype) is TRUE
+      // 4. has render is TRUE
+      // 5. isFunction(render) is TRUE ✅ <--- This is the one you are missing
+      const fakeClass = {
+        prototype: {
+          render: () => null,
+        },
+      };
+
+      expect(isComponentType(fakeClass)).toBe(true);
+    });
+
+    it('hits the false branch of the final isFunction check', () => {
+      // Hits everything up to the end, but render is NOT a function
+      const brokenClass = {
+        prototype: {
+          render: 'not-a-function',
+        },
+      };
+
+      expect(isComponentType(brokenClass)).toBe(false);
     });
   });
 

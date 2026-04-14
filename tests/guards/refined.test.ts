@@ -15,6 +15,7 @@ import {
   isHTMLString,
   isHexColor,
   isRGBString,
+  isTuple3,
 } from '../../src/lib/guards/core/string-guards';
 import { isAbsoluteUrl } from '../../src/lib/guards/core/link-guards';
 describe('Refined / Composite Type Guards', () => {
@@ -325,6 +326,31 @@ describe('Refined / Composite Type Guards', () => {
       expect(isRGBString('')).toBe(false);
       expect(isRGBString('not a color')).toBe(false);
       expect(isRGBString('rgb(abc,def,ghi)')).toBe(false);
+    });
+  });
+  describe('isTuple3', () => {
+    it('returns true for valid [number, number, number] tuples', () => {
+      expect(isTuple3([0, 0, 0])).toBe(true);
+      expect(isTuple3([255, 128, 64])).toBe(true);
+    });
+
+    it('returns false if any element is NaN or not a number', () => {
+      // 🛑 Hits the inner: typeof v !== 'number'
+      expect(isTuple3([0, '128', 0])).toBe(false);
+      // 🛑 Hits the inner: !Number.isNaN(v)
+      expect(isTuple3([0, NaN, 0])).toBe(false);
+    });
+
+    it('returns false for incorrect lengths', () => {
+      // 🛑 Hits: value.length !== 3
+      expect(isTuple3([0, 0])).toBe(false);
+      expect(isTuple3([0, 0, 0, 0])).toBe(false);
+    });
+
+    it('returns false for non-arrays', () => {
+      // 🛑 Hits: isArray check
+      expect(isTuple3(null)).toBe(false);
+      expect(isTuple3({ r: 0, g: 0, b: 0 })).toBe(false);
     });
   });
 });

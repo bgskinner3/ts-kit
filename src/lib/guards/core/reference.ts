@@ -127,3 +127,33 @@ export function isInstanceOf<T extends object, Args extends unknown[]>(
 ): value is T {
   return value instanceof constructor;
 }
+/**
+ * @utilType Guard
+ * @name isRecord
+ * @category Guards Object
+ * @description Validates that a value is a non-null object (and not an array)
+ * that can be indexed by strings.
+ */
+export const isRecord: TTypeGuard<Record<string, unknown>> = (
+  value: unknown,
+): value is Record<string, unknown> =>
+  isObject(value) &&
+  value !== null &&
+  !isArray(value) &&
+  !(value instanceof Date) &&
+  !(value instanceof RegExp);
+
+/**
+ * @utilType Guard
+ * @name hasOwnProperty
+ * @category Guards Object
+ * @description A type-safe wrapper for Object.prototype.hasOwnProperty
+ * that narrows the object type to include the specified key.
+ */
+export const hasOwnProperty = <T extends object, K extends PropertyKey>(
+  obj: T,
+  prop: K,
+): obj is T & Record<K, unknown> => {
+  return Object.prototype.hasOwnProperty.call(obj, prop);
+};
+// // const { hasOwnProperty } = Object.prototype;

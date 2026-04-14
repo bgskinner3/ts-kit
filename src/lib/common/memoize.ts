@@ -1,4 +1,10 @@
 /**
+ * @utilType util
+ * @name memoize
+ * @category Logic
+ * @description Higher-order function that caches results of single-argument string functions for O(1) subsequent lookups.
+ * @link #memoize
+ *
  * Simple memoization utility for functions with a single string argument.
  *
  * This creates a cache (using Object.create(null) for a "pure" object) to store

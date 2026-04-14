@@ -4,7 +4,10 @@ import type {
   TExpect,
   TNormalizeTypeValue,
 } from '../../../../src/types';
-import type { TXOR } from '../../../../src/lib/types/utilities/unions';
+import type {
+  TXOR,
+  TTupleToIntersection,
+} from '../../../../src/lib/types/utilities/unions';
 import { forceType } from '../../../test-utils';
 
 /**
@@ -83,3 +86,77 @@ export type _tx5 = TExpect<TEqual<TOptional, TExpectedOptional>>;
 const xorValFour: unknown = {};
 forceType<TOptional>(xorValFour);
 expectType<TExpectedOptional>(xorValFour);
+
+// ====================================================================================================
+// ====================================================================================================
+// ====================================================================================================
+
+/**
+ * TTupleToIntersection TESTS
+ *
+ * USECASE --
+ * Merging multiple configuration layers or plugin results into a single
+ * strictly typed object.
+ */
+
+// 1. Single Member
+type TSingle = [{ a: string }];
+type TActualSingle = TTupleToIntersection<TSingle>;
+type TExpectedSingle = { a: string };
+
+export type _tt1 = TExpect<TEqual<TActualSingle, TExpectedSingle>>;
+
+// 2. Dual Members (Most Common)
+type TDuo = [{ a: string }, { b: number }];
+type TActualDuo = TTupleToIntersection<TDuo>;
+type TExpectedDuo = { a: string } & { b: number };
+
+export type _tt2 = TExpect<TEqual<TActualDuo, TExpectedDuo>>;
+
+const duoVal: unknown = {};
+forceType<TActualDuo>(duoVal);
+expectType<TExpectedDuo>(duoVal);
+
+// 3. Max Explicit Members (5-ary)
+type TPenta = [{ a: 1 }, { b: 2 }, { c: 3 }, { d: 4 }, { e: 5 }];
+type TActualPenta = TTupleToIntersection<TPenta>;
+type TExpectedPenta = { a: 1 } & { b: 2 } & { c: 3 } & { d: 4 } & { e: 5 };
+
+export type _tt3 = TExpect<TEqual<TActualPenta, TExpectedPenta>>;
+
+// 4. Fallback (Large Tuple > 5)
+// Logic: T extends (infer U)[] ? U : never
+// When the tuple is too large or generic, it should resolve to the union of its elements
+type THex = [{ a: 1 }, { b: 2 }, { c: 3 }, { d: 4 }, { e: 5 }, { f: 6 }];
+type TActualHex = TTupleToIntersection<THex>;
+
+// Note: In the fallback case, it becomes the union of the elements
+// because it can no longer safely map the specific indices.
+type TExpectedHex =
+  | { a: 1 }
+  | { b: 2 }
+  | { c: 3 }
+  | { d: 4 }
+  | { e: 5 }
+  | { f: 6 };
+
+export type _tt4 = TExpect<TEqual<TActualHex, TExpectedHex>>;
+
+// 5. Empty Tuple Edge Case
+type TEmpty = [];
+type TActualEmpty = TTupleToIntersection<TEmpty>;
+export type _tt5 = TExpect<TEqual<TActualEmpty, never>>;
+
+// 6. Intersection of Overlapping Keys
+type TOverlapA = [{ id: string; name: string }, { id: string; age: number }];
+type TActualOverlap = TTupleToIntersection<TOverlapA>;
+type TExpectedOverlapA = { id: string; name: string } & {
+  id: string;
+  age: number;
+};
+
+export type _tt6 = TExpect<TEqual<TActualOverlap, TExpectedOverlapA>>;
+
+const overlapVal: unknown = {};
+forceType<TActualOverlap>(overlapVal);
+expectType<TExpectedOverlapA>(overlapVal);

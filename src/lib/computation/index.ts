@@ -8,14 +8,35 @@ export class ComputationUtils {
   private static toNum(v: number | bigint): number {
     return isBigInt(v) ? Number(v) : v;
   }
+  /**
+   * @utilType util
+   * @name round
+   * @category Computation
+   * @description Rounds a number to a specified number of decimal places.
+   * @link #round
+   */
   static round(value: number, decimals = 0): number {
     const factor = Math.pow(10, decimals);
     return Math.round(value * factor) / factor;
   }
-  /** forces a number to stay within a specific range */
+  /**
+   * @utilType util
+   * @name clamp
+   * @category Computation
+   * @description Restricts a value to be within a defined minimum and maximum range.
+   * @link #clamp
+   */
+
   static clamp(val: number, min: number, max: number): number {
     return Math.max(min, Math.min(max, val));
   }
+  /**
+   * @utilType util
+   * @name getPercentage
+   * @category Computation
+   * @description Calculates the percentage of a value relative to a total, with BigInt safety and rounding.
+   * @link #getpercentage
+   */
   static getPercentage(
     value: number | bigint,
     total: number | bigint,
@@ -30,14 +51,24 @@ export class ComputationUtils {
 
     return this.round((value / total) * 100, decimals);
   }
+  /**
+   * @utilType util
+   * @name computeMean
+   * @category Computation
+   * @description Calculates the arithmetic mean of an array of numbers or BigInts.
+   * @link #computemean
+   */
   static computeMean(arr: (number | bigint)[]): number {
     if (!arr.length) return 0;
     const numbers = arr.map((v) => this.toNum(v));
     return numbers.reduce((sum, v) => sum + v, 0) / numbers.length;
   }
   /**
-   * Determines if a value is a statistical outlier based on standard deviations.
-   * Useful for performance alerting (e.g., test duration spikes).
+   * @utilType util
+   * @name isAnomaly
+   * @category Computation
+   * @description Statistical outlier detection based on standard deviations from the mean.
+   * @link #isanomaly
    */
   static isAnomaly(
     value: number,
@@ -49,9 +80,13 @@ export class ComputationUtils {
     return Math.abs(value - mean) > stdDev * threshold;
   }
   /**
-   * Generates a pass/fail ratio as a human-readable percentage.
-   * Leverages getPercentage for BigInt safety and consistent rounding.
+   * @utilType util
+   * @name computeRatio
+   * @category Computation
+   * @description Generates a ratio as a percentage, optimized for pass/fail metrics.
+   * @link #computeratio
    */
+
   static computeRatio(
     achieved: number | bigint,
     total: number | bigint,
@@ -60,8 +95,11 @@ export class ComputationUtils {
     return this.getPercentage(achieved, total, decimals);
   }
   /**
-   * Incrementally updates Welford's running mean and variance.
-   *
+   * @utilType util
+   * @name welfordUpdate
+   * @category Computation
+   * @description Efficiently updates running mean and variance using Welford's algorithm.
+   * @link #welfordupdate
    * High-level:
    * - Efficiently calculates running mean and variance without storing all samples.
    * - Perfect for streaming data like oracle price feeds.
@@ -108,6 +146,14 @@ export class ComputationUtils {
       stdDev,
     };
   }
+
+  /**
+   * @utilType util
+   * @name computeDelta
+   * @category Computation
+   * @description Calculates the net and absolute difference between two numbers or BigInts.
+   * @link #computedelta
+   */
   /* prettier-ignore */ static computeDelta(current: bigint, past: bigint): { netDelta: bigint; absDelta: bigint };
   /* prettier-ignore */ static computeDelta(current: number, past: number): { netDelta: number; absDelta: number };
   /* prettier-ignore */ static computeDelta(
@@ -128,6 +174,13 @@ export class ComputationUtils {
     }
     throw new Error("Incompatible types: current and past must both be number or both be bigint.");
   }
+  /**
+   * @utilType util
+   * @name computePercentageChange
+   * @category Computation
+   * @description Calculates the percentage increase or decrease between two values.
+   * @link #computepercentagechange
+   */
   static computePercentageChange(
     current: number | bigint,
     past: number | bigint,

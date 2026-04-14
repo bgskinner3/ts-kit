@@ -14,7 +14,7 @@ import type {
   ComponentType,
 } from 'react';
 import { isPrimitive, isString } from '../core/primitives';
-import { isArrayOf, isKeyInObject } from '../core/composite';
+import { isArrayOf, isKeyInObject, isKeyOfObject } from '../core/composite';
 import { isNil, isFunction, isObject } from '../core/reference';
 import { isReactPortal } from './react-primitive';
 import { isValidElement, Fragment } from 'react';
@@ -112,10 +112,11 @@ export const isElementLike: TTypeGuard<TElementLike> = (
  */
 export const isElementOfType = <T extends THTMLTags>(
   element: unknown,
-  allowedTypes: THTMLTags,
-): element is { type: THTMLTags; props: object } =>
-  isElementLike(element) && allowedTypes.includes(element.type as T);
-
+  allowedTypes: THTMLTags | THTMLTags[], // Support single string or array
+): element is { type: THTMLTags; props: object } => {
+  const types = Array.isArray(allowedTypes) ? allowedTypes : [allowedTypes];
+  return isElementLike(element) && types.includes(element.type as T);
+};
 /**
  * @utilType Guard
  * @name hasNameMetadata
@@ -125,11 +126,15 @@ export const isElementOfType = <T extends THTMLTags>(
  */
 export const hasNameMetadata = (type: unknown): type is TNamedComponent =>
   isFunction(type) &&
-  (isObject(type) || isFunction(type)) &&
-  (isKeyInObject('displayName')(type) ||
-    isKeyInObject('name')(type) ||
-    isKeyInObject('type')(type));
-
+  // We check properties directly on the function/class object
+  ((isKeyOfObject(type) &&
+    (isKeyInObject('displayName')(type) ||
+      isKeyInObject('name')(type) ||
+      isKeyInObject('type')(type))) ||
+    // Fallback for environments where isKeyInObject might strictly exclude functions
+    'displayName' in type ||
+    'name' in type ||
+    'type' in type);
 /**
  * @utilType Guard
  * @name createPropGuard
@@ -156,10 +161,8 @@ export function createPropGuard<
   T extends ComponentType<object>,
   K extends keyof ComponentProps<T>,
 >(): TTypeGuard<TPropType<T, K>> {
-  /* prettier-ignore */ const guard: TTypeGuard<TPropType<T, K>> = 
-  (value: unknown): value is TPropType<T, K> => {
-    return isPrimitive(typeof value);
+  return (value: unknown): value is TPropType<T, K> => {
+    // Check the value directly, not its type string
+    return isPrimitive(value);
   };
-
-  return guard;
 }

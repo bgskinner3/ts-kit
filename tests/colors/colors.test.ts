@@ -187,6 +187,29 @@ describe('Color Utilities', () => {
       expect(s).toBeCloseTo(1);
       expect(l).toBeCloseTo(0.5);
     });
+    it('converts a reddish-purple correctly (max is R and G < B)', () => {
+      const { h } = hexToHSL('#ff0080');
+      // R=255, G=0, B=128 -> Hue should be around 330
+      expect(h).toBeCloseTo(329.88, 1);
+    });
+
+    // NEW: Hits the saturation calculation for Lightness > 0.5
+    it('converts a light sky blue correctly (L > 0.5 saturation path)', () => {
+      const { h, s, l } = hexToHSL('#80d4ff');
+      expect(l).toBeGreaterThan(0.5);
+      // Updated to match actual calculation: (255-128) is delta, etc.
+      expect(h).toBeCloseTo(200.3, 1);
+      expect(s).toBeCloseTo(1, 1);
+    });
+
+    // NEW: Hits the saturation calculation for Lightness <= 0.5
+    it('converts a dark navy correctly (L <= 0.5 saturation path)', () => {
+      const { h, s, l } = hexToHSL('#000080');
+      expect(l).toBeLessThanOrEqual(0.5);
+      expect(h).toBeCloseTo(240);
+      expect(s).toBeCloseTo(1);
+      expect(l).toBeCloseTo(0.25, 1);
+    });
 
     it('converts gray shades correctly', () => {
       const { h, s, l } = hexToHSL('#808080'); // medium gray
@@ -200,6 +223,18 @@ describe('Color Utilities', () => {
       expect(h).toBeCloseTo(300);
       expect(s).toBeCloseTo(1);
       expect(l).toBeCloseTo(0.5);
+    });
+    it('converts a vivid purple correctly (max is Blue branch)', () => {
+      // #8000ff -> R: 128, G: 0, B: 255
+      const { h, s, l } = hexToHSL('#8000ff');
+
+      // Calculation Breakdown:
+      // r=0.501, g=0, b=1.0. Max is Blue (1.0).
+      // d = 1.0 - 0 = 1.0
+      // h = ((0.501 - 0) / 1.0 + 4) * 60 = 270.11
+      expect(h).toBeCloseTo(270.1, 1);
+      expect(s).toBeCloseTo(1);
+      expect(l).toBeCloseTo(0.5, 1);
     });
   });
 

@@ -32,6 +32,39 @@ describe('React Processor Utils', () => {
       combined({} as any);
       expect(objRef.current).not.toBeNull();
     });
+    it('updates an object ref specifically', () => {
+      const objRef = { current: null };
+      const combined = mergeRefs(objRef);
+
+      const mockElement = { id: 'object-test' };
+      combined(mockElement as any);
+
+      // This forces the loop to skip the isFunction check and hit isRefObject
+      expect(objRef.current).toBe(mockElement);
+    });
+
+    it('does not crash if an invalid ref type somehow passes the filter', () => {
+      // This hits the "hidden" else branch of the if/else if logic
+      // by passing something that isRef(ref) is true for, but isn't a function or obj.current
+      // Although rare in TS, it ensures the loop completes safely.
+      const weirdRef = Object.assign(() => {}, { current: undefined });
+      delete (weirdRef as any).current;
+
+      const combined = mergeRefs(weirdRef as any);
+      expect(() => combined({} as any)).not.toThrow();
+    });
+    it('hits the isRefObject branch by using a non-function object ref', () => {
+      // Create a "naked" object ref.
+      // We explicitly ensure it is NOT a function so it fails the first 'if'.
+      const objRef = { current: null };
+
+      const combined = mergeRefs(objRef);
+      const element = { nodeType: 1 };
+
+      combined(element as any);
+
+      expect(objRef.current).toBe(element);
+    });
   });
 
   describe('lazyProxy', () => {
@@ -48,6 +81,27 @@ describe('React Processor Utils', () => {
       const secondCall = proxy.b;
       expect(spy).toHaveBeenCalledTimes(1); // Still 1 due to cache
       expect(firstCall).toBe(secondCall);
+    });
+    it('falls back to Reflect for non-string, missing, or symbol properties', () => {
+      const config = { a: 1 };
+      const proxy = lazyProxy(config);
+
+      // 1. Access a missing property (hits !keys.has)
+      expect((proxy as any)['nonExistent']).toBeUndefined();
+
+      // 2. Access a Symbol property (hits !isString)
+      const mySymbol = Symbol('test');
+      const withSymbol: any = { [mySymbol]: 'bar' };
+      const symbolProxy = lazyProxy(withSymbol);
+      expect(symbolProxy[mySymbol]).toBe('bar');
+    });
+
+    it('returns non-function values directly without caching', () => {
+      const config = { a: 100 }; // 'a' is a number, not a function
+      const proxy = lazyProxy(config);
+
+      // Hits the final 'return value' branch
+      expect(proxy.a).toBe(100);
     });
   });
 

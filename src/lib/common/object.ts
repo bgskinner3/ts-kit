@@ -1,34 +1,22 @@
 import { exportAndRenameStaticMethods } from '../../managers';
 
-/**
- * ## 🧩 Available Methods
- *
- * - `keys` — Returns the keys of an object with full type inference.
- * - `entries` — Returns typed key-value pairs of an object.
- * - `fromEntries` — Builds a typed object from key-value entry tuples.
- * - `values` — Returns the values of an object with inferred types.
- * - `has` — Checks if a nested property exists via dot notation.
- * - `get` — Safely retrieves a nested property using a dot path.
- * - `set` — Safely sets a nested property using a dot path.
- *
- * ---
- * @see {@link CommonUtilsDocs.ObjectUtils}
- */
 class ObjectUtils {
   /**
-   * Returns the keys of an object while protecting key inference.
-   *
-   * @template Obj - The object type
-   * @param {Obj} obj - The object to extract keys from
+   * @utilType util
+   * @name keys
+   * @category Object
+   * @description Returns the keys of an object as a typed array of its own keys.
+   * @link #keys
    */
   static keys<Obj extends object>(obj: Obj) {
     return Object.keys(obj) as (keyof Obj)[];
   }
   /**
-   * Returns the key-value pairs of an object while protecting type inference.
-   *
-   * @template T - The object type
-   * @param {T} obj - The object to extract key-value pairs from
+   * @utilType util
+   * @name entries
+   * @category Object
+   * @description Returns an array of an object's own enumerable string-keyed [key, value] pairs with preserved inference.
+   * @link #entries
    */
   static entries<T extends Record<string, unknown>>(
     obj: T,
@@ -36,12 +24,12 @@ class ObjectUtils {
     return obj ? (Object.entries(obj) as [keyof T, T[keyof T]][]) : [];
   }
   /**
-   * Constructs an object from an array of entries with type safety.
+   * @utilType util
+   * @name fromEntries
+   * @category Object
+   * @description Constructs an object from an array of key-value entries with explicit type safety.
+   * @link #fromentries
    */
-
-  // static fromEntries<K extends string, V>(entries: [K, V][]): Record<K, V> {
-  //   return Object.fromEntries(entries) as Record<K, V>;
-  // }
   static fromEntries<
     K extends string | number | symbol = string, // default key type
     V = unknown,
@@ -49,19 +37,22 @@ class ObjectUtils {
     return Object.fromEntries(entries) as Record<K, V>;
   }
   /**
-   * Returns the values of an object while protecting type inference.
-   *
-   * @template Obj - The object type
-   * @param {Obj} obj - The object to extract values from
+   * @utilType util
+   * @name values
+   * @category Object
+   * @description Returns an array of an object's own enumerable string-keyed property values.
+   * @link #values
    */
   static values<Obj extends object>(obj: Obj) {
     return Object.values(obj) as Obj[keyof Obj][];
   }
 
   /**
-   * Checks if a nested property exists in an object using dot notation.
-   * @param obj - The object to check.
-   * @param path - Dot-separated path like 'user.profile.name'
+   * @utilType util
+   * @name has
+   * @category Object
+   * @description Checks if a nested property exists in an object using dot-notation (e.g., 'user.profile.id').
+   * @link #has
    */
   static has<Obj extends object>(obj: Obj, path: string): boolean {
     if (!path) return false;
@@ -82,9 +73,11 @@ class ObjectUtils {
   }
 
   /**
-   * Safely gets a nested property from an object using dot notation.
-   * @param obj - The object to access.
-   * @param path - Dot-separated path like 'user.profile.name'
+   * @utilType util
+   * @name get
+   * @category Object
+   * @description Safely retrieves a nested property from an object using dot-notation pathing.
+   * @link #get
    */
   static get<Obj extends object, Path extends string>(
     obj: Obj,
@@ -103,11 +96,11 @@ class ObjectUtils {
   }
 
   /**
-   * Safely sets a nested property on an object using dot notation.
-   * Creates intermediate objects as needed.
-   * @param obj - The object to modify.
-   * @param path - Dot-separated path like 'user.profile.name'
-   * @param value - The value to set
+   * @utilType util
+   * @name set
+   * @category Object
+   * @description Safely sets a nested property on an object using dot-notation, creating intermediate objects as needed.
+   * @link #set
    */
   static set<Obj extends object>(obj: Obj, path: string, value: unknown): void {
     if (!path) return;
@@ -116,27 +109,30 @@ class ObjectUtils {
     let current: unknown = obj;
 
     for (let i = 0; i < keys.length - 1; i++) {
-      const key = keys[i];
-
-      if (typeof current !== 'object' || current === null) {
-        // Should never happen if obj is valid, but safeguard
+      // 🛑 MOVING THE SAFEGUARD HERE
+      // If the previous step landed on a primitive, we cannot go deeper.
+      if (current === null || typeof current !== 'object') {
         return;
       }
 
+      const key = keys[i];
       const record = current as Record<string, unknown>;
 
-      if (
-        !(key in record) ||
-        typeof record[key] !== 'object' ||
-        record[key] === null
-      ) {
+      // If the key doesn't exist, create the nested object
+      if (!(key in record)) {
         record[key] = {};
+      }
+      // 🛑 ADDING A CHECK: If the key exists but is NOT an object, STOP.
+      // This prevents overwriting existing data mid-path.
+      else if (record[key] === null || typeof record[key] !== 'object') {
+        return;
       }
 
       current = record[key];
     }
 
-    if (typeof current === 'object' && current !== null) {
+    // Final assignment
+    if (current !== null && typeof current === 'object') {
       (current as Record<string, unknown>)[keys[keys.length - 1]] = value;
     }
   }

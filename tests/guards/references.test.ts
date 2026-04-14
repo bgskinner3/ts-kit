@@ -11,10 +11,40 @@ import {
   isUndefined,
   isDefined,
   isInstanceOf,
-  // isRef
+  isRecord,
+  hasOwnProperty,
 } from '../../src/lib/guards/core/reference';
 
 describe('Reference Type Guards', () => {
+  describe('isRecord', () => {
+    it('returns true for plain objects and false for arrays/null', () => {
+      expect(isRecord({})).toBe(true);
+      expect(isRecord({ a: 1 })).toBe(true);
+      expect(isRecord([])).toBe(false);
+      expect(isRecord(null)).toBe(false);
+      // Dates should be false so they are treated as values, not mergeable objects
+      expect(isRecord(new Date())).toBe(false);
+    });
+  });
+  describe('hasOwnProperty', () => {
+    it('returns true when the key exists', () => {
+      const obj = { a: 1, b: undefined };
+      expect(hasOwnProperty(obj, 'a')).toBe(true);
+      expect(hasOwnProperty(obj, 'b')).toBe(true);
+    });
+
+    it('returns false when the key does not exist', () => {
+      const obj = { a: 1 };
+      expect(hasOwnProperty(obj, 'c')).toBe(false);
+      expect(hasOwnProperty(obj, 'toString')).toBe(false); // Should be false for inherited props
+    });
+
+    it('works safely on objects with no prototype', () => {
+      const noProto = Object.create(null);
+      noProto.prop = 'test';
+      expect(hasOwnProperty(noProto, 'prop')).toBe(true);
+    });
+  });
   describe('isNull', () => {
     it('returns true only for null', () => {
       expect(isNull(null)).toBe(true);

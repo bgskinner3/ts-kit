@@ -4,6 +4,7 @@ import type {
   TDeepWriteable,
   TDeepMap,
   TDeepBigIntToNumber,
+  TDeepMerge,
 } from '../../../../src/lib/types/utilities/objects';
 import { forceType } from '../../../test-utils';
 
@@ -165,3 +166,72 @@ export type _tnull = TExpect<TEqual<TNullableActual, TNullableExpected>>;
 const deepNum3: unknown = {};
 forceType<TNullableActual>(deepNum3);
 expectType<TNullableExpected>(deepNum3);
+
+// ====================================================================================================
+// ====================================================================================================
+// ====================================================================================================
+
+// TDeepMerge
+
+type TDM_Actual1 = TDeepMerge<{ a: string }, { b: number }>;
+type TDM_Expected1 = { a: string; b: number };
+export type _tdm1 = TExpect<TEqual<TDM_Actual1, TDM_Expected1>>;
+
+const dmVal1: unknown = { a: 'hello', b: 42 };
+forceType<TDM_Actual1>(dmVal1);
+expectType<TDM_Expected1>(dmVal1);
+
+// ------------------------------------------------------------------------
+
+// Case: Deeply nested merge with property override
+type TDM_Actual2 = TDeepMerge<
+  { user: { name: string; age: number } },
+  { user: { age: string; active: boolean } }
+>;
+type TDM_Expected2 = {
+  user: { name: string; age: string; active: boolean };
+};
+export type _tdm2 = TExpect<TEqual<TDM_Actual2, TDM_Expected2>>;
+
+const dmVal2: unknown = { user: { name: 'Alice', age: '30', active: true } };
+forceType<TDM_Actual2>(dmVal2);
+expectType<TDM_Expected2>(dmVal2);
+
+// ------------------------------------------------------------------------
+
+// Case: Handling optionality (Optional in T, Required in U should become Required)
+type TDM_Actual3 = TDeepMerge<
+  { id?: string; meta: { a: number } },
+  { id: string; meta: { b: number } }
+>;
+type TDM_Expected3 = { id: string; meta: { a: number; b: number } };
+export type _tdm13 = TExpect<TEqual<TDM_Actual3, TDM_Expected3>>;
+
+const dmVal3: unknown = { id: '001', meta: { a: 1, b: 2 } };
+forceType<TDM_Actual3>(dmVal3);
+expectType<TDM_Expected3>(dmVal3);
+
+// ------------------------------------------------------------------------
+
+// Case: Merging an object with a primitive (Primitive U wins)
+type TDM_Actual4 = TDeepMerge<{ nested: { a: number } }, { nested: string }>;
+type TDM_Expected4 = { nested: string };
+export type _tdm14 = TExpect<TEqual<TDM_Actual4, TDM_Expected4>>;
+
+const dmVal4: unknown = { nested: 'replaced' };
+forceType<TDM_Actual4>(dmVal4);
+expectType<TDM_Expected4>(dmVal4);
+
+// ------------------------------------------------------------------------
+
+// Case: Complex mixed optional properties
+type TDM_Actual15 = TDeepMerge<
+  { a?: string; b: number },
+  { a?: string; c?: boolean }
+>;
+type TDM_Expected15 = { a?: string; b: number; c?: boolean };
+export type _tdm15 = TExpect<TEqual<TDM_Actual15, TDM_Expected15>>;
+
+const dmVal15: unknown = { b: 10 };
+forceType<TDM_Actual15>(dmVal15);
+expectType<TDM_Expected15>(dmVal15);

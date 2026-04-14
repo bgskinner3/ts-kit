@@ -9,3 +9,4 @@ export * from './color';
 export * from './link';
 export * from './processors';
 export * from './types';
+export * from './manipulators';

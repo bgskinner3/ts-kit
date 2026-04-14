@@ -9,7 +9,11 @@ import {
   isFragment,
   hasOnClick,
   isElementLike,
+  hasNameMetadata,
+  createPropGuard,
+  isElementOfType,
 } from '../../src/lib/guards/react/node-guards';
+import { THTMLTags } from '../../src/types';
 
 describe('React Node Guards', () => {
   describe('isValidReactNode', () => {
@@ -84,6 +88,47 @@ describe('React Node Guards', () => {
 
       expect(isReactElement(element)).toBe(true);
       expect(isReactElement(plainObject)).toBe(false); // Fails because it lacks the Symbol
+    });
+  });
+
+  describe('isElementOfType', () => {
+    describe('isElementOfType', () => {
+      it('returns true if element type matches', () => {
+        const element = React.createElement('span');
+        expect(isElementOfType(element, ['div', 'span'])).toBe(true);
+      });
+
+      it('returns false if element type is not in list', () => {
+        const element = React.createElement('p');
+        expect(isElementOfType(element, ['span'])).toBe(false); // Pass as array
+      });
+    });
+
+    it('returns false for non-elements', () => {
+      expect(isElementOfType('not-an-element', 'div')).toBe(false);
+    });
+  });
+
+  describe('hasNameMetadata', () => {
+    it('identifies components via various keys', () => {
+      const CompA = () => null;
+      CompA.displayName = 'A';
+
+      function CompB() {
+        return null;
+      }
+
+      expect(hasNameMetadata(CompA)).toBe(true);
+      expect(hasNameMetadata(CompB)).toBe(true);
+      expect(hasNameMetadata(() => null)).toBe(true); // Functions have 'name' by default
+    });
+  });
+
+  describe('createPropGuard', () => {
+    it('correctly validates primitives vs objects', () => {
+      const isStatus = createPropGuard<any, any>();
+      expect(isStatus('active')).toBe(true);
+      expect(isStatus({ color: 'red' })).toBe(false); // Now returns false
     });
   });
 });

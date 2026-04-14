@@ -184,6 +184,45 @@ type TNormalizeValue<T> = T extends bigint
 type TNormalizedBigIntToNumber<T> = {
   [K in keyof T]: TNormalizeValue<T[K]>;
 };
+
+/**
+ * @utilType type
+ * @name TDeepMerge
+ * @category Types Utilities
+ * @description Recursively merges two types T and U, prioritizing U's properties and preserving optionality.
+ * @link #tdeepmerge
+ *
+ * ## 🛠️ TDeepMerge — Recursive Object Merger
+ *
+ * A high-performance utility that deeply merges two structures. It maps over the
+ * combined keys of both types, handling nested objects recursively while
+ * maintaining property modifiers (like optionality).
+ *
+ * @note If a key exists in both T and U, the types are merged. If they are
+ * primitives, U typically overrides or unions with T depending on the structure.
+ *
+ * @template T - The base/original type structure.
+ * @template U - The type structure to merge into T.
+ */
+
+type TDeepMerge<T, U> = (
+  T extends object
+    ? U extends object
+      ? {
+          [K in keyof (T & U)]: K extends keyof T
+            ? K extends keyof U
+              ? TDeepMerge<T[K], U[K]> // Both exist: recurse
+              : T[K] // Only T exists
+            : K extends keyof U
+              ? U[K] // Only U exists
+              : never;
+        }
+      : U
+    : U
+) extends infer Result
+  ? TPrettify<Result>
+  : never;
+
 export type {
   TNonNullableDeep,
   TRecursivePartial,
@@ -194,4 +233,47 @@ export type {
   TDeepBigIntToNumber,
   TNormalizeValue,
   TNormalizedBigIntToNumber,
+  TDeepMerge,
 };
+
+/**
+ type MergeToOne<T> = T extends object
+  ? {
+      [K in keyof T]: K extends RequiredKeys<T>
+        ? Exclude<T[K], undefined>
+        : T[K];
+    }
+  : never;
+
+type RequiredKeys<T> = {
+  [K in keyof T]-?: object extends Pick<T, K> ? never : K;
+}[keyof T];
+type OptionalKeys<T> = {
+  [K in keyof T]-?: object extends Pick<T, K> ? K : never;
+}[keyof T];
+type DeepMerge<T1, T2> = T1 extends object
+  ? T2 extends object
+    ? MergeToOne<
+        {
+          [K in keyof T2 & keyof T1 & RequiredKeys<T1 | T2>]: DeepMerge<
+            T1[K],
+            T2[K]
+          >;
+        } & {
+          [K in keyof T2 & keyof T1 & OptionalKeys<T1 | T2>]?: DeepMerge<
+            T1[K],
+            T2[K]
+          >;
+        } & { [K in Exclude<RequiredKeys<T1>, keyof T2>]: T1[K] } & {
+          [K in Exclude<OptionalKeys<T1>, keyof T2>]?: T1[K];
+        } & { [K in Exclude<RequiredKeys<T2>, keyof T1>]: T2[K] } & {
+          [K in Exclude<OptionalKeys<T2>, keyof T1>]?: T2[K];
+        }
+      >
+    : T1 extends object
+      ? T2
+      : T1 | T2
+  : T2 extends object
+    ? T1
+    : T1 | T2;
+ */

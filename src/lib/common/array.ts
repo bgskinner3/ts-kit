@@ -1,31 +1,25 @@
 import type { TFixedLengthArray } from '../types';
 import { exportAndRenameStaticMethods } from '../../managers';
 
-/**
- * ## 🧩 Available Methods
- *
- * - `includes` — Type-safe `Array.includes` helper for union narrowing.
- * - `createFixedLengthArray` — Ensures arrays have a fixed compile-time length.
- * - `readAllItems` — Returns a shallow copy of an array.
- * - `map` — Type-safe wrapper around `Array.map`.
- * - `forEachUnion` — Handles arrays with union element types safely.
- * - `forEach` — Standard, type-safe `forEach` wrapper.
- * - `reduce` — Strictly typed reduction helper.
- * - `flat` — One-level flattening helper.
- * - `flatMap` — Safe flatMap alternative with strong typing.
- * - `filter` — Generic and narrowed type-safe filter.
- * - `filterNonNullable` — Removes nullish values safely.
- *
- * ---
- * @see {@link CommonUtilsDocs.ArrayUtils}
- */
 class ArrayUtils {
-  /**  @see {@link ArrayUtilsDocs.includes} */
+  /**
+   * @utilType util
+   * @name includes
+   * @category Array
+   * @description Type-safe wrapper for Array.prototype.includes that acts as a type guard.
+   * @link #includes
+   */
   static includes<T extends U, U>(arr: ReadonlyArray<T>, el: U): el is T {
     return arr.includes(el as T);
   }
 
-  /**  @see {@link ArrayUtilsDocs.createFixedLengthArray} */
+  /**
+   * @utilType util
+   * @name createFixedLengthArray
+   * @category Array
+   * @description Validates and returns an array with a fixed numeric length at the type level.
+   * @link #createfixedlengtharray
+   */
   static createFixedLengthArray<T>(
     items: T[],
     length: number,
@@ -37,21 +31,22 @@ class ArrayUtils {
   }
 
   /**
-   * Returns a shallow copy of an array.
-   *
-   * @typeParam T - Type of array elements.
-   * @param arr - Array to copy.
-   * @returns A new array containing all items.
-   *
-   * @example
-   * const original = [1, 2, 3];
-   * const copy = ArrayUtils.readAllItems(original);
-   * copy.push(4); // Does not affect `original`
+   * @utilType util
+   * @name readAllItems
+   * @category Array
+   * @description Returns a shallow copy of an array to prevent unintended mutations of the original.
+   * @link #readallitems
    */
   static readAllItems<T>(arr: ReadonlyArray<T>): T[] {
     return [...arr]; // Simply returns a shallow copy of the array
   }
-  /** 🧠 Safe map wrapper with correct inference */
+  /**
+   * @utilType util
+   * @name map
+   * @category Array
+   * @description Safe map wrapper providing consistent type inference for ReadonlyArrays.
+   * @link #map
+   */
   static map<T, U>(
     arr: ReadonlyArray<T>,
     fn: (value: T, index: number, array: ReadonlyArray<T>) => U,
@@ -59,12 +54,11 @@ class ArrayUtils {
     return arr.map(fn);
   }
   /**
-   * 🧠 Type-safe forEach for arrays that might be union types.
-   * Helps TypeScript narrow union members while iterating.
-   *
-   * Supports both:
-   * - Single arrays: `T[]`
-   * - Union of arrays: `T[][]`
+   * @utilType util
+   * @name forEachUnion
+   * @category Array
+   * @description Iterates over single arrays or unions of arrays, flattening them for uniform processing.
+   * @link #foreachunion
    *
    * @typeParam T - The type of array elements.
    *
@@ -95,13 +89,27 @@ class ArrayUtils {
       : (arr as T[]);
     flatArr.forEach(fn);
   }
-  /** 🧠 Safe forEach wrapper with correct inference */
+  /**
+   * @utilType util
+   * @name forEach
+   * @category Array
+   * @description Safe forEach wrapper with correct type inference for ReadonlyArrays.
+   * @link #foreach
+   */
   static forEach<T>(
     arr: ReadonlyArray<T>,
     fn: (value: T, index: number, array: ReadonlyArray<T>) => void,
   ): void {
     arr.forEach(fn);
   }
+
+  /**
+   * @utilType util
+   * @name reduce
+   * @category Array
+   * @description Safe reduce wrapper with correct type inference for ReadonlyArrays.
+   * @link #reduce
+   */
   static reduce<T, U>(
     arr: ReadonlyArray<T>,
     fn: (
@@ -114,12 +122,24 @@ class ArrayUtils {
   ): U {
     return arr.reduce(fn, initialValue);
   }
-  /** 🧠 Type-safe flat for 1-level nested arrays */
+  /**
+   * @utilType util
+   * @name flat
+   * @category Array
+   * @description Type-safe flat for 1-level nested arrays using reduce.
+   * @link #flat
+   */
   static flat<T>(arr: ReadonlyArray<T | T[]>): T[] {
     return arr.reduce<T[]>((acc, val) => acc.concat(val as T | T[]), []);
   }
 
-  /** 🧠 Type-safe flatMap */
+  /**
+   * @utilType util
+   * @name flatMap
+   * @category Array
+   * @description Type-safe flatMap implementation for environments lacking native support.
+   * @link #flatmap
+   */
   static flatMap<T, U>(
     arr: ReadonlyArray<T>,
     fn: (item: T, index: number) => U | U[],
@@ -131,12 +151,11 @@ class ArrayUtils {
   }
 
   /**
-   * 🧠 Type-safe filter wrapper
-   * Preserves TypeScript type inference.
-   *
-   * @example
-   * const numbers: (number | null)[] = [1, 2, null, 4];
-   * const validNumbers = ArrayUtils.filter(numbers, (n): n is number => n != null);
+   * @utilType util
+   * @name filter
+   * @category Array
+   * @description Type-safe filter wrapper that preserves TypeScript type guards and inference.
+   * @link #filter
    */
   static filter<T, S extends T>(
     arr: ReadonlyArray<T>,
@@ -153,7 +172,11 @@ class ArrayUtils {
     return arr.filter(predicate);
   }
   /**
-   * Shortcut for filtering out null or undefined values.
+   * @utilType util
+   * @name filterNonNullable
+   * @category Array
+   * @description Shortcut utility to filter out all null and undefined values from an array.
+   * @link #filternonnullable
    */
   static filterNonNullable<T>(arr: ReadonlyArray<T | null | undefined>): T[] {
     return ArrayUtils.filter(arr, (item): item is T => item != null);
