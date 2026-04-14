@@ -69,4 +69,5 @@ type TStrictURL<
   ? ''
   : `?${ToQueryString<TParams>}`}`;
 
+// TODO: ADD TCamelCase TKebab etc util types
 export type { TStrictURL, ToPath, ToQueryString };

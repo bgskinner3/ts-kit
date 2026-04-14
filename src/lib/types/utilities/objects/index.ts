@@ -1,3 +1,4 @@
+import type { TPrettify } from '../../primitives';
 /**
  * TDeepMap: Recursive Type Transformation Utility
  *
@@ -31,8 +32,7 @@ type TDeepMap<T, From, To> = T extends From
   ? To
   : T extends (infer U)[]
     ? TDeepMap<U, From, To>[]
-    : // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      T extends Record<string, any>
+    : T extends Record<string, unknown>
       ? { [K in keyof T]: TDeepMap<T[K], From, To> }
       : T;
 
@@ -54,8 +54,37 @@ type TDeepMap<T, From, To> = T extends From
  * // Result: { id: string; profile: { bio: string } }
  * type MutableUser = TDeepWriteable<ImmutableUser>;
  */
-type TDeepWriteable<T> = { -readonly [P in keyof T]: TDeepWriteable<T[P]> };
-
+type TDeepWriteable<T> = T extends (...args: never[]) => unknown
+  ? T
+  : T extends Date | RegExp
+    ? T
+    : T extends object // Move object check above ReadonlyArray
+      ? { -readonly [K in keyof T]: TDeepWriteable<T[K]> }
+      : T;
+/**
+ * TDeepBigIntToNumber — Recursive BigInt Normalization
+ *
+ * Traverses a data structure and maps all `bigint` types to `number`.
+ *
+ * Since the JSON specification does not support BigInt, this utility is
+ * essential for preparing data for `JSON.stringify()`, network transmission,
+ * or frontend consumption where `number` is the expected primitive.
+ *
+ * @template T - The structure (Object, Array, or Primitive) to normalize
+ *
+ * @example
+ * type DBResult = { id: bigint; tags: bigint[]; metadata: { size: bigint } };
+ *
+ * // Result: { id: number; tags: number[]; metadata: { size: number } }
+ * type APIPayload = TDeepBigIntToNumber<DBResult>;
+ */
+type TDeepBigIntToNumber<T> = T extends bigint
+  ? number
+  : T extends (infer U)[]
+    ? Array<TDeepBigIntToNumber<U>>
+    : T extends object
+      ? { [K in keyof T]: TDeepBigIntToNumber<T[K]> }
+      : T;
 /**
  * TRecursivePartial: Deep Optional Utility
  *
@@ -74,13 +103,13 @@ type TDeepWriteable<T> = { -readonly [P in keyof T]: TDeepWriteable<T[P]> };
  * // Result: { theme?: { colors?: { primary?: string; secondary?: string } }; enabled?: boolean }
  * type PartialConfig = TRecursivePartial<AppConfig>;
  */
-type TRecursivePartial<T> = {
-  [P in keyof T]?: T[P] extends (infer U)[]
-    ? TRecursivePartial<U>[] // Recursively handle arrays
-    : T[P] extends object | undefined
-      ? TRecursivePartial<T[P]> // Recursively handle nested objects
-      : T[P]; // Keep primitives as-is
-};
+type TRecursivePartial<T> = T extends (...args: never[]) => unknown
+  ? T
+  : T extends Array<infer U>
+    ? Array<TRecursivePartial<U>>
+    : T extends object
+      ? { [P in keyof T]?: TRecursivePartial<T[P]> }
+      : T;
 /**
  * TRecursiveRequired: Deep Requirement Utility
  *
@@ -100,7 +129,7 @@ type TRecursivePartial<T> = {
  * type StrictProfile = TRecursiveRequired<UserProfile>;
  */
 
-type TRecursiveRequired<T> = T extends (...args: unknown[]) => unknown
+type TRecursiveRequired<T> = T extends (...args: never[]) => unknown
   ? T
   : T extends Array<infer U>
     ? Array<TRecursiveRequired<U>>
@@ -152,36 +181,18 @@ type TRecursiveReadonly<T> = T extends (...args: unknown[]) => unknown
  * // Result: { data: { id: string; meta: { count: number } } }
  * type CleanResponse = TNonNullableDeep<APIResponse>;
  */
-type TNonNullableDeep<T> = {
-  [P in keyof T]: NonNullable<T[P]> extends object
+// type TNonNullableDeep<T> = {
+//   [P in keyof T]: NonNullable<T[P]> extends object
+//     ? TNonNullableDeep<NonNullable<T[P]>>
+//     : NonNullable<T[P]>;
+// };
+type TNonNullableDeep<T> = TPrettify<{
+  // The '-?' ensures optional properties are made required AND non-nullable
+  [P in keyof T]-?: NonNullable<T[P]> extends object
     ? TNonNullableDeep<NonNullable<T[P]>>
     : NonNullable<T[P]>;
-};
+}>;
 
-/**
- * TDeepBigIntToNumber — Recursive BigInt Normalization
- *
- * Traverses a data structure and maps all `bigint` types to `number`.
- *
- * Since the JSON specification does not support BigInt, this utility is
- * essential for preparing data for `JSON.stringify()`, network transmission,
- * or frontend consumption where `number` is the expected primitive.
- *
- * @template T - The structure (Object, Array, or Primitive) to normalize
- *
- * @example
- * type DBResult = { id: bigint; tags: bigint[]; metadata: { size: bigint } };
- *
- * // Result: { id: number; tags: number[]; metadata: { size: number } }
- * type APIPayload = TDeepBigIntToNumber<DBResult>;
- */
-type TDeepBigIntToNumber<T> = T extends bigint
-  ? number
-  : T extends (infer U)[]
-    ? TDeepBigIntToNumber<U>[]
-    : T extends Record<string, unknown>
-      ? { [K in keyof T]: TDeepBigIntToNumber<T[K]> }
-      : T;
 /**
  * TNormalizeValue — Recursive BigInt-to-Number Normalizer
  *
@@ -200,10 +211,10 @@ type TDeepBigIntToNumber<T> = T extends bigint
  */
 type TNormalizeValue<T> = T extends bigint
   ? number
-  : T extends (infer U)[]
-    ? TNormalizeValue<U>[]
-    : T extends Record<string, unknown>
-      ? TNormalizedBigIntToNumber<T>
+  : T extends Date | RegExp | ((...args: never[]) => unknown)
+    ? T
+    : T extends object // This handles both Tuples and Objects correctly
+      ? { [K in keyof T]: TNormalizeValue<T[K]> }
       : T;
 
 /**

@@ -25,8 +25,11 @@
  * // ❌ Error: Cannot mix email props with social props
  * const req3: TAuthRequest = { email: 'test@me.com', provider: 'google' };
  */
+// type TXOR<T, U> =
+//   | (T & { [K in keyof U]?: never })
+//   | (U & { [K in keyof T]?: never });
 type TXOR<T, U> =
-  | (T & { [K in keyof U]?: never })
-  | (U & { [K in keyof T]?: never });
+  | (T & { [K in Exclude<keyof U, keyof T>]?: never })
+  | (U & { [K in Exclude<keyof T, keyof U>]?: never });
 
 export type { TXOR };

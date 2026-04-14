@@ -13,4 +13,8 @@ type TEqual<T, U> =
  */
 type TExpect<T extends true> = T;
 
-export type { TEqual, TExpect };
+type TNormalizeTypeValue<T> = T extends unknown
+  ? { [K in keyof T]: T[K] }
+  : never;
+
+export type { TEqual, TExpect, TNormalizeTypeValue };
