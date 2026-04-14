@@ -1,6 +1,4 @@
 import { TCamelCase, TSnakeCase, TKebabCase } from '../types';
-import { isNil, isNonEmptyString } from '../guards';
-import { REGEX_CONSTANTS } from '../../constants';
 import { toWords } from '../../managers';
 /**
  * ## 🔠 capitalizeString — Capitalize First Letter
