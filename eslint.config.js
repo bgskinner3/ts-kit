@@ -21,6 +21,15 @@ export default [
     rules: {
       // '@typescript-eslint/no-explicit-any': 'off',
       /* prettier-ignore */ '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          caughtErrorsIgnorePattern: '^_', // Added for catch(err) cases
+          destructuredArrayIgnorePattern: '^_', // Added for [_, item] cases
+        },
+      ],
     },
   },
   // 🔹 Core JS + TS linting

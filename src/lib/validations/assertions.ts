@@ -41,15 +41,15 @@ import type {
  * assertValue(myValue, isString); // narrows type of myValue to string
  * ```
  */
-const assertValue = <T>(
+export function assertValue<T>(
   value: unknown,
   typeGuard: TTypeGuard<T>,
   message?: string,
-): asserts value is T => {
+): asserts value is T {
   if (!typeGuard(value)) {
     throw new Error(message ?? 'Validation failed for value');
   }
-};
+}
 /**
  * Creates a reusable assertion function for a specific type guard.
  *

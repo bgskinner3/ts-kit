@@ -83,11 +83,26 @@ type TRequireIf<T, K1 extends keyof T, V1 extends T[K1], K2 extends keyof T> =
  * // Result: { id: string }
  * type UserData = TOmitMethods<User>;
  */
-type TOmitMethods<T> = Pick<
-  T,
-  { [K in keyof T]: T[K] extends Function ? never : K }[keyof T]
->;
+// type TOmitMethods<T> = Pick<
+//   T,
+//   {
+//     [K in keyof T]: T[K] extends (...args: unknown[]) => unknown ? never : K;
+//   }[keyof T]
+// >;
+type FunctionKeys<T> = {
+  // Use never[] for arguments to catch functions with any number of parameters
+  [K in keyof T]: T[K] extends (...args: never[]) => unknown ? K : never;
+}[keyof T];
 
+type TOmitMethods<T> = Omit<T, FunctionKeys<T>>;
+
+/**
+ type FunctionKeys<T> = {
+  [K in keyof T]: T[K] extends (...args: any[]) => any ? K : never;
+}[keyof T];
+
+type TOmitMethods<T> = Omit<T, FunctionKeys<T>>;
+ */
 /**
  * TUnionResolver: Tagged Union Mapper
  *
