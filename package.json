@@ -35,7 +35,8 @@
     "lint:fix": "eslint '**/*.{ts,tsx}' --fix",
     "format": "prettier --write '**/*.{ts,tsx,js,json,md}'",
     "format:check": "prettier --check '**/*.{ts,tsx,js,json,md}'",
-    "prepublishOnly": "npm run build && npm test"
+    "prepublishOnly": "npm run build && npm test",
+    "test-list": "tsx scripts/generate-utils-list.ts"
   },
   "keywords": [
     "typescript",
@@ -50,6 +51,7 @@
     "@tsd/typescript": "^5.9.3",
     "@types/jest": "^30.0.0",
     "@types/mocha": "^10.0.10",
+    "@types/node": "^25.6.0",
     "@types/node-fetch": "^2.6.13",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
@@ -72,6 +74,7 @@
     "ts-node": "^10.9.2",
     "ts-patch": "^3.3.0",
     "tsup": "^8.5.1",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   },
   "peerDependencies": {
@@ -80,12 +83,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com"
+    "url": "git+https://github.com/bgskinner3/ts-kit"
   },
   "bugs": {
     "url": "https://github.com"
   },
-  "homepage": "https://github.com",
+  "homepage": "https://github.com/bgskinner3/ts-kit",
   "engines": {
     "node": ">=18.0.0"
   }

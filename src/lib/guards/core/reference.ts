@@ -130,7 +130,7 @@ export function isInstanceOf<T extends object, Args extends unknown[]>(
 /**
  * @utilType Guard
  * @name isRecord
- * @category Guards Object
+ * @category Guards Core
  * @description Validates that a value is a non-null object (and not an array)
  * that can be indexed by strings.
  */
@@ -146,7 +146,7 @@ export const isRecord: TTypeGuard<Record<string, unknown>> = (
 /**
  * @utilType Guard
  * @name hasOwnProperty
- * @category Guards Object
+ * @category Guards Core
  * @description A type-safe wrapper for Object.prototype.hasOwnProperty
  * that narrows the object type to include the specified key.
  */

@@ -32,7 +32,8 @@
     "solid-core/**/*",
     "global",
     "tests/**/*",
-    "src/types"
+    "src/types",
+    "scripts/**/*",
   ],
   "exclude": ["node_modules", "dist", "coverage"]
 }

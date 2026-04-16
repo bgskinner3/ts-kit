@@ -28,7 +28,7 @@ type CamelCaseFromArray<
 /**
  * @utilType type
  * @name TCamelCase
- * @category Types String
+ * @category Types String Utilities
  * @description Recursively transforms a string or string union into camelCase by normalizing separators and word boundaries.
  * @link #tcamelcase
  *

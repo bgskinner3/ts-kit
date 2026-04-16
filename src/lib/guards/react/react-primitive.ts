@@ -57,7 +57,7 @@ export const isRefObject = <T>(ref: Ref<T>): ref is RefObject<T | null> =>
 /**
  * @utilType Guard
  * @name isPromise
- * @category Guards Core
+ * @category Guards React
  * @description Checks if a value is a Promise or a "Thenable" by validating the existence of a .then() method.
  * @link #ispromise
  *

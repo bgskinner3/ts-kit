@@ -48,7 +48,7 @@ type TRequireIf<
 /**
  * @utilType type
  * @name TOmitMethods
- * @category Types Core
+ * @category Types Core Utilities
  * @description Strips all function properties (methods) from a type, leaving only data properties.
  * @link #tomitmethods
  *
@@ -77,7 +77,7 @@ type TOmitMethods<T> = {
 /**
  * @utilType type
  * @name TUnionResolver
- * @category Types Core
+ * @category Types Core Utilities
  * @description Transforms a union of values into a discriminated union of tagged objects.
  * @link #tunionresolver
  *

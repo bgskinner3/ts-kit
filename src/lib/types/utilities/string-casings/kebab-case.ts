@@ -22,7 +22,7 @@ type KebabCaseFromArray<
 /**
  * @utilType type
  * @name TKebabCase
- * @category Types String
+ * @category Types String Utilities
  * @description Recursively transforms a string into kebab-case (e.g., hello-world), ideal for CSS classes and URLs.
  * @link #tkebabcase
  *

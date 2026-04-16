@@ -144,7 +144,7 @@ export const stripHash = (url?: string): string => {
 /**
  * @utilType util
  * @name handleInternalHashScroll
- * @category Dom Events
+ * @category Link
  * @description Manages smooth scrolling for internal anchor links with cross-browser safety checks.
  * @link #handleinternalhashscroll
  *

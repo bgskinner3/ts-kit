@@ -1,7 +1,7 @@
 /**
  * @utilType type
  * @name TUnionToIntersection
- * @category Types Union
+ * @category Types Union Primitive
  * @description Transforms a union type (A | B) into an intersection type (A & B) using function parameter variance.
  * @link #tuniontointersection
  *

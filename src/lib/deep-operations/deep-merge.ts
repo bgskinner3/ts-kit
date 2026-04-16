@@ -68,7 +68,7 @@ function mergeHelper<T extends Record<string, unknown>>(
 /**
  * @utilType util
  * @name mergeDeepArray
- * @category Object Manipulators
+ * @category Deep Operations
  * @description Deeply merges an array of objects into a single object.
  * Successive objects in the array overwrite properties of previous ones.
  *

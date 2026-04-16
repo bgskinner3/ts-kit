@@ -2,7 +2,7 @@ import { TTypeGuard } from '../../../types';
 /**
  * @utilType Guard
  * @name isNumber
- * @category Guards Primitive
+ * @category Guards Core
  * @description Validates that a value is a number, excluding NaN and Infinity.
  * @link #isnumber
  */
@@ -11,7 +11,7 @@ export const isNumber: TTypeGuard<number> = (value): value is number =>
 /**
  * @utilType Guard
  * @name isInteger
- * @category Guards Primitive
+ * @category Guards Core
  * @description Checks whether a value is a valid integer.
  * @link #isinteger
  */
@@ -20,7 +20,7 @@ export const isInteger: TTypeGuard<number> = (value): value is number =>
 /**
  * @utilType Guard
  * @name isString
- * @category Guards Primitive
+ * @category Guards Core
  * @description Validates that a value is a string.
  * @link #isstring
  */
@@ -29,7 +29,7 @@ export const isString: TTypeGuard<string> = (value): value is string =>
 /**
  * @utilType Guard
  * @name isNonEmptyString
- * @category Guards Primitive
+ * @category Guards Core
  * @description Validates that a value is a string with a length greater than zero (excluding whitespace).
  * @link #isnonemptystring
  */
@@ -38,7 +38,7 @@ export const isNonEmptyString: TTypeGuard<string> = (value): value is string =>
 /**
  * @utilType Guard
  * @name isBoolean
- * @category Guards Primitive
+ * @category Guards Core
  * @description Validates that a value is a boolean (true or false).
  * @link #isboolean
  */
@@ -48,7 +48,7 @@ export const isBoolean: TTypeGuard<boolean> = (value): value is boolean =>
 /**
  * @utilType Guard
  * @name isBigInt
- * @category Guards Primitive
+ * @category Guards Core
  * @description Validates that a value is a BigInt.
  * @link #isbigint
  */
@@ -58,7 +58,7 @@ export const isBigInt: TTypeGuard<bigint> = (value): value is bigint =>
 /**
  * @utilType Guard
  * @name isSymbol
- * @category Guards Primitive
+ * @category Guards Core
  * @description Validates that a value is a unique JavaScript symbol.
  * @link #issymbol
  */
@@ -67,7 +67,7 @@ export const isSymbol: TTypeGuard<symbol> = (value): value is symbol =>
 /**
  * @utilType Guard
  * @name isPrimitive
- * @category Guards Primitive
+ * @category Guards Core
  * @description Validates if a value is any of the basic JS primitives: string, number, boolean, or bigint.
  * @link #isprimitive
  */

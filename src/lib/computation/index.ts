@@ -11,7 +11,7 @@ export class ComputationUtils {
   /**
    * @utilType util
    * @name round
-   * @category Computation
+   * @category ComputationUtils
    * @description Rounds a number to a specified number of decimal places.
    * @link #round
    */
@@ -22,7 +22,7 @@ export class ComputationUtils {
   /**
    * @utilType util
    * @name clamp
-   * @category Computation
+   * @category ComputationUtils
    * @description Restricts a value to be within a defined minimum and maximum range.
    * @link #clamp
    */
@@ -33,7 +33,7 @@ export class ComputationUtils {
   /**
    * @utilType util
    * @name getPercentage
-   * @category Computation
+   * @category ComputationUtils
    * @description Calculates the percentage of a value relative to a total, with BigInt safety and rounding.
    * @link #getpercentage
    */
@@ -54,7 +54,7 @@ export class ComputationUtils {
   /**
    * @utilType util
    * @name computeMean
-   * @category Computation
+   * @category ComputationUtils
    * @description Calculates the arithmetic mean of an array of numbers or BigInts.
    * @link #computemean
    */
@@ -66,7 +66,7 @@ export class ComputationUtils {
   /**
    * @utilType util
    * @name isAnomaly
-   * @category Computation
+   * @category ComputationUtils
    * @description Statistical outlier detection based on standard deviations from the mean.
    * @link #isanomaly
    */
@@ -82,7 +82,7 @@ export class ComputationUtils {
   /**
    * @utilType util
    * @name computeRatio
-   * @category Computation
+   * @category ComputationUtils
    * @description Generates a ratio as a percentage, optimized for pass/fail metrics.
    * @link #computeratio
    */
@@ -97,7 +97,7 @@ export class ComputationUtils {
   /**
    * @utilType util
    * @name welfordUpdate
-   * @category Computation
+   * @category ComputationUtils
    * @description Efficiently updates running mean and variance using Welford's algorithm.
    * @link #welfordupdate
    * High-level:
@@ -150,7 +150,7 @@ export class ComputationUtils {
   /**
    * @utilType util
    * @name computeDelta
-   * @category Computation
+   * @category ComputationUtils
    * @description Calculates the net and absolute difference between two numbers or BigInts.
    * @link #computedelta
    */
@@ -177,7 +177,7 @@ export class ComputationUtils {
   /**
    * @utilType util
    * @name computePercentageChange
-   * @category Computation
+   * @category ComputationUtils
    * @description Calculates the percentage increase or decrease between two values.
    * @link #computepercentagechange
    */

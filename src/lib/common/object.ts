@@ -4,7 +4,7 @@ class ObjectUtils {
   /**
    * @utilType util
    * @name keys
-   * @category Object
+   * @category ObjectUtils
    * @description Returns the keys of an object as a typed array of its own keys.
    * @link #keys
    */
@@ -14,7 +14,7 @@ class ObjectUtils {
   /**
    * @utilType util
    * @name entries
-   * @category Object
+   * @category ObjectUtils
    * @description Returns an array of an object's own enumerable string-keyed [key, value] pairs with preserved inference.
    * @link #entries
    */
@@ -26,7 +26,7 @@ class ObjectUtils {
   /**
    * @utilType util
    * @name fromEntries
-   * @category Object
+   * @category ObjectUtils
    * @description Constructs an object from an array of key-value entries with explicit type safety.
    * @link #fromentries
    */
@@ -39,7 +39,7 @@ class ObjectUtils {
   /**
    * @utilType util
    * @name values
-   * @category Object
+   * @category ObjectUtils
    * @description Returns an array of an object's own enumerable string-keyed property values.
    * @link #values
    */
@@ -50,7 +50,7 @@ class ObjectUtils {
   /**
    * @utilType util
    * @name has
-   * @category Object
+   * @category ObjectUtils
    * @description Checks if a nested property exists in an object using dot-notation (e.g., 'user.profile.id').
    * @link #has
    */
@@ -75,7 +75,7 @@ class ObjectUtils {
   /**
    * @utilType util
    * @name get
-   * @category Object
+   * @category ObjectUtils
    * @description Safely retrieves a nested property from an object using dot-notation pathing.
    * @link #get
    */
@@ -109,7 +109,7 @@ class ObjectUtils {
   /**
    * @utilType util
    * @name set
-   * @category Object
+   * @category ObjectUtils
    * @description Safely sets a nested property on an object using dot-notation, creating intermediate objects as needed.
    * @link #set
    */
@@ -147,7 +147,7 @@ class ObjectUtils {
   /**
    * @utilType util
    * @name is
-   * @category Object
+   * @category ObjectUtils
    * @description Determines whether two values are the same value. Corrects behavior for NaN and signed zeros.
    * @link #is
    */
@@ -157,7 +157,7 @@ class ObjectUtils {
   /**
    * @utilType util
    * @name getPrototypeOf
-   * @category Object
+   * @category ObjectUtils
    * @description Returns the prototype of the given object.
    * @link #getprototypeof
    */
@@ -168,7 +168,7 @@ class ObjectUtils {
   /**
    * @utilType util
    * @name create
-   * @category Object
+   * @category ObjectUtils
    * @description Creates a new object with the specified prototype.
    * @link #create
    */

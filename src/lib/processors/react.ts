@@ -21,7 +21,7 @@ import { Children } from 'react';
 /**
  * @utilType util
  * @name mergeRefs
- * @category React
+ * @category Processors React
  * @description Consolidates multiple React refs (callback or object) into a single functional ref.
  * @link #mergerefs
  *
@@ -52,7 +52,7 @@ export const mergeRefs = <T>(
 /**
  * @utilType util
  * @name lazyProxy
- * @category Logic
+ * @category Processors React
  * @description Transparently caches the results of function properties upon first access.
  * @link #lazyproxy
  *
@@ -95,7 +95,7 @@ export function lazyProxy<T extends Record<string, unknown>>(obj: T): T {
 /**
  * @utilType util
  * @name mergeCssVars
- * @category React
+ * @category Processors React
  * @description Safely merges a dictionary of CSS variables into a React CSSProperties object.
  * @link #mergecssvars
  *
@@ -125,7 +125,7 @@ export function mergeCssVars<
 /**
  * @utilType util
  * @name mergeEventHandlerClicks
- * @category React
+ * @category Processors React
  * @description Orchestrates user and internal click handlers, allowing user-level preventDefault() to block internal logic.
  * @link #mergeeventhandlerclicks
  *
@@ -180,7 +180,7 @@ export function extractDOMProps<
 /**
  * @utilType util
  * @name filterChildrenByDisplayName
- * @category React
+ * @category Processors React
  * @description Filters a React children tree to find components matching a specific displayName.
  * @link #filterchildrenbydisplayname
  *
@@ -202,7 +202,7 @@ export function filterChildrenByDisplayName<T extends ReactNode>(
 /**
  * @utilType util
  * @name getRefCurrent
- * @category React
+ * @category Processors React
  * @description Safely extracts the current value from either RefObjects or ForwardedRefs.
  * @link #getrefcurrent
  *

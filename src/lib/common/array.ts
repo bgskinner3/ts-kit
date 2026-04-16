@@ -5,7 +5,7 @@ class ArrayUtils {
   /**
    * @utilType util
    * @name includes
-   * @category Array
+   * @category ArrayUtils
    * @description Type-safe wrapper for Array.prototype.includes that acts as a type guard.
    * @link #includes
    */
@@ -16,7 +16,7 @@ class ArrayUtils {
   /**
    * @utilType util
    * @name createFixedLengthArray
-   * @category Array
+   * @category ArrayUtils
    * @description Validates and returns an array with a fixed numeric length at the type level.
    * @link #createfixedlengtharray
    */
@@ -33,7 +33,7 @@ class ArrayUtils {
   /**
    * @utilType util
    * @name readAllItems
-   * @category Array
+   * @category ArrayUtils
    * @description Returns a shallow copy of an array to prevent unintended mutations of the original.
    * @link #readallitems
    */
@@ -43,7 +43,7 @@ class ArrayUtils {
   /**
    * @utilType util
    * @name map
-   * @category Array
+   * @category ArrayUtils
    * @description Safe map wrapper providing consistent type inference for ReadonlyArrays.
    * @link #map
    */
@@ -56,7 +56,7 @@ class ArrayUtils {
   /**
    * @utilType util
    * @name forEachUnion
-   * @category Array
+   * @category ArrayUtils
    * @description Iterates over single arrays or unions of arrays, flattening them for uniform processing.
    * @link #foreachunion
    *
@@ -92,7 +92,7 @@ class ArrayUtils {
   /**
    * @utilType util
    * @name forEach
-   * @category Array
+   * @category ArrayUtils
    * @description Safe forEach wrapper with correct type inference for ReadonlyArrays.
    * @link #foreach
    */
@@ -106,7 +106,7 @@ class ArrayUtils {
   /**
    * @utilType util
    * @name reduce
-   * @category Array
+   * @category ArrayUtils
    * @description Safe reduce wrapper with correct type inference for ReadonlyArrays.
    * @link #reduce
    */
@@ -125,7 +125,7 @@ class ArrayUtils {
   /**
    * @utilType util
    * @name flat
-   * @category Array
+   * @category ArrayUtils
    * @description Type-safe flat for 1-level nested arrays using reduce.
    * @link #flat
    */
@@ -136,7 +136,7 @@ class ArrayUtils {
   /**
    * @utilType util
    * @name flatMap
-   * @category Array
+   * @category ArrayUtils
    * @description Type-safe flatMap implementation for environments lacking native support.
    * @link #flatmap
    */
@@ -153,7 +153,7 @@ class ArrayUtils {
   /**
    * @utilType util
    * @name filter
-   * @category Array
+   * @category ArrayUtils
    * @description Type-safe filter wrapper that preserves TypeScript type guards and inference.
    * @link #filter
    */
@@ -174,7 +174,7 @@ class ArrayUtils {
   /**
    * @utilType util
    * @name filterNonNullable
-   * @category Array
+   * @category ArrayUtils
    * @description Shortcut utility to filter out all null and undefined values from an array.
    * @link #filternonnullable
    */
@@ -184,7 +184,7 @@ class ArrayUtils {
   /**
    * @utilType util
    * @name every
-   * @category Array
+   * @category ArrayUtils
    * @description Safe every wrapper that supports both Type Guards and standard boolean checks.
    * @link #every
    */
@@ -205,7 +205,7 @@ class ArrayUtils {
   /**
    * @utilType util
    * @name some
-   * @category Array
+   * @category ArrayUtils
    * @description Safe some wrapper with correct type inference for ReadonlyArrays.
    * @link #some
    */

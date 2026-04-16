@@ -4,7 +4,7 @@ import { isNonEmptyString } from './primitives';
 /**
  * @utilType Guard
  * @name isAbsoluteUrl
- * @category Guards Link
+ * @category Guards Core
  * @description Validates if a string is a valid absolute URL that can be parsed by the browser's URL constructor.
  * @link #isabsoluteurl
  *
@@ -30,7 +30,7 @@ export const isAbsoluteUrl: TTypeGuard<TAbsoluteURL> = (
 /**
  * @utilType Guard
  * @name isInternalUrl
- * @category Guards Link
+ * @category Guards Core
  * @description Checks if a URL is a relative path or an absolute URL matching the current window's origin.
  * @link #isinternalurl
  *

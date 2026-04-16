@@ -1,7 +1,7 @@
 /**
  * @utilType type
  * @name TPromisify
- * @category Types Async
+ * @category Types Async Utilities
  * @description Maps over an object type and wraps every property value in a Promise.
  * @link #tpromisify
  *
@@ -27,7 +27,7 @@ type TPromisify<T> = {
 /**
  * @utilType type
  * @name TPromiseType
- * @category Types Async
+ * @category Types Async Utilities
  * @description Unwraps a Promise type to extract the underlying value type.
  * @link #tpromisetype
  *

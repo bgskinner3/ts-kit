@@ -15,7 +15,7 @@ import { isArrayOf } from './composite';
 /**
  * @utilType Guard
  * @name isCamelCase
- * @category Guards String
+ *@category Guards Core
  * @description Validates if a string follows camelCase naming conventions.
  * @link #iscamelcase
  */
@@ -26,7 +26,7 @@ export const isCamelCase: TTypeGuard<TCamelCase<string>> = (
 /**
  * @utilType Guard
  * @name isSnakeCase
- * @category Guards String
+ *@category Guards Core
  * @description Validates if a string follows snake_case naming conventions.
  * @link #issnakecase
  */
@@ -37,7 +37,7 @@ export const isSnakeCase: TTypeGuard<TSnakeCase<string>> = (
 /**
  * @utilType Guard
  * @name isKebabCase
- * @category Guards String
+ *@category Guards Core
  * @description Validates if a string follows kebab-case naming conventions.
  * @link #iskebabcase
  */
@@ -48,7 +48,7 @@ export const isKebabCase: TTypeGuard<TKebabCase<string>> = (
 /**
  * @utilType Guard
  * @name isJSONArrayString
- * @category Guards String
+ *@category Guards Core
  * @description Verifies if a string is a valid JSON-serialized array.
  * @link #isjsonarraystring
  */
@@ -65,7 +65,7 @@ export const isJSONArrayString: TTypeGuard<TJSONArrayString> = (
 /**
  * @utilType Guard
  * @name isJSONObjectString
- * @category Guards String
+ *@category Guards Core
  * @description Verifies if a string is a valid JSON-serialized object.
  * @link #isjsonobjectstring
  */
@@ -86,7 +86,7 @@ export const isJSONObjectString: TTypeGuard<TJSONObjectString> = (
 /**
  * @utilType Guard
  * @name isHTMLString
- * @category Guards String
+ *@category Guards Core
  * @description Checks if a string contains HTML tags using regex detection.
  * @link #ishtmlstring
  */
@@ -99,7 +99,7 @@ export const isHTMLString: TTypeGuard<string> = (
 /**
  * @utilType Guard
  * @name isHexByteString
- * @category Guards String
+ *@category Guards Core
  * @description Factory that creates a guard to validate if a string is a valid hex byte string, optionally enforcing length.
  * @link #ishexbytestring
  * Example usage:
@@ -126,7 +126,7 @@ export const isHexByteString = (
 /**
  * @utilType Guard
  * @name isJsonString
- * @category Guards String
+ *@category Guards Core
  * @description Validates if a string is a valid JSON-serialized array or object.
  * @link #isjsonstring
  */
@@ -137,7 +137,7 @@ export const isJsonString: TTypeGuard<TJSONDataString> = (
 /**
  * @utilType Guard
  * @name isHexColor
- * @category Guards Color
+ * @category Guards Core
  * @description Validates if a string is a valid 3 or 6-digit HEX color code.
  * @link #ishexcolor
  */
@@ -150,7 +150,7 @@ export const isHexColor: TTypeGuard<string> = (
 /**
  * @utilType Guard
  * @name isRGBString
- * @category Guards Color
+ * @category Guards Core
  * @description Validates if a string is a valid CSS rgb() or rgba() string.
  * @link #isrgbstring
  */
