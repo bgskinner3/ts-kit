@@ -252,7 +252,7 @@ A high-level map of the 50+ tools available in the full suite.
 
 ---
 
-📘 Full API reference → https://github.com/bgskinner3/ts-kit/tree/main/docs
+📘 Full API reference → https://github.com/bgskinner3/ts-kit/blob/main/docs/util-lib.md
 
 Unlock the complete type-safe toolkit.
 
@@ -273,4 +273,4 @@ We don't believe in "cheating" with `as any`. Our utilities are designed to turn
 ### Explore more
 
 - 📘 [Documentation Garden](https://github.com/bgskinner3/ts-kit)
-- 🐛 [Report a Bug](https://github.com/your-repo/issues)
+- 🐛 [Report a Bug](https://github.com/bgskinner3/issues)

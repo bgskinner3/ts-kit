@@ -112,6 +112,13 @@ export const isLumGreaterThan = (
 ): boolean => getLuminance(validateRGB(color)) > threshold;
 
 /**
+ * @utilType util
+ * @name contrastTextColor
+ * @category Color
+ * @description Returns an Accessible Text Color Based on Background
+ * @link #contrastTextColor
+ *
+ *
  * ## 🎨 contrastTextColor — Returns an Accessible Text Color Based on Background
  *
  * Dynamically selects a readable text color (`black` or `white`) depending on
