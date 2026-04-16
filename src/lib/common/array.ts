@@ -181,6 +181,40 @@ class ArrayUtils {
   static filterNonNullable<T>(arr: ReadonlyArray<T | null | undefined>): T[] {
     return ArrayUtils.filter(arr, (item): item is T => item != null);
   }
+  /**
+   * @utilType util
+   * @name every
+   * @category Array
+   * @description Safe every wrapper that supports both Type Guards and standard boolean checks.
+   * @link #every
+   */
+  static every<T, S extends T>(
+    arr: ReadonlyArray<T>,
+    predicate: (value: T, index: number, array: ReadonlyArray<T>) => value is S,
+  ): arr is ReadonlyArray<S>;
+  static every<T>(
+    arr: ReadonlyArray<T>,
+    predicate: (value: T, index: number, array: ReadonlyArray<T>) => boolean,
+  ): boolean;
+  static every<T>(
+    arr: ReadonlyArray<T>,
+    predicate: (value: T, index: number, array: ReadonlyArray<T>) => boolean,
+  ): boolean {
+    return arr.every(predicate);
+  }
+  /**
+   * @utilType util
+   * @name some
+   * @category Array
+   * @description Safe some wrapper with correct type inference for ReadonlyArrays.
+   * @link #some
+   */
+  static some<T>(
+    arr: ReadonlyArray<T>,
+    predicate: (value: T, index: number, array: ReadonlyArray<T>) => boolean,
+  ): boolean {
+    return arr.some(predicate);
+  }
 }
 
 //
@@ -227,6 +261,8 @@ export const RenamedArrayMethods = exportAndRenameStaticMethods(ArrayUtils, {
   arrayForEach: 'forEach',
   arrayFlatMap: 'flatMap',
   arrayFilterNonNullable: 'filterNonNullable',
+  arrayEvery: 'every',
+  arraySome: 'some',
 });
 
 // Directly export the destructured functions for tree-shaking
@@ -239,6 +275,8 @@ export const {
   arrayFlatMap,
   arrayForEach,
   arrayFilterNonNullable,
+  arraySome,
+  arrayEvery,
 } = RenamedArrayMethods;
 
 // Export the full class if needed

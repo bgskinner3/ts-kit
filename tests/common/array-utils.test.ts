@@ -8,9 +8,42 @@ import {
   arrayFlatMap,
   arrayForEach,
   arrayFilterNonNullable,
+  arraySome,
+  arrayEvery,
 } from '../../src/lib/common/array';
 
 describe('ArrayUtils', () => {
+  describe('every', () => {
+    it('returns true when all elements match the predicate', () => {
+      const nums = [2, 4, 6];
+      const isEven = (n: number) => n % 2 === 0;
+      expect(ArrayUtils.every(nums, isEven)).toBe(true);
+      expect(arrayEvery([2, 4, 7], isEven)).toBe(false);
+    });
+
+    it('acts as a type guard for the entire array', () => {
+      const values: (string | null)[] = ['a', 'b', 'c'];
+      const isString = (val: unknown): val is string => typeof val === 'string';
+
+      if (ArrayUtils.every(values, isString)) {
+        // TypeScript narrows 'values' to string[] here
+        expect(values[0].toUpperCase()).toBe('A');
+      }
+    });
+  });
+
+  describe('some', () => {
+    it('returns true if at least one element matches', () => {
+      const values = [1, 'hello', false];
+      const isString = (v: unknown) => typeof v === 'string';
+      expect(ArrayUtils.some(values, isString)).toBe(true);
+      expect(arraySome([1, 2, 3], isString)).toBe(false);
+    });
+
+    it('returns false for an empty array', () => {
+      expect(ArrayUtils.some([], () => true)).toBe(false);
+    });
+  });
   describe('includes', () => {
     it('returns true if element is in array', () => {
       expect(ArrayUtils.includes(['a', 'b', 'c'], 'b')).toBe(true);

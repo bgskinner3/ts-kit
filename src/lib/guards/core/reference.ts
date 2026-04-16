@@ -1,4 +1,4 @@
-import { TTypeGuard, TAnyFunction } from '../../../types';
+import { TTypeGuard, TAnyFunction, TAnyObject } from '../../../types';
 /**
  * @utilType Guard
  * @name isNull
@@ -157,3 +157,9 @@ export const hasOwnProperty = <T extends object, K extends PropertyKey>(
   return Object.prototype.hasOwnProperty.call(obj, prop);
 };
 // // const { hasOwnProperty } = Object.prototype;
+/**
+ * @utilType guard
+ * @description Narrows a value to a non-null, indexable object for deep operations.
+ */
+export const isDefinedObject: TTypeGuard<TAnyObject> = (val: unknown): val is TAnyObject => 
+  isObject(val);

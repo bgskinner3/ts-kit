@@ -1,7 +1,7 @@
 import {
   mergeDeepArray,
   mergeDeep,
-} from '../../src/lib/manipulators/deep-merge';
+} from '../../src/lib/deep-operations/deep-merge';
 
 describe('Deep Merge Utilities', () => {
   describe('mergeDeepArray', () => {

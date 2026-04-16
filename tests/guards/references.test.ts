@@ -13,9 +13,43 @@ import {
   isInstanceOf,
   isRecord,
   hasOwnProperty,
+  isDefinedObject,
 } from '../../src/lib/guards/core/reference';
 
 describe('Reference Type Guards', () => {
+  describe('isDefinedObject', () => {
+    it('returns true for plain objects', () => {
+      expect(isDefinedObject({ a: 1 })).toBe(true);
+      expect(isDefinedObject({})).toBe(true);
+    });
+
+    it('returns false for null', () => {
+      // typeof null is 'object', so this is a vital check
+      expect(isDefinedObject(null)).toBe(false);
+    });
+
+    it('returns false for arrays', () => {
+      // Arrays are technically objects, but usually treated separately
+      expect(isDefinedObject([1, 2, 3])).toBe(false);
+      expect(isDefinedObject([])).toBe(false);
+    });
+
+    it('returns false for primitives', () => {
+      expect(isDefinedObject(undefined)).toBe(false);
+      expect(isDefinedObject('string')).toBe(false);
+      expect(isDefinedObject(123)).toBe(false);
+      expect(isDefinedObject(true)).toBe(false);
+    });
+
+    it('acts as a type guard for index access', () => {
+      const data: unknown = { key: 'value' };
+
+      if (isDefinedObject(data)) {
+        // TypeScript allows indexing because data is narrowed to TAnyObject
+        expect(data['key']).toBe('value');
+      }
+    });
+  });
   describe('isRecord', () => {
     it('returns true for plain objects and false for arrays/null', () => {
       expect(isRecord({})).toBe(true);

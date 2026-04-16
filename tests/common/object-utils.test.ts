@@ -7,9 +7,44 @@ import {
   objectHas,
   objectGet,
   objectSet,
+  objectIs,
 } from '../../src/lib/common/object';
 
 describe('ObjectUtils', () => {
+  describe('is', () => {
+    it('returns true for identical primitives', () => {
+      expect(ObjectUtils.is(5, 5)).toBe(true);
+      expect(objectIs('hello', 'hello')).toBe(true);
+    });
+
+    it('returns true for NaN compared to NaN', () => {
+      // Standard NaN === NaN is false, but Object.is is true
+      expect(ObjectUtils.is(NaN, NaN)).toBe(true);
+      expect(objectIs(NaN, NaN)).toBe(true);
+    });
+
+    it('distinguishes between -0 and +0', () => {
+      // Standard -0 === +0 is true, but Object.is is false
+      expect(ObjectUtils.is(-0, +0)).toBe(false);
+    });
+
+    it('acts as a type guard', () => {
+      const value: unknown = 'test';
+      const match: string = 'test';
+
+      if (ObjectUtils.is(match, value)) {
+        // TypeScript narrows 'value' to string here
+        expect(value.length).toBe(4);
+      }
+    });
+
+    it('returns false for different objects with same content', () => {
+      // Object.is checks reference equality, not deep equality
+      const a = { id: 1 };
+      const b = { id: 1 };
+      expect(ObjectUtils.is(a, b)).toBe(false);
+    });
+  });
   describe('keys', () => {
     it('returns the keys of an object', () => {
       const obj = { a: 1, b: 2 };

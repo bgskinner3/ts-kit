@@ -136,6 +136,16 @@ class ObjectUtils {
       (current as Record<string, unknown>)[keys[keys.length - 1]] = value;
     }
   }
+  /**
+   * @utilType util
+   * @name is
+   * @category Object
+   * @description Determines whether two values are the same value. Corrects behavior for NaN and signed zeros.
+   * @link #is
+   */
+  static is<T>(value: T, other: unknown): other is T {
+    return Object.is(value, other);
+  }
 }
 //
 // 🔄 HYBRID EXPORT PATTERN
@@ -152,6 +162,7 @@ export const RenamedObjectMethods = exportAndRenameStaticMethods(ObjectUtils, {
   objectHas: 'has',
   objectGet: 'get',
   objectSet: 'set',
+  objectIs: 'is',
 });
 
 // -----------------------------------------------------------------------------
@@ -165,6 +176,7 @@ export const {
   objectHas,
   objectGet,
   objectSet,
+  objectIs,
 } = RenamedObjectMethods;
 
 // -----------------------------------------------------------------------------

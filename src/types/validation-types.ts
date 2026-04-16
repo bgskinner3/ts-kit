@@ -4,7 +4,7 @@ type TTypeGuard<T> = (value: unknown) => value is T;
 type TAssert<T> = (value: unknown) => asserts value is T;
 type TAnyFunction = (...args: unknown[]) => unknown;
 type TJSONDataString = TJSONObjectString | TJSONArrayString;
-
+type TAnyObject = Record<PropertyKey, unknown>
 type TElementLike = {
   type: string;
   props: { children?: unknown; [key: string]: unknown };
@@ -19,4 +19,5 @@ export type {
   TElementLike,
   TAssert,
   TJSONDataString,
+  TAnyObject
 };
