@@ -1,5 +1,5 @@
 import { exportAndRenameStaticMethods } from '../../managers';
-
+import type { TAnyObject } from '../../types';
 class ObjectUtils {
   /**
    * @utilType util
@@ -146,6 +146,27 @@ class ObjectUtils {
   static is<T>(value: T, other: unknown): other is T {
     return Object.is(value, other);
   }
+  /**
+   * @utilType util
+   * @name getPrototypeOf
+   * @category Object
+   * @description Returns the prototype of the given object.
+   * @link #getprototypeof
+   */
+  static getPrototypeOf(obj: object): object {
+    return Object.getPrototypeOf(obj);
+  }
+
+  /**
+   * @utilType util
+   * @name create
+   * @category Object
+   * @description Creates a new object with the specified prototype.
+   * @link #create
+   */
+  static create<T extends object>(proto: T): T {
+    return Object.create(proto);
+  }
 }
 //
 // 🔄 HYBRID EXPORT PATTERN
@@ -163,6 +184,8 @@ export const RenamedObjectMethods = exportAndRenameStaticMethods(ObjectUtils, {
   objectGet: 'get',
   objectSet: 'set',
   objectIs: 'is',
+  objectCreate: 'create',
+  objectGetPropertyOf: 'getPrototypeOf',
 });
 
 // -----------------------------------------------------------------------------
@@ -177,6 +200,8 @@ export const {
   objectGet,
   objectSet,
   objectIs,
+  objectGetPropertyOf,
+  objectCreate,
 } = RenamedObjectMethods;
 
 // -----------------------------------------------------------------------------

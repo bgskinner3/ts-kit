@@ -8,9 +8,57 @@ import {
   objectGet,
   objectSet,
   objectIs,
+  objectGetPropertyOf,
+  objectCreate,
 } from '../../src/lib/common/object';
 
 describe('ObjectUtils', () => {
+  describe('create', () => {
+    it('creates an object that inherits from the prototype', () => {
+      const proto = { greeting: 'hello' };
+      const obj = ObjectUtils.create(proto);
+
+      expect(obj.greeting).toBe('hello');
+      expect(Object.getPrototypeOf(obj)).toBe(proto);
+    });
+
+    it('creates a "pure" object when null is passed', () => {
+      // Objects created with null have no built-ins like .toString()
+      const obj = ObjectUtils.create(null as any);
+
+      expect(Object.getPrototypeOf(obj)).toBe(null);
+      expect(obj.toString).toBeUndefined();
+    });
+
+    it('allows property shadowing', () => {
+      const proto = { a: 1 };
+      const obj = ObjectUtils.create(proto);
+      (obj as any).a = 2;
+
+      expect(obj.a).toBe(2);
+      expect(proto.a).toBe(1); // Original remains unchanged
+    });
+  });
+
+  describe('getPrototypeOf', () => {
+    it('returns the correct prototype of an object', () => {
+      const proto = { x: 10 };
+      const obj = Object.create(proto);
+
+      expect(ObjectUtils.getPrototypeOf(obj)).toBe(proto);
+      expect(objectGetPropertyOf(obj)).toBe(proto);
+    });
+
+    it('returns null for objects created with null', () => {
+      const obj = Object.create(null);
+      expect(ObjectUtils.getPrototypeOf(obj)).toBe(null);
+    });
+
+    it('returns the standard Object prototype for literal objects', () => {
+      const obj = {};
+      expect(ObjectUtils.getPrototypeOf(obj)).toBe(Object.prototype);
+    });
+  });
   describe('is', () => {
     it('returns true for identical primitives', () => {
       expect(ObjectUtils.is(5, 5)).toBe(true);
