@@ -1,5 +1,5 @@
 import { isObject } from '../guards';
-import { ObjectUtils, ArrayUtils } from '../common';
+import { ObjectUtils } from '../common';
 import { TAnyObject } from '../../types';
 
 function cloneDeepHelper<T>(val: T, seen: Map<unknown, unknown>): T;
@@ -30,17 +30,22 @@ function cloneDeepHelper(val: unknown, seen: Map<unknown, unknown>): unknown {
   // 4. Object Branch
   if (isObject(val)) {
     const proto = ObjectUtils.getPrototypeOf(val);
-
-    // 1. Initialize with the creation utility
     const copy: TAnyObject = Object.create(proto);
 
     seen.set(val, copy);
 
-    // 2. Use your existing keys utility
-    const keys = ObjectUtils.keys(val);
-    ArrayUtils.forEach(keys, (key) => {
-      copy[key] = cloneDeepHelper(val[key], seen);
-    });
+    const keys = Reflect.ownKeys(val);
+
+    for (const key of keys) {
+      const child = cloneDeepHelper(
+        // safe property access without indexing unknown
+        key in val ? (val as never)[key] : undefined,
+        seen,
+      );
+
+      // assign safely without indexing type assertion
+      Reflect.set(copy, key, child);
+    }
 
     return copy;
   }
@@ -55,19 +60,19 @@ function cloneDeepHelper(val: unknown, seen: Map<unknown, unknown>): unknown {
  * Unlike shallow copies, this utility traverses all nested objects and arrays to ensure no shared references.
  * It specifically handles circular references using a tracking Map to prevent infinite recursion and stack overflows.
  * @link #clonedeep
- * 
+ *
  * @typeParam T - The type of the value being cloned.
  * @param value - The source value (primitive, object, or array) to be cloned.
  * @returns A new instance identical in structure and data to the source value.
- * 
+ *
  * @example
  * const original = { a: 1, b: { c: 2 } };
  * const clone = cloneDeep(original);
- * 
+ *
  * console.log(clone === original); // false
  * console.log(clone.b === original.b); // false
  * console.log(clone.b.c); // 2
- * 
+ *
  * @example
  * // Circular Reference Support
  * const obj: any = { name: 'circular' };

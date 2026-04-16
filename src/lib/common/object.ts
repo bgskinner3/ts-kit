@@ -1,5 +1,5 @@
 import { exportAndRenameStaticMethods } from '../../managers';
-import type { TAnyObject } from '../../types';
+
 class ObjectUtils {
   /**
    * @utilType util
@@ -79,19 +79,30 @@ class ObjectUtils {
    * @description Safely retrieves a nested property from an object using dot-notation pathing.
    * @link #get
    */
-  static get<Obj extends object, Path extends string>(
-    obj: Obj,
-    path: Path,
-  ): unknown {
+  /* prettier-ignore */ static get<Obj extends object>(obj: Obj, path: string): unknown;
+  /* prettier-ignore */ static get<Obj extends object, K extends PropertyKey>(obj: Obj,key: K): unknown;
+  /* prettier-ignore */ static get(obj: object, path: PropertyKey): unknown {
+    if (typeof path !== 'string') {
+      return (obj as Record<PropertyKey, unknown>)[path];
+    }
+
     if (!path) return undefined;
+
     const keys = path.split('.');
     let current: unknown = obj;
+
     for (const key of keys) {
-      if (current == null || typeof current !== 'object' || !(key in current)) {
+      if (current == null || typeof current !== 'object') {
         return undefined;
       }
-      current = (current as Record<string, unknown>)[key];
+
+      if (!(key in current)) {
+        return undefined;
+      }
+
+      current = (current as Record<PropertyKey, unknown>)[key];
     }
+
     return current;
   }
 
@@ -131,10 +142,7 @@ class ObjectUtils {
       current = record[key];
     }
 
-    // Final assignment
-    if (current !== null && typeof current === 'object') {
-      (current as Record<string, unknown>)[keys[keys.length - 1]] = value;
-    }
+    (current as Record<string, unknown>)[keys[keys.length - 1]] = value;
   }
   /**
    * @utilType util
@@ -164,7 +172,9 @@ class ObjectUtils {
    * @description Creates a new object with the specified prototype.
    * @link #create
    */
-  static create<T extends object>(proto: T): T {
+  static create<T extends object | null>(
+    proto: T,
+  ): T extends null ? Record<PropertyKey, unknown> : T {
     return Object.create(proto);
   }
 }
