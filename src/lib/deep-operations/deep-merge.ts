@@ -129,5 +129,6 @@ export function mergeDeep<T extends Record<string, unknown>[]>(
 ): TTupleToIntersection<T> {
   // Casting to 'any' or 'never' here is usually necessary because
   // TypeScript struggles to map a tuple intersection back to the array implementation.
+  // TODO: FIX AS CASTING
   return mergeDeepArray(sources) as TTupleToIntersection<T>;
 }
