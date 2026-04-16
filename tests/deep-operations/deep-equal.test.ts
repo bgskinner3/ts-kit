@@ -1,7 +1,6 @@
 import { areDeepEqual } from '../../src/lib/deep-operations/deep-equal';
 import { ObjectUtils } from '../../src/lib/common/object';
 
-
 describe('areDeepEqual', () => {
   describe('Primitives & Identity', () => {
     it('returns true for identical primitives', () => {
@@ -94,7 +93,7 @@ describe('areDeepEqual', () => {
       const a = { [sym]: 'val' };
       const b = { [sym]: 'val' };
       const c = { [sym]: 'other' };
-      
+
       expect(areDeepEqual(a, b)).toBe(true);
       expect(areDeepEqual(a, c)).toBe(false);
     });

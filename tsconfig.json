@@ -33,7 +33,7 @@
     "global",
     "tests/**/*",
     "src/types",
-    "scripts/**/*",
+    "scripts/**/*"
   ],
   "exclude": ["node_modules", "dist", "coverage"]
 }

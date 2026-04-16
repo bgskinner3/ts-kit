@@ -161,5 +161,6 @@ export const hasOwnProperty = <T extends object, K extends PropertyKey>(
  * @utilType guard
  * @description Narrows a value to a non-null, indexable object for deep operations.
  */
-export const isDefinedObject: TTypeGuard<TAnyObject> = (val: unknown): val is TAnyObject => 
-  isObject(val);
+export const isDefinedObject: TTypeGuard<TAnyObject> = (
+  val: unknown,
+): val is TAnyObject => isObject(val);
