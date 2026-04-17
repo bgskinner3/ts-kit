@@ -5,7 +5,7 @@ type TArrayItems<T extends Array<unknown>> =
 /**
  * @utilType type
  * @name TFixedLengthArray
- * @category Types Array Utilities
+ * @category Advanced Type Utilities
  * @description Creates an immutable-length array type that prevents mutation methods like push or pop while preserving numeric indexing.
  * @link #tfixedlengtharray
  *

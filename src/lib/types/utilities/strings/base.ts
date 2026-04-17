@@ -1,7 +1,7 @@
 /**
  * @utilType type
  * @name ToPath
- * @category Types String
+ * @category Advanced Type Utilities
  * @description Recursively transforms a tuple of string segments into a forward-slash separated URL path.
  * @link #topath
  *
@@ -22,7 +22,7 @@ type ToPath<TItems extends string[]> = TItems extends [
 /**
  * @utilType type
  * @name ToQueryString
- * @category Types String
+ * @category Advanced Type Utilities
  * @description Transforms a tuple of parameter keys into a template literal query string with string placeholders.
  * @link #toquerystring
  *
@@ -43,7 +43,7 @@ type ToQueryString<TParams extends string[]> = TParams extends [
 /**
  * @utilType type
  * @name TStrictURL
- * @category Types String
+ * @category Advanced Type Utilities
  * @description Generates a strictly formatted URL template literal enforced by protocol, domain, path, and query params.
  * @link #tstricturl
  *

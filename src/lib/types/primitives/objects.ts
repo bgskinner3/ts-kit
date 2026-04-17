@@ -1,7 +1,7 @@
 /**
  * @utilType type
  * @name TUnpackObject
- * @category Types Object Primitive
+ * @category Primitive Type Utilities
  * @description Extracts a union of all possible property values from an object, interface, or array.
  * @link #tunpackobject
  *
@@ -18,7 +18,7 @@ type TUnpackObject<T> =
 /**
  * @utilType type
  * @name TWriteable
- * @category Types Object Primitive
+ * @category Primitive Type Utilities
  * @description Removes the 'readonly' modifier from the top-level properties of a type to allow mutation.
  * @link #twriteable
  *
@@ -36,7 +36,7 @@ type TWriteable<T> = {
 /**
  * @utilType type
  * @name TEnsure
- * @category Types Object Primitive
+ * @category Primitive Type Utilities
  * @description Makes a specific subset of optional keys required while preserving the rest of the object structure.
  * @link #tensure
  *

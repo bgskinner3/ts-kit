@@ -2,7 +2,7 @@ import type { TPrettify } from '../../primitives';
 /**
  * @utilType type
  * @name TDeepMap
- * @category Types Object Utilities
+ * @category Advanced Type Utilities
  * @description Recursively traverses a data structure and replaces all occurrences of one type with another.
  * @link #tdeepmap
  *
@@ -26,7 +26,7 @@ type TDeepMap<T, From, To> = T extends From
 /**
  * @utilType type
  * @name TDeepWriteable
- * @category Types Object Utilities
+ * @category Advanced Type Utilities
  * @description Recursively removes the 'readonly' modifier from all properties, including nested objects and arrays.
  * @link #tdeepwriteable
  *
@@ -47,7 +47,7 @@ type TDeepWriteable<T> = T extends (...args: never[]) => unknown
 /**
  * @utilType type
  * @name TDeepBigIntToNumber
- * @category Types Object Utilities
+ * @category Advanced Type Utilities
  * @description Specialized deep mapper that converts all bigint types to number for JSON serialization safety.
  * @link #tdeepbiginttonumber
  *
@@ -69,7 +69,7 @@ type TDeepBigIntToNumber<T> = T extends bigint
 /**
  * @utilType type
  * @name TRecursivePartial
- * @category Types Object Utilities
+ * @category Advanced Type Utilities
  * @description Recursively makes every property in an object, including nested structures and arrays, optional.
  * @link #trecursivepartial
  *
@@ -88,7 +88,7 @@ type TRecursivePartial<T> = T extends (...args: never[]) => unknown
 /**
  * @utilType type
  * @name TRecursiveRequired
- * @category Types Object Utilities
+ * @category Advanced Type Utilities
  * @description Recursively removes the optional '?' modifier from every property level, ensuring the structure is fully populated.
  * @link #trecursiverequired
  *
@@ -108,7 +108,7 @@ type TRecursiveRequired<T> = T extends (...args: never[]) => unknown
 /**
  * @utilType type
  * @name TRecursiveReadonly
- * @category Types Object Utilities
+ * @category Advanced Type Utilities
  * @description Recursively applies the 'readonly' modifier to every property of an object and its children.
  * @link #trecursivereadonly
  *
@@ -128,7 +128,7 @@ type TRecursiveReadonly<T> = T extends (...args: unknown[]) => unknown
 /**
  * @utilType type
  * @name TNonNullableDeep
- *@category Types Object Utilities
+ *@category Advanced Type Utilities
  * @description Recursively removes 'null' and 'undefined' from every property in an object tree.
  * @link #tnonnullabledeep
  *
@@ -147,7 +147,7 @@ type TNonNullableDeep<T> = TPrettify<{
 /**
  * @utilType type
  * @name TNormalizeValue
- *@category Types Object Utilities
+ *@category Advanced Type Utilities
  * @description Recursively converts all bigint values into numbers to prepare structures for JSON serialization.
  * @link #tnormalizevalue
  *
@@ -167,7 +167,7 @@ type TNormalizeValue<T> = T extends bigint
 /**
  * @utilType type
  * @name TNormalizedBigIntToNumber
- *@category Types Object Utilities
+ *@category Advanced Type Utilities
  * @description Internal mapped type helper that applies TNormalizeValue recursively across object keys.
  * @link #tnormalizedbiginttonumber
  *
@@ -188,7 +188,7 @@ type TNormalizedBigIntToNumber<T> = {
 /**
  * @utilType type
  * @name TDeepMerge
- * @category Types Object Utilities
+ * @category Advanced Type Utilities
  * @description Recursively merges two types T and U, prioritizing U's properties and preserving optionality.
  * @link #tdeepmerge
  *

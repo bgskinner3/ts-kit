@@ -27,7 +27,7 @@ type SnakeCaseFromArray<
 /**
  * @utilType type
  * @name TSnakeCase
- * @category Types String Utilities
+ * @category Advanced Type Utilities
  * @description Recursively transforms a string into snake_case (e.g., hello_world), ideal for database or API keys.
  * @link #tsnakecase
  *

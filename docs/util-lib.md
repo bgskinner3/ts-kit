@@ -124,8 +124,8 @@
 
 | Utility | Category | Type | Description | Source |
 | :--- | :--- | :--- | :--- | :--- |
+| **function** | Dom Media | `util` | Preloads and caches images using Image.decode() for non-blocking rendering and LRU management. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/dom/media.ts#L50) |
 | **normalizeImageSrc** | Dom Media | `util` | Extracts a clean URL string from various image source types, including bundler imports and static objects. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/dom/media.ts#L104) |
-| **preloadImages** | Dom Media | `util` | Preloads and caches images using Image.decode() for non-blocking rendering and LRU management. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/dom/media.ts#L50) |
 
 ---
 
@@ -275,8 +275,8 @@
 | Utility | Category | Type | Description | Source |
 | :--- | :--- | :--- | :--- | :--- |
 | **delay** | Processors Network | `util` | Returns a Promise that resolves after a specified duration in milliseconds. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/processors/network.ts#L61) |
-| **fetchJson** | Processors Network | `util` | Fetches and parses JSON from a URL with detailed error handling. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/processors/network.ts#L25) |
-| **retry** | Processors Network | `util` | Executes an async function with exponential backoff and jitter on failure. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/processors/network.ts#L80) |
+| **function** | Processors Network | `util` | Fetches and parses JSON from a URL with detailed error handling. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/processors/network.ts#L25) |
+| **function** | Processors Network | `util` | Executes an async function with exponential backoff and jitter on failure. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/processors/network.ts#L80) |
 
 ---
 
@@ -344,7 +344,7 @@
 
 | Utility | Category | Type | Description | Source |
 | :--- | :--- | :--- | :--- | :--- |
-| **type** | Types String Utilities | `type` | Recursively transforms a string or string union into camelCase by normalizing separators and word boundaries. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/types/utilities/string-casings/camel-case.ts#L46) |
+| **TCamelCase** | Types String Utilities | `type` | Recursively transforms a string or string union into camelCase by normalizing separators and word boundaries. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/types/utilities/string-casings/camel-case.ts#L46) |
 
 ---
 
@@ -352,7 +352,7 @@
 
 | Utility | Category | Type | Description | Source |
 | :--- | :--- | :--- | :--- | :--- |
-| **type** | Types String Utilities | `type` | Recursively transforms a string into kebab-case (e.g., hello-world), ideal for CSS classes and URLs. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/types/utilities/string-casings/kebab-case.ts#L37) |
+| **TKebabCase** | Types String Utilities | `type` | Recursively transforms a string into kebab-case (e.g., hello-world), ideal for CSS classes and URLs. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/types/utilities/string-casings/kebab-case.ts#L37) |
 
 ---
 
@@ -360,7 +360,7 @@
 
 | Utility | Category | Type | Description | Source |
 | :--- | :--- | :--- | :--- | :--- |
-| **type** | Types String Utilities | `type` | Recursively transforms a string into snake_case (e.g., hello_world), ideal for database or API keys. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/types/utilities/string-casings/snake-case.ts#L42) |
+| **TSnakeCase** | Types String Utilities | `type` | Recursively transforms a string into snake_case (e.g., hello_world), ideal for database or API keys. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/types/utilities/string-casings/snake-case.ts#L42) |
 
 ---
 

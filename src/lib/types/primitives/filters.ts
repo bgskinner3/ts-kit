@@ -1,7 +1,7 @@
 /**
  * @utilType type
  * @name TFilterKeysByValue
- * @category Types Filters Primitive
+ * @category Primitive Type Utilities
  * @description Extracts only the keys of an object whose values match a specific type.
  * @link #tfilterkeysbyvalue
  *
@@ -28,7 +28,7 @@ type TFilterKeysByValue<T, U> = {
 /**
  * @utilType type
  * @name TStripType
- * @category Types Filters Primitive
+ * @category Primitive Type Utilities
  * @description Creates a new type by removing all properties that match a specific value type.
  * @link #tstriptype
  *

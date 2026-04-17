@@ -1,23 +1,16 @@
 /**
  * @utilType type
  * @name TPrettify
- * @category Types Logic Primitive
+ * @category Primitive Type Utilities
  * @description Flattens complex type intersections into a single readable object for better IDE IntelliSense.
  * @link #tprettify
  *
- * ## ✨ TPrettify — IntelliSense Optimizer
- *
- * Flattens nested or intersected types into a single flat interface.
- * This doesn't change type logic but ensures that when you hover over a type in your IDE,
- * you see the full object structure instead of a list of intersections.
- *
- * @template T - The complex type to flatten.
  */
 type TPrettify<T> = { [K in keyof T]: T[K] } & {};
 /**
  * @utilType type
  * @name TMerge
- * @category Types Logic Primitive
+ * @category Primitive Type Utilities
  * @description Merges two types, allowing properties in the second type to override those in the first.
  * @link #tmerge
  *
@@ -34,7 +27,7 @@ type TMerge<O1, O2> = O2 & Omit<O1, keyof O2>;
 /**
  * @utilType type
  * @name TCreateDiff
- * @category Types Logic Primitive
+ * @category Primitive Type Utilities
  * @description Identifies the unique properties that exist in one type or the other, but not both.
  * @link #tcreatediff
  *
@@ -51,7 +44,7 @@ type TCreateDiff<T, U> = Omit<T, keyof U> & Omit<U, keyof T>;
 /**
  * @utilType type
  * @name TBigIntToggle
- * @category Types Logic Primitive
+ * @category Primitive Type Utilities
  * @description Bidirectionally toggles a type between bigint and string for safe JSON serialization mapping.
  * @link #tbiginttoggle
  *

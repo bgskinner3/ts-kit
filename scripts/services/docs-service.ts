@@ -6,7 +6,7 @@ export class DocsService {
   private static REPO_URL = 'https://github.com/bgskinner3/ts-kit/blob/main';
   private static LIB_PATH = path.resolve(process.cwd(), 'src/lib');
   private static META_DATA_REGEX =
-    /\/\*\*([\s\S]*?)\*\/[\r\n]\s*(?:.*?\s+)?(?:export|static)\s+(?:const|function|async\s+function|get|set)?\s*(\w+)/g;
+    /\/\*\*([\s\S]*?)\*\/[\r\n]\s*(?:.*?\s+)?(?:export|static)\s+(?:const|function|async|type\s+function|get|set|type)?\s*(\w+)/g;
   static buildMarkdownContent(registry: UtilityRegistry): string {
     let md = '# 🛠️ Utility Registry\n\n';
     md += '> This file is auto-generated. Do not edit manually.\n\n';

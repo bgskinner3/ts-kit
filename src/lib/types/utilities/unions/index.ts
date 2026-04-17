@@ -1,7 +1,7 @@
 /**
  * @utilType type
  * @name TXOR
- * @category Types Union Utilities
+ * @category Advanced Type Utilities
  * @description Enforces a strict choice between two property sets (T or U), preventing the mixing of properties from both.
  * @link #txor
  *
@@ -40,7 +40,7 @@ type TXOR<T, U> =
 /**
  * @utilType type
  * @name TTupleToIntersection
- * @category Types Union Utilities
+ * @category Advanced Type Utilities
  * @description Transforms an ordered tuple of types into a single intersection type (A & B & C).
  * @link #ttupletointersection
  *

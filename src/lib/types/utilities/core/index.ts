@@ -4,7 +4,7 @@ type TConfigSchema = Record<string, Record<string, string>>;
 /**
  * @utilType type
  * @name TIfValueRequire
- * @category Types Core
+ * @category Advanced Type Utilities
  * @description Enforces a dependency rule where a specific key's value determines if another key is required or forbidden.
  * @link #tifvaluerequire
  *
@@ -25,7 +25,7 @@ type TIfValueRequire<
 /**
  * @utilType type
  * @name TRequireIf
- * @category Types Core
+ * @category Advanced Type Utilities
  * @description Makes property K2 required if K1 matches value V1; otherwise, K2 is forbidden.
  * @link #trequireif
  *
@@ -48,7 +48,7 @@ type TRequireIf<
 /**
  * @utilType type
  * @name TOmitMethods
- * @category Types Core Utilities
+ * @category Advanced Type Utilities
  * @description Strips all function properties (methods) from a type, leaving only data properties.
  * @link #tomitmethods
  *
@@ -77,7 +77,7 @@ type TOmitMethods<T> = {
 /**
  * @utilType type
  * @name TUnionResolver
- * @category Types Core Utilities
+ * @category Advanced Type Utilities 
  * @description Transforms a union of values into a discriminated union of tagged objects.
  * @link #tunionresolver
  *
