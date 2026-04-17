@@ -13,7 +13,7 @@ import {
   createPropGuard,
   isElementOfType,
 } from '../../src/lib/guards/react/node-guards';
-import { THTMLTags } from '../../src/types';
+
 
 describe('React Node Guards', () => {
   describe('isValidReactNode', () => {
