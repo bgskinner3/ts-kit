@@ -1,10 +1,11 @@
-// arrays.test.ts
+// __tests__/types/primitives/object.test.ts
 import { expectTypeTestsToPassAsync } from 'jest-tsd';
+import path from 'path';
 
 describe('Array Utilities Type Checks', () => {
   it('should pass all type assertions in arrays.test-d.ts', async () => {
     await expectTypeTestsToPassAsync(
-      'tests/types/utilities/test-setup/arrays.test.ts',
+      path.join(__dirname, 'test-setup/arrays.test.ts'),
     );
   }, 10000);
 });

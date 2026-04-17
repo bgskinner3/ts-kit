@@ -4,6 +4,9 @@ module.exports = {
   testEnvironment: 'node',
   extensionsToTreatAsEsm: ['.ts'],
   verbose: true,
+  testPathIgnorePatterns: ['/node_modules/', '/dist/', '\\.test-d\\.ts$'],
+  // 2️⃣  STRICTLY define what files contain executable tests
+  testMatch: ['**/__tests__/**/*.test.[jt]s?(x)', '!**/*.test-d.ts'],
   coverageReporters: ['text', 'text-summary'],
   transform: {
     '^.+\\.tsx?$': [
@@ -27,6 +30,6 @@ module.exports = {
     '!src/managers/**',
     '!src/types/**',
     '!**/node_modules/**',
-    '!src/lib/processors/visual.ts'
+    '!src/lib/processors/visual.ts',
   ],
 };
