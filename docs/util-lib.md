@@ -7,368 +7,367 @@
 
 ## 📄 color.ts
 
-| Utility | Category | Type | Description | Source |
-| :--- | :--- | :--- | :--- | :--- |
-| **contrastTextColor** | Color | `util` | Returns an Accessible Text Color Based on Background | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/color/color.ts#L154) |
-| **getLuminance** | Color | `util` | * @link #getLuminance | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/color/color.ts#L48) |
-| **hexToHSL** | Color | `util` | Converts a hex color string to an HSL (Hue, Saturation, Lightness) object. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/color/color.ts#L252) |
-| **hexToNormalizedRGB** | Color | `util` | Converts a hexadecimal color string to an RGB tuple normalized between 0 and 1. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/color/color.ts#L279) |
-| **hexToRGB** | Color | `util` | Converts a hex color string to an RGB tuple [r, g, b]. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/color/color.ts#L14) |
-| **hexToRGBShorthand** |  | `` |  | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/color/color.ts#L200) |
-| **interpolateColor** | Color | `util` | Linearly interpolates between two RGB colors based on a factor (0-1) and returns a CSS rgb() string. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/color/color.ts#L229) |
-| **isDarkColor** | Color | `util` | Determines whether a color is "dark" based on a standard WCAG-inspired luminance threshold (0.179). Works with both HEX and RGB formats. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/color/color.ts#L92) |
-| **isLumGreaterThan** | Color | `util` | Determines whether the luminance of a color is above the given threshold. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/color/color.ts#L109) |
-| **isLumLessThan** | Color | `util` | Determines whether the luminance of a color (in RGB array or HEX format) is less than the specified threshold. Uses `getLuminance()` internally. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/color/color.ts#L73) |
-| **validateRGB** | Color | `util` | * @link #validateRGB | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/color/color.ts#L35) |
+| Utility                | Category | Type   | Description                                                                                                                                      | Source                                                                                  |
+| :--------------------- | :------- | :----- | :----------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------- |
+| **contrastTextColor**  | Color    | `util` | Returns an Accessible Text Color Based on Background                                                                                             | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/color/color.ts#L154) |
+| **getLuminance**       | Color    | `util` | \* @link #getLuminance                                                                                                                           | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/color/color.ts#L48)  |
+| **hexToHSL**           | Color    | `util` | Converts a hex color string to an HSL (Hue, Saturation, Lightness) object.                                                                       | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/color/color.ts#L252) |
+| **hexToNormalizedRGB** | Color    | `util` | Converts a hexadecimal color string to an RGB tuple normalized between 0 and 1.                                                                  | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/color/color.ts#L279) |
+| **hexToRGB**           | Color    | `util` | Converts a hex color string to an RGB tuple [r, g, b].                                                                                           | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/color/color.ts#L14)  |
+| **hexToRGBShorthand**  |          | ``     |                                                                                                                                                  | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/color/color.ts#L200) |
+| **interpolateColor**   | Color    | `util` | Linearly interpolates between two RGB colors based on a factor (0-1) and returns a CSS rgb() string.                                             | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/color/color.ts#L229) |
+| **isDarkColor**        | Color    | `util` | Determines whether a color is "dark" based on a standard WCAG-inspired luminance threshold (0.179). Works with both HEX and RGB formats.         | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/color/color.ts#L92)  |
+| **isLumGreaterThan**   | Color    | `util` | Determines whether the luminance of a color is above the given threshold.                                                                        | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/color/color.ts#L109) |
+| **isLumLessThan**      | Color    | `util` | Determines whether the luminance of a color (in RGB array or HEX format) is less than the specified threshold. Uses `getLuminance()` internally. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/color/color.ts#L73)  |
+| **validateRGB**        | Color    | `util` | \* @link #validateRGB                                                                                                                            | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/color/color.ts#L35)  |
 
 ---
 
 ## 📄 array.ts
 
-| Utility | Category | Type | Description | Source |
-| :--- | :--- | :--- | :--- | :--- |
-| **createFixedLengthArray** | ArrayUtils | `util` | Validates and returns an array with a fixed numeric length at the type level. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/array.ts#L23) |
-| **every** | ArrayUtils | `util` | Safe every wrapper that supports both Type Guards and standard boolean checks. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/array.ts#L191) |
-| **filter** | ArrayUtils | `util` | Type-safe filter wrapper that preserves TypeScript type guards and inference. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/array.ts#L160) |
-| **filterNonNullable** | ArrayUtils | `util` | Shortcut utility to filter out all null and undefined values from an array. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/array.ts#L181) |
-| **flat** | ArrayUtils | `util` | Type-safe flat for 1-level nested arrays using reduce. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/array.ts#L132) |
-| **flatMap** | ArrayUtils | `util` | Type-safe flatMap implementation for environments lacking native support. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/array.ts#L143) |
-| **forEach** | ArrayUtils | `util` | Safe forEach wrapper with correct type inference for ReadonlyArrays. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/array.ts#L99) |
-| **forEachUnion** | ArrayUtils | `util` | Iterates over single arrays or unions of arrays, flattening them for uniform processing. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/array.ts#L82) |
-| **includes** | ArrayUtils | `util` | Type-safe wrapper for Array.prototype.includes that acts as a type guard. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/array.ts#L12) |
-| **map** | ArrayUtils | `util` | Safe map wrapper providing consistent type inference for ReadonlyArrays. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/array.ts#L50) |
-| **readAllItems** | ArrayUtils | `util` | Returns a shallow copy of an array to prevent unintended mutations of the original. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/array.ts#L40) |
-| **reduce** | ArrayUtils | `util` | Safe reduce wrapper with correct type inference for ReadonlyArrays. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/array.ts#L113) |
-| **some** | ArrayUtils | `util` | Safe some wrapper with correct type inference for ReadonlyArrays. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/array.ts#L212) |
+| Utility                    | Category   | Type   | Description                                                                              | Source                                                                                   |
+| :------------------------- | :--------- | :----- | :--------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------- |
+| **createFixedLengthArray** | ArrayUtils | `util` | Validates and returns an array with a fixed numeric length at the type level.            | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/array.ts#L23)  |
+| **every**                  | ArrayUtils | `util` | Safe every wrapper that supports both Type Guards and standard boolean checks.           | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/array.ts#L191) |
+| **filter**                 | ArrayUtils | `util` | Type-safe filter wrapper that preserves TypeScript type guards and inference.            | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/array.ts#L160) |
+| **filterNonNullable**      | ArrayUtils | `util` | Shortcut utility to filter out all null and undefined values from an array.              | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/array.ts#L181) |
+| **flat**                   | ArrayUtils | `util` | Type-safe flat for 1-level nested arrays using reduce.                                   | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/array.ts#L132) |
+| **flatMap**                | ArrayUtils | `util` | Type-safe flatMap implementation for environments lacking native support.                | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/array.ts#L143) |
+| **forEach**                | ArrayUtils | `util` | Safe forEach wrapper with correct type inference for ReadonlyArrays.                     | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/array.ts#L99)  |
+| **forEachUnion**           | ArrayUtils | `util` | Iterates over single arrays or unions of arrays, flattening them for uniform processing. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/array.ts#L82)  |
+| **includes**               | ArrayUtils | `util` | Type-safe wrapper for Array.prototype.includes that acts as a type guard.                | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/array.ts#L12)  |
+| **map**                    | ArrayUtils | `util` | Safe map wrapper providing consistent type inference for ReadonlyArrays.                 | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/array.ts#L50)  |
+| **readAllItems**           | ArrayUtils | `util` | Returns a shallow copy of an array to prevent unintended mutations of the original.      | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/array.ts#L40)  |
+| **reduce**                 | ArrayUtils | `util` | Safe reduce wrapper with correct type inference for ReadonlyArrays.                      | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/array.ts#L113) |
+| **some**                   | ArrayUtils | `util` | Safe some wrapper with correct type inference for ReadonlyArrays.                        | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/array.ts#L212) |
 
 ---
 
 ## 📄 object.ts
 
-| Utility | Category | Type | Description | Source |
-| :--- | :--- | :--- | :--- | :--- |
-| **create** | ObjectUtils | `util` | Creates a new object with the specified prototype. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/object.ts#L175) |
-| **entries** | ObjectUtils | `util` | Returns an array of an object's own enumerable string-keyed [key, value] pairs with preserved inference. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/object.ts#L21) |
-| **fromEntries** | ObjectUtils | `util` | Constructs an object from an array of key-value entries with explicit type safety. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/object.ts#L33) |
-| **get** | ObjectUtils | `util` | Safely retrieves a nested property from an object using dot-notation pathing. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/object.ts#L82) |
-| **has** | ObjectUtils | `util` | Checks if a nested property exists in an object using dot-notation (e.g., 'user.profile.id'). | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/object.ts#L57) |
-| **is** | ObjectUtils | `util` | Determines whether two values are the same value. Corrects behavior for NaN and signed zeros. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/object.ts#L154) |
-| **keys** | ObjectUtils | `util` | Returns the keys of an object as a typed array of its own keys. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/object.ts#L11) |
-| **PrototypeOf** | ObjectUtils | `util` | Returns the prototype of the given object. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/object.ts#L164) |
-| **set** | ObjectUtils | `util` | Safely sets a nested property on an object using dot-notation, creating intermediate objects as needed. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/object.ts#L116) |
-| **values** | ObjectUtils | `util` | Returns an array of an object's own enumerable string-keyed property values. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/object.ts#L46) |
+| Utility         | Category    | Type   | Description                                                                                              | Source                                                                                    |
+| :-------------- | :---------- | :----- | :------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------- |
+| **create**      | ObjectUtils | `util` | Creates a new object with the specified prototype.                                                       | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/object.ts#L175) |
+| **entries**     | ObjectUtils | `util` | Returns an array of an object's own enumerable string-keyed [key, value] pairs with preserved inference. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/object.ts#L21)  |
+| **fromEntries** | ObjectUtils | `util` | Constructs an object from an array of key-value entries with explicit type safety.                       | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/object.ts#L33)  |
+| **get**         | ObjectUtils | `util` | Safely retrieves a nested property from an object using dot-notation pathing.                            | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/object.ts#L82)  |
+| **has**         | ObjectUtils | `util` | Checks if a nested property exists in an object using dot-notation (e.g., 'user.profile.id').            | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/object.ts#L57)  |
+| **is**          | ObjectUtils | `util` | Determines whether two values are the same value. Corrects behavior for NaN and signed zeros.            | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/object.ts#L154) |
+| **keys**        | ObjectUtils | `util` | Returns the keys of an object as a typed array of its own keys.                                          | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/object.ts#L11)  |
+| **PrototypeOf** | ObjectUtils | `util` | Returns the prototype of the given object.                                                               | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/object.ts#L164) |
+| **set**         | ObjectUtils | `util` | Safely sets a nested property on an object using dot-notation, creating intermediate objects as needed.  | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/object.ts#L116) |
+| **values**      | ObjectUtils | `util` | Returns an array of an object's own enumerable string-keyed property values.                             | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/common/object.ts#L46)  |
 
 ---
 
 ## 📄 index.ts
 
-| Utility | Category | Type | Description | Source |
-| :--- | :--- | :--- | :--- | :--- |
-| **clamp** | ComputationUtils | `util` | Restricts a value to be within a defined minimum and maximum range. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/computation/index.ts#L29) |
-| **computeDelta** | ComputationUtils | `util` | Calculates the net and absolute difference between two numbers or BigInts. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/computation/index.ts#L157) |
-| **computeMean** | ComputationUtils | `util` | Calculates the arithmetic mean of an array of numbers or BigInts. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/computation/index.ts#L61) |
-| **computePercentageChange** | ComputationUtils | `util` | Calculates the percentage increase or decrease between two values. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/computation/index.ts#L184) |
-| **computeRatio** | ComputationUtils | `util` | Generates a ratio as a percentage, optimized for pass/fail metrics. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/computation/index.ts#L89) |
-| **isAnomaly** | ComputationUtils | `util` | Statistical outlier detection based on standard deviations from the mean. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/computation/index.ts#L73) |
-| **Percentage** | ComputationUtils | `util` | Calculates the percentage of a value relative to a total, with BigInt safety and rounding. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/computation/index.ts#L40) |
-| **round** | ComputationUtils | `util` | Rounds a number to a specified number of decimal places. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/computation/index.ts#L18) |
-| **welfordUpdate** | ComputationUtils | `util` | Efficiently updates running mean and variance using Welford's algorithm. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/computation/index.ts#L115) |
+| Utility                     | Category         | Type   | Description                                                                                | Source                                                                                        |
+| :-------------------------- | :--------------- | :----- | :----------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------- |
+| **clamp**                   | ComputationUtils | `util` | Restricts a value to be within a defined minimum and maximum range.                        | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/computation/index.ts#L29)  |
+| **computeDelta**            | ComputationUtils | `util` | Calculates the net and absolute difference between two numbers or BigInts.                 | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/computation/index.ts#L157) |
+| **computeMean**             | ComputationUtils | `util` | Calculates the arithmetic mean of an array of numbers or BigInts.                          | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/computation/index.ts#L61)  |
+| **computePercentageChange** | ComputationUtils | `util` | Calculates the percentage increase or decrease between two values.                         | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/computation/index.ts#L184) |
+| **computeRatio**            | ComputationUtils | `util` | Generates a ratio as a percentage, optimized for pass/fail metrics.                        | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/computation/index.ts#L89)  |
+| **isAnomaly**               | ComputationUtils | `util` | Statistical outlier detection based on standard deviations from the mean.                  | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/computation/index.ts#L73)  |
+| **Percentage**              | ComputationUtils | `util` | Calculates the percentage of a value relative to a total, with BigInt safety and rounding. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/computation/index.ts#L40)  |
+| **round**                   | ComputationUtils | `util` | Rounds a number to a specified number of decimal places.                                   | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/computation/index.ts#L18)  |
+| **welfordUpdate**           | ComputationUtils | `util` | Efficiently updates running mean and variance using Welford's algorithm.                   | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/computation/index.ts#L115) |
 
 ---
 
 ## 📄 debug.ts
 
-| Utility | Category | Type | Description | Source |
-| :--- | :--- | :--- | :--- | :--- |
-| **getCallerLocation** | Debug | `util` | Parses the stack trace to identify the file, line, and column of the calling function. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/debug/debug.ts#L111) |
-| **highlight** | Debug | `util` | Wraps text in ANSI color codes for stylized terminal output. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/debug/debug.ts#L33) |
-| **logDev** | Debug | `util` | Environment-aware logger that restricts output to development mode, supports semantic log types, and auto-formats table data. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/debug/debug.ts#L166) |
-| **serialize** | Debug | `util` | Safely serializes any value, including BigInts and circular structures, into a pretty-printed string. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/debug/debug.ts#L55) |
+| Utility               | Category | Type   | Description                                                                                                                   | Source                                                                                  |
+| :-------------------- | :------- | :----- | :---------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------- |
+| **getCallerLocation** | Debug    | `util` | Parses the stack trace to identify the file, line, and column of the calling function.                                        | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/debug/debug.ts#L111) |
+| **highlight**         | Debug    | `util` | Wraps text in ANSI color codes for stylized terminal output.                                                                  | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/debug/debug.ts#L33)  |
+| **logDev**            | Debug    | `util` | Environment-aware logger that restricts output to development mode, supports semantic log types, and auto-formats table data. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/debug/debug.ts#L166) |
+| **serialize**         | Debug    | `util` | Safely serializes any value, including BigInts and circular structures, into a pretty-printed string.                         | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/debug/debug.ts#L55)  |
 
 ---
 
 ## 📄 deep-clone.ts
 
-| Utility | Category | Type | Description | Source |
-| :--- | :--- | :--- | :--- | :--- |
+| Utility       | Category        | Type   | Description                                                                                       | Source                                                                                                |
+| :------------ | :-------------- | :----- | :------------------------------------------------------------------------------------------------ | :---------------------------------------------------------------------------------------------------- |
 | **cloneDeep** | Deep Operations | `util` | Creates a complete recursive copy of a value, preserving the original's structure and prototypes. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/deep-operations/deep-clone.ts#L83) |
 
 ---
 
 ## 📄 deep-equal.ts
 
-| Utility | Category | Type | Description | Source |
-| :--- | :--- | :--- | :--- | :--- |
+| Utility          | Category        | Type   | Description                                             | Source                                                                                                |
+| :--------------- | :-------------- | :----- | :------------------------------------------------------ | :---------------------------------------------------------------------------------------------------- |
 | **areDeepEqual** | Deep Operations | `util` | Performs a recursive equality check between two values. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/deep-operations/deep-equal.ts#L26) |
 
 ---
 
 ## 📄 deep-merge.ts
 
-| Utility | Category | Type | Description | Source |
-| :--- | :--- | :--- | :--- | :--- |
-| **mergeDeep** | Object Manipulators | `util` | Deeply merges multiple objects passed as individual arguments. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/deep-operations/deep-merge.ts#L127) |
-| **mergeDeepArray** | Deep Operations | `util` | Deeply merges an array of objects into a single object. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/deep-operations/deep-merge.ts#L86) |
+| Utility            | Category            | Type   | Description                                                    | Source                                                                                                 |
+| :----------------- | :------------------ | :----- | :------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------- |
+| **mergeDeep**      | Object Manipulators | `util` | Deeply merges multiple objects passed as individual arguments. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/deep-operations/deep-merge.ts#L127) |
+| **mergeDeepArray** | Deep Operations     | `util` | Deeply merges an array of objects into a single object.        | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/deep-operations/deep-merge.ts#L86)  |
 
 ---
 
 ## 📄 events.ts
 
-| Utility | Category | Type | Description | Source |
-| :--- | :--- | :--- | :--- | :--- |
+| Utility               | Category   | Type   | Description                                                                           | Source                                                                                |
+| :-------------------- | :--------- | :----- | :------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------------ |
 | **getKeyboardAction** | Dom Events | `util` | Interprets a keyboard event and returns semantic information about the user's intent. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/dom/events.ts#L54) |
 
 ---
 
 ## 📄 media.ts
 
-| Utility | Category | Type | Description | Source |
-| :--- | :--- | :--- | :--- | :--- |
-| **function** | Dom Media | `util` | Preloads and caches images using Image.decode() for non-blocking rendering and LRU management. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/dom/media.ts#L50) |
+| Utility               | Category  | Type   | Description                                                                                                | Source                                                                                |
+| :-------------------- | :-------- | :----- | :--------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------ |
+| **function**          | Dom Media | `util` | Preloads and caches images using Image.decode() for non-blocking rendering and LRU management.             | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/dom/media.ts#L50)  |
 | **normalizeImageSrc** | Dom Media | `util` | Extracts a clean URL string from various image source types, including bundler imports and static objects. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/dom/media.ts#L104) |
 
 ---
 
 ## 📄 composite.ts
 
-| Utility | Category | Type | Description | Source |
-| :--- | :--- | :--- | :--- | :--- |
+| Utility            | Category    | Type    | Description                                                                                                    | Source                                                                                            |
+| :----------------- | :---------- | :------ | :------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------ |
 | **hasDefinedKeys** | Guards Core | `Guard` | Factory that creates a type guard to verify an object contains a specific set of required, non-undefined keys. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/composite.ts#L163) |
-| **isArrayOf** | Guards Core | `Guard` | Verifies that a value is an array where every element satisfies a provided type guard. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/composite.ts#L121) |
-| **isInArray** | Guards Core | `Guard` | Creates an O(1) optimized type guard to check if a value exists within a predefined array. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/composite.ts#L22) |
-| **isKeyInObject** | Guards Core | `Guard` | Narrows an unknown value to an object containing a specific property key, allowing safe property access. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/composite.ts#L65) |
-| **isKeyOfArray** | Guards Core | `Guard` | Validates if a primitive value exists within a specific readonly array of allowed keys. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/composite.ts#L97) |
-| **isKeyOfObject** | Guards Core | `Guard` | Validates if a value is a valid property key (string, number, or symbol) of a specific object. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/composite.ts#L45) |
-| **isRecordOf** | Guards Core | `Guard` | Validates that a value is an object where all property values pass a specific type guard. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/composite.ts#L142) |
-| **isShape** | Guards Core | `Guard` | Factory for creating recursive structural type guards that validate an object against a schema of guards. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/composite.ts#L190) |
-| **isType** | Guards Core | `Guard` | A helper to execute a type guard schema against a value for immediate narrowing. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/composite.ts#L248) |
+| **isArrayOf**      | Guards Core | `Guard` | Verifies that a value is an array where every element satisfies a provided type guard.                         | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/composite.ts#L121) |
+| **isInArray**      | Guards Core | `Guard` | Creates an O(1) optimized type guard to check if a value exists within a predefined array.                     | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/composite.ts#L22)  |
+| **isKeyInObject**  | Guards Core | `Guard` | Narrows an unknown value to an object containing a specific property key, allowing safe property access.       | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/composite.ts#L65)  |
+| **isKeyOfArray**   | Guards Core | `Guard` | Validates if a primitive value exists within a specific readonly array of allowed keys.                        | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/composite.ts#L97)  |
+| **isKeyOfObject**  | Guards Core | `Guard` | Validates if a value is a valid property key (string, number, or symbol) of a specific object.                 | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/composite.ts#L45)  |
+| **isRecordOf**     | Guards Core | `Guard` | Validates that a value is an object where all property values pass a specific type guard.                      | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/composite.ts#L142) |
+| **isShape**        | Guards Core | `Guard` | Factory for creating recursive structural type guards that validate an object against a schema of guards.      | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/composite.ts#L190) |
+| **isType**         | Guards Core | `Guard` | A helper to execute a type guard schema against a value for immediate narrowing.                               | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/composite.ts#L248) |
 
 ---
 
 ## 📄 link-guards.ts
 
-| Utility | Category | Type | Description | Source |
-| :--- | :--- | :--- | :--- | :--- |
+| Utility           | Category    | Type    | Description                                                                                        | Source                                                                                             |
+| :---------------- | :---------- | :------ | :------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------- |
 | **isAbsoluteUrl** | Guards Core | `Guard` | Validates if a string is a valid absolute URL that can be parsed by the browser's URL constructor. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/link-guards.ts#L19) |
-| **isInternalUrl** | Guards Core | `Guard` | Checks if a URL is a relative path or an absolute URL matching the current window's origin. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/link-guards.ts#L46) |
+| **isInternalUrl** | Guards Core | `Guard` | Checks if a URL is a relative path or an absolute URL matching the current window's origin.        | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/link-guards.ts#L46) |
 
 ---
 
 ## 📄 primitives.ts
 
-| Utility | Category | Type | Description | Source |
-| :--- | :--- | :--- | :--- | :--- |
-| **isBigInt** | Guards Core | `Guard` | Validates that a value is a BigInt. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/primitives.ts#L55) |
-| **isBoolean** | Guards Core | `Guard` | Validates that a value is a boolean (true or false). | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/primitives.ts#L45) |
-| **isInteger** | Guards Core | `Guard` | Checks whether a value is a valid integer. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/primitives.ts#L18) |
-| **isNonEmptyString** | Guards Core | `Guard` | Validates that a value is a string with a length greater than zero (excluding whitespace). | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/primitives.ts#L36) |
-| **isNumber** | Guards Core | `Guard` | Validates that a value is a number, excluding NaN and Infinity. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/primitives.ts#L9) |
-| **isPrimitive** | Guards Core | `Guard` | Validates if a value is any of the basic JS primitives: string, number, boolean, or bigint. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/primitives.ts#L74) |
-| **isString** | Guards Core | `Guard` | Validates that a value is a string. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/primitives.ts#L27) |
-| **isSymbol** | Guards Core | `Guard` | Validates that a value is a unique JavaScript symbol. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/primitives.ts#L65) |
+| Utility              | Category    | Type    | Description                                                                                 | Source                                                                                            |
+| :------------------- | :---------- | :------ | :------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------ |
+| **isBigInt**         | Guards Core | `Guard` | Validates that a value is a BigInt.                                                         | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/primitives.ts#L55) |
+| **isBoolean**        | Guards Core | `Guard` | Validates that a value is a boolean (true or false).                                        | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/primitives.ts#L45) |
+| **isInteger**        | Guards Core | `Guard` | Checks whether a value is a valid integer.                                                  | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/primitives.ts#L18) |
+| **isNonEmptyString** | Guards Core | `Guard` | Validates that a value is a string with a length greater than zero (excluding whitespace).  | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/primitives.ts#L36) |
+| **isNumber**         | Guards Core | `Guard` | Validates that a value is a number, excluding NaN and Infinity.                             | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/primitives.ts#L9)  |
+| **isPrimitive**      | Guards Core | `Guard` | Validates if a value is any of the basic JS primitives: string, number, boolean, or bigint. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/primitives.ts#L74) |
+| **isString**         | Guards Core | `Guard` | Validates that a value is a string.                                                         | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/primitives.ts#L27) |
+| **isSymbol**         | Guards Core | `Guard` | Validates that a value is a unique JavaScript symbol.                                       | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/primitives.ts#L65) |
 
 ---
 
 ## 📄 reference.ts
 
-| Utility | Category | Type | Description | Source |
-| :--- | :--- | :--- | :--- | :--- |
-| **hasOwnProperty** | Guards Core | `Guard` | A type-safe wrapper for Object.prototype.hasOwnProperty | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/reference.ts#L153) |
-| **isArray** | Guards Core | `Guard` | Validates that a value is an Array. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/reference.ts#L68) |
-| **isDefined** | Guards Primitive | `Guard` | Ensures a value is neither null nor undefined. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/reference.ts#L27) |
-| **isDefinedObject** |  | `guard` | Narrows a value to a non-null, indexable object for deep operations. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/reference.ts#L164) |
-| **isFunction** | Guards Core | `Guard` | Validates that a value is a callable function. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/reference.ts#L47) |
-| **isInstanceOf** | Guards Core | `Guard` | Checks if a value is an instance of a specific class constructor. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/reference.ts#L124) |
-| **isMap** | Guards Core | `Guard` | Validates that a value is an instance of a Map. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/reference.ts#L78) |
-| **isNil** | Guards Primitive | `Guard` | Checks if a value is null or undefined (nullish). | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/reference.ts#L37) |
-| **isNull** | Guards Primitive | `Guard` | Validates that a value is explicitly null. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/reference.ts#L9) |
-| **isObject** | Guards Core | `Guard` | Validates that a value is a non-null, non-array object. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/reference.ts#L57) |
-| **isRecord** | Guards Core | `Guard` | Validates that a value is a non-null object (and not an array) | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/reference.ts#L137) |
-| **isSet** | Guards Core | `Guard` | Validates that a value is an instance of a Set. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/reference.ts#L88) |
-| **isUndefined** | Guards Primitive | `Guard` | Validates that a value is undefined. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/reference.ts#L18) |
-| **isWeakMap** | Guards Core | `Guard` | Validates that a value is an instance of a WeakMap. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/reference.ts#L99) |
-| **isWeakSet** | Guards Core | `Guard` | Validates that a value is an instance of a WeakSet. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/reference.ts#L114) |
+| Utility             | Category         | Type    | Description                                                          | Source                                                                                            |
+| :------------------ | :--------------- | :------ | :------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------ |
+| **hasOwnProperty**  | Guards Core      | `Guard` | A type-safe wrapper for Object.prototype.hasOwnProperty              | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/reference.ts#L153) |
+| **isArray**         | Guards Core      | `Guard` | Validates that a value is an Array.                                  | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/reference.ts#L68)  |
+| **isDefined**       | Guards Primitive | `Guard` | Ensures a value is neither null nor undefined.                       | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/reference.ts#L27)  |
+| **isDefinedObject** |                  | `guard` | Narrows a value to a non-null, indexable object for deep operations. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/reference.ts#L164) |
+| **isFunction**      | Guards Core      | `Guard` | Validates that a value is a callable function.                       | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/reference.ts#L47)  |
+| **isInstanceOf**    | Guards Core      | `Guard` | Checks if a value is an instance of a specific class constructor.    | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/reference.ts#L124) |
+| **isMap**           | Guards Core      | `Guard` | Validates that a value is an instance of a Map.                      | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/reference.ts#L78)  |
+| **isNil**           | Guards Primitive | `Guard` | Checks if a value is null or undefined (nullish).                    | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/reference.ts#L37)  |
+| **isNull**          | Guards Primitive | `Guard` | Validates that a value is explicitly null.                           | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/reference.ts#L9)   |
+| **isObject**        | Guards Core      | `Guard` | Validates that a value is a non-null, non-array object.              | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/reference.ts#L57)  |
+| **isRecord**        | Guards Core      | `Guard` | Validates that a value is a non-null object (and not an array)       | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/reference.ts#L137) |
+| **isSet**           | Guards Core      | `Guard` | Validates that a value is an instance of a Set.                      | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/reference.ts#L88)  |
+| **isUndefined**     | Guards Primitive | `Guard` | Validates that a value is undefined.                                 | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/reference.ts#L18)  |
+| **isWeakMap**       | Guards Core      | `Guard` | Validates that a value is an instance of a WeakMap.                  | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/reference.ts#L99)  |
+| **isWeakSet**       | Guards Core      | `Guard` | Validates that a value is an instance of a WeakSet.                  | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/reference.ts#L114) |
 
 ---
 
 ## 📄 refined.ts
 
-| Utility | Category | Type | Description | Source |
-| :--- | :--- | :--- | :--- | :--- |
-| **isBufferLikeObject** | Guards Core | `Guard` | Validates if an object matches the shape of a serialized Buffer (e.g., { type: 'Buffer', data: number[] }). | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/refined.ts#L27) |
-| **isEmail** | Guards Core | `Guard` | Validates if a string follows a standard email format using regex. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/refined.ts#L100) |
-| **isPhoneNumber** | Guards Core | `Guard` | Validates a string against common US, EU, and generic phone number regex patterns. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/refined.ts#L73) |
-| **isRGBTuple** | Guards Core | `Guard` | Checks if a value is a valid RGB tuple: an array of exactly three numbers between 0 and 255. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/refined.ts#L52) |
+| Utility                | Category    | Type    | Description                                                                                                 | Source                                                                                          |
+| :--------------------- | :---------- | :------ | :---------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------- |
+| **isBufferLikeObject** | Guards Core | `Guard` | Validates if an object matches the shape of a serialized Buffer (e.g., { type: 'Buffer', data: number[] }). | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/refined.ts#L27)  |
+| **isEmail**            | Guards Core | `Guard` | Validates if a string follows a standard email format using regex.                                          | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/refined.ts#L100) |
+| **isPhoneNumber**      | Guards Core | `Guard` | Validates a string against common US, EU, and generic phone number regex patterns.                          | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/refined.ts#L73)  |
+| **isRGBTuple**         | Guards Core | `Guard` | Checks if a value is a valid RGB tuple: an array of exactly three numbers between 0 and 255.                | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/refined.ts#L52)  |
 
 ---
 
 ## 📄 string-guards.ts
 
-| Utility | Category | Type | Description | Source |
-| :--- | :--- | :--- | :--- | :--- |
-| **isCamelCase** | Guards Core | `Guard` | Validates if a string follows camelCase naming conventions. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/string-guards.ts#L22) |
-| **isHexByteString** | Guards Core | `Guard` | Factory that creates a guard to validate if a string is a valid hex byte string, optionally enforcing length. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/string-guards.ts#L113) |
-| **isHexColor** | Guards Core | `Guard` | Validates if a string is a valid 3 or 6-digit HEX color code. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/string-guards.ts#L144) |
-| **isHTMLString** | Guards Core | `Guard` | Checks if a string contains HTML tags using regex detection. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/string-guards.ts#L93) |
-| **isJSONArrayString** | Guards Core | `Guard` | Verifies if a string is a valid JSON-serialized array. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/string-guards.ts#L55) |
-| **isJSONObjectString** | Guards Core | `Guard` | Verifies if a string is a valid JSON-serialized object. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/string-guards.ts#L72) |
-| **isJsonString** | Guards Core | `Guard` | Validates if a string is a valid JSON-serialized array or object. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/string-guards.ts#L133) |
-| **isKebabCase** | Guards Core | `Guard` | Validates if a string follows kebab-case naming conventions. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/string-guards.ts#L44) |
-| **isRGBString** | Guards Core | `Guard` | Validates if a string is a valid CSS rgb() or rgba() string. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/string-guards.ts#L157) |
-| **isSnakeCase** | Guards Core | `Guard` | Validates if a string follows snake_case naming conventions. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/string-guards.ts#L33) |
-| **isTuple3** | Guards Core | `Guard` | Validates if a value is an array of exactly three non-NaN numbers. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/string-guards.ts#L182) |
+| Utility                | Category    | Type    | Description                                                                                                   | Source                                                                                                |
+| :--------------------- | :---------- | :------ | :------------------------------------------------------------------------------------------------------------ | :---------------------------------------------------------------------------------------------------- |
+| **isCamelCase**        | Guards Core | `Guard` | Validates if a string follows camelCase naming conventions.                                                   | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/string-guards.ts#L22)  |
+| **isHexByteString**    | Guards Core | `Guard` | Factory that creates a guard to validate if a string is a valid hex byte string, optionally enforcing length. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/string-guards.ts#L113) |
+| **isHexColor**         | Guards Core | `Guard` | Validates if a string is a valid 3 or 6-digit HEX color code.                                                 | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/string-guards.ts#L144) |
+| **isHTMLString**       | Guards Core | `Guard` | Checks if a string contains HTML tags using regex detection.                                                  | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/string-guards.ts#L93)  |
+| **isJSONArrayString**  | Guards Core | `Guard` | Verifies if a string is a valid JSON-serialized array.                                                        | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/string-guards.ts#L55)  |
+| **isJSONObjectString** | Guards Core | `Guard` | Verifies if a string is a valid JSON-serialized object.                                                       | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/string-guards.ts#L72)  |
+| **isJsonString**       | Guards Core | `Guard` | Validates if a string is a valid JSON-serialized array or object.                                             | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/string-guards.ts#L133) |
+| **isKebabCase**        | Guards Core | `Guard` | Validates if a string follows kebab-case naming conventions.                                                  | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/string-guards.ts#L44)  |
+| **isRGBString**        | Guards Core | `Guard` | Validates if a string is a valid CSS rgb() or rgba() string.                                                  | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/string-guards.ts#L157) |
+| **isSnakeCase**        | Guards Core | `Guard` | Validates if a string follows snake_case naming conventions.                                                  | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/string-guards.ts#L33)  |
+| **isTuple3**           | Guards Core | `Guard` | Validates if a value is an array of exactly three non-NaN numbers.                                            | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/core/string-guards.ts#L182) |
 
 ---
 
 ## 📄 dom-guards.ts
 
-| Utility | Category | Type | Description | Source |
-| :--- | :--- | :--- | :--- | :--- |
-| **isDOMEntry** | Guards React | `Guard` | Validates if a key-value pair entry represents a valid DOM property for a specific HTML element type. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/react/dom-guards.ts#L49) |
-| **isDOMPropKey** | Guards React | `Guard` | Type guard to verify if an unknown value is a string that represents a valid DOM property. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/react/dom-guards.ts#L39) |
-| **isPropValid** | Guards React | `util` | Memoized validator that checks if a string is a standard DOM attribute, SVG attribute, or React event handler. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/react/dom-guards.ts#L23) |
+| Utility          | Category     | Type    | Description                                                                                                    | Source                                                                                             |
+| :--------------- | :----------- | :------ | :------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------- |
+| **isDOMEntry**   | Guards React | `Guard` | Validates if a key-value pair entry represents a valid DOM property for a specific HTML element type.          | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/react/dom-guards.ts#L49) |
+| **isDOMPropKey** | Guards React | `Guard` | Type guard to verify if an unknown value is a string that represents a valid DOM property.                     | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/react/dom-guards.ts#L39) |
+| **isPropValid**  | Guards React | `util`  | Memoized validator that checks if a string is a standard DOM attribute, SVG attribute, or React event handler. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/react/dom-guards.ts#L23) |
 
 ---
 
 ## 📄 node-guards.ts
 
-| Utility | Category | Type | Description | Source |
-| :--- | :--- | :--- | :--- | :--- |
-| **createPropGuard** | Guards React | `Guard` | Factory that creates a type guard for specific component props. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/react/node-guards.ts#L160) |
-| **hasNameMetadata** | Guards React | `Guard` | Checks if a component type has identifiable metadata (displayName, name, or type). | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/react/node-guards.ts#L127) |
-| **hasOnClick** | Guards React | `Guard` | Validates if a React element has a valid onClick function in its props. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/react/node-guards.ts#L75) |
-| **isElementLike** | Guards React | `Guard` | Validates if an object mimics the shape of a React element (having type and props). | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/react/node-guards.ts#L97) |
-| **isElementOfType** | Guards React | `Guard` | Checks if a React-like element matches a specific set of allowed HTML tag types. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/react/node-guards.ts#L113) |
-| **isFragment** | Guards React | `Guard` | Checks if a React element is a Fragment (<>...</>). | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/react/node-guards.ts#L56) |
-| **isReactElement** | Guards React | `Guard` | Alias for React's isValidElement to identify valid React elements. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/react/node-guards.ts#L45) |
-| **isValidReactNode** | Guards React | `Guard` | Validates if a value is a valid ReactNode (primitives, elements, portals, or arrays of nodes). | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/react/node-guards.ts#L29) |
+| Utility              | Category     | Type    | Description                                                                                    | Source                                                                                               |
+| :------------------- | :----------- | :------ | :--------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------- |
+| **createPropGuard**  | Guards React | `Guard` | Factory that creates a type guard for specific component props.                                | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/react/node-guards.ts#L160) |
+| **hasNameMetadata**  | Guards React | `Guard` | Checks if a component type has identifiable metadata (displayName, name, or type).             | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/react/node-guards.ts#L127) |
+| **hasOnClick**       | Guards React | `Guard` | Validates if a React element has a valid onClick function in its props.                        | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/react/node-guards.ts#L75)  |
+| **isElementLike**    | Guards React | `Guard` | Validates if an object mimics the shape of a React element (having type and props).            | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/react/node-guards.ts#L97)  |
+| **isElementOfType**  | Guards React | `Guard` | Checks if a React-like element matches a specific set of allowed HTML tag types.               | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/react/node-guards.ts#L113) |
+| **isFragment**       | Guards React | `Guard` | Checks if a React element is a Fragment (<>...</>).                                            | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/react/node-guards.ts#L56)  |
+| **isReactElement**   | Guards React | `Guard` | Alias for React's isValidElement to identify valid React elements.                             | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/react/node-guards.ts#L45)  |
+| **isValidReactNode** | Guards React | `Guard` | Validates if a value is a valid ReactNode (primitives, elements, portals, or arrays of nodes). | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/react/node-guards.ts#L29)  |
 
 ---
 
 ## 📄 react-primitive.ts
 
-| Utility | Category | Type | Description | Source |
-| :--- | :--- | :--- | :--- | :--- |
-| **hasChildren** | Guards React | `Guard` | Validates if a props object contains a defined children property. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/react/react-primitive.ts#L93) |
-| **isComponentType** | Guards React | `Guard` | Determines if a value is a valid React Component (Function or Class Component). | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/react/react-primitive.ts#L105) |
-| **isForwardRef** | Guards React | `Guard` | Validates if a component is wrapped in React.forwardRef. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/react/react-primitive.ts#L120) |
-| **isPromise** | Guards React | `Guard` | Checks if a value is a Promise or a "Thenable" by validating the existence of a .then() method. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/react/react-primitive.ts#L71) |
-| **isReactPortal** | Guards React | `Guard` | Validates if a value is a ReactPortal created via ReactDOM.createPortal. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/react/react-primitive.ts#L81) |
-| **isRef** | Guards React | `Guard` | Validates if a value is a valid React Ref, covering both Callback Refs and Object Refs (createRef/useRef). | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/react/react-primitive.ts#L35) |
-| **isRefObject** | Guards React | `Guard` | Specifically narrows a Ref type to an object containing a .current property (RefObject). | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/react/react-primitive.ts#L54) |
+| Utility             | Category     | Type    | Description                                                                                                | Source                                                                                                   |
+| :------------------ | :----------- | :------ | :--------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------- |
+| **hasChildren**     | Guards React | `Guard` | Validates if a props object contains a defined children property.                                          | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/react/react-primitive.ts#L93)  |
+| **isComponentType** | Guards React | `Guard` | Determines if a value is a valid React Component (Function or Class Component).                            | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/react/react-primitive.ts#L105) |
+| **isForwardRef**    | Guards React | `Guard` | Validates if a component is wrapped in React.forwardRef.                                                   | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/react/react-primitive.ts#L120) |
+| **isPromise**       | Guards React | `Guard` | Checks if a value is a Promise or a "Thenable" by validating the existence of a .then() method.            | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/react/react-primitive.ts#L71)  |
+| **isReactPortal**   | Guards React | `Guard` | Validates if a value is a ReactPortal created via ReactDOM.createPortal.                                   | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/react/react-primitive.ts#L81)  |
+| **isRef**           | Guards React | `Guard` | Validates if a value is a valid React Ref, covering both Callback Refs and Object Refs (createRef/useRef). | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/react/react-primitive.ts#L35)  |
+| **isRefObject**     | Guards React | `Guard` | Specifically narrows a Ref type to an object containing a .current property (RefObject).                   | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/guards/react/react-primitive.ts#L54)  |
 
 ---
 
 ## 📄 link-utils.ts
 
-| Utility | Category | Type | Description | Source |
-| :--- | :--- | :--- | :--- | :--- |
-| **extractRelativePath** | Link | `util` | Safely extracts the pathname from absolute or relative internal URLs, ensuring a leading slash. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/link/link-utils.ts#L90) |
-| **handleInternalHashScroll** | Link | `util` | Manages smooth scrolling for internal anchor links with cross-browser safety checks. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/link/link-utils.ts#L159) |
-| **normalizeUrl** | Link | `util` | Standardizes various URL inputs (strings, URL instances, or objects) into a single clean string URL. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/link/link-utils.ts#L28) |
-| **stripHash** | Link | `util` | Removes the hash fragment (#) from a URL while preserving the path and query parameters. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/link/link-utils.ts#L119) |
+| Utility                      | Category | Type   | Description                                                                                          | Source                                                                                      |
+| :--------------------------- | :------- | :----- | :--------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------ |
+| **extractRelativePath**      | Link     | `util` | Safely extracts the pathname from absolute or relative internal URLs, ensuring a leading slash.      | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/link/link-utils.ts#L90)  |
+| **handleInternalHashScroll** | Link     | `util` | Manages smooth scrolling for internal anchor links with cross-browser safety checks.                 | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/link/link-utils.ts#L159) |
+| **normalizeUrl**             | Link     | `util` | Standardizes various URL inputs (strings, URL instances, or objects) into a single clean string URL. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/link/link-utils.ts#L28)  |
+| **stripHash**                | Link     | `util` | Removes the hash fragment (#) from a URL while preserving the path and query parameters.             | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/link/link-utils.ts#L119) |
 
 ---
 
 ## 📄 network.ts
 
-| Utility | Category | Type | Description | Source |
-| :--- | :--- | :--- | :--- | :--- |
-| **delay** | Processors Network | `util` | Returns a Promise that resolves after a specified duration in milliseconds. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/processors/network.ts#L61) |
-| **function** | Processors Network | `util` | Fetches and parses JSON from a URL with detailed error handling. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/processors/network.ts#L25) |
-| **function** | Processors Network | `util` | Executes an async function with exponential backoff and jitter on failure. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/processors/network.ts#L80) |
+| Utility      | Category           | Type   | Description                                                                 | Source                                                                                        |
+| :----------- | :----------------- | :----- | :-------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------- |
+| **delay**    | Processors Network | `util` | Returns a Promise that resolves after a specified duration in milliseconds. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/processors/network.ts#L61) |
+| **function** | Processors Network | `util` | Fetches and parses JSON from a URL with detailed error handling.            | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/processors/network.ts#L25) |
+| **function** | Processors Network | `util` | Executes an async function with exponential backoff and jitter on failure.  | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/processors/network.ts#L80) |
 
 ---
 
 ## 📄 react.ts
 
-| Utility | Category | Type | Description | Source |
-| :--- | :--- | :--- | :--- | :--- |
-| **extractDOMProps** | React | `util` | Strips custom component props to return only valid HTML attributes for a specific element. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/processors/react.ts#L167) |
-| **filterChildrenByDisplayName** | Processors React | `util` | Filters a React children tree to find components matching a specific displayName. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/processors/react.ts#L192) |
-| **getRefCurrent** | Processors React | `util` | Safely extracts the current value from either RefObjects or ForwardedRefs. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/processors/react.ts#L214) |
-| **lazyProxy** | Processors React | `util` | Transparently caches the results of function properties upon first access. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/processors/react.ts#L70) |
-| **mergeCssVars** | Processors React | `util` | Safely merges a dictionary of CSS variables into a React CSSProperties object. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/processors/react.ts#L111) |
-| **mergeEventHandlerClicks** | Processors React | `util` | Orchestrates user and internal click handlers, allowing user-level preventDefault() to block internal logic. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/processors/react.ts#L143) |
-| **mergeRefs** | Processors React | `util` | Consolidates multiple React refs (callback or object) into a single functional ref. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/processors/react.ts#L37) |
+| Utility                         | Category         | Type   | Description                                                                                                  | Source                                                                                       |
+| :------------------------------ | :--------------- | :----- | :----------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------- |
+| **extractDOMProps**             | React            | `util` | Strips custom component props to return only valid HTML attributes for a specific element.                   | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/processors/react.ts#L167) |
+| **filterChildrenByDisplayName** | Processors React | `util` | Filters a React children tree to find components matching a specific displayName.                            | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/processors/react.ts#L192) |
+| **getRefCurrent**               | Processors React | `util` | Safely extracts the current value from either RefObjects or ForwardedRefs.                                   | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/processors/react.ts#L214) |
+| **lazyProxy**                   | Processors React | `util` | Transparently caches the results of function properties upon first access.                                   | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/processors/react.ts#L70)  |
+| **mergeCssVars**                | Processors React | `util` | Safely merges a dictionary of CSS variables into a React CSSProperties object.                               | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/processors/react.ts#L111) |
+| **mergeEventHandlerClicks**     | Processors React | `util` | Orchestrates user and internal click handlers, allowing user-level preventDefault() to block internal logic. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/processors/react.ts#L143) |
+| **mergeRefs**                   | Processors React | `util` | Consolidates multiple React refs (callback or object) into a single functional ref.                          | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/processors/react.ts#L37)  |
 
 ---
 
 ## 📄 object-transformers.ts
 
-| Utility | Category | Type | Description | Source |
-| :--- | :--- | :--- | :--- | :--- |
-| **capitalizeArray** | Object Transformers | `util` | Capitalizes the first letter of every string in an array. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/transformers/object-transformers.ts#L115) |
-| **capitalizedKeys** | Object Transformers | `util` | Extracts and capitalizes an object's keys, filtering for those starting with letters. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/transformers/object-transformers.ts#L140) |
-| **generateKeyMap** | Object Transformers | `util` | Creates a typed mapping of original keys to transformed strings using a prefix/suffix pattern. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/transformers/object-transformers.ts#L30) |
-| **toKeyByField** | Object Transformers | `util` | Normalizes an array of objects into a record keyed by a specific field. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/transformers/object-transformers.ts#L83) |
+| Utility             | Category            | Type   | Description                                                                                    | Source                                                                                                       |
+| :------------------ | :------------------ | :----- | :--------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------- |
+| **capitalizeArray** | Object Transformers | `util` | Capitalizes the first letter of every string in an array.                                      | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/transformers/object-transformers.ts#L115) |
+| **capitalizedKeys** | Object Transformers | `util` | Extracts and capitalizes an object's keys, filtering for those starting with letters.          | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/transformers/object-transformers.ts#L140) |
+| **generateKeyMap**  | Object Transformers | `util` | Creates a typed mapping of original keys to transformed strings using a prefix/suffix pattern. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/transformers/object-transformers.ts#L30)  |
+| **toKeyByField**    | Object Transformers | `util` | Normalizes an array of objects into a record keyed by a specific field.                        | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/transformers/object-transformers.ts#L83)  |
 
 ---
 
 ## 📄 string-transformers.ts
 
-| Utility | Category | Type | Description | Source |
-| :--- | :--- | :--- | :--- | :--- |
+| Utility              | Category            | Type   | Description                                                                             | Source                                                                                                      |
+| :------------------- | :------------------ | :----- | :-------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------- |
 | **capitalizeString** | String Transformers | `util` | Capitalizes the first character of a string while maintaining TypeScript literal types. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/transformers/string-transformers.ts#L18) |
-| **toCamelCase** | String Transformers | `util` | Converts a string from any format (snake, kebab, space) into camelCase. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/transformers/string-transformers.ts#L37) |
-| **toKebabCase** | String Transformers | `util` | Converts a string into kebab-case, ideal for URLs and CSS class names. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/transformers/string-transformers.ts#L65) |
-| **toSnakeCase** | String Transformers | `util` | Converts a string into snake_case, commonly used for database and API fields. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/transformers/string-transformers.ts#L89) |
+| **toCamelCase**      | String Transformers | `util` | Converts a string from any format (snake, kebab, space) into camelCase.                 | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/transformers/string-transformers.ts#L37) |
+| **toKebabCase**      | String Transformers | `util` | Converts a string into kebab-case, ideal for URLs and CSS class names.                  | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/transformers/string-transformers.ts#L65) |
+| **toSnakeCase**      | String Transformers | `util` | Converts a string into snake_case, commonly used for database and API fields.           | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/transformers/string-transformers.ts#L89) |
 
 ---
 
 ## 📄 objects.ts
 
-| Utility | Category | Type | Description | Source |
-| :--- | :--- | :--- | :--- | :--- |
+| Utility  | Category               | Type   | Description                                                                           | Source                                                                                              |
+| :------- | :--------------------- | :----- | :------------------------------------------------------------------------------------ | :-------------------------------------------------------------------------------------------------- |
 | **type** | Types Object Primitive | `type` | Extracts a union of all possible property values from an object, interface, or array. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/types/primitives/objects.ts#L51) |
 
 ---
 
 ## 📄 index.ts
 
-| Utility | Category | Type | Description | Source |
-| :--- | :--- | :--- | :--- | :--- |
+| Utility  | Category              | Type   | Description                                                           | Source                                                                                                 |
+| :------- | :-------------------- | :----- | :-------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------- |
 | **type** | Types Async Utilities | `type` | Maps over an object type and wraps every property value in a Promise. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/types/utilities/async/index.ts#L48) |
 
 ---
 
 ## 📄 index.ts
 
-| Utility | Category | Type | Description | Source |
-| :--- | :--- | :--- | :--- | :--- |
+| Utility  | Category   | Type   | Description                                                                                                 | Source                                                                                                |
+| :------- | :--------- | :----- | :---------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------- |
 | **type** | Types Core | `type` | Enforces a dependency rule where a specific key's value determines if another key is required or forbidden. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/types/utilities/core/index.ts#L90) |
 
 ---
 
 ## 📄 camel-case.ts
 
-| Utility | Category | Type | Description | Source |
-| :--- | :--- | :--- | :--- | :--- |
+| Utility        | Category               | Type   | Description                                                                                                   | Source                                                                                                               |
+| :------------- | :--------------------- | :----- | :------------------------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------- |
 | **TCamelCase** | Types String Utilities | `type` | Recursively transforms a string or string union into camelCase by normalizing separators and word boundaries. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/types/utilities/string-casings/camel-case.ts#L46) |
 
 ---
 
 ## 📄 kebab-case.ts
 
-| Utility | Category | Type | Description | Source |
-| :--- | :--- | :--- | :--- | :--- |
+| Utility        | Category               | Type   | Description                                                                                          | Source                                                                                                               |
+| :------------- | :--------------------- | :----- | :--------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------- |
 | **TKebabCase** | Types String Utilities | `type` | Recursively transforms a string into kebab-case (e.g., hello-world), ideal for CSS classes and URLs. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/types/utilities/string-casings/kebab-case.ts#L37) |
 
 ---
 
 ## 📄 snake-case.ts
 
-| Utility | Category | Type | Description | Source |
-| :--- | :--- | :--- | :--- | :--- |
+| Utility        | Category               | Type   | Description                                                                                          | Source                                                                                                               |
+| :------------- | :--------------------- | :----- | :--------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------- |
 | **TSnakeCase** | Types String Utilities | `type` | Recursively transforms a string into snake_case (e.g., hello_world), ideal for database or API keys. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/types/utilities/string-casings/snake-case.ts#L42) |
 
 ---
 
 ## 📄 assertions.ts
 
-| Utility | Category | Type | Description | Source |
-| :--- | :--- | :--- | :--- | :--- |
+| Utility         | Category               | Type   | Description                                                                                                  | Source                                                                                            |
+| :-------------- | :--------------------- | :----- | :----------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------ |
 | **assertValue** | Validations Assertions | `util` | Asserts that a value passes a type guard check, throwing an error if it fails while preserving TS narrowing. | [View Code](https://github.com/bgskinner3/ts-kit/blob/main/src/lib/validations/assertions.ts#L40) |
 
 ---
-

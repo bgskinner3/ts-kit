@@ -10,9 +10,136 @@ import {
   mergeCssVars,
   mergeEventHandlerClicks,
   getRefCurrent,
+  extractComponentProps,
 } from '../../src/lib/processors/react';
 
 describe('React Processor Utils', () => {
+  describe('extractComponentProps', () => {
+    it('extracts only whitelisted component props', () => {
+      const props = {
+        className: 'btn',
+        onClick: () => {},
+        variant: 'primary',
+        disabled: false,
+      };
+
+      const result = extractComponentProps(props, ['className', 'variant']);
+
+      expect(result).toEqual({
+        className: 'btn',
+        variant: 'primary',
+      });
+    });
+
+    it('returns an empty object when no keys match', () => {
+      const props = {
+        a: 1,
+        b: 2,
+      };
+
+      const result = extractComponentProps(props, ['c', 'd'] as any);
+
+      expect(result).toEqual({});
+    });
+
+    it('returns all keys when full whitelist is provided', () => {
+      const props = {
+        className: 'box',
+        id: 'test',
+      };
+
+      const result = extractComponentProps(props, ['className', 'id']);
+
+      expect(result).toEqual(props);
+    });
+
+    it('does not mutate the original props object', () => {
+      const props = {
+        className: 'btn',
+        variant: 'primary',
+      };
+
+      const original = { ...props };
+
+      extractComponentProps(props, ['className']);
+
+      expect(props).toEqual(original);
+    });
+
+    it('handles partial key matches correctly', () => {
+      const props = {
+        a: 1,
+        b: 2,
+        c: 3,
+      };
+
+      const result = extractComponentProps(props, ['a', 'c']);
+
+      expect(result).toEqual({
+        a: 1,
+        c: 3,
+      });
+    });
+
+    it('ignores non-existent keys safely', () => {
+      const props = {
+        name: 'test',
+      };
+
+      const result = extractComponentProps(props, ['name', 'fakeKey'] as any);
+
+      expect(result).toEqual({
+        name: 'test',
+      });
+    });
+
+    it('preserves function values correctly', () => {
+      const onClick = jest.fn();
+
+      const props = {
+        onClick,
+        label: 'click me',
+      };
+
+      const result = extractComponentProps(props, ['onClick']);
+
+      result.onClick();
+
+      expect(onClick).toHaveBeenCalled();
+    });
+
+    it('handles empty props object', () => {
+      const result = extractComponentProps({}, ['a', 'b'] as any);
+
+      expect(result).toEqual({});
+    });
+
+    it('handles empty keys array', () => {
+      const props = {
+        a: 1,
+        b: 2,
+      };
+
+      const result = extractComponentProps(props, [] as any);
+
+      expect(result).toEqual({});
+    });
+
+    it('correctly narrows mixed-type props', () => {
+      const props = {
+        className: 'box',
+        count: 5,
+        active: true,
+      };
+
+      const result = extractComponentProps(props, ['count', 'active']);
+
+      expect(result).toEqual({
+        count: 5,
+        active: true,
+      });
+    });
+  });
   describe('mergeRefs', () => {
     it('updates both function and object refs', () => {
       const objRef = { current: null };

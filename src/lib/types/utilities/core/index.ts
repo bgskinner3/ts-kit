@@ -77,7 +77,7 @@ type TOmitMethods<T> = {
 /**
  * @utilType type
  * @name TUnionResolver
- * @category Advanced Type Utilities 
+ * @category Advanced Type Utilities
  * @description Transforms a union of values into a discriminated union of tagged objects.
  * @link #tunionresolver
  *

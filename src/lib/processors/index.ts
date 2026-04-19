@@ -7,6 +7,7 @@ import {
   extractDOMProps,
   filterChildrenByDisplayName,
   getRefCurrent,
+  extractComponentProps,
 } from './react';
 const ProcessorUtils = {
   fetchJson,
@@ -37,4 +38,5 @@ export {
   extractDOMProps,
   filterChildrenByDisplayName,
   getRefCurrent,
+  extractComponentProps,
 };

@@ -204,17 +204,16 @@ type TNormalizedBigIntToNumber<T> = {
  * @template T - The base/original type structure.
  * @template U - The type structure to merge into T.
  */
-
 type TDeepMerge<T, U> = (
   T extends object
     ? U extends object
       ? {
           [K in keyof (T & U)]: K extends keyof T
             ? K extends keyof U
-              ? TDeepMerge<T[K], U[K]> // Both exist: recurse
-              : T[K] // Only T exists
+              ? TDeepMerge<T[K], U[K]>
+              : T[K]
             : K extends keyof U
-              ? U[K] // Only U exists
+              ? U[K]
               : never;
         }
       : U

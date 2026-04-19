@@ -14,7 +14,6 @@ import {
   isElementOfType,
 } from '../../src/lib/guards/react/node-guards';
 
-
 describe('React Node Guards', () => {
   describe('isValidReactNode', () => {
     it('returns true for primitives (strings, numbers, null)', () => {

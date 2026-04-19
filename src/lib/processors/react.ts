@@ -15,6 +15,7 @@ import {
   isRef,
   isRefObject,
   isReactElement,
+  isKeyOfArray,
 } from '../guards';
 import { ArrayUtils, ObjectUtils } from '../common';
 import { Children } from 'react';
@@ -221,4 +222,59 @@ export function getRefCurrent<T>(ref: Ref<T> | undefined | null): T | null {
 
   // Callback refs (functions) don't have a 'current' property we can synchronously pull
   return null;
+}
+/**
+ * Extracts a subset of properties from an object based on a whitelist of keys.
+ *
+ * This is useful for separating component-specific props from generic HTML
+ * or system props, especially in design systems or polymorphic components.
+ *
+ * Example use cases:
+ * - separating layout props from DOM props
+ * - isolating design-system variants
+ * - filtering props before spreading into native elements
+ *
+ * @example
+ * ```ts
+ * // 1. Define your custom keys (use 'as const' for best type inference)
+ * const CODE_BLOCK_KEYS = ['language', 'showLineNumbers', 'rawCode'] as const;
+ *
+ * // 2. Extract only those props into a bundled object
+ * const codeBlockProps = extractComponentProps(props, CODE_BLOCK_KEYS);
+ *
+ * // 3. Pass the bundle directly to your child component
+ * return <CodeBlock {...codeBlockProps} />;
+ * ```
+ *
+ * @returns A new object containing only the specified keys
+ */
+// export function extractComponentProps<
+//   T extends Record<string, unknown>,
+//   K extends keyof T & string, // Constrain K to strings for fromEntries compatibility
+// >(props: T, keys: readonly K[]): Partial<Record<K, T[K]>> {
+//   const isTargetKey = isKeyOfArray(keys);
+
+//   const entries = ObjectUtils.entries(props);
+
+//   const filteredEntries = entries.filter((entry): entry is [K, T[K]] =>
+//     isTargetKey(entry[0]),
+//   );
+
+//   return ObjectUtils.fromEntries<K, T[K]>(filteredEntries)
+// }
+export function extractComponentProps<
+  T extends Record<string, unknown>,
+  K extends keyof T,
+>(props: T, keys: readonly K[]): Pick<T, K> {
+  const isTargetKey = isKeyOfArray(keys);
+
+  const entries = ObjectUtils.entries(props);
+
+  const filteredEntries = entries.filter((entry): entry is [K, T[K]] =>
+    isTargetKey(entry[0]),
+  );
+
+  // Using unknown as a bridge tells TS to trust that the
+  // filtered entries exactly match the specific Pick shape.
+  return ObjectUtils.fromEntries(filteredEntries) as Pick<T, K>;
 }
